@@ -1,3 +1,3 @@
 rootProject.name = "kfc-plugins"
 
-include("gradle-plugin")
+includeBuild("gradle-plugin")
