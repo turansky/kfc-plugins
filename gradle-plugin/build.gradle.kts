@@ -100,7 +100,7 @@ pluginBundle {
 
     plugins.getByName(VERSION) {
         displayName = "Version plugin"
-        description = "Provide version change tasks in root project"
+        description = "Provide version tasks in root project"
         tags = tags("version")
         version = PLUGIN_VERSION
     }
