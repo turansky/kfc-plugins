@@ -26,6 +26,9 @@ internal sealed class Version {
     protected abstract val patch: Int
     protected abstract val snapshot: Boolean
 
+    abstract fun toRelease(): Version
+    abstract fun toNextSnapshot(): Version
+
     override fun toString(): String {
         val version = sequenceOf(major, minor, patch)
             .joinToString(DELIMITER)
@@ -43,4 +46,13 @@ private data class StandardVersion(
     override val minor: Int,
     override val patch: Int,
     override val snapshot: Boolean
-) : Version()
+) : Version() {
+    override fun toRelease(): Version =
+        copy(snapshot = false)
+
+    override fun toNextSnapshot(): Version =
+        copy(
+            patch = patch + 1,
+            snapshot = true
+        )
+}
