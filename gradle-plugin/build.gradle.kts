@@ -69,10 +69,12 @@ fun tags(vararg pluginTags: String): List<String> =
         "javascript"
     ) + pluginTags
 
+val ROOT = "root"
+
 gradlePlugin {
     plugins {
-        create("root") {
-            id = kfc("root")
+        create(ROOT) {
+            id = kfc(ROOT)
             implementationClass = pluginClass("RootPlugin")
         }
     }
@@ -82,7 +84,7 @@ pluginBundle {
     website = REPO_URL
     vcsUrl = REPO_URL
 
-    plugins.getByName("root") {
+    plugins.getByName(ROOT) {
         displayName = "Root plugin"
         description = "Configure Kotlin/JS plugin in root project"
         tags = tags("root")
