@@ -56,7 +56,7 @@ dependencies {
 gradlePlugin {
     plugins {
         create("root") {
-            id = "com.github.turansky.kfc"
+            id = "com.github.turansky.kfc.root"
             implementationClass = "com.github.turansky.kfc.gradle.plugin.RootPlugin"
         }
     }
