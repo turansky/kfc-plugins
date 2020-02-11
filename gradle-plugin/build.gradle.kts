@@ -53,11 +53,17 @@ dependencies {
     compileOnly(kotlin("gradle-plugin"))
 }
 
+fun kfc(name: String): String =
+    "com.github.turansky.kfc.$name"
+
+fun pluginClass(className: String): String =
+    "com.github.turansky.kfc.gradle.plugin.$className"
+
 gradlePlugin {
     plugins {
         create("root") {
-            id = "com.github.turansky.kfc.root"
-            implementationClass = "com.github.turansky.kfc.gradle.plugin.RootPlugin"
+            id = kfc("root")
+            implementationClass = pluginClass("RootPlugin")
         }
     }
 }
