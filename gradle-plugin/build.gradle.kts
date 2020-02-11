@@ -54,7 +54,7 @@ dependencies {
 }
 
 val REPO_URL = "https://github.com/turansky/kfc-plugins"
-val VERSION = project.version.toString()
+val PLUGIN_VERSION = project.version.toString()
 
 fun kfc(name: String): String =
     "com.github.turansky.kfc.$name"
@@ -70,12 +70,18 @@ fun tags(vararg pluginTags: String): List<String> =
     ) + pluginTags
 
 val ROOT = "root"
+val VERSION = "version"
 
 gradlePlugin {
     plugins {
         create(ROOT) {
             id = kfc(ROOT)
             implementationClass = pluginClass("RootPlugin")
+        }
+
+        create(VERSION) {
+            id = kfc(VERSION)
+            implementationClass = pluginClass("VersionPlugin")
         }
     }
 }
@@ -88,6 +94,13 @@ pluginBundle {
         displayName = "Root plugin"
         description = "Configure Kotlin/JS plugin in root project"
         tags = tags("root")
-        version = VERSION
+        version = PLUGIN_VERSION
+    }
+
+    plugins.getByName(VERSION) {
+        displayName = "Version plugin"
+        description = "Provide version change tasks in root project"
+        tags = tags("version")
+        version = PLUGIN_VERSION
     }
 }
