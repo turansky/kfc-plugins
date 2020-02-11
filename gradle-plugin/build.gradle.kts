@@ -49,6 +49,7 @@ tasks {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(gradleApi())
+    implementation("nu.studer:java-ordered-properties:1.0.2")
 
     compileOnly(kotlin("gradle-plugin"))
 }
