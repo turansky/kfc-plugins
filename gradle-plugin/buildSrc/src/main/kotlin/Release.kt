@@ -4,21 +4,18 @@ private val GRADLE_PLUGIN_PREFIX = "gradle.plugin."
 
 fun Project.preparePublish() {
     val version = readVersion()
-    val releaseVersion = version.copy(snapshot = false)
+    val releaseVersion = version.toRelease()
 
     changeVersion(releaseVersion)
-    changeGroup(false)
+    changeGroup(addPrefix = false)
 }
 
 fun Project.prepareDevelopment() {
     val version = readVersion()
-    val snapshotVersion = version.copy(
-        patch = version.patch + 1,
-        snapshot = true
-    )
+    val snapshotVersion = version.toNextSnapshot()
 
     changeVersion(snapshotVersion)
-    changeGroup(true)
+    changeGroup(addPrefix = true)
 }
 
 private fun Project.changeGroup(addPrefix: Boolean) {
