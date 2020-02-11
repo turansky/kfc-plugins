@@ -52,3 +52,31 @@ dependencies {
 
     compileOnly(kotlin("gradle-plugin"))
 }
+
+gradlePlugin {
+    plugins {
+        create("root") {
+            id = "com.github.turansky.kfc"
+            implementationClass = "com.github.turansky.kfc.gradle.plugin.RootPlugin"
+        }
+    }
+}
+
+pluginBundle {
+    val REPO_URL = "https://github.com/turansky/kfc-plugins"
+
+    website = REPO_URL
+    vcsUrl = REPO_URL
+
+    plugins.getByName("root") {
+        displayName = "Root plugin"
+        description = "Configure Kotlin/JS plugin in root project"
+        tags = listOf(
+            "kotlin",
+            "kotlin-js",
+            "javascript",
+            "root"
+        )
+        version = project.version.toString()
+    }
+}
