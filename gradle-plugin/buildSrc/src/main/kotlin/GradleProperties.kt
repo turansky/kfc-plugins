@@ -1,11 +1,11 @@
-import nu.studer.java.util.OrderedProperties
+import nu.studer.java.util.OrderedProperties.OrderedPropertiesBuilder
 import java.io.File
 
-internal fun changeProperty(
+internal fun setGradleProperty(
     key: String,
     value: String
 ) {
-    val properties = OrderedProperties.OrderedPropertiesBuilder()
+    val properties = OrderedPropertiesBuilder()
         .withSuppressDateInComment(true)
         .build()
 
