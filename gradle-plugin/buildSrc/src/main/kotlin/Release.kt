@@ -26,13 +26,13 @@ private fun Project.changeGroup(addPrefix: Boolean) {
         group.removePrefix(GRADLE_PLUGIN_PREFIX)
     }
 
-    setGradleProperty("group", group)
+    setGradleProperty(GradleProperty.GROUP, group)
 }
 
 internal fun Project.readVersion(): Version =
     parseVersion(version.toString())
 
 private fun Project.changeVersion(newVersion: Version) {
-    setGradleProperty("version", newVersion.toString())
+    setGradleProperty(GradleProperty.VERSION, newVersion.toString())
     version = newVersion.toString()
 }

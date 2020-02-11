@@ -1,6 +1,8 @@
 import nu.studer.java.util.OrderedProperties.OrderedPropertiesBuilder
 import java.io.File
 
+private val GRADLE_PROPERTIES = "gradle.properties"
+
 internal fun setGradleProperty(
     key: String,
     value: String
@@ -9,7 +11,7 @@ internal fun setGradleProperty(
         .withSuppressDateInComment(true)
         .build()
 
-    val file = File("gradle.properties")
+    val file = File(GRADLE_PROPERTIES)
     properties.load(file.inputStream())
 
     properties.setProperty(key, value)
