@@ -2,11 +2,11 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 
-private fun Project.setReleaseVersion() {
+internal fun Project.setReleaseVersion() {
     changeVersion(currentVersion.toRelease())
 }
 
-private fun Project.setNextSnapshotVersion() {
+internal fun Project.setNextSnapshotVersion() {
     changeVersion(currentVersion.toNextSnapshot())
 }
 

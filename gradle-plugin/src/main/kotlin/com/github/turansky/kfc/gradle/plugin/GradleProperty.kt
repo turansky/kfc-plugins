@@ -1,6 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
-object GradleProperty {
+internal object GradleProperty {
     val GROUP = "group"
     val VERSION = "version"
 }
