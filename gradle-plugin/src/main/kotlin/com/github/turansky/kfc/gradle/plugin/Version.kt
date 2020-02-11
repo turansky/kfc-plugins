@@ -21,10 +21,10 @@ internal fun parseVersion(source: String): Version {
 }
 
 internal sealed class Version {
-    abstract val major: Int
-    abstract val minor: Int
-    abstract val patch: Int
-    abstract val snapshot: Boolean
+    protected abstract val major: Int
+    protected abstract val minor: Int
+    protected abstract val patch: Int
+    protected abstract val snapshot: Boolean
 
     override fun toString(): String {
         val version = sequenceOf(major, minor, patch)
