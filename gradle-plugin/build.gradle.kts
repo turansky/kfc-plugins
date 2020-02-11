@@ -53,11 +53,21 @@ dependencies {
     compileOnly(kotlin("gradle-plugin"))
 }
 
+val REPO_URL = "https://github.com/turansky/kfc-plugins"
+val VERSION = project.version.toString()
+
 fun kfc(name: String): String =
     "com.github.turansky.kfc.$name"
 
 fun pluginClass(className: String): String =
     "com.github.turansky.kfc.gradle.plugin.$className"
+
+fun tags(vararg pluginTags: String): List<String> =
+    listOf(
+        "kotlin",
+        "kotlin-js",
+        "javascript"
+    ) + pluginTags
 
 gradlePlugin {
     plugins {
@@ -69,20 +79,13 @@ gradlePlugin {
 }
 
 pluginBundle {
-    val REPO_URL = "https://github.com/turansky/kfc-plugins"
-
     website = REPO_URL
     vcsUrl = REPO_URL
 
     plugins.getByName("root") {
         displayName = "Root plugin"
         description = "Configure Kotlin/JS plugin in root project"
-        tags = listOf(
-            "kotlin",
-            "kotlin-js",
-            "javascript",
-            "root"
-        )
-        version = project.version.toString()
+        tags = tags("root")
+        version = VERSION
     }
 }
