@@ -10,20 +10,19 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 class ComponentPlugin : Plugin<Project> {
-    override fun apply(target: Project): Unit =
-        with(target) {
-            plugins.withType<KotlinJsPluginWrapper> {
-                tasks {
-                    withType<KotlinWebpack>().configureEach {
-                        sourceMaps = false
-                    }
+    override fun apply(target: Project): Unit = with(target) {
+        plugins.withType<KotlinJsPluginWrapper> {
+            tasks {
+                withType<KotlinWebpack>().configureEach {
+                    sourceMaps = false
+                }
 
-                    withType<KotlinJsCompile>().configureEach {
-                        kotlinOptions {
-                            moduleKind = COMMON_JS
-                        }
+                withType<KotlinJsCompile>().configureEach {
+                    kotlinOptions {
+                        moduleKind = COMMON_JS
                     }
                 }
             }
         }
+    }
 }

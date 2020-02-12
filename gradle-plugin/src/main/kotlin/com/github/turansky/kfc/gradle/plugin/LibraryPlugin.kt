@@ -15,28 +15,27 @@ private val RUN_TASKS = setOf(
 )
 
 class LibraryPlugin : Plugin<Project> {
-    override fun apply(target: Project): Unit =
-        with(target) {
-            tasks {
-                withType<KotlinJsDce>().configureEach {
+    override fun apply(target: Project): Unit = with(target) {
+        tasks {
+            withType<KotlinJsDce>().configureEach {
+                enabled = false
+            }
+
+            withType<KotlinWebpack>().configureEach {
+                if (name !in RUN_TASKS) {
                     enabled = false
                 }
 
-                withType<KotlinWebpack>().configureEach {
-                    if (name !in RUN_TASKS) {
-                        enabled = false
-                    }
-
-                    sourceMaps = false
-                }
+                sourceMaps = false
             }
+        }
 
-            plugins.withType<KotlinJsPluginWrapper> {
-                tasks.withType<KotlinJsCompile>().configureEach {
-                    kotlinOptions {
-                        moduleKind = COMMON_JS
-                    }
+        plugins.withType<KotlinJsPluginWrapper> {
+            tasks.withType<KotlinJsCompile>().configureEach {
+                kotlinOptions {
+                    moduleKind = COMMON_JS
                 }
             }
         }
+    }
 }
