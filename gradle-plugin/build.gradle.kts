@@ -73,6 +73,8 @@ fun tags(vararg pluginTags: String): List<String> =
 val ROOT = "root"
 val VERSION = "version"
 
+val LIBRARY = "library"
+
 gradlePlugin {
     plugins {
         create(ROOT) {
@@ -83,6 +85,11 @@ gradlePlugin {
         create(VERSION) {
             id = kfc(VERSION)
             implementationClass = pluginClass("VersionPlugin")
+        }
+
+        create(LIBRARY) {
+            id = kfc(LIBRARY)
+            implementationClass = pluginClass("LibraryPlugin")
         }
     }
 }
@@ -102,6 +109,13 @@ pluginBundle {
         displayName = "Version plugin"
         description = "Provide version tasks in root project"
         tags = tags("version")
+        version = PLUGIN_VERSION
+    }
+
+    plugins.getByName(LIBRARY) {
+        displayName = "Kotlin library plugin"
+        description = "Optimize Kotlin library configuration"
+        tags = tags("library")
         version = PLUGIN_VERSION
     }
 }
