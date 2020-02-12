@@ -72,6 +72,7 @@ fun tags(vararg pluginTags: String): List<String> =
 
 val ROOT = "root"
 val VERSION = "version"
+val MAVEN_PUBLISH = "maven-publish"
 
 val LIBRARY = "library"
 val COMPONENT = "component"
@@ -86,6 +87,11 @@ gradlePlugin {
         create(VERSION) {
             id = kfc(VERSION)
             implementationClass = pluginClass("VersionPlugin")
+        }
+
+        create(MAVEN_PUBLISH) {
+            id = kfc(MAVEN_PUBLISH)
+            implementationClass = pluginClass("MavenPublishPlugin")
         }
 
         create(LIBRARY) {
@@ -115,6 +121,13 @@ pluginBundle {
         displayName = "Version plugin"
         description = "Provide version tasks in root project"
         tags = tags("version")
+        version = PLUGIN_VERSION
+    }
+
+    plugins.getByName(MAVEN_PUBLISH) {
+        displayName = "Maven publish plugin"
+        description = "Predefined publications for Kotlin"
+        tags = tags("maven", "publish")
         version = PLUGIN_VERSION
     }
 
