@@ -126,7 +126,7 @@ pluginBundle {
 
     plugins.getByName(MAVEN_PUBLISH) {
         displayName = "Maven publish plugin"
-        description = "Predefined publications for Kotlin"
+        description = "Predefined maven publications for Kotlin"
         tags = tags("maven", "publish")
         version = PLUGIN_VERSION
     }
