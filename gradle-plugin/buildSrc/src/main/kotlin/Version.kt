@@ -53,4 +53,7 @@ private data class StandardVersion(
             patch = patch + 1,
             snapshot = true
         )
+
+    override fun toString(): String =
+        super.toString()
 }
