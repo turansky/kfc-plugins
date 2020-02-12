@@ -74,6 +74,7 @@ val ROOT = "root"
 val VERSION = "version"
 
 val LIBRARY = "library"
+val COMPONENT = "component"
 
 gradlePlugin {
     plugins {
@@ -90,6 +91,11 @@ gradlePlugin {
         create(LIBRARY) {
             id = kfc(LIBRARY)
             implementationClass = pluginClass("LibraryPlugin")
+        }
+
+        create(COMPONENT) {
+            id = kfc(COMPONENT)
+            implementationClass = pluginClass("ComponentPlugin")
         }
     }
 }
@@ -116,6 +122,13 @@ pluginBundle {
         displayName = "Kotlin library plugin"
         description = "Optimize Kotlin library configuration"
         tags = tags("library")
+        version = PLUGIN_VERSION
+    }
+
+    plugins.getByName(COMPONENT) {
+        displayName = "Kotlin/JS component plugin"
+        description = "Optimize Kotlin/JS component configuration"
+        tags = tags("component")
         version = PLUGIN_VERSION
     }
 }
