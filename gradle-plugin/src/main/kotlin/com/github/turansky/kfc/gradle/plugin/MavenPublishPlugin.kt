@@ -4,7 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.api.tasks.bundling.Jar
+import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin as StandardMavenPublishPlugin

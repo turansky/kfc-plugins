@@ -4,7 +4,7 @@ import com.github.turansky.kfc.gradle.plugin.JsModuleKind.COMMON_JS
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Transformer
-import org.gradle.api.tasks.bundling.Jar
+import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.withType
