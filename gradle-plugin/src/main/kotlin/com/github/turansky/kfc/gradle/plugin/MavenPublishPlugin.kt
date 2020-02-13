@@ -22,7 +22,7 @@ class MavenPublishPlugin : Plugin<Project> {
             plugins.withType<StandardMavenPublishPlugin> {
                 configure<PublishingExtension> {
                     publications {
-                        register("mavenKotlin", MavenPublication::class) {
+                        create<MavenPublication>("mavenKotlin") {
                             from(components["kotlin"])
                             artifact(tasks.named<Jar>(JS_SOURCES_JAR_TASK).get())
                         }
