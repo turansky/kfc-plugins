@@ -43,6 +43,3 @@ private fun Project.yarnDownloadBaseUrl(): String? =
 private fun Project.downloadBaseUrl(suffix: String): String? =
     propertyOrNull(DOWNLOAD_BASE_URL)
         ?.let { "$it/$suffix" }
-
-private fun Project.propertyOrNull(s: String): String? =
-    if (hasProperty(s)) property(s) as String else null
