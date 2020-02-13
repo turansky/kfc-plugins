@@ -11,6 +11,9 @@ import org.gradle.api.publish.maven.plugins.MavenPublishPlugin as StandardMavenP
 
 private val JS_SOURCES_JAR_TASK = "JsSourcesJar"
 
+private val REPO_URL = "kfc.publish.maven.repo.url"
+private val SNAPSHOT_REPO_URL = "kfc.publish.maven.snapshot.repo.url"
+
 class MavenPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<KotlinJsPluginWrapper> {
@@ -24,8 +27,22 @@ class MavenPublishPlugin : Plugin<Project> {
                             artifact(tasks.named<Jar>(JS_SOURCES_JAR_TASK).get())
                         }
                     }
+
+                    mavenRepoUrl()?.let { repoUrl ->
+                        repositories {
+                            maven { url = uri(repoUrl) }
+                        }
+                    }
                 }
             }
         }
     }
 }
+
+private fun Project.mavenRepoUrl(): String? =
+    if (!currentVersion.snapshot) {
+        propertyOrNull(REPO_URL)
+    } else {
+        propertyOrNull(SNAPSHOT_REPO_URL)
+            ?: propertyOrNull(REPO_URL)
+    }
