@@ -24,7 +24,7 @@ internal sealed class Version {
     protected abstract val major: Int
     protected abstract val minor: Int
     protected abstract val patch: Int
-    protected abstract val snapshot: Boolean
+    abstract val snapshot: Boolean
 
     abstract fun toRelease(): Version
     abstract fun toNextSnapshot(): Version

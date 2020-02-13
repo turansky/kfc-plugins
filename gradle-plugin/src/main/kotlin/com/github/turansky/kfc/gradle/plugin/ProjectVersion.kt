@@ -10,7 +10,7 @@ internal fun Project.setNextSnapshotVersion() {
     changeVersion(currentVersion.toNextSnapshot())
 }
 
-private val Project.currentVersion: Version
+internal val Project.currentVersion: Version
     get() = parseVersion(version.toString())
 
 private fun Project.changeVersion(newVersion: Version) {
