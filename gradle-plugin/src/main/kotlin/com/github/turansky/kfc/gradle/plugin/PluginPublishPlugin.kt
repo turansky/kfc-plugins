@@ -4,6 +4,8 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.invoke
 
+private val GROUP_PREFIX = BooleanProperty("kfc.plugin.publish.group.prefix")
+
 private const val GRADLE_PLUGIN_PREFIX = "gradle.plugin."
 
 class PluginPublishPlugin : Plugin<Project> {
@@ -27,6 +29,10 @@ class PluginPublishPlugin : Plugin<Project> {
 }
 
 private fun Project.changeGroup(addPrefix: Boolean) {
+    if (propertyOrNull(GROUP_PREFIX) != true) {
+        return
+    }
+
     var group = group.toString()
     group = if (addPrefix) {
         "$GRADLE_PLUGIN_PREFIX$group"
