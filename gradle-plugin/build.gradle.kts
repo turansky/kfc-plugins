@@ -55,7 +55,7 @@ dependencies {
 }
 
 val REPO_URL = "https://github.com/turansky/kfc-plugins"
-val PLUGIN_VERSION = project.version.toString()
+val PROJECT_VERSION = project.version.toString()
 
 fun kfc(name: String): String =
     "com.github.turansky.kfc.$name"
@@ -114,34 +114,34 @@ pluginBundle {
         displayName = "Root plugin"
         description = "Configure Kotlin/JS plugin in root project"
         tags = tags("root")
-        version = PLUGIN_VERSION
+        version = PROJECT_VERSION
     }
 
     plugins.getByName(VERSION) {
         displayName = "Version plugin"
         description = "Provide version tasks in root project"
         tags = tags("version")
-        version = PLUGIN_VERSION
+        version = PROJECT_VERSION
     }
 
     plugins.getByName(MAVEN_PUBLISH) {
         displayName = "Maven publish plugin"
         description = "Predefined maven publications for Kotlin"
         tags = tags("maven", "publish")
-        version = PLUGIN_VERSION
+        version = PROJECT_VERSION
     }
 
     plugins.getByName(LIBRARY) {
         displayName = "Kotlin library plugin"
         description = "Optimize Kotlin library configuration"
         tags = tags("library")
-        version = PLUGIN_VERSION
+        version = PROJECT_VERSION
     }
 
     plugins.getByName(COMPONENT) {
         displayName = "Kotlin/JS component plugin"
         description = "Optimize Kotlin/JS component configuration"
         tags = tags("component")
-        version = PLUGIN_VERSION
+        version = PROJECT_VERSION
     }
 }
