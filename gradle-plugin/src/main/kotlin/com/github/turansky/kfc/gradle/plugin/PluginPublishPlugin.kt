@@ -6,7 +6,7 @@ import org.gradle.kotlin.dsl.invoke
 
 private const val GRADLE_PLUGIN_PREFIX = "gradle.plugin."
 
-class PluginVersionPlugin : Plugin<Project> {
+class PluginPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks {
             register("preparePublish") {
