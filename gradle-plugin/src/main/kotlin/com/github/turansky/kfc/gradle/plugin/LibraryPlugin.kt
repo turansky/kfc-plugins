@@ -24,11 +24,11 @@ private val PACKAGE_JSON = "package.json"
 class LibraryPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks {
-            withType<KotlinJsDce>().configureEach {
+            withType<KotlinJsDce> {
                 enabled = false
             }
 
-            withType<KotlinWebpack>().configureEach {
+            withType<KotlinWebpack> {
                 if (name !in RUN_TASKS) {
                     enabled = false
                 }
@@ -38,7 +38,7 @@ class LibraryPlugin : Plugin<Project> {
         }
 
         plugins.withType<KotlinJsPluginWrapper> {
-            tasks.withType<KotlinJsCompile>().configureEach {
+            tasks.withType<KotlinJsCompile> {
                 kotlinOptions {
                     moduleKind = COMMON_JS
                 }

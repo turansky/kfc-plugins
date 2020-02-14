@@ -13,11 +13,11 @@ class ComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<KotlinJsPluginWrapper> {
             tasks {
-                withType<KotlinWebpack>().configureEach {
+                withType<KotlinWebpack> {
                     sourceMaps = false
                 }
 
-                withType<KotlinJsCompile>().configureEach {
+                withType<KotlinJsCompile> {
                     kotlinOptions {
                         moduleKind = COMMON_JS
                     }
