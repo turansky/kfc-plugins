@@ -11,7 +11,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin as StandardMavenPublishPlugin
 
 private val JS_SOURCES_JAR_TASK = "JsSourcesJar"
-private val COMMON_JS_SOURCES_JAR_TASK = "jsSourcesJar"
 
 private val REPO_URL = "kfc.publish.maven.repo.url"
 private val SNAPSHOT_REPO_URL = "kfc.publish.maven.snapshot.repo.url"
@@ -19,7 +18,7 @@ private val SNAPSHOT_REPO_URL = "kfc.publish.maven.snapshot.repo.url"
 class MavenPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<KotlinMultiplatformPluginWrapper> {
-            configurePublication(COMMON_JS_SOURCES_JAR_TASK)
+            configurePublication()
         }
 
         plugins.withType<KotlinJsPluginWrapper> {
@@ -28,23 +27,23 @@ class MavenPublishPlugin : Plugin<Project> {
     }
 }
 
-private fun Project.configurePublication(sourceTaskName: String) {
+private fun Project.configurePublication(sourceTaskName: String? = null) {
     plugins.apply(StandardMavenPublishPlugin::class)
 
     plugins.withType<StandardMavenPublishPlugin> {
         configure<PublishingExtension> {
-            afterEvaluate {
-                publications {
-                    create<MavenPublication>("mavenKotlin") {
-                        from(components["kotlin"])
+            publications {
+                create<MavenPublication>("mavenKotlin") {
+                    from(components["kotlin"])
+                    if (sourceTaskName != null) {
                         artifact(tasks.named<Jar>(sourceTaskName).get())
                     }
                 }
+            }
 
-                mavenRepoUrl()?.let { repoUrl ->
-                    repositories {
-                        maven { url = uri(repoUrl) }
-                    }
+            mavenRepoUrl()?.let { repoUrl ->
+                repositories {
+                    maven { url = uri(repoUrl) }
                 }
             }
         }
