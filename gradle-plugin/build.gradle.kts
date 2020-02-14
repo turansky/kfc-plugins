@@ -77,6 +77,8 @@ val MAVEN_PUBLISH = "maven-publish"
 val LIBRARY = "library"
 val COMPONENT = "component"
 
+val PLUGIN_VERSION = "plugin-version"
+
 gradlePlugin {
     plugins {
         create(ROOT) {
@@ -102,6 +104,11 @@ gradlePlugin {
         create(COMPONENT) {
             id = kfc(COMPONENT)
             implementationClass = pluginClass("ComponentPlugin")
+        }
+
+        create(PLUGIN_VERSION) {
+            id = kfc(PLUGIN_VERSION)
+            implementationClass = pluginClass("PluginVersionPlugin")
         }
     }
 }
@@ -142,6 +149,13 @@ pluginBundle {
         displayName = "Kotlin/JS component plugin"
         description = "Optimize Kotlin/JS component configuration"
         tags = tags("component")
+        version = PROJECT_VERSION
+    }
+
+    plugins.getByName(PLUGIN_VERSION) {
+        displayName = "Plugin version plugin"
+        description = "Provide version tasks for gradle plugin project"
+        tags = tags("version")
         version = PROJECT_VERSION
     }
 }
