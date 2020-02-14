@@ -2,6 +2,7 @@ plugins {
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish") version "0.10.1"
     id("org.gradle.kotlin.kotlin-dsl") version "1.3.3"
+    id("com.github.turansky.kfc.version") version "0.0.16"
 
     kotlin("jvm") version "1.3.61"
 }
@@ -25,18 +26,6 @@ tasks {
     jar {
         into("META-INF") {
             from("$projectDir/LICENSE.md")
-        }
-    }
-
-    val preparePublish by registering {
-        doLast {
-            preparePublish()
-        }
-    }
-
-    val prepareDevelopment by registering {
-        doLast {
-            prepareDevelopment()
         }
     }
 

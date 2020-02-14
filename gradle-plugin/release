@@ -3,6 +3,6 @@
 set -e
 set -o pipefail
 
-./gradlew preparePublish
+./gradlew setReleaseVersion
 ./gradlew publishPlugins
-./gradlew prepareDevelopment
+./gradlew setNextSnapshotVersion
