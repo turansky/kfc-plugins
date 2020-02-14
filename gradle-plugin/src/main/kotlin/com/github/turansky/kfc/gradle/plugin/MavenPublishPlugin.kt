@@ -12,8 +12,8 @@ import org.gradle.api.publish.maven.plugins.MavenPublishPlugin as StandardMavenP
 
 private val JS_SOURCES_JAR_TASK = "JsSourcesJar"
 
-private val REPO_URL = "kfc.publish.maven.repo.url"
-private val SNAPSHOT_REPO_URL = "kfc.publish.maven.snapshot.repo.url"
+private val REPO_URL = StringProperty("kfc.publish.maven.repo.url")
+private val SNAPSHOT_REPO_URL = StringProperty("kfc.publish.maven.snapshot.repo.url")
 
 class MavenPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {

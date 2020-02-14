@@ -8,13 +8,13 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
 
-private val DOWNLOAD_BASE_URL = "kfc.download.base.url"
+private val DOWNLOAD_BASE_URL = StringProperty("kfc.download.base.url")
 
-private val NODE_PATH = "nodejs.org/dist"
-private val YARN_PATH = "yarnpkg/yarn"
+private const val NODE_PATH = "nodejs.org/dist"
+private const val YARN_PATH = "yarnpkg/yarn"
 
-private val NODE_DOWNLOAD_BASE_URL = "kfc.node.download.base.url"
-private val YARN_DOWNLOAD_BASE_URL = "kfc.yarn.download.base.url"
+private val NODE_DOWNLOAD_BASE_URL = StringProperty("kfc.node.download.base.url")
+private val YARN_DOWNLOAD_BASE_URL = StringProperty("kfc.yarn.download.base.url")
 
 class RootPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
