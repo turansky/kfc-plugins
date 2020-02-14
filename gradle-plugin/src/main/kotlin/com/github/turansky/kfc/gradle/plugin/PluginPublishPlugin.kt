@@ -2,7 +2,9 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.invoke
+import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 
@@ -17,6 +19,12 @@ class PluginPublishPlugin : Plugin<Project> {
                 kotlinOptions {
                     jvmTarget = "1.8"
                     allWarningsAsErrors = true
+                }
+            }
+
+            named<Jar>("jar") {
+                into("META-INF") {
+                    from("$projectDir/LICENSE.md")
                 }
             }
 
