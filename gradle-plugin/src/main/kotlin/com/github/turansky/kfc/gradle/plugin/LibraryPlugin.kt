@@ -9,7 +9,9 @@ import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
+import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
@@ -34,6 +36,20 @@ class LibraryPlugin : Plugin<Project> {
                 }
 
                 sourceMaps = false
+            }
+        }
+
+        plugins.withType<KotlinMultiplatformPluginWrapper> {
+            tasks.withType<KotlinJvmCompile> {
+                kotlinOptions {
+                    jvmTarget = "1.8"
+                }
+            }
+
+            tasks.withType<KotlinJsCompile> {
+                kotlinOptions {
+                    moduleKind = COMMON_JS
+                }
             }
         }
 
