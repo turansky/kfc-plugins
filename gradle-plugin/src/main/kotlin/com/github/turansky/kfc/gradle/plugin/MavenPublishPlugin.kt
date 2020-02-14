@@ -33,16 +33,18 @@ private fun Project.configurePublication(sourceTaskName: String) {
 
     plugins.withType<StandardMavenPublishPlugin> {
         configure<PublishingExtension> {
-            publications {
-                create<MavenPublication>("mavenKotlin") {
-                    from(components["kotlin"])
-                    artifact(tasks.named<Jar>(sourceTaskName).get())
+            afterEvaluate {
+                publications {
+                    create<MavenPublication>("mavenKotlin") {
+                        from(components["kotlin"])
+                        artifact(tasks.named<Jar>(sourceTaskName).get())
+                    }
                 }
-            }
 
-            mavenRepoUrl()?.let { repoUrl ->
-                repositories {
-                    maven { url = uri(repoUrl) }
+                mavenRepoUrl()?.let { repoUrl ->
+                    repositories {
+                        maven { url = uri(repoUrl) }
+                    }
                 }
             }
         }
