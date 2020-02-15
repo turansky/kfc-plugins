@@ -35,6 +35,7 @@ class LibraryPlugin : Plugin<Project> {
                     enabled = false
                 }
 
+                outputFileName = LIBRARY_JS
                 sourceMaps = false
             }
         }

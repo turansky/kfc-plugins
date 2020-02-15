@@ -14,6 +14,7 @@ class ComponentPlugin : Plugin<Project> {
         plugins.withType<KotlinJsPluginWrapper> {
             tasks {
                 withType<KotlinWebpack> {
+                    outputFileName = COMPONENT_JS
                     sourceMaps = false
                 }
 
