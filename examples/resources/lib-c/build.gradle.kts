@@ -1,5 +1,6 @@
 plugins {
     kotlin("js")
+    id("com.github.turansky.kfc.webpack")
 }
 
 kotlin {
