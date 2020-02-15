@@ -1,5 +1,7 @@
 package com.github.turansky.kfc.gradle.plugin
 
+import com.github.turansky.kfc.gradle.plugin.GradleProperty.GROUP
+import com.github.turansky.kfc.gradle.plugin.GradleProperty.VERSION
 import com.github.turansky.kfc.gradle.plugin.JvmTarget.JVM_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -65,7 +67,7 @@ private fun Project.changeGroup(addPrefix: Boolean) {
         group.removePrefix(GRADLE_PLUGIN_PREFIX)
     }
 
-    setGradleProperty(GradleProperty.GROUP, group)
+    setGradleProperty(GROUP, group)
 }
 
 private fun Project.changeVersion(
@@ -75,7 +77,7 @@ private fun Project.changeVersion(
     val oldVersion = currentVersion.toString()
     val newVersion = change(currentVersion).toString()
 
-    setGradleProperty(GradleProperty.VERSION, newVersion)
+    setGradleProperty(VERSION, newVersion)
     version = newVersion
 
     for (file in versionFiles) {

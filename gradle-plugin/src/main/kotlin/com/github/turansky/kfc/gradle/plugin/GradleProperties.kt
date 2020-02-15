@@ -6,7 +6,7 @@ import java.io.File
 private val GRADLE_PROPERTIES = "gradle.properties"
 
 internal fun setGradleProperty(
-    key: String,
+    property: GradleProperty,
     value: String
 ) {
     val properties = OrderedPropertiesBuilder()
@@ -16,6 +16,6 @@ internal fun setGradleProperty(
     val file = File(GRADLE_PROPERTIES)
     properties.load(file.inputStream())
 
-    properties.setProperty(key, value)
+    properties.setProperty(property.key, value)
     properties.store(file.writer(), null)
 }
