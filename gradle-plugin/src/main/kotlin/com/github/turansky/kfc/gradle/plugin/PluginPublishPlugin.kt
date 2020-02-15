@@ -38,7 +38,7 @@ class PluginPublishPlugin : Plugin<Project> {
 
             register("preparePublish") {
                 doLast {
-                    changeVersion(currentVersion.toRelease())
+                    changeVersion(Version::toRelease, extension.versionFiles)
                     if (extension.gradlePluginPrefix) {
                         changeGroup(addPrefix = false)
                     }
@@ -47,7 +47,7 @@ class PluginPublishPlugin : Plugin<Project> {
 
             register("prepareDevelopment") {
                 doLast {
-                    changeVersion(currentVersion.toNextSnapshot())
+                    changeVersion(Version::toNextSnapshot, extension.versionFiles)
                     if (extension.gradlePluginPrefix) {
                         changeGroup(addPrefix = true)
                     }
@@ -68,8 +68,18 @@ private fun Project.changeGroup(addPrefix: Boolean) {
     setGradleProperty(GradleProperty.GROUP, group)
 }
 
-private fun Project.changeVersion(newVersion: Version) {
-    setGradleProperty(GradleProperty.VERSION, newVersion.toString())
-    version = newVersion.toString()
+private fun Project.changeVersion(
+    change: (Version) -> Version,
+    versionFiles: List<File>
+) {
+    val oldVersion = currentVersion.toString()
+    val newVersion = change(currentVersion).toString()
+
+    setGradleProperty(GradleProperty.VERSION, newVersion)
+    version = newVersion
+
+    for (file in versionFiles) {
+        file.writeText(file.readText().replace(oldVersion, newVersion))
+    }
 }
 
