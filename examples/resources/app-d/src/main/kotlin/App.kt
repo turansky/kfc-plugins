@@ -1,1 +1,1 @@
-fun App(): String = "App"
+fun App(): String = AAA() + BBB() + CCC()
