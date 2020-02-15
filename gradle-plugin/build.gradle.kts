@@ -50,6 +50,7 @@ val ROOT = "root"
 val VERSION = "version"
 val MAVEN_PUBLISH = "maven-publish"
 
+val WEBPACK = "webpack"
 val LIBRARY = "library"
 val COMPONENT = "component"
 
@@ -70,6 +71,11 @@ gradlePlugin {
         create(MAVEN_PUBLISH) {
             id = kfc(MAVEN_PUBLISH)
             implementationClass = pluginClass("MavenPublishPlugin")
+        }
+
+        create(WEBPACK) {
+            id = kfc(WEBPACK)
+            implementationClass = pluginClass("WebpackPlugin")
         }
 
         create(LIBRARY) {
@@ -111,6 +117,13 @@ pluginBundle {
         displayName = "Maven publish plugin"
         description = "Predefined maven publications for Kotlin"
         tags = tags("maven", "publish")
+        version = PROJECT_VERSION
+    }
+
+    plugins.getByName(WEBPACK) {
+        displayName = "Kotlin/JS webpack plugin"
+        description = "Webpack configuration for Kotlin/JS"
+        tags = tags("webpack", "config")
         version = PROJECT_VERSION
     }
 
