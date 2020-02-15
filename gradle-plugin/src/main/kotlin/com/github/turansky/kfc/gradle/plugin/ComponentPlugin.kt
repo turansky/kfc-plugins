@@ -1,6 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import com.github.turansky.kfc.gradle.plugin.JsModuleKind.COMMON_JS
+import com.github.turansky.kfc.gradle.plugin.JsTarget.COMMONJS
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.invoke
@@ -20,7 +20,7 @@ class ComponentPlugin : Plugin<Project> {
 
                 withType<KotlinJsCompile> {
                     kotlinOptions {
-                        moduleKind = COMMON_JS
+                        moduleKind = COMMONJS
                     }
                 }
             }

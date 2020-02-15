@@ -1,6 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import com.github.turansky.kfc.gradle.plugin.JsModuleKind.COMMON_JS
+import com.github.turansky.kfc.gradle.plugin.JsTarget.COMMONJS
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Transformer
@@ -50,7 +50,7 @@ class LibraryPlugin : Plugin<Project> {
 
                 withType<KotlinJsCompile> {
                     kotlinOptions {
-                        moduleKind = COMMON_JS
+                        moduleKind = COMMONJS
                     }
                 }
             }
@@ -60,7 +60,7 @@ class LibraryPlugin : Plugin<Project> {
             tasks {
                 withType<KotlinJsCompile> {
                     kotlinOptions {
-                        moduleKind = COMMON_JS
+                        moduleKind = COMMONJS
                     }
                 }
 
