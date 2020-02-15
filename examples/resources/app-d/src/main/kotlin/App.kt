@@ -1,0 +1,1 @@
+fun App(): String = "App"

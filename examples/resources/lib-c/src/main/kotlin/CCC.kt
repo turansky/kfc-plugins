@@ -1,0 +1,1 @@
+fun CCC(): String = "CCC"

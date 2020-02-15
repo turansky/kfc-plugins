@@ -1,0 +1,1 @@
+fun BBB(): String = "BBB"

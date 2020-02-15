@@ -1,0 +1,1 @@
+fun AAA(): String = "AAA"
