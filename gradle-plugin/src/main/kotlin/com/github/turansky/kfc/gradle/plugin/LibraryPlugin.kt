@@ -41,30 +41,34 @@ class LibraryPlugin : Plugin<Project> {
         }
 
         plugins.withType<KotlinMultiplatformPluginWrapper> {
-            tasks.withType<KotlinJvmCompile> {
-                kotlinOptions {
-                    jvmTarget = "1.8"
+            tasks {
+                withType<KotlinJvmCompile> {
+                    kotlinOptions {
+                        jvmTarget = "1.8"
+                    }
                 }
-            }
 
-            tasks.withType<KotlinJsCompile> {
-                kotlinOptions {
-                    moduleKind = COMMON_JS
+                withType<KotlinJsCompile> {
+                    kotlinOptions {
+                        moduleKind = COMMON_JS
+                    }
                 }
             }
         }
 
         plugins.withType<KotlinJsPluginWrapper> {
-            tasks.withType<KotlinJsCompile> {
-                kotlinOptions {
-                    moduleKind = COMMON_JS
+            tasks {
+                withType<KotlinJsCompile> {
+                    kotlinOptions {
+                        moduleKind = COMMON_JS
+                    }
                 }
-            }
 
-            tasks.named<Jar>(JS_JAR_TASK) {
-                from(projectDir) {
-                    include(PACKAGE_JSON)
-                    filter(packageJsonFilter)
+                named<Jar>(JS_JAR_TASK) {
+                    from(projectDir) {
+                        include(PACKAGE_JSON)
+                        filter(packageJsonFilter)
+                    }
                 }
             }
         }
