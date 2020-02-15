@@ -1,5 +1,7 @@
 plugins {
     kotlin("js") version "1.3.70-eap-184" apply false
+    id("com.github.turansky.kfc.webpack") apply false
+    id("com.github.turansky.kfc.component") apply false
 }
 
 allprojects {
