@@ -16,19 +16,6 @@ kotlinDslPluginOptions {
 }
 
 tasks {
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            allWarningsAsErrors = true
-        }
-    }
-
-    jar {
-        into("META-INF") {
-            from("$projectDir/LICENSE.md")
-        }
-    }
-
     wrapper {
         gradleVersion = "6.1.1"
         distributionType = Wrapper.DistributionType.ALL
