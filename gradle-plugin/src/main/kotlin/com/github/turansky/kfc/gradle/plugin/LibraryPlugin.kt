@@ -1,6 +1,7 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import com.github.turansky.kfc.gradle.plugin.JsTarget.COMMONJS
+import com.github.turansky.kfc.gradle.plugin.JvmTarget.JVM_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Transformer
@@ -44,7 +45,7 @@ class LibraryPlugin : Plugin<Project> {
             tasks {
                 withType<KotlinJvmCompile> {
                     kotlinOptions {
-                        jvmTarget = "1.8"
+                        jvmTarget = JVM_1_8
                     }
                 }
 
