@@ -7,7 +7,7 @@ pluginManagement {
     }
 }
 
-include("examples:component")
+include("examples:component-extension")
 
 include("examples:resources:lib-a")
 include("examples:resources:lib-b")
