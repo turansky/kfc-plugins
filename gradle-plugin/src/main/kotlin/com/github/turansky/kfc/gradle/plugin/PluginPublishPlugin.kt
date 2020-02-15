@@ -15,7 +15,7 @@ import java.io.File
 
 private const val GRADLE_PLUGIN_PREFIX = "gradle.plugin."
 
-class PluginPublishExtension {
+open class PluginPublishExtension {
     var gradlePluginPrefix: Boolean = false
     var versionFiles: List<File> = emptyList()
 }
