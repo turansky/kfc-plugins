@@ -4,17 +4,24 @@ import com.github.turansky.kfc.gradle.plugin.JvmTarget.JVM_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
-
-private val GROUP_PREFIX = BooleanProperty("kfc.plugin.publish.group.prefix")
+import java.io.File
 
 private const val GRADLE_PLUGIN_PREFIX = "gradle.plugin."
 
+class PluginPublishExtension {
+    var gradlePluginPrefix: Boolean = false
+    var versionFiles: List<File> = emptyList()
+}
+
 class PluginPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        val extension = extensions.create<PluginPublishExtension>("pluginPublish")
+
         tasks {
             withType<KotlinJvmCompile> {
                 kotlinOptions {
@@ -32,14 +39,18 @@ class PluginPublishPlugin : Plugin<Project> {
             register("preparePublish") {
                 doLast {
                     changeVersion(currentVersion.toRelease())
-                    changeGroup(addPrefix = false)
+                    if (extension.gradlePluginPrefix) {
+                        changeGroup(addPrefix = false)
+                    }
                 }
             }
 
             register("prepareDevelopment") {
                 doLast {
                     changeVersion(currentVersion.toNextSnapshot())
-                    changeGroup(addPrefix = true)
+                    if (extension.gradlePluginPrefix) {
+                        changeGroup(addPrefix = true)
+                    }
                 }
             }
         }
@@ -47,10 +58,6 @@ class PluginPublishPlugin : Plugin<Project> {
 }
 
 private fun Project.changeGroup(addPrefix: Boolean) {
-    if (propertyOrNull(GROUP_PREFIX) != true) {
-        return
-    }
-
     var group = group.toString()
     group = if (addPrefix) {
         "$GRADLE_PLUGIN_PREFIX$group"
