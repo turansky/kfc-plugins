@@ -2,7 +2,7 @@ plugins {
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish") version "0.10.1"
     id("org.gradle.kotlin.kotlin-dsl") version "1.3.3"
-    id("com.github.turansky.kfc.version") version "0.0.16"
+    id("com.github.turansky.kfc.plugin-publish") version "0.0.17"
 
     kotlin("jvm") version "1.3.61"
 }
