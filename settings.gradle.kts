@@ -1,5 +1,12 @@
 rootProject.name = "kfc-plugins"
 
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+    }
+}
+
 include("examples:resources:lib-a")
 include("examples:resources:lib-b")
 include("examples:resources:lib-c")
