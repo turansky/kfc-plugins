@@ -7,12 +7,6 @@ component {
     root = "com.test.example.app"
 }
 
-kotlin {
-    target {
-        browser()
-    }
-}
-
 dependencies {
     implementation(kotlin("stdlib-js"))
 }
