@@ -16,7 +16,7 @@ internal open class WebpackConfigTask : DefaultTask() {
             ?: return
 
         val paths = resources
-            .map { "\"${it.absolutePath}\"" }
+            .map { "'${it.absolutePath}'" }
             .joinToString(",\n")
 
         val body = """
