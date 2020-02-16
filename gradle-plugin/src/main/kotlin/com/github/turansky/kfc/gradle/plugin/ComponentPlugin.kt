@@ -3,6 +3,7 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.JsTarget.COMMONJS
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.withType
@@ -17,6 +18,8 @@ open class ComponentExtension {
 
 class ComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        plugins.apply(WebpackPlugin::class)
+
         val extension = extensions.create<ComponentExtension>("component")
 
         configure<KotlinJsProjectExtension> {
