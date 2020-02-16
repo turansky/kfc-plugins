@@ -12,9 +12,7 @@ class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<KotlinJsPluginWrapper> {
             tasks {
-                val patchWebpackConfig = register<WebpackConfigTask>("patchWebpackConfig") {
-                    resources = relatedResources()
-                }
+                val patchWebpackConfig = register<WebpackConfigTask>("patchWebpackConfig")
 
                 withType<KotlinJsCompile> {
                     dependsOn(patchWebpackConfig)
