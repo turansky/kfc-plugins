@@ -2,12 +2,17 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 internal open class WebpackConfigTask : DefaultTask() {
     @get:Input
     var resources: List<File>? = null
+
+    @get:OutputDirectory
+    private val configDirectory: File
+        get() = project.projectDir.resolve("webpack.config.d")
 
     @TaskAction
     private fun generateResources() {
@@ -29,8 +34,7 @@ internal open class WebpackConfigTask : DefaultTask() {
     }
 
     private fun generate(name: String, body: String) {
-        project.projectDir
-            .resolve("webpack.config.d")
+        configDirectory
             .also { it.mkdirs() }
             .resolve("$name.generated.js")
             .writeText(patch(body))
