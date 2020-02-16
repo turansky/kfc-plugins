@@ -10,9 +10,23 @@ internal open class WebpackConfigTask : DefaultTask() {
     @get:Input
     var resources: List<File>? = null
 
+    @get:Input
+    val patches: MutableMap<String, String> = mutableMapOf()
+
     @get:OutputDirectory
     val configDirectory: File
         get() = project.projectDir.resolve("webpack.config.d")
+
+    fun patch(name: String, body: String) {
+        patches.put(name, body)
+    }
+
+    @TaskAction
+    private fun generatePatches() {
+        for ((name, body) in patches) {
+            generate(name, body)
+        }
+    }
 
     @TaskAction
     private fun generateResources() {
