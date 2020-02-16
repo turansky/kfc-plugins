@@ -10,15 +10,36 @@ internal open class WebpackConfigTask : DefaultTask() {
     var resources: List<File>? = null
 
     @TaskAction
-    fun generate() {
+    private fun generateResources() {
         val resources = resources
             ?.takeIf { it.isNotEmpty() }
             ?: return
 
+        val paths = resources
+            .map { "\"${it.absolutePath}\"" }
+            .joinToString(",\n")
+
+        val body = """
+              config.resolve.modules.unshift(
+                $paths
+              )
+        """.trimIndent()
+
+        generate("resources", body)
+    }
+
+    private fun generate(name: String, body: String) {
         project.projectDir
             .resolve("webpack.config.d")
             .also { it.mkdirs() }
-            .resolve("resources.generated.js")
-            .writeText(resources.toString())
+            .resolve("$name.generated.js")
+            .writeText(patch(body))
     }
 }
+
+private fun patch(body: String): String =
+    """
+        ;(function () {
+        $body
+        })()
+    """.trimIndent()
