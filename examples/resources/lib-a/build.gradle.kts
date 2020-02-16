@@ -3,6 +3,10 @@ plugins {
     id("com.github.turansky.kfc.library")
 }
 
+library {
+    root = "com.test.library"
+}
+
 kotlin {
     target {
         browser()
