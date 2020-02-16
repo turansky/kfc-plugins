@@ -1,5 +1,7 @@
-fun App(): String = AAA() + BBB() + CCC()
+object Api {
+    fun App(): String = AAA() + BBB() + CCC()
 
-fun icon(): String = require("aaa.svg")
+    fun json(): String = require("app.json")
+}
 
 external fun require(path: String): String
