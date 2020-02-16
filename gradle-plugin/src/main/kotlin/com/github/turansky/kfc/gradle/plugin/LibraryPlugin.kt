@@ -6,10 +6,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Transformer
 import org.gradle.jvm.tasks.Jar
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.withType
+import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
@@ -24,6 +21,10 @@ private val RUN_TASKS = setOf(
 private val JS_JAR_TASK = "JsJar"
 
 private val PACKAGE_JSON = "package.json"
+
+open class LibraryExtension {
+    var root: String? = null
+}
 
 class LibraryPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -61,6 +62,8 @@ class LibraryPlugin : Plugin<Project> {
         plugins.withType<KotlinJsPluginWrapper> {
             plugins.apply(WebpackPlugin::class)
 
+            val extension = extensions.create<LibraryExtension>("library")
+
             tasks {
                 withType<KotlinJsCompile> {
                     kotlinOptions {
@@ -73,6 +76,12 @@ class LibraryPlugin : Plugin<Project> {
                         include(PACKAGE_JSON)
                         filter(packageJsonFilter)
                     }
+                }
+            }
+
+            afterEvaluate {
+                tasks.withType<WebpackConfigTask> {
+                    println("Library root: ${extension.root}")
                 }
             }
         }
