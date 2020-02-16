@@ -11,7 +11,7 @@ internal open class WebpackConfigTask : DefaultTask() {
     var resources: List<File>? = null
 
     @get:OutputDirectory
-    private val configDirectory: File
+    val configDirectory: File
         get() = project.projectDir.resolve("webpack.config.d")
 
     @TaskAction
