@@ -80,10 +80,14 @@ class LibraryPlugin : Plugin<Project> {
             }
 
             afterEvaluate {
+                val libraryRoot = extension.root
+                    ?: return@afterEvaluate
+
                 tasks.withType<WebpackConfigTask> {
-                    println("Library root: ${extension.root}")
+                    patch("output", outputConfiguration(libraryRoot))
                 }
             }
+
         }
     }
 }

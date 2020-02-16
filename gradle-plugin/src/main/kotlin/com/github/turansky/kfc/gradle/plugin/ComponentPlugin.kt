@@ -34,10 +34,15 @@ class ComponentPlugin : Plugin<Project> {
         }
 
         afterEvaluate {
+            val componentRoot = extension.root
+                ?: return@afterEvaluate
+
             tasks.withType<KotlinJsDce> {
-                extension.root?.let {
-                    keep += keepId(it)
-                }
+                keep += keepId(componentRoot)
+            }
+
+            tasks.withType<WebpackConfigTask> {
+                patch("output", outputConfiguration(componentRoot))
             }
         }
 
