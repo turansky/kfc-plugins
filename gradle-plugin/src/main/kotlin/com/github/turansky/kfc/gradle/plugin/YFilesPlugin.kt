@@ -28,9 +28,17 @@ private val RULES = """
 
 class YFilesPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks.withType<WebpackConfigTask> {
-            patch("externals", EXTERNALS)
-            patch("rules", RULES)
+        plugins.withType<LibraryPlugin> {
+            tasks.withType<WebpackConfigTask> {
+                patch("rules", RULES)
+            }
+        }
+
+        plugins.withType<ComponentPlugin> {
+            tasks.withType<WebpackConfigTask> {
+                patch("externals", EXTERNALS)
+                patch("rules", RULES)
+            }
         }
     }
 }
