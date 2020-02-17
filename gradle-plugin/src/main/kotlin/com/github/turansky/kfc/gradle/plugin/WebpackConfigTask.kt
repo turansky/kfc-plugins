@@ -52,7 +52,7 @@ internal open class WebpackConfigTask : DefaultTask() {
     private fun generate(name: String, body: String) {
         configDirectory
             .also { it.mkdirs() }
-            .resolve("$name.generated.js")
+            .resolve("$name.js")
             .writeText(patch(body))
     }
 }
