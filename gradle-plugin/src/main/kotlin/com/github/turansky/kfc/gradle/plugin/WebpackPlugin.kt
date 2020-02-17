@@ -12,6 +12,9 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        // WA: for Kotlin & Karma
+        projectDir.resolve("webpack.config.d").mkdir()
+
         plugins.withType<KotlinJsPluginWrapper> {
             tasks {
                 val patchWebpackConfig = register<WebpackConfigTask>("patchWebpackConfig")
