@@ -35,7 +35,7 @@ internal open class WebpackConfigTask : DefaultTask() {
         val paths = resources
             .map { "'${it.absolutePath}'" }
             // TODO: realize valid stringify
-            .map { it.replace("\\", "\\\\") }
+            .map { it.replace("\\", "/") }
             .joinToString(",\n")
 
         val body = """
