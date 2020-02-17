@@ -7,6 +7,7 @@ internal fun outputConfiguration(path: String): String {
         .joinToString(", ")
 
     return """
+            config.output = config.output || {}
             config.output.libraryTarget = 'umd'
             config.output.libraryExport = [$libraryExport]
     """.trimIndent()
