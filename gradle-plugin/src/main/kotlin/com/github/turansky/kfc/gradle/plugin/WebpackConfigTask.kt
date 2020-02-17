@@ -32,16 +32,21 @@ internal open class WebpackConfigTask : DefaultTask() {
             return
         }
 
+        val rootDir = project.rootDir
         val paths = resources
-            .map { "'${it.absolutePath}'" }
+            .map { it.toRelativeString(rootDir) }
+            .map { "path.resolve(__dirname, '../../../../$it')" }
             // TODO: realize valid stringify
             .map { it.replace("\\", "/") }
             .joinToString(",\n")
 
+        // language=JavaScript
         val body = """
-              config.resolve.modules.unshift(
+            const path = require('path')
+            
+            config.resolve.modules.unshift(
                 $paths
-              )
+            )
         """.trimIndent()
 
         generate("resources", body)
