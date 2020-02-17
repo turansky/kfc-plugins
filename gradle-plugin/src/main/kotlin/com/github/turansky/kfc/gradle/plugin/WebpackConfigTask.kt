@@ -8,11 +8,6 @@ import java.io.File
 
 internal open class WebpackConfigTask : DefaultTask() {
     @get:Input
-    val resources: List<File> by lazy {
-        project.relatedResources()
-    }
-
-    @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:OutputDirectory
@@ -32,9 +27,10 @@ internal open class WebpackConfigTask : DefaultTask() {
 
     @TaskAction
     private fun generateResources() {
-        val resources = resources
-            .takeIf { it.isNotEmpty() }
-            ?: return
+        val resources = project.relatedResources()
+        if (resources.isEmpty()) {
+            return
+        }
 
         val paths = resources
             .map { "'${it.absolutePath}'" }
