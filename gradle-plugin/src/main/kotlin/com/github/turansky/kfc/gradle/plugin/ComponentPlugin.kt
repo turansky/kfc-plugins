@@ -3,10 +3,7 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.JsTarget.COMMONJS
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.withType
+import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
@@ -37,17 +34,19 @@ class ComponentPlugin : Plugin<Project> {
             val componentRoot = extension.root
                 ?: return@afterEvaluate
 
-            tasks.withType<KotlinJsDce> {
-                keep += keepId(componentRoot)
-            }
+            tasks {
+                configureEach<KotlinJsDce> {
+                    keep += keepId(componentRoot)
+                }
 
-            tasks.withType<WebpackConfigTask> {
-                patch("output", outputConfiguration(componentRoot))
+                configureEach<WebpackConfigTask> {
+                    patch("output", outputConfiguration(componentRoot))
+                }
             }
         }
 
         plugins.withType<KotlinJsPluginWrapper> {
-            tasks.withType<KotlinJsCompile> {
+            tasks.configureEach<KotlinJsCompile> {
                 kotlinOptions {
                     moduleKind = COMMONJS
                 }

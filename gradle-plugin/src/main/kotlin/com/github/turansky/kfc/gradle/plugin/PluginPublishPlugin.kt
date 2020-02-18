@@ -9,7 +9,6 @@ import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import java.io.File
 
@@ -25,7 +24,7 @@ class PluginPublishPlugin : Plugin<Project> {
         val extension = extensions.create<PluginPublishExtension>("pluginPublish")
 
         tasks {
-            withType<KotlinJvmCompile> {
+            configureEach<KotlinJvmCompile> {
                 kotlinOptions {
                     jvmTarget = JVM_1_8
                     allWarningsAsErrors = true

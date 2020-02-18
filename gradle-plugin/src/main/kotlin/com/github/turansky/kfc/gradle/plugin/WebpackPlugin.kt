@@ -23,7 +23,7 @@ class WebpackPlugin : Plugin<Project> {
                     delete(patchWebpackConfig)
                 }
 
-                withType<KotlinJsCompile> {
+                configureEach<KotlinJsCompile> {
                     dependsOn(patchWebpackConfig)
                 }
             }

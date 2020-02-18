@@ -29,11 +29,11 @@ open class LibraryExtension {
 class LibraryPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks {
-            withType<KotlinJsDce> {
+            configureEach<KotlinJsDce> {
                 enabled = false
             }
 
-            withType<KotlinWebpack> {
+            configureEach<KotlinWebpack> {
                 if (name !in RUN_TASKS) {
                     enabled = false
                 }
@@ -45,13 +45,13 @@ class LibraryPlugin : Plugin<Project> {
 
         plugins.withType<KotlinMultiplatformPluginWrapper> {
             tasks {
-                withType<KotlinJvmCompile> {
+                configureEach<KotlinJvmCompile> {
                     kotlinOptions {
                         jvmTarget = JVM_1_8
                     }
                 }
 
-                withType<KotlinJsCompile> {
+                configureEach<KotlinJsCompile> {
                     kotlinOptions {
                         moduleKind = COMMONJS
                     }
@@ -65,7 +65,7 @@ class LibraryPlugin : Plugin<Project> {
             val extension = extensions.create<LibraryExtension>("library")
 
             tasks {
-                withType<KotlinJsCompile> {
+                configureEach<KotlinJsCompile> {
                     kotlinOptions {
                         moduleKind = COMMONJS
                     }
@@ -83,7 +83,7 @@ class LibraryPlugin : Plugin<Project> {
                 val libraryRoot = extension.root
                     ?: return@afterEvaluate
 
-                tasks.withType<WebpackConfigTask> {
+                tasks.configureEach<WebpackConfigTask> {
                     patch("output", outputConfiguration(libraryRoot))
                 }
             }
