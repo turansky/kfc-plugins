@@ -71,11 +71,15 @@ class LibraryPlugin : Plugin<Project> {
                     }
                 }
 
+                val generateDependencyJson = register<GenerateDependencyJson>("generateDependencyJson")
+
                 named<Jar>(JS_JAR_TASK) {
                     from(projectDir) {
                         include(PACKAGE_JSON)
                         filter(packageJsonFilter)
                     }
+
+                    dependsOn(generateDependencyJson)
                 }
             }
 
@@ -87,7 +91,6 @@ class LibraryPlugin : Plugin<Project> {
                     patch("output", outputConfiguration(libraryRoot))
                 }
             }
-
         }
     }
 }
