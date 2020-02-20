@@ -88,6 +88,7 @@ private data class FixedVersion(
 
     override fun toString(): String =
         super.toString()
+            .let { if (snapshot) it else "$it$DELIMITER$date" }
 }
 
 private fun currentDate(): Int = TODO()
