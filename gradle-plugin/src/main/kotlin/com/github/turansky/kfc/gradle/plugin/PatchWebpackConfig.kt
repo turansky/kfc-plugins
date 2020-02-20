@@ -15,7 +15,7 @@ open class PatchWebpackConfig : DefaultTask() {
         get() = project.projectDir.resolve("webpack.config.d")
 
     fun patch(name: String, body: String) {
-        patches.put(name, body)
+        patches[name] = body
     }
 
     @TaskAction
