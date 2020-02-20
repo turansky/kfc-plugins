@@ -10,5 +10,6 @@ internal fun outputConfiguration(path: String): String {
             config.output = config.output || {}
             config.output.libraryTarget = 'umd'
             config.output.libraryExport = [$libraryExport]
+            delete config.output.library
     """.trimIndent()
 }
