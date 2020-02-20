@@ -1,5 +1,9 @@
 package com.github.turansky.kfc.gradle.plugin
 
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+
 private val SNAPSHOT_SUFFIX = "-SNAPSHOT"
 private val DELIMITER = "."
 
@@ -91,4 +95,10 @@ private data class FixedVersion(
             .let { if (snapshot) it else "$it$DELIMITER$date" }
 }
 
-private fun currentDate(): Int = TODO()
+private fun currentDate(): Int =
+    DateTimeFormatter
+        .ofPattern("yyyyMMdd")
+        .withZone(ZoneOffset.UTC)
+        .format(Instant.now())
+        .toInt()
+

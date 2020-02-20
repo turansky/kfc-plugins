@@ -2,6 +2,8 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 
+private val VERSION_FIXED = BooleanProperty("kfc.version.fixed")
+
 internal fun Project.setReleaseVersion() {
     changeVersion(currentVersion.toRelease())
 }
@@ -11,7 +13,7 @@ internal fun Project.setNextSnapshotVersion() {
 }
 
 internal val Project.currentVersion: Version
-    get() = parseVersion(version.toString())
+    get() = parseVersion(version.toString(), propertyOrNull(VERSION_FIXED) == true)
 
 private fun Project.changeVersion(newVersion: Version) {
     setGradleProperty(GradleProperty.VERSION, newVersion.toString())
