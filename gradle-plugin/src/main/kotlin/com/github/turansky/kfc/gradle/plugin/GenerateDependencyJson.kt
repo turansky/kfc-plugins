@@ -2,9 +2,15 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
+import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
+import java.io.File
 
 internal open class GenerateDependencyJson : DefaultTask() {
+    @get:OutputFile
+    val packageJson: File
+        get() = temporaryDir.resolve("package.json")
+
     @TaskAction
     private fun generate() {
         val npmDependencies = project.nmpDependencies()
@@ -15,7 +21,7 @@ internal open class GenerateDependencyJson : DefaultTask() {
             .joinToString(",\n")
             { """        "${it.name}": "${it.version}"""" }
 
-        temporaryDir.resolve("package.json").writeText(
+        packageJson.writeText(
             // language=JSON
             """
             |{
@@ -31,7 +37,7 @@ internal open class GenerateDependencyJson : DefaultTask() {
 
 private val Project.npmName: String
     get() = if (this != rootProject) {
-        "${rootProject.name}/$name"
+        "${rootProject.name}--$name"
     } else {
         name
     }

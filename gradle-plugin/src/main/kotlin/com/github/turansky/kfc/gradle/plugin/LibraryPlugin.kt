@@ -4,7 +4,6 @@ import com.github.turansky.kfc.gradle.plugin.JsTarget.COMMONJS
 import com.github.turansky.kfc.gradle.plugin.JvmTarget.JVM_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.Transformer
 import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
@@ -74,10 +73,7 @@ class LibraryPlugin : Plugin<Project> {
                 val generateDependencyJson = register<GenerateDependencyJson>("generateDependencyJson")
 
                 named<Jar>(JS_JAR_TASK) {
-                    from(projectDir) {
-                        include(PACKAGE_JSON)
-                        filter(packageJsonFilter)
-                    }
+                    from(generateDependencyJson)
 
                     dependsOn(generateDependencyJson)
                 }
@@ -95,8 +91,3 @@ class LibraryPlugin : Plugin<Project> {
     }
 }
 
-private val Project.packageJsonFilter: Transformer<String, String>
-    get() = Transformer {
-        it.replace("\${project.name}", name)
-            .replace("\${project.version}", version.toString())
-    }
