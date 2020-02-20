@@ -19,8 +19,6 @@ private val RUN_TASKS = setOf(
 
 private val JS_JAR_TASK = "JsJar"
 
-private val PACKAGE_JSON = "package.json"
-
 open class LibraryExtension {
     var root: String? = null
 }
