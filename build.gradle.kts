@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") version "1.3.70-eap-184" apply false
+    kotlin("js") version "1.3.70-eap-274" apply false
     id("com.github.turansky.kfc.library") apply false
     id("com.github.turansky.kfc.component") apply false
 }
