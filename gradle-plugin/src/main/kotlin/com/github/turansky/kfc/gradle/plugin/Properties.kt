@@ -6,9 +6,17 @@ internal sealed class Property<T : Any>(val name: String)
 internal class StringProperty(name: String) : Property<String>(name)
 internal class BooleanProperty(name: String) : Property<Boolean>(name)
 
-internal inline fun <reified T : Any> Project.propertyOrNull(p: Property<T>): T? =
-    if (hasProperty(p.name)) {
-        property(p.name) as T
+private fun Project.propertyOrNull(propertyName: String): String? =
+    if (hasProperty(propertyName)) {
+        property(propertyName) as String
     } else {
         null
     }
+
+internal fun Project.propertyOrNull(p: StringProperty): String? =
+    propertyOrNull(p.name)
+
+internal fun Project.property(p: BooleanProperty): Boolean =
+    propertyOrNull(p.name)
+        ?.toBoolean()
+        ?: false

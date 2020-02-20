@@ -13,7 +13,7 @@ internal fun Project.setNextSnapshotVersion() {
 }
 
 internal val Project.currentVersion: Version
-    get() = parseVersion(version.toString(), propertyOrNull(VERSION_FIXED) == true)
+    get() = parseVersion(version.toString(), property(VERSION_FIXED))
 
 private fun Project.changeVersion(newVersion: Version) {
     setGradleProperty(GradleProperty.VERSION, newVersion.toString())
