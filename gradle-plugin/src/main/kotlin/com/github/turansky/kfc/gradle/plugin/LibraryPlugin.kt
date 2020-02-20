@@ -74,8 +74,6 @@ class LibraryPlugin : Plugin<Project> {
 
                 named<Jar>(JS_JAR_TASK) {
                     from(generateDependencyJson)
-
-                    dependsOn(generateDependencyJson)
                 }
             }
 
