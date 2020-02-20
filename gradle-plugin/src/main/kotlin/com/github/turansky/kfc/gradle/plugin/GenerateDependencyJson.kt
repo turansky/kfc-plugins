@@ -26,6 +26,7 @@ internal open class GenerateDependencyJson : DefaultTask() {
             """
             |{
             |    "name": "${project.npmName}",
+            |    "version": "0.0.0",
             |    "devDependencies": {
             |$devDependencies
             |    }
@@ -37,7 +38,7 @@ internal open class GenerateDependencyJson : DefaultTask() {
 
 private val Project.npmName: String
     get() = if (this != rootProject) {
-        "${rootProject.name}--$name"
+        "@${rootProject.name}/$name"
     } else {
         name
     }
