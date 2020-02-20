@@ -1,6 +1,7 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.Project
 import org.gradle.api.tasks.TaskAction
 
 internal open class GenerateDependencyJson : DefaultTask() {
@@ -18,7 +19,7 @@ internal open class GenerateDependencyJson : DefaultTask() {
             // language=JSON
             """
             |{
-            |    "name": "${project.name}",
+            |    "name": "${project.npmName}",
             |    "devDependencies": {
             |$devDependencies
             |    }
@@ -27,3 +28,10 @@ internal open class GenerateDependencyJson : DefaultTask() {
         )
     }
 }
+
+private val Project.npmName: String
+    get() = if (this != rootProject) {
+        "${rootProject.name}/$name"
+    } else {
+        name
+    }
