@@ -15,7 +15,11 @@ open class PatchWebpackConfig : DefaultTask() {
         get() = project.projectDir.resolve("webpack.config.d")
 
     fun patch(name: String, body: String) {
-        patches[name] = body
+        if (patches.containsKey(name)) {
+            patch(name + "_", body)
+        } else {
+            patches[name] = body
+        }
     }
 
     @TaskAction
