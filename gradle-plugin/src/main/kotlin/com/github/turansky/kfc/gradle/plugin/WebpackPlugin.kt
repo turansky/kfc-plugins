@@ -17,7 +17,7 @@ class WebpackPlugin : Plugin<Project> {
 
         plugins.withType<KotlinJsPluginWrapper> {
             tasks {
-                val patchWebpackConfig = register<WebpackConfigTask>("patchWebpackConfig")
+                val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig")
 
                 named<Delete>("clean") {
                     delete(patchWebpackConfig)

@@ -46,7 +46,7 @@ class ComponentPlugin : Plugin<Project> {
                     keep += keepId(componentRoot)
                 }
 
-                configureEach<WebpackConfigTask> {
+                configureEach<PatchWebpackConfig> {
                     patch("output", outputConfiguration(componentRoot))
                 }
             }

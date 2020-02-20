@@ -6,7 +6,7 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-internal open class WebpackConfigTask : DefaultTask() {
+internal open class PatchWebpackConfig : DefaultTask() {
     @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()
 

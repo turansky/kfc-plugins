@@ -83,7 +83,7 @@ class LibraryPlugin : Plugin<Project> {
                 val libraryRoot = extension.root
                     ?: return@afterEvaluate
 
-                tasks.configureEach<WebpackConfigTask> {
+                tasks.configureEach<PatchWebpackConfig> {
                     patch("output", outputConfiguration(libraryRoot))
                 }
             }
