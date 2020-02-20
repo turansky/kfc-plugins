@@ -16,6 +16,12 @@ kotlinDslPluginOptions {
 }
 
 tasks {
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
     wrapper {
         gradleVersion = "6.2"
         distributionType = Wrapper.DistributionType.ALL
