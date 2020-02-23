@@ -12,7 +12,7 @@
 
 ## `library`
 
-#### Goal
+### Goal
 * Fast build
 * Modularity
 
