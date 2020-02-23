@@ -15,7 +15,7 @@
 
 ### Goal
 * Non-static webpack configuration
-* Make Kotlin `resource` content available for Webpack
+* Make Kotlin `resources` content available for Webpack
 
 ### Task `patchWebpackConfig`
 ```Kotlin
@@ -35,10 +35,17 @@ tasks {
 
 #### Attention
 `webpack.config.d` directory will be used as **temp**.
-Use following `.gitignore` instruction to exclude directory from Git:
+Add following `.gitignore` instruction to exclude directory from Git:
 ```
 webpack.config.d/
-``` 
+```
+
+### Resources
+By default `webpack` plugin add `src/main/resources` directory of: 
+* Current subproject
+* Dependency subprojects 
+
+as Webpack `modules`.
 
 ## `library`
 
