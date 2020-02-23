@@ -4,3 +4,77 @@
 [![Kotlin](https://img.shields.io/badge/kotlin-1.3.61-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 # Kotlin Fast Configuration
+
+## `library`
+
+#### Goal
+* Fast build
+* Modularity
+
+### Decision
+* Disable DCE
+* Disable Webpack build
+* Kotlin/JS target - `commonjs` 
+
+####`build.gradle.kts`
+```Kotlin
+plugins {
+    kotlin("js") version "1.3.70" 
+    id("com.github.turansky.kfc.library") vaersion "0.0.36"
+}
+```
+
+### Local testing/run
+* `library` gradle extension
+* Webpack target - `umd`
+
+####`build.gradle.kts`
+```Kotlin
+library {
+    // Webpack - output.libraryExport = ["com", "example", "app"]
+    root = "com.example.app"
+}
+```
+
+## `component`
+
+### Goal
+* Common distribution configuration for DCE/Webpack
+
+### Decision
+* `component` gradle extension
+* Webpack target - `umd` 
+
+#### `build.gradle.kts`
+```Kotlin
+plugins {
+    kotlin("js") version "1.3.70" 
+    id("com.github.turansky.kfc.component") vaersion "0.0.36"
+}
+
+component {
+    // DCE     - keep += "${jsProjectId}.com.example.app"
+    // Webpack - output.libraryExport = ["com", "example", "app"]
+    root = "com.example.app"
+}
+```
+
+#### `App.kt`
+```Kotlin
+package com.example.app
+
+class App {
+    fun draw() { 
+        // ...
+    }
+}
+```
+
+#### `index.html`
+```HTML
+<script src="component.js"></script>
+<script>
+    const app = new App()
+    app.draw()
+</script>
+```
