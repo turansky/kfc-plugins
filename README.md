@@ -21,7 +21,7 @@
 * Disable Webpack build
 * Kotlin/JS target - `commonjs` 
 
-####`build.gradle.kts`
+#### `build.gradle.kts`
 ```Kotlin
 plugins {
     kotlin("js") version "1.3.70" 
@@ -33,7 +33,7 @@ plugins {
 * `library` gradle extension
 * Webpack target - `umd`
 
-####`build.gradle.kts`
+#### `build.gradle.kts`
 ```Kotlin
 library {
     // Webpack - output.libraryExport = ["com", "example", "app"]
