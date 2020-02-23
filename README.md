@@ -5,6 +5,11 @@
 
 # Kotlin Fast Configuration
 
+## Table of contents
+* Plugins
+  * [`library`](#library)
+  * [`component`](#component)
+
 ## `library`
 
 #### Goal
