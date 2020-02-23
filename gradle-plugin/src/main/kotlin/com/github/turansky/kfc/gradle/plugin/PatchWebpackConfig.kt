@@ -14,6 +14,11 @@ open class PatchWebpackConfig : DefaultTask() {
     val configDirectory: File
         get() = project.projectDir.resolve("webpack.config.d")
 
+    fun patch(body: String) {
+        val index = patches.size + 1
+        patch("generated_$index", body)
+    }
+
     fun patch(name: String, body: String) {
         if (patches.containsKey(name)) {
             patch(name + "_", body)
@@ -60,11 +65,11 @@ open class PatchWebpackConfig : DefaultTask() {
         configDirectory
             .also { it.mkdirs() }
             .resolve("$name.js")
-            .writeText(patch(body))
+            .writeText(createPatch(body))
     }
 }
 
-private fun patch(body: String): String =
+private fun createPatch(body: String): String =
     """
         ;(function () {
         $body
