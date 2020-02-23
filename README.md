@@ -13,7 +13,32 @@
 
 ## `webpack`
 
-TBD
+### Goal
+* Non-static webpack configuration
+* Make Kotlin `resource` content available for Webpack
+
+### Task `patchWebpackConfig`
+```Kotlin
+plugins {
+    kotlin("js") version "1.3.70" 
+    id("com.github.turansky.kfc.webpack") version "0.0.36"
+}
+
+tasks {
+    patchWebpackConfig {
+        patch("""
+            config.output.libraryExport = ["com", "example", "app"]
+        """)
+    }
+}
+```
+
+#### Attention
+`webpack.config.d` directory will be used as **temp**.
+Use following `.gitignore` instruction to exclude directory from Git:
+```
+webpack.config.d/
+``` 
 
 ## `library`
 
