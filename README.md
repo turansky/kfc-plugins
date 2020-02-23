@@ -7,10 +7,17 @@
 
 ## Table of contents
 * Plugins
+  * [`webpack`](#webpack)
   * [`library`](#library)
   * [`component`](#component)
 
+## `webpack`
+
+TBD
+
 ## `library`
+
+Apply [`webpack`](#webpack) plugin by default
 
 ### Goal
 * Fast build
@@ -42,6 +49,8 @@ library {
 ```
 
 ## `component`
+
+Apply [`webpack`](#webpack) plugin by default
 
 ### Goal
 * Common distribution configuration for DCE/Webpack
