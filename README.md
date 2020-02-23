@@ -20,7 +20,7 @@
 ```Kotlin
 plugins {
     kotlin("js") version "1.3.70" 
-    id("com.github.turansky.kfc.library") vaersion "0.0.36"
+    id("com.github.turansky.kfc.library") version "0.0.36"
 }
 ```
 
@@ -49,7 +49,7 @@ library {
 ```Kotlin
 plugins {
     kotlin("js") version "1.3.70" 
-    id("com.github.turansky.kfc.component") vaersion "0.0.36"
+    id("com.github.turansky.kfc.component") version "0.0.36"
 }
 
 component {
