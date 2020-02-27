@@ -41,18 +41,12 @@ open class PatchWebpackConfig : DefaultTask() {
             return
         }
 
-        val rootDir = project.rootDir
-        val paths = resources
-            .map { it.toRelativeString(rootDir) }
-            .map { "path.resolve(__dirname, '../../../../$it')" }
-            // TODO: realize valid stringify
-            .map { it.replace("\\", "/") }
-            .joinToString(",\n")
+        val paths = resources.joinToString(",\n") {
+            it.toPathString()
+        }
 
         // language=JavaScript
         val body = """
-            const path = require('path')
-            
             config.resolve.modules.unshift(
                 $paths
             )
