@@ -9,6 +9,7 @@
 * Plugins
   * [`webpack`](#webpack)
   * [`library`](#library)
+    * [NPM Dependencies](#npm-dependencies)
   * [`component`](#component)
 
 ## `webpack`
@@ -65,6 +66,27 @@ Apply [`webpack`](#webpack) plugin by default
 plugins {
     kotlin("js") version "1.3.70" 
     id("com.github.turansky.kfc.library") version "0.1.1"
+}
+```
+
+### NPM Dependencies
+Generated `package.json` used to save NPM dependencies after publication in Maven repository.
+
+If NPM dependencies are declared in Gradle, 
+```Kotlin
+dependencies {
+    implementation(npm("style-loader", "1.1.3"))
+    implementation(npm("css-loader", "3.4.2"))
+}
+```
+
+then `library` plugin generate `package.json` and add it in `.jar` root.
+```JSON
+{
+    "devDependencies": {
+        "style-loader": "1.1.3",
+        "css-loader": "3.4.2"
+    }
 }
 ```
 
