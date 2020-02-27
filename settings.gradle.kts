@@ -10,6 +10,8 @@ pluginManagement {
 include("examples:component-extension")
 include("examples:component-extension-multiplatform")
 
+include("examples:web-component-extension")
+
 include("examples:resources:lib-a")
 include("examples:resources:lib-b")
 include("examples:resources:lib-c")
