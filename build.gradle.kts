@@ -1,6 +1,7 @@
 plugins {
-    kotlin("multiplatform") version "1.3.70-eap-274" apply false
-    kotlin("js") version "1.3.70-eap-274" apply false
+    val kotlinVersion = "1.3.70-eap-274"
+    kotlin("multiplatform") version kotlinVersion apply false
+    kotlin("js") version kotlinVersion apply false
 
     id("com.github.turansky.kfc.library") apply false
     id("com.github.turansky.kfc.component") apply false
