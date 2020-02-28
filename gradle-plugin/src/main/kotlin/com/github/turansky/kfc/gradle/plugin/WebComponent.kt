@@ -6,6 +6,8 @@ data class WebComponent(
     val events: List<String>,
     val source: String
 ) {
+    val sourceRoot: String = source.substringBeforeLast(".")
+
     data class Property(
         val name: String,
         val type: Type
