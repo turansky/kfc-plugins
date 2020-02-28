@@ -38,7 +38,7 @@ data class WebComponent(
     data class Property(
         private val name: String,
         private val type: Type
-    ) {
+    ) : Serializable {
         private fun toGetter(): String = """
             get $name() {
                 return $SOURCE.$name
