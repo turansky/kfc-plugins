@@ -1,12 +1,12 @@
 plugins {
     kotlin("js")
-    id("com.github.turansky.kfc.component")
+    id("com.github.turansky.kfc.webcomponent")
 }
 
 kotlin.target.browser()
 
-component {
-    root = "com.test.example.app"
+webcomponent {
+    source = "com.test.example.app.Api.RedButton"
 }
 
 dependencies {

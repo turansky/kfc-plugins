@@ -21,7 +21,7 @@ class WebComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(WebpackPlugin::class)
 
-        val extension = extensions.create<WebComponentExtension>("component")
+        val extension = extensions.create<WebComponentExtension>("webcomponent")
 
         plugins.withType<KotlinJsPluginWrapper> {
             tasks {
