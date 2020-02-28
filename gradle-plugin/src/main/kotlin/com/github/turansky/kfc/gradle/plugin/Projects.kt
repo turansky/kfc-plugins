@@ -6,6 +6,9 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.NpmDependency
 
 private val IMPLEMENTATION = "implementation"
 
+internal val Project.jsProjectId: String
+    get() = "${rootProject.name}-$name"
+
 // TODO: optimize calculation
 internal fun Project.relatedProjects(): Set<Project> {
     val configuration = configurations.findByName(IMPLEMENTATION)
