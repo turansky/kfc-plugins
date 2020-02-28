@@ -12,11 +12,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
-open class WebComponentExtension {
-    lateinit var id: String
-    lateinit var source: String
-}
-
 class WebComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(WebpackPlugin::class)
