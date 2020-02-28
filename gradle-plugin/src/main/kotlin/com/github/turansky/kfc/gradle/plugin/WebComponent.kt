@@ -1,5 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
+import com.github.turansky.kfc.gradle.plugin.WebComponent.Property.Type.*
 import java.io.Serializable
 
 private const val SOURCE = "this._source"
@@ -24,6 +25,8 @@ data class WebComponent(
         |     const shadow = this.attachShadow({ mode: 'open' })
         |     shadow.appendChild($SOURCE)
         |   }
+        |   
+        |   ${properties.joinToString("\n\n")}
         |}    
         |
         |customElements.define('$name', $name)
@@ -33,9 +36,28 @@ data class WebComponent(
     val sourceRoot: String = source.substringBeforeLast(".")
 
     data class Property(
-        val name: String,
-        val type: Type
+        private val name: String,
+        private val type: Type
     ) {
+        private fun toGetter(): String = """
+            get $name() {
+                return $SOURCE.$name
+            }
+        """.trimIndent()
+
+        private fun toSetter(): String = """
+            set $name(value) {
+                $SOURCE.$name = value
+            }
+        """.trimIndent()
+
+        override fun toString(): String =
+            when (type) {
+                RW -> toGetter() + "\n\n" + toSetter()
+                RO -> toGetter()
+                WO -> toSetter()
+            }
+
         enum class Type {
             RW, RO, WO
         }
