@@ -37,9 +37,7 @@ class WebComponentPlugin : Plugin<Project> {
         afterEvaluate {
             val component = extension.build()
 
-            generateWebComponent.configure {
-                this.component = component
-            }
+            generateWebComponent.get().component = component
 
             tasks {
                 configureEach<KotlinJsDce> {
@@ -48,6 +46,7 @@ class WebComponentPlugin : Plugin<Project> {
 
                 configureEach<PatchWebpackConfig> {
                     patch("output", defaultOutputConfiguration())
+                    patch("entry", entryConfiguration(generateWebComponent.get().entry))
                 }
             }
         }
