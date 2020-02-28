@@ -6,6 +6,7 @@ plugins {
 kotlin.target.browser()
 
 webcomponent {
+    id = "red-button"
     source = "com.test.example.app.Api.RedButton"
 }
 

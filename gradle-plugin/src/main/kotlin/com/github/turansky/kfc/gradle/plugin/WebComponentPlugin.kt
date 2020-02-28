@@ -37,6 +37,10 @@ class WebComponentPlugin : Plugin<Project> {
         afterEvaluate {
             val component = extension.build()
 
+            generateWebComponent.configure {
+                this.component = component
+            }
+
             tasks {
                 configureEach<KotlinJsDce> {
                     keep += keepId(component.sourceRoot)
