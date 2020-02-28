@@ -59,6 +59,7 @@ val MAVEN_PUBLISH = "maven-publish"
 val WEBPACK = "webpack"
 val LIBRARY = "library"
 val COMPONENT = "component"
+val WEB_COMPONENT = "webcomponent"
 val YFILES = "yfiles"
 
 val PLUGIN_PUBLISH = "plugin-publish"
@@ -93,6 +94,11 @@ gradlePlugin {
         create(COMPONENT) {
             id = kfc(COMPONENT)
             implementationClass = pluginClass("ComponentPlugin")
+        }
+
+        create(WEB_COMPONENT) {
+            id = kfc(WEB_COMPONENT)
+            implementationClass = pluginClass("WebComponentPlugin")
         }
 
         create(YFILES) {
@@ -150,6 +156,13 @@ pluginBundle {
         displayName = "Kotlin/JS component plugin"
         description = "Optimize Kotlin/JS component configuration"
         tags = tags("component")
+        version = PROJECT_VERSION
+    }
+
+    plugins.getByName(WEB_COMPONENT) {
+        displayName = "Kotlin/JS web component plugin"
+        description = "Web component adapter for Kotlin/JS"
+        tags = tags("webcomponent")
         version = PROJECT_VERSION
     }
 
