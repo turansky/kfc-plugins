@@ -8,6 +8,14 @@ data class WebComponent(
     val events: List<String>,
     val source: String
 ) : Serializable {
+    // language=JavaScript
+    fun toCode(sourceModuleName: String): String = """
+        |import * as source from "$sourceModuleName"
+        |
+        |export const $name = source.$source    
+    """.trimMargin()
+
+    val name: String = source.substringAfterLast(".")
     val sourceRoot: String = source.substringBeforeLast(".")
 
     data class Property(

@@ -17,7 +17,6 @@ open class GenerateWebComponent : DefaultTask() {
     @TaskAction
     private fun generate() {
         val component = checkNotNull(component)
-        temporaryDir.resolve("index.js")
-            .writeText(component.toString())
+        entry.writeText(component.toCode(project.jsProjectId))
     }
 }
