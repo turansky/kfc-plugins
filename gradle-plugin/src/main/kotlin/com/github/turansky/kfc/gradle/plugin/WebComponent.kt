@@ -3,10 +3,10 @@ package com.github.turansky.kfc.gradle.plugin
 import java.io.Serializable
 
 data class WebComponent(
-    val id: String,
-    val properties: List<Property>,
-    val events: List<String>,
-    val source: String
+    private val id: String,
+    private val properties: List<Property>,
+    private val events: List<String>,
+    private val source: String
 ) : Serializable {
     // language=JavaScript
     fun toCode(sourceModuleName: String): String = """
