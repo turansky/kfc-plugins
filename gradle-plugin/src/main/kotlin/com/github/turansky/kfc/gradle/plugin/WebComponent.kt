@@ -5,6 +5,13 @@ import java.io.Serializable
 
 private const val SOURCE = "this._source"
 
+// language=JavaScript
+private fun redispatchEvent(type: String): String = """
+    $SOURCE.addEventListener('$type', e => {
+      this.dispatchEvent(new CustomEvent('$type', { detail: e.detail }))
+    })
+""".trimIndent()
+
 data class WebComponent(
     private val id: String,
     private val properties: List<Property>,
@@ -24,6 +31,8 @@ data class WebComponent(
         |     $SOURCE = new SourceElement()      
         |     const shadow = this.attachShadow({ mode: 'open' })
         |     shadow.appendChild($SOURCE)
+        |     
+        |     ${events.joinToString("\n", transform = ::redispatchEvent)}
         |   }
         |   
         |   ${properties.joinToString("\n\n")}
