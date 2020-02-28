@@ -10,7 +10,7 @@ data class WebComponent(
 ) : Serializable {
     // language=JavaScript
     fun toCode(sourceModuleName: String): String = """
-        |const source = require("$sourceModuleName")
+        |import * as source from '$sourceModuleName'
         |
         |export const $name = source.$source    
     """.trimMargin()

@@ -29,6 +29,10 @@ internal fun outputConfiguration(path: String): String {
 internal fun entryConfiguration(main: File): String {
     // language=JavaScript
     return """
+        if (config.mode !== 'production') {
+            return
+        }
+
         config.entry = {
           main: [${main.toPathString()}]
         }
