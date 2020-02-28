@@ -13,6 +13,11 @@ webcomponent {
     property("color")
     property("chromeColor")
     getter("parentButton")
+
+    events(
+        "update-start",
+        "update-end"
+    )
 }
 
 dependencies {
