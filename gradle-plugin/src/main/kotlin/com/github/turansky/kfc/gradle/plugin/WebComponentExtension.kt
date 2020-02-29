@@ -27,8 +27,8 @@ open class WebComponentExtension {
         _properties += Property(name, type)
     }
 
-    fun events(vararg events: String) {
-        _events += events
+    fun event(type: String) {
+        _events.add(type)
     }
 
     fun build(): WebComponent =
