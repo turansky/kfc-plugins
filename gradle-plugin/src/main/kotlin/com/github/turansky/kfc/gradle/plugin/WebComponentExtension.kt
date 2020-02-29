@@ -9,9 +9,9 @@ open class WebComponentExtension {
     var id: String? = null
     var source: String? = null
 
-    private val _properties: MutableList<Property> = mutableListOf()
-    private val _methods: MutableList<Method> = mutableListOf()
-    private val _events: MutableList<String> = mutableListOf()
+    private val properties: MutableList<Property> = mutableListOf()
+    private val methods: MutableList<Method> = mutableListOf()
+    private val events: MutableList<String> = mutableListOf()
 
     fun property(name: String) {
         addProperty(name, RW)
@@ -26,23 +26,23 @@ open class WebComponentExtension {
     }
 
     fun method(name: String, vararg parameterNames: String) {
-        _methods += Method(name, parameterNames.toList())
+        methods += Method(name, parameterNames.toList())
     }
 
     fun event(type: String) {
-        _events += type
+        events += type
     }
 
     private fun addProperty(name: String, type: Type) {
-        _properties += Property(name, type)
+        properties += Property(name, type)
     }
 
     internal fun build(): WebComponent =
         WebComponent(
             id = requireNotNull(id),
-            properties = _properties.toList(),
-            methods = _methods.toList(),
-            events = _events.toList(),
+            properties = properties.toList(),
+            methods = methods.toList(),
+            events = events.toList(),
             source = requireNotNull(source)
         )
 }
