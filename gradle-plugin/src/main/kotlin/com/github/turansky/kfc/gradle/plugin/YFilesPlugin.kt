@@ -40,5 +40,12 @@ class YFilesPlugin : Plugin<Project> {
                 patch("rules", RULES)
             }
         }
+
+        plugins.withType<WebComponentPlugin> {
+            tasks.configureEach<PatchWebpackConfig> {
+                patch("externals", EXTERNALS)
+                patch("rules", RULES)
+            }
+        }
     }
 }
