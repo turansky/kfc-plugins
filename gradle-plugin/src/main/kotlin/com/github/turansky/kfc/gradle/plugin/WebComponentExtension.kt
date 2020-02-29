@@ -1,5 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
+import com.github.turansky.kfc.gradle.plugin.WebComponent.Method
 import com.github.turansky.kfc.gradle.plugin.WebComponent.Property
 import com.github.turansky.kfc.gradle.plugin.WebComponent.Property.Type
 import com.github.turansky.kfc.gradle.plugin.WebComponent.Property.Type.*
@@ -9,6 +10,7 @@ open class WebComponentExtension {
     var source: String? = null
 
     private val _properties: MutableList<Property> = mutableListOf()
+    private val _methods: MutableList<Method> = mutableListOf()
     private val _events: MutableList<String> = mutableListOf()
 
     fun property(name: String) {
@@ -23,8 +25,12 @@ open class WebComponentExtension {
         addProperty(name, WO)
     }
 
+    fun method(name: String, vararg parameterNames: String) {
+        _methods += Method(name, parameterNames.toList())
+    }
+
     fun event(type: String) {
-        _events.add(type)
+        _events += type
     }
 
     private fun addProperty(name: String, type: Type) {
@@ -35,6 +41,7 @@ open class WebComponentExtension {
         WebComponent(
             id = requireNotNull(id),
             properties = _properties.toList(),
+            methods = _methods.toList(),
             events = _events.toList(),
             source = requireNotNull(source)
         )

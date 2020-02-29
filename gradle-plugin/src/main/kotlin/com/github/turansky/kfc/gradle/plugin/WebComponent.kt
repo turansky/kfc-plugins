@@ -15,6 +15,7 @@ private fun redispatchEvent(type: String): String = """
 data class WebComponent(
     private val id: String,
     private val properties: List<Property>,
+    private val methods: List<Method>,
     private val events: List<String>,
     private val source: String
 ) : Serializable {
@@ -36,6 +37,8 @@ data class WebComponent(
         |   }
         |   
         |   ${properties.joinToString("\n\n")}
+        |
+        |   ${methods.joinToString("\n\n")}
         |}    
         |
         |customElements.define('$id', $name)
