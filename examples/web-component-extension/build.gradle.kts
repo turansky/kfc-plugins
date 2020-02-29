@@ -7,7 +7,7 @@ kotlin.target.browser()
 
 webcomponent {
     id = "red-button"
-    source = "com.test.example.app.Api.RedButton"
+    source = "com.test.example.app.RedButton"
 
     setter("content")
     property("color")

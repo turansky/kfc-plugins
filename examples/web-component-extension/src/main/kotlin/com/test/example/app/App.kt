@@ -9,8 +9,6 @@ class App {
     fun kyky(): List<String> = listOf("ky", "ky")
 }
 
-object Api {
-    fun RedButton(): HTMLElement =
-        document.createElement("button")
-            .unsafeCast<HTMLElement>()
-}
+fun RedButton(): HTMLElement =
+    document.createElement("button")
+        .unsafeCast<HTMLElement>()
