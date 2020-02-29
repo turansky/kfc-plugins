@@ -38,7 +38,7 @@ data class WebComponent(
         |   ${properties.joinToString("\n\n")}
         |}    
         |
-        |customElements.define('$name', $id)
+        |customElements.define('$id', $name)
     """.trimMargin()
 
     private val name: String = source.substringAfterLast(".")
