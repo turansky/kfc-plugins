@@ -45,7 +45,6 @@ data class WebComponent(
     """.trimMargin()
 
     private val name: String = source.substringAfterLast(".")
-    val sourceRoot: String = source.substringBeforeLast(".")
 
     data class Property(
         private val name: String,

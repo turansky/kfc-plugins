@@ -6,8 +6,8 @@ import com.github.turansky.kfc.gradle.plugin.WebComponent.Property.Type
 import com.github.turansky.kfc.gradle.plugin.WebComponent.Property.Type.*
 
 open class WebComponentExtension {
-    var id: String? = null
-    var source: String? = null
+    var id: String = "<id>"
+    var source: String = "<source>"
 
     private val properties: MutableList<Property> = mutableListOf()
     private val methods: MutableList<Method> = mutableListOf()
@@ -39,10 +39,10 @@ open class WebComponentExtension {
 
     internal fun build(): WebComponent =
         WebComponent(
-            id = requireNotNull(id),
+            id = id,
             properties = properties.toList(),
             methods = methods.toList(),
             events = events.toList(),
-            source = requireNotNull(source)
+            source = source
         )
 }

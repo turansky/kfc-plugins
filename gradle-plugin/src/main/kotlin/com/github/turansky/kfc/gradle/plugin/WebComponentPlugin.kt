@@ -35,13 +35,13 @@ class WebComponentPlugin : Plugin<Project> {
         }
 
         afterEvaluate {
-            val component = extension.build()
-
-            generateWebComponent.get().component = component
+            generateWebComponent.configure {
+                component = extension.build()
+            }
 
             tasks {
                 configureEach<KotlinJsDce> {
-                    keep += keepId(component.sourceRoot)
+                    keep += keepId(extension.source)
                 }
 
                 configureEach<PatchWebpackConfig> {

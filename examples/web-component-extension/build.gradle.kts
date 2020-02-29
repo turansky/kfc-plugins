@@ -7,7 +7,6 @@ kotlin.target.browser()
 
 webcomponent {
     id = "red-button"
-    source = "com.test.example.app.RedButton"
 
     setter("content")
     property("color")
@@ -19,6 +18,8 @@ webcomponent {
 
     event("update-start")
     event("update-end")
+
+    source = "com.test.example.app.RedButton"
 }
 
 dependencies {
