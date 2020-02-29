@@ -65,7 +65,7 @@ open class PatchWebpackConfig : DefaultTask() {
 
 private fun createPatch(body: String): String =
     """
-        ;(function () {
+        ;(function (config) {
         $body
-        })()
+        })(config)
     """.trimIndent()
