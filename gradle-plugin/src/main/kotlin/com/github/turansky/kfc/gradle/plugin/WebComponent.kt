@@ -71,4 +71,18 @@ data class WebComponent(
             RW, RO, WO
         }
     }
+
+    data class Method(
+        private val name: String,
+        private val parameterNames: List<String>
+    ) : Serializable {
+        override fun toString(): String {
+            val method = "$name(${parameterNames.joinToString(", ")})"
+            return """
+                $method {
+                    return $SOURCE.$method
+                }
+            """.trimIndent()
+        }
+    }
 }
