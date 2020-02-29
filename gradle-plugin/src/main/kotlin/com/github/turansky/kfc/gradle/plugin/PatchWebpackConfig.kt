@@ -47,10 +47,10 @@ open class PatchWebpackConfig : DefaultTask() {
 
         // language=JavaScript
         val body = """
-            config.resolve.modules.unshift(
-                $paths
-            )
-        """.trimIndent()
+            |config.resolve.modules.unshift(
+            |    $paths
+            |)
+        """.trimMargin()
 
         generate("resources", body)
     }
@@ -65,7 +65,7 @@ open class PatchWebpackConfig : DefaultTask() {
 
 private fun createPatch(body: String): String =
     """
-        ;(function (config) {
-        $body
-        })(config)
-    """.trimIndent()
+        |;(function (config) {
+        |$body
+        |})(config)
+    """.trimMargin()
