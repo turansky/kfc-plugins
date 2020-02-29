@@ -14,6 +14,9 @@ webcomponent {
     property("chromeColor")
     getter("parentButton")
 
+    method("export", "options")
+    method("pragmaticExport", "format", "options")
+
     event("update-start")
     event("update-end")
 }
