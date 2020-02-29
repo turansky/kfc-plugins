@@ -23,15 +23,15 @@ open class WebComponentExtension {
         addProperty(name, WO)
     }
 
-    private fun addProperty(name: String, type: Type) {
-        _properties += Property(name, type)
-    }
-
     fun event(type: String) {
         _events.add(type)
     }
 
-    fun build(): WebComponent =
+    private fun addProperty(name: String, type: Type) {
+        _properties += Property(name, type)
+    }
+
+    internal fun build(): WebComponent =
         WebComponent(
             id = requireNotNull(id),
             properties = _properties.toList(),
