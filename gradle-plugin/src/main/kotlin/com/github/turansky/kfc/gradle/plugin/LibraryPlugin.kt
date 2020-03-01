@@ -1,12 +1,10 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import com.github.turansky.kfc.gradle.plugin.JsTarget.COMMONJS
 import com.github.turansky.kfc.gradle.plugin.JvmTarget.JVM_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
@@ -42,11 +40,7 @@ class LibraryPlugin : Plugin<Project> {
                     }
                 }
 
-                configureEach<KotlinJsCompile> {
-                    kotlinOptions {
-                        moduleKind = COMMONJS
-                    }
-                }
+                useModularJsTarget()
             }
         }
 
@@ -56,11 +50,7 @@ class LibraryPlugin : Plugin<Project> {
             val extension = extensions.create<LibraryExtension>("library")
 
             tasks {
-                configureEach<KotlinJsCompile> {
-                    kotlinOptions {
-                        moduleKind = COMMONJS
-                    }
-                }
+                useModularJsTarget()
 
                 val generateDependencyJson = register<GenerateDependencyJson>("generateDependencyJson")
 
