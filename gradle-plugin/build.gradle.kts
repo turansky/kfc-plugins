@@ -61,6 +61,7 @@ val LIBRARY = "library"
 val COMPONENT = "component"
 val WEB_COMPONENT = "webcomponent"
 val YFILES = "yfiles"
+val LOCAL_SERVER = "local-server"
 
 val PLUGIN_PUBLISH = "plugin-publish"
 
@@ -104,6 +105,11 @@ gradlePlugin {
         create(YFILES) {
             id = kfc(YFILES)
             implementationClass = pluginClass("YFilesPlugin")
+        }
+
+        create(LOCAL_SERVER) {
+            id = kfc(LOCAL_SERVER)
+            implementationClass = pluginClass("LocalServerPlugin")
         }
 
         create(PLUGIN_PUBLISH) {
@@ -170,6 +176,13 @@ pluginBundle {
         displayName = "yFiles configuration plugin"
         description = "Provide configuration for yFiles"
         tags = tags("yfiles")
+        version = PROJECT_VERSION
+    }
+
+    plugins.getByName(LOCAL_SERVER) {
+        displayName = "Local server plugin"
+        description = "Local testing server for Kotlin/JS"
+        tags = tags("local server", "local testing")
         version = PROJECT_VERSION
     }
 
