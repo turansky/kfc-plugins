@@ -13,12 +13,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
-private val RUN_TASKS = setOf(
-    "browserDevelopmentRun"
-)
-
-private val JS_JAR_TASK = "JsJar"
-
 open class LibraryExtension {
     var root: String? = null
 }
@@ -31,7 +25,7 @@ class LibraryPlugin : Plugin<Project> {
             }
 
             configureEach<KotlinWebpack> {
-                if (name !in RUN_TASKS) {
+                if (name !in DEVELOPMENT_RUN_TASKS) {
                     enabled = false
                 }
 

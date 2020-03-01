@@ -10,8 +10,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin as StandardMavenPublishPlugin
 
-private val JS_SOURCES_JAR_TASK = "JsSourcesJar"
-
 private val REPO_URL = StringProperty("kfc.publish.maven.repo.url")
 private val SNAPSHOT_REPO_URL = StringProperty("kfc.publish.maven.snapshot.repo.url")
 
