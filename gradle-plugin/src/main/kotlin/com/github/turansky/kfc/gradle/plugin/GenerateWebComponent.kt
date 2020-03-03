@@ -30,3 +30,11 @@ open class GenerateWebComponent : DefaultTask() {
 
 internal fun TaskContainer.registerGenerateWebComponent(): TaskProvider<GenerateWebComponent> =
     register<GenerateWebComponent>(GENERATE_WEB_COMPONENT)
+
+internal fun TaskContainer.findGenerateWebComponent(): GenerateWebComponent? =
+    findByName(GENERATE_WEB_COMPONENT) as? GenerateWebComponent
+
+internal fun List<GenerateWebComponent>.entryConfiguration() =
+    joinToString("\n") {
+        "config.entry['${it.project.name}'] = ${it.entry.toPathString()}"
+    }

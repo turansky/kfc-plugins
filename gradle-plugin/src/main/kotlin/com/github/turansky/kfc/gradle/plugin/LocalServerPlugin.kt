@@ -53,16 +53,10 @@ class LocalServerPlugin : Plugin<Project> {
                     )
 
                     relatedProjects()
-                        .filter { it.plugins.hasPlugin(WebComponentPlugin::class) }
-                        .associate { it.name to it.jsPackageDir.resolve("webcomponent/index.js") }
+                        .mapNotNull { it.tasks.findGenerateWebComponent() }
+                        .onEach { dependsOn(it) }
                         .takeIf { it.isNotEmpty() }
-                        ?.also {
-                            val entries = it.asSequence()
-                                .map { (name, entry) -> "config.entry['$name'] = ${entry.toPathString()}" }
-                                .joinToString("\n")
-
-                            patch("entries", entries)
-                        }
+                        ?.also { patch("entries", it.entryConfiguration()) }
                 }
             }
 
