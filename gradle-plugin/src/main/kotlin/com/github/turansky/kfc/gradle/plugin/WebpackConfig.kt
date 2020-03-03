@@ -26,7 +26,7 @@ internal fun outputConfiguration(path: String): String {
     """.trimIndent()
 }
 
-internal fun entryConfiguration(main: File): String {
+internal fun entryConfiguration(entry: File): String {
     // language=JavaScript
     return """
         if (config.mode !== 'production') {
@@ -34,7 +34,7 @@ internal fun entryConfiguration(main: File): String {
         }
 
         config.entry = {
-          main: [${main.toPathString()}]
+          main: ${entry.toPathString()}
         }
     """.trimIndent()
 }
