@@ -26,15 +26,18 @@ internal fun outputConfiguration(path: String): String {
     """.trimIndent()
 }
 
-internal fun entryConfiguration(entry: File): String {
+internal fun entryConfiguration(
+    output: Output? = null,
+    entry: File
+): String {
+    val entryId = output?.id ?: "main"
+
     // language=JavaScript
     return """
         if (config.mode !== 'production') {
             return
         }
 
-        config.entry = {
-          main: ${entry.toPathString()}
-        }
+        config.entry['$entryId'] = ${entry.toPathString()}
     """.trimIndent()
 }

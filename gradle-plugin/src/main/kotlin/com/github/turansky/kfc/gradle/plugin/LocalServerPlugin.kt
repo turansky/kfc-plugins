@@ -64,7 +64,11 @@ class LocalServerPlugin : Plugin<Project> {
                 }
 
                 tasks.configureEach<PatchWebpackConfig> {
-                    patch("entry", entryConfiguration(generateExportAlias.get().entry))
+                    val entry = entryConfiguration(
+                        output = LOCAL_SERVER,
+                        entry = generateExportAlias.get().entry
+                    )
+                    patch("entry", entry)
                 }
             }
         }
