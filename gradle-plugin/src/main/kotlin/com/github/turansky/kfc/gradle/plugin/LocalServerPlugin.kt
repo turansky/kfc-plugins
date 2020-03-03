@@ -18,6 +18,7 @@ class LocalServerPlugin : Plugin<Project> {
             plugins.apply(WebpackPlugin::class)
 
             val extension = extensions.create<LocalServerExtension>("localServer")
+            val generateExportAlias = tasks.register<GenerateExportAlias>("generateExportAlias")
 
             tasks {
                 useModularJsTarget()
@@ -33,6 +34,8 @@ class LocalServerPlugin : Plugin<Project> {
 
                     outputFileName = LOCAL_SERVER.fileName
                     sourceMaps = false
+
+                    dependsOn(generateExportAlias)
                 }
 
                 configureEach<PatchWebpackConfig> {
@@ -59,8 +62,6 @@ class LocalServerPlugin : Plugin<Project> {
                         ?.also { patch("entries", it.entryConfiguration()) }
                 }
             }
-
-            val generateExportAlias = tasks.register<GenerateExportAlias>("generateExportAlias")
 
             afterEvaluate {
                 val localServerRoot = extension.root
