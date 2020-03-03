@@ -34,7 +34,7 @@ internal fun entryConfiguration(
 
     // language=JavaScript
     return """
-        if (config.mode !== 'production') {
+        if ('$entryId' === 'main' && config.mode !== 'production') {
             return
         }
 
