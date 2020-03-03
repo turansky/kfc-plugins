@@ -50,6 +50,21 @@ class LocalServerPlugin : Plugin<Project> {
                         |delete config.output.library
                     """.trimMargin()
                     )
+
+                    relatedProjects()
+                        .filter { it.plugins.hasPlugin(WebpackPlugin::class) }
+                        .associate {
+                            val generateWebComponent = it.tasks.findByName("generateWebComponent") as GenerateWebComponent
+                            it.name to generateWebComponent.entry
+                        }
+                        .takeIf { it.isNotEmpty() }
+                        ?.also {
+                            val entries = it.asSequence()
+                                .map { (name, entry) -> "config.entry['$name'] = ${entry.toPathString()}" }
+                                .joinToString("\n")
+
+                            patch("entries", entries)
+                        }
                 }
             }
 
