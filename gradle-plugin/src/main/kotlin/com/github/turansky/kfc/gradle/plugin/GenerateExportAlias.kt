@@ -22,9 +22,11 @@ open class GenerateExportAlias : DefaultTask() {
 
     @TaskAction
     private fun generate() {
+        val export = export ?: return
+
         val content = alias(
             moduleName = project.jsProjectId,
-            export = checkNotNull(export)
+            export = export
         )
         getEntry(true).writeText(content)
     }

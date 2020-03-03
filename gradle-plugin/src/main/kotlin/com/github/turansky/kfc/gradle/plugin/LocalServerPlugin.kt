@@ -3,10 +3,7 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.Output.LOCAL_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.withType
+import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
@@ -56,12 +53,18 @@ class LocalServerPlugin : Plugin<Project> {
                 }
             }
 
+            val generateExportAlias = tasks.register<GenerateExportAlias>("generateExportAlias")
+
             afterEvaluate {
                 val localServerRoot = extension.root
                     ?: return@afterEvaluate
 
+                generateExportAlias {
+                    export = localServerRoot
+                }
+
                 tasks.configureEach<PatchWebpackConfig> {
-                    patch("output", outputConfiguration(localServerRoot))
+                    patch("entry", entryConfiguration(generateExportAlias.get().entry))
                 }
             }
         }

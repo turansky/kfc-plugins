@@ -30,7 +30,7 @@ class WebComponentPlugin : Plugin<Project> {
         }
 
         afterEvaluate {
-            generateWebComponent.configure {
+            generateWebComponent {
                 component = extension.build()
             }
 
