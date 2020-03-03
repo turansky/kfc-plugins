@@ -37,7 +37,7 @@ private fun alias(
     moduleName: String,
     export: String
 ): String = """
-        |import * as source from '$moduleName'
+        |const source = require('$moduleName')
         |
-        |export default source.$export
+        |module.exports = source.$export
     """.trimMargin()
