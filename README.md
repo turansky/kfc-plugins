@@ -90,18 +90,6 @@ then `library` plugin generate `package.json` and add it in `.jar` root.
 }
 ```
 
-### Local testing/run
-* `library` gradle extension
-* Webpack target - `umd`
-
-#### `build.gradle.kts`
-```Kotlin
-library {
-    // Webpack - output.libraryExport = ["com", "example", "app"]
-    root = "com.example.app"
-}
-```
-
 ## `component`
 
 Apply [`webpack`](#webpack) plugin by default
