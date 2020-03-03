@@ -37,6 +37,23 @@ class LocalServerPlugin : Plugin<Project> {
                     outputFileName = LOCAL_SERVER.fileName
                     sourceMaps = false
                 }
+
+                configureEach<PatchWebpackConfig> {
+                    // language=JavaScript
+                    patch(
+                        "__init__", """
+                        |const mainEntry = config.entry.main[0]
+                        |delete config.entry.main
+                        |
+                        |config.entry['${LOCAL_SERVER.id}'] = mainEntry
+                        |
+                        |config.output = config.output || {}
+                        |config.output.filename = "[name].js"
+                        |config.output.libraryTarget = 'umd'
+                        |delete config.output.library
+                    """.trimMargin()
+                    )
+                }
             }
 
             afterEvaluate {
