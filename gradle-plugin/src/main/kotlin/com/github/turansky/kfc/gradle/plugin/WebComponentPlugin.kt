@@ -3,7 +3,10 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.Output.COMPONENT
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.invoke
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
@@ -14,7 +17,7 @@ class WebComponentPlugin : Plugin<Project> {
 
         val extension = extensions.create<WebComponentExtension>("webcomponent")
 
-        val generateWebComponent = tasks.register<GenerateWebComponent>("generateWebComponent")
+        val generateWebComponent = tasks.registerGenerateWebComponent()
 
         plugins.withType<KotlinJsPluginWrapper> {
             tasks {

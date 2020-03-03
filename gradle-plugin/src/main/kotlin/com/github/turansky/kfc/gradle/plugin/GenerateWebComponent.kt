@@ -1,10 +1,11 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
+import org.gradle.kotlin.dsl.register
 import java.io.File
+
+private val GENERATE_WEB_COMPONENT = "generateWebComponent"
 
 open class GenerateWebComponent : DefaultTask() {
     @get:Input
@@ -26,3 +27,6 @@ open class GenerateWebComponent : DefaultTask() {
         getEntry(true).writeText(component.toCode(project.jsProjectId))
     }
 }
+
+internal fun TaskContainer.registerGenerateWebComponent(): TaskProvider<GenerateWebComponent> =
+    register<GenerateWebComponent>(GENERATE_WEB_COMPONENT)
