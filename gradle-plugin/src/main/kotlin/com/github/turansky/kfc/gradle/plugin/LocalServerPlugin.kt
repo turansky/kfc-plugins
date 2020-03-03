@@ -36,9 +36,10 @@ class LocalServerPlugin : Plugin<Project> {
                 }
 
                 configureEach<PatchWebpackConfig> {
-                    // language=JavaScript
                     patch(
-                        "__init__", """
+                        "00__init__00",
+                        // language=JavaScript
+                        """
                         |const mainEntry = config.entry.main[0]
                         |delete config.entry.main
                         |
@@ -48,7 +49,7 @@ class LocalServerPlugin : Plugin<Project> {
                         |config.output.filename = "[name].js"
                         |config.output.libraryTarget = 'umd'
                         |delete config.output.library
-                    """.trimMargin()
+                        """.trimMargin()
                     )
 
                     relatedProjects()
