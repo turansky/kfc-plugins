@@ -12,11 +12,17 @@ open class GenerateWebComponent : DefaultTask() {
 
     @get:OutputFile
     val entry: File
-        get() = temporaryDir.resolve("index.js")
+        get() = getEntry()
+
+    private fun getEntry(createMode: Boolean = false): File =
+        project.jsPackageDir
+            .resolve("webcomponent")
+            .also { if (createMode) it.mkdir() }
+            .resolve("index.js")
 
     @TaskAction
     private fun generate() {
         val component = checkNotNull(component)
-        entry.writeText(component.toCode(project.jsProjectId))
+        getEntry(true).writeText(component.toCode(project.jsProjectId))
     }
 }

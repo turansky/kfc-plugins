@@ -12,7 +12,7 @@ internal val Project.jsProjectId: String
 
 internal val Project.jsPackageDir: File
     get() = rootProject.buildDir
-        .resolve("packages")
+        .resolve("js/packages")
         .resolve(jsProjectId)
 
 // TODO: optimize calculation
