@@ -52,7 +52,7 @@ class LocalServerPlugin : Plugin<Project> {
                     )
 
                     relatedProjects()
-                        .filter { it.plugins.hasPlugin(WebpackPlugin::class) }
+                        .filter { it.plugins.hasPlugin(WebComponentPlugin::class) }
                         .associate { it.name to it.jsPackageDir.resolve("webcomponent/index.js") }
                         .takeIf { it.isNotEmpty() }
                         ?.also {
