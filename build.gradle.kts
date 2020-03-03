@@ -1,5 +1,5 @@
 plugins {
-    val kotlinVersion = "1.3.70-eap-274"
+    val kotlinVersion = "1.3.70"
     kotlin("multiplatform") version kotlinVersion apply false
     kotlin("js") version kotlinVersion apply false
 
@@ -11,7 +11,6 @@ plugins {
 allprojects {
     repositories {
         jcenter()
-        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
     }
 }
 

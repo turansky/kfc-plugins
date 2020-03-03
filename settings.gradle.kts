@@ -1,12 +1,5 @@
 rootProject.name = "kfc-plugins"
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
-    }
-}
-
 include("examples:component-extension")
 include("examples:component-extension-multiplatform")
 
