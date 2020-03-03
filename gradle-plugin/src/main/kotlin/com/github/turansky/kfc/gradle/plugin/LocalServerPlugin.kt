@@ -53,10 +53,7 @@ class LocalServerPlugin : Plugin<Project> {
 
                     relatedProjects()
                         .filter { it.plugins.hasPlugin(WebpackPlugin::class) }
-                        .associate {
-                            val generateWebComponent = it.tasks.findByName("generateWebComponent") as GenerateWebComponent
-                            it.name to generateWebComponent.entry
-                        }
+                        .associate { it.name to it.jsPackageDir.resolve("webcomponent/index.js") }
                         .takeIf { it.isNotEmpty() }
                         ?.also {
                             val entries = it.asSequence()
