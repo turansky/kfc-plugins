@@ -1,6 +1,7 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import com.github.turansky.kfc.gradle.plugin.JvmTarget.JVM_1_8
+import com.github.turansky.kfc.gradle.plugin.Output.LIBRARY
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.jvm.tasks.Jar
@@ -27,7 +28,7 @@ class LibraryPlugin : Plugin<Project> {
                     enabled = false
                 }
 
-                outputFileName = LIBRARY_JS
+                outputFileName = LIBRARY.fileName
                 sourceMaps = false
             }
         }

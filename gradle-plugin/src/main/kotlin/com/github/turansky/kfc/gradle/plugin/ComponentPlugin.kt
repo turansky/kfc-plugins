@@ -1,5 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
+import com.github.turansky.kfc.gradle.plugin.Output.COMPONENT
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -25,7 +26,7 @@ class ComponentPlugin : Plugin<Project> {
                 useModularJsTarget()
 
                 configureEach<KotlinWebpack> {
-                    outputFileName = COMPONENT_JS
+                    outputFileName = COMPONENT.fileName
                     sourceMaps = false
                 }
             }

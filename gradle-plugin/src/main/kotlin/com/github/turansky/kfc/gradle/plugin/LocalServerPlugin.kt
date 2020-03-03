@@ -1,5 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
+import com.github.turansky.kfc.gradle.plugin.Output.LOCAL_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -33,7 +34,7 @@ class LocalServerPlugin : Plugin<Project> {
                         enabled = false
                     }
 
-                    outputFileName = LOCAL_SERVER_JS
+                    outputFileName = LOCAL_SERVER.fileName
                     sourceMaps = false
                 }
             }
