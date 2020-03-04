@@ -1,3 +1,5 @@
+package com.github.turansky.kfc.gradle.plugin
+
 import com.github.turansky.kfc.gradle.plugin.Output.COMPONENT
 import org.gradle.api.Plugin
 import org.gradle.api.Project
