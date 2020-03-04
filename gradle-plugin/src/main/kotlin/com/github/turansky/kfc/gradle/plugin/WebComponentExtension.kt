@@ -7,6 +7,7 @@ import com.github.turansky.kfc.gradle.plugin.WebComponent.Property.Type.*
 
 open class WebComponentExtension {
     var id: String = "<id>"
+    var shadowMode: String = "open"
     var source: String = "<source>"
 
     private val properties: MutableList<Property> = mutableListOf()
@@ -40,6 +41,7 @@ open class WebComponentExtension {
     internal fun build(): WebComponent =
         WebComponent(
             id = id,
+            shadowMode = shadowMode,
             properties = properties.toList(),
             methods = methods.toList(),
             events = events.toList(),

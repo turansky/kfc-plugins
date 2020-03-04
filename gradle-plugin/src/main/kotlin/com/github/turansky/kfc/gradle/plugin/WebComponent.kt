@@ -14,6 +14,7 @@ private fun redispatchEvent(type: String): String = """
 
 data class WebComponent(
     private val id: String,
+    private val shadowMode: String,
     private val properties: List<Property>,
     private val methods: List<Method>,
     private val events: List<String>,
@@ -30,7 +31,7 @@ data class WebComponent(
         |     super();
         |     
         |     $SOURCE = new SourceElement()      
-        |     const shadow = this.attachShadow({ mode: 'open' })
+        |     const shadow = this.attachShadow({ mode: '$shadowMode' })
         |     shadow.appendChild($SOURCE)
         |     
         |     ${events.joinToString("\n", transform = ::redispatchEvent)}
