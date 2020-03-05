@@ -20,7 +20,7 @@ private val RULES = """
     config.module.rules.push(
       {
         test: /\.css${'$'}/,
-        use: ['style-loader', 'css-loader']
+        use: 'css-loader'
       },
       {
         test: /\.svg${'$'}/,
