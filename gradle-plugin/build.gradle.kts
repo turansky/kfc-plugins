@@ -23,7 +23,7 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "6.2.1"
+        gradleVersion = "6.2.2"
         distributionType = Wrapper.DistributionType.ALL
     }
 }
