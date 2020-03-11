@@ -2,18 +2,7 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-
-// language=JavaScript
-private val EXTERNALS = """
-    if (config.mode !== 'production') {
-      return
-    }
-    
-    config.externals = [
-      /^yfiles${'$'}/i,
-      /^yfiles\/.+${'$'}/i
-    ]
-""".trimIndent()
+import org.gradle.kotlin.dsl.invoke
 
 // language=JavaScript
 private val RULES = """
@@ -31,9 +20,10 @@ private val RULES = """
 
 class YFilesPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks.configureEach<PatchWebpackConfig> {
-            patch("externals", EXTERNALS)
-            patch("rules", RULES)
+        tasks {
+            configureEach<PatchWebpackConfig> {
+                patch("rules", RULES)
+            }
         }
     }
 }
