@@ -29,7 +29,7 @@ class YFilesPlugin : Plugin<Project> {
             }
 
             val copyYFilesMetamodule = register<Copy>("copyYFilesMetamodule") {
-                from(path)
+                from(project.projectDir)
                 into(jsPackageDir("kotlin-dce"))
                 include("yfiles.js")
             }
