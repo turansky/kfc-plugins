@@ -10,27 +10,28 @@ import org.gradle.kotlin.dsl.register
 
 class NpmBuildPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        val npmDir = rootDir.resolve("npm")
-        val npmCommonTemplateDir = npmDir.resolve("common/template")
-        val npmTemplateDir = npmDir.resolve("$name/template")
-        val npmBuildDir = npmDir.resolve("$name/build")
-        val npmSourceDir = npmBuildDir.resolve("src")
+        val npmDir = buildDir.resolve("npm")
 
         tasks {
             val cleanNpmBuild = register<Delete>("cleanNpmBuild") {
-                delete = setOf(npmBuildDir)
+                delete = setOf(npmDir)
             }
 
             val prepareNpmSources = register<Copy>("prepareNpmSources") {
-                from(buildDir.resolve("distributions"))
-                into(npmSourceDir)
+                from(project.buildDir.resolve("distributions"))
+                into(npmDir)
+
                 include(COMPONENT.fileName)
+                rename(COMPONENT.fileName, "index.js")
             }
 
             val prepareNpmPackage = register<Copy>("prepareNpmPackage") {
-                from(npmCommonTemplateDir)
-                from(npmTemplateDir)
-                into(npmBuildDir)
+                from(project.projectDir)
+                into(npmDir)
+
+                include("package.json")
+                include("index.d.ts")
+                include(".npmignore")
             }
 
             register("prepareNpmBuild") {
