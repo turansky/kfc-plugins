@@ -3,17 +3,11 @@ package com.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Project
 import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmDependency
-import java.io.File
 
 private val IMPLEMENTATION = "implementation"
 
 internal val Project.jsProjectId: String
     get() = "${rootProject.name}-$name"
-
-internal val Project.jsPackageDir: File
-    get() = rootProject.buildDir
-        .resolve("js/packages")
-        .resolve(jsProjectId)
 
 // TODO: optimize calculation
 internal fun Project.relatedProjects(): Set<Project> {

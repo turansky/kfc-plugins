@@ -16,8 +16,7 @@ open class GenerateWebComponent : DefaultTask() {
         get() = getEntry()
 
     private fun getEntry(createMode: Boolean = false): File =
-        project.jsPackageDir
-            .resolve("webcomponent")
+        jsPackageDir("webcomponent")
             .also { if (createMode) it.mkdir() }
             .resolve("index.js")
 

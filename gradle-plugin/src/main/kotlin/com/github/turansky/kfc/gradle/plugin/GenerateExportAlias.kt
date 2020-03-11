@@ -15,8 +15,7 @@ open class GenerateExportAlias : DefaultTask() {
         get() = getEntry()
 
     private fun getEntry(createMode: Boolean = false): File =
-        project.jsPackageDir
-            .resolve("kotlin-export-alias")
+        jsPackageDir("kotlin-export-alias")
             .also { if (createMode) it.mkdir() }
             .resolve("index.js")
 
