@@ -29,7 +29,7 @@ open class PatchWebpackConfig : DefaultTask() {
 
     @TaskAction
     private fun generatePatches() {
-        val content = getAllPatches()
+        val content = patches
             .asSequence()
             .sortedBy { it.key }
             .map { (name, body) -> createPatch(name, body) }
@@ -39,35 +39,6 @@ open class PatchWebpackConfig : DefaultTask() {
             .also { it.mkdirs() }
             .resolve("patch.js")
             .writeText(content)
-    }
-
-    private fun getAllPatches(): Map<String, String> {
-        val resourcePatch = resourcePatch()
-            ?: return patches.toMap()
-
-        return patches.toMutableMap()
-            .apply { put(resourcePatch.first, resourcePatch.second) }
-            .toMap()
-    }
-
-    private fun resourcePatch(): Pair<String, String>? {
-        val resources = project.relatedResources()
-        if (resources.isEmpty()) {
-            return null
-        }
-
-        val paths = resources.joinToString(",\n") {
-            it.toPathString()
-        }
-
-        // language=JavaScript
-        val body = """
-            |config.resolve.modules.unshift(
-            |    $paths
-            |)
-        """.trimMargin()
-
-        return "resources" to body
     }
 }
 

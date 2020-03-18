@@ -17,7 +17,9 @@ class WebpackPlugin : Plugin<Project> {
 
         plugins.withType<KotlinJsPluginWrapper> {
             tasks {
-                val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig")
+                val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig") {
+                    addResourceModules()
+                }
 
                 named<Delete>("clean") {
                     delete(patchWebpackConfig)
@@ -29,4 +31,24 @@ class WebpackPlugin : Plugin<Project> {
             }
         }
     }
+}
+
+private fun PatchWebpackConfig.addResourceModules() {
+    val resources = project.relatedResources()
+    if (resources.isEmpty()) {
+        return
+    }
+
+    val paths = resources.joinToString(",\n") {
+        it.toPathString()
+    }
+
+    // language=JavaScript
+    val body = """
+            |config.resolve.modules.unshift(
+            |    $paths
+            |)
+        """.trimMargin()
+
+    patch("resources", body)
 }
