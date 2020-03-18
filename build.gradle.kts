@@ -6,6 +6,7 @@ plugins {
     id("com.github.turansky.kfc.library") apply false
     id("com.github.turansky.kfc.component") apply false
     id("com.github.turansky.kfc.webcomponent") apply false
+    id("com.github.turansky.kfc.yfiles") apply false
 }
 
 allprojects {
