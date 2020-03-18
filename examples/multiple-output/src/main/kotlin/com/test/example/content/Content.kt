@@ -1,6 +1,6 @@
-package com.test.example.app
+package com.test.example.content
 
-class App {
+class Content {
     fun whatIsTheMeaningOfLife(): String = "42"
 
     fun kyky(): List<String> = listOf("ky", "ky")

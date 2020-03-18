@@ -1,12 +1,12 @@
-package com.test.example.app
+package com.test.example.content
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class AppTest {
+class ContentTest {
     @Test
     fun whatIsTheMeaningOfLife() {
-        val app = App()
+        val app = Content()
         assertEquals(app.whatIsTheMeaningOfLife(), "42")
     }
 }
