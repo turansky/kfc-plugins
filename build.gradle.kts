@@ -3,6 +3,7 @@ plugins {
     kotlin("multiplatform") version kotlinVersion apply false
     kotlin("js") version kotlinVersion apply false
 
+    id("com.github.turansky.kfc.webpack") apply false
     id("com.github.turansky.kfc.library") apply false
     id("com.github.turansky.kfc.component") apply false
     id("com.github.turansky.kfc.webcomponent") apply false

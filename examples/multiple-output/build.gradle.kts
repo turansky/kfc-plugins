@@ -1,12 +1,13 @@
 plugins {
     kotlin("js")
-    id("com.github.turansky.kfc.component")
+    id("com.github.turansky.kfc.webpack")
 }
 
 kotlin.target.browser()
 
-component {
-    root = "com.test.example.app"
+webpack {
+    output("content", "com.test.example.content")
+    output("background", "com.test.example.background")
 }
 
 dependencies {

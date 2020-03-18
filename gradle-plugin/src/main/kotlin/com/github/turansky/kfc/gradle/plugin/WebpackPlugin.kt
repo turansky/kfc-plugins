@@ -30,6 +30,10 @@ class WebpackPlugin : Plugin<Project> {
                 }
             }
         }
+
+        afterEvaluate {
+            println(extension.toString())
+        }
     }
 }
 
