@@ -12,7 +12,8 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        // WA: for Kotlin & Karma
+        // TODO: Remove after fix
+        //  https://youtrack.jetbrains.com/issue/KT-37587
         projectDir.resolve("webpack.config.d").mkdir()
 
         plugins.withType<KotlinJsPluginWrapper> {
