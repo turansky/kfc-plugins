@@ -29,16 +29,31 @@ open class PatchWebpackConfig : DefaultTask() {
 
     @TaskAction
     private fun generatePatches() {
-        for ((name, body) in patches) {
-            generate(name, body)
-        }
+        val content = getAllPatches()
+            .asSequence()
+            .sortedBy { it.key }
+            .map { (name, body) -> createPatch(name, body) }
+            .joinToString("\n\n")
+
+        configDirectory
+            .also { it.mkdirs() }
+            .resolve("patch.js")
+            .writeText(content)
     }
 
-    @TaskAction
-    private fun generateResources() {
+    private fun getAllPatches(): Map<String, String> {
+        val resourcePatch = resourcePatch()
+            ?: return patches.toMap()
+
+        return patches.toMutableMap()
+            .apply { put(resourcePatch.first, resourcePatch.second) }
+            .toMap()
+    }
+
+    private fun resourcePatch(): Pair<String, String>? {
         val resources = project.relatedResources()
         if (resources.isEmpty()) {
-            return
+            return null
         }
 
         val paths = resources.joinToString(",\n") {
@@ -52,19 +67,16 @@ open class PatchWebpackConfig : DefaultTask() {
             |)
         """.trimMargin()
 
-        generate("resources", body)
-    }
-
-    private fun generate(name: String, body: String) {
-        configDirectory
-            .also { it.mkdirs() }
-            .resolve("$name.js")
-            .writeText(createPatch(body))
+        return "resources" to body
     }
 }
 
-private fun createPatch(body: String): String =
+private fun createPatch(
+    name: String,
+    body: String
+): String =
     """
+        |// $name
         |;(function (config) {
         |$body
         |})(config)
