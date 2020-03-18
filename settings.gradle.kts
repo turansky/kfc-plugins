@@ -2,6 +2,7 @@ rootProject.name = "kfc-plugins"
 
 include("examples:component-extension")
 include("examples:component-extension-multiplatform")
+include("examples:multiple-output")
 
 include("examples:web-component-extension")
 include("examples:yfiles-web-component")
