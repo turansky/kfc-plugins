@@ -6,8 +6,15 @@ plugins {
 kotlin.target.browser()
 
 webpack {
-    output("content", "com.test.example.content")
-    output("background", "com.test.example.background")
+    output(
+        name = "content",
+        root = "com.test.example.content"
+    )
+
+    output(
+        name = "background",
+        root = "com.test.example.background"
+    )
 }
 
 dependencies {
