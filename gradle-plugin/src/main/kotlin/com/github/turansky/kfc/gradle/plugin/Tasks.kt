@@ -13,14 +13,16 @@ internal val DEVELOPMENT_RUN_TASKS = setOf(
 internal const val JS_JAR_TASK = "JsJar"
 internal const val JS_SOURCES_JAR_TASK = "JsSourcesJar"
 
+internal val Task.jsProjectId: String
+    get() = project.jsProjectId
+
 internal fun Task.jsPackageDir(relative: String): File =
-    project.run {
-        rootProject.buildDir
-            .resolve("js")
-            .resolve("packages")
-            .resolve(jsProjectId)
-            .resolve(relative)
-    }
+    project.rootProject
+        .buildDir
+        .resolve("js")
+        .resolve("packages")
+        .resolve(jsProjectId)
+        .resolve(relative)
 
 internal fun TaskContainerScope.useModularJsTarget() {
     configureEach<KotlinJsCompile> {

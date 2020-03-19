@@ -24,7 +24,7 @@ open class GenerateExportAlias : DefaultTask() {
         val export = export ?: return
 
         val content = alias(
-            moduleName = project.jsProjectId,
+            moduleName = jsProjectId,
             export = export
         )
         getEntry(true).writeText(content)

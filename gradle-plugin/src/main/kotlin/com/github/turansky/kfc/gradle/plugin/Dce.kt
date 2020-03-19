@@ -1,6 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import org.gradle.api.Project
+import org.gradle.api.Task
 
-internal fun Project.keepId(path: String): String =
+internal fun Task.keepId(path: String): String =
     "$jsProjectId.$path"

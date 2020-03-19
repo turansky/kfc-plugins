@@ -23,7 +23,7 @@ open class GenerateWebComponent : DefaultTask() {
     @TaskAction
     private fun generate() {
         val component = checkNotNull(component)
-        getEntry(true).writeText(component.toCode(project.jsProjectId))
+        getEntry(true).writeText(component.toCode(jsProjectId))
     }
 }
 
