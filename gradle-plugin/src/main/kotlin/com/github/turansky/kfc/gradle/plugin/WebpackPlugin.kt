@@ -41,7 +41,7 @@ class WebpackPlugin : Plugin<Project> {
             tasks {
                 configureEach<KotlinJsDce> {
                     for (output in outputs) {
-                        keep += keepId(output.root)
+                        keepPath(output.root)
                     }
                 }
             }

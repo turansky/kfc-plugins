@@ -38,7 +38,7 @@ class ComponentPlugin : Plugin<Project> {
 
             tasks {
                 configureEach<KotlinJsDce> {
-                    keep += keepId(componentRoot)
+                    keepPath(componentRoot)
                 }
 
                 configureEach<PatchWebpackConfig> {

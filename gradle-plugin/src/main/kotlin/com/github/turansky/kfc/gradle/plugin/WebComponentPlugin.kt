@@ -39,7 +39,7 @@ class WebComponentPlugin : Plugin<Project> {
 
             tasks {
                 configureEach<KotlinJsDce> {
-                    keep += keepId(extension.source)
+                    keepPath(extension.source)
                 }
 
                 configureEach<PatchWebpackConfig> {
