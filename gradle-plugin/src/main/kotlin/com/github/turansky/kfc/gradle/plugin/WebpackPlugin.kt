@@ -5,6 +5,7 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.Delete
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 
 class WebpackPlugin : Plugin<Project> {
@@ -32,7 +33,18 @@ class WebpackPlugin : Plugin<Project> {
         }
 
         afterEvaluate {
-            println(extension.toString())
+            val outputs = extension.outputs.toList()
+            if (outputs.isEmpty()) {
+                return@afterEvaluate
+            }
+
+            tasks {
+                configureEach<KotlinJsDce> {
+                    for (output in outputs) {
+                        keep += keepId(output.root)
+                    }
+                }
+            }
         }
     }
 }
