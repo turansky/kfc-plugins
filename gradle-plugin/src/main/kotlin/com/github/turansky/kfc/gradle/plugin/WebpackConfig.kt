@@ -2,29 +2,22 @@ package com.github.turansky.kfc.gradle.plugin
 
 import java.io.File
 
-internal fun defaultOutputConfiguration(): String {
+internal fun defaultOutputConfiguration(): String =
     // language=JavaScript
-    return """
+    """
         config.output = config.output || {}
         config.output.libraryTarget = 'umd'
         delete config.output.library
     """.trimIndent()
-}
 
-internal fun outputConfiguration(path: String): String {
-    val libraryExport = path
-        .split(".")
-        .map { "'$it'" }
-        .joinToString(", ")
-
+internal fun outputConfiguration(path: String): String =
     // language=JavaScript
-    return """
+    """
         config.output = config.output || {}
         config.output.libraryTarget = 'umd'
-        config.output.libraryExport = [$libraryExport]
+        config.output.libraryExport = ${libraryExport(path)}
         delete config.output.library
     """.trimIndent()
-}
 
 internal fun entryConfiguration(
     output: Output? = null,
@@ -41,3 +34,9 @@ internal fun entryConfiguration(
         config.entry['$entryId'] = ${entry.toPathString()}
     """.trimIndent()
 }
+
+private fun libraryExport(path: String): String =
+    path.split(".")
+        .map { "'$it'" }
+        .joinToString(", ")
+        .let { "[ $it ]" }
