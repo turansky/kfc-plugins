@@ -10,6 +10,9 @@ open class PatchWebpackConfig : DefaultTask() {
     @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()
 
+    @get:Input
+    val inlinePatches: MutableList<String> = mutableListOf()
+
     @get:OutputDirectory
     val configDirectory: File
         get() = project.projectDir.resolve("webpack.config.d")
@@ -27,12 +30,17 @@ open class PatchWebpackConfig : DefaultTask() {
         }
     }
 
+    internal fun inlinePatch(body: String) {
+        inlinePatches += body
+    }
+
     @TaskAction
     private fun generatePatches() {
         val content = patches
             .asSequence()
             .sortedBy { it.key }
             .map { (name, body) -> createPatch(name, body) }
+            .plus(inlinePatches)
             .joinToString("\n\n")
 
         configDirectory
