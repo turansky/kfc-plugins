@@ -27,13 +27,17 @@ internal fun outputConfiguration(outputs: List<WebpackOutput>): String {
     // language=JavaScript
     return """
         // multi output
-        
-        config.output = config.output || {}
-        delete config.output.library
+        if (config.mode == 'production') {
+          config.output = config.output || {}
+          delete config.output.library
 
-        config = [
-          $configs
-        ]
+          config = [
+            $configs
+          ]
+          
+          // WA temp progress plugin fix
+          config.plugins = []
+        }
     """.trimIndent()
 }
 
@@ -41,9 +45,11 @@ private fun outputConfiguration(output: WebpackOutput): String =
     // language=JavaScript
     """
           Object.assign({}, config, {
-            name: ${output.name}
+            name: '${output.name}',
             output: {
-              filename: "[name].js",
+              path: config.output.path,
+              filename: '${output.name}.js',
+              libraryTarget: 'umd',
               libraryExport: ${libraryExport(output.root)}
             }
           })

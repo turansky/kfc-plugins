@@ -44,6 +44,10 @@ class WebpackPlugin : Plugin<Project> {
                         keepPath(output.root)
                     }
                 }
+
+                configureEach<PatchWebpackConfig> {
+                    inlinePatch(outputConfiguration(outputs))
+                }
             }
         }
     }
