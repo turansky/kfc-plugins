@@ -36,6 +36,10 @@ open class PatchWebpackConfig : DefaultTask() {
 
     @TaskAction
     private fun generatePatches() {
+        if (patches.isEmpty() && inlinePatches.isEmpty()) {
+            return
+        }
+
         val content = patches
             .asSequence()
             .sortedBy { it.key }
