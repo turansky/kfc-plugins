@@ -28,9 +28,6 @@ internal fun outputConfiguration(outputs: List<WebpackOutput>): String {
     return """
         // multi output
         if (config.mode == 'production') {
-          config.output = config.output || {}
-          delete config.output.library
-
           const plugins = config.plugins
           config = [
             $configs
