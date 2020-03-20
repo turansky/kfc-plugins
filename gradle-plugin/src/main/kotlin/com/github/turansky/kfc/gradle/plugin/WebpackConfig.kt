@@ -31,12 +31,13 @@ internal fun outputConfiguration(outputs: List<WebpackOutput>): String {
           config.output = config.output || {}
           delete config.output.library
 
+          const plugins = config.plugins
           config = [
             $configs
           ]
           
           // WA temp progress plugin fix
-          config.plugins = []
+          config.plugins = plugins
         }
     """.trimIndent()
 }
