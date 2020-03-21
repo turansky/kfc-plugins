@@ -3,6 +3,7 @@ package com.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Delete
+import org.gradle.api.tasks.TaskContainer
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
@@ -33,22 +34,7 @@ class WebpackPlugin : Plugin<Project> {
         }
 
         afterEvaluate {
-            val outputs = extension.outputs.toList()
-            if (outputs.isEmpty()) {
-                return@afterEvaluate
-            }
-
-            tasks {
-                configureEach<KotlinJsDce> {
-                    for (output in outputs) {
-                        keepPath(output.root)
-                    }
-                }
-
-                configureEach<PatchWebpackConfig> {
-                    inlinePatch(outputConfiguration(outputs))
-                }
-            }
+            tasks.configureOutputs(extension.outputs.toList())
         }
     }
 }
@@ -71,4 +57,22 @@ private fun PatchWebpackConfig.addResourceModules() {
         """.trimMargin()
 
     patch("resources", body)
+}
+
+private fun TaskContainer.configureOutputs(
+    outputs: List<WebpackOutput>
+) {
+    if (outputs.isEmpty()) {
+        return
+    }
+
+    configureEach<KotlinJsDce> {
+        for (output in outputs) {
+            keepPath(output.root)
+        }
+    }
+
+    configureEach<PatchWebpackConfig> {
+        inlinePatch(outputConfiguration(outputs))
+    }
 }
