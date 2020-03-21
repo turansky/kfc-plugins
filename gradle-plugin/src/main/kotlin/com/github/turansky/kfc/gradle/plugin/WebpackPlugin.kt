@@ -6,8 +6,8 @@ import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
+import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -66,13 +66,39 @@ private fun TaskContainer.configureOutputs(
         return
     }
 
-    configureEach<KotlinJsDce> {
-        for (output in outputs) {
-            keepPath(output.root)
-        }
+    val dce = withType<KotlinJsDce>()
+        .singleOrNull()
+        ?: return
+
+    val devMode = dce.dceOptions.devMode
+    val outputDirectory = dce.jsPackageDir("kotlin-dce-2")
+    val kotlinFilesOnly = dce.kotlinFilesOnly
+    val keep = dce.keep.toList()
+
+    val taskMap = mutableMapOf(outputs.first() to dce)
+        .apply {
+            outputs.asSequence()
+                .drop(1)
+                .forEach {
+                    val task = register<KotlinJsDce>("${dce.name}__${it.name}").get()
+                    dce.dependsOn(task)
+                    put(it, task)
+                }
+        }.toMap()
+
+    for ((output, task) in taskMap) {
+        task.destinationDir = outputDirectory.resolve(output.name)
+
+        task.dceOptions.devMode = devMode
+        task.dceOptions.outputDirectory = task.destinationDir.absolutePath
+        task.kotlinFilesOnly = kotlinFilesOnly
+
+        task.keep.clear()
+        task.keep.addAll(keep)
+        task.keepPath(output.root)
     }
 
     configureEach<PatchWebpackConfig> {
-        inlinePatch(outputConfiguration(outputs))
+        inlinePatch(outputConfiguration(outputs, outputDirectory, project.jsProjectId))
     }
 }

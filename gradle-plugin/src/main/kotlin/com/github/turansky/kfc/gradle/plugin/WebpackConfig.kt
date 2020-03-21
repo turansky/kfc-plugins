@@ -19,10 +19,14 @@ internal fun outputConfiguration(path: String): String =
         delete config.output.library
     """.trimIndent()
 
-internal fun outputConfiguration(outputs: List<WebpackOutput>): String {
+internal fun outputConfiguration(
+    outputs: List<WebpackOutput>,
+    outputDirectory: File,
+    entryName: String
+): String {
     val configs = outputs
         .joinToString(",\n\n")
-        { outputConfiguration(it) }
+        { outputConfiguration(it, outputDirectory, entryName) }
 
     // language=JavaScript
     return """
@@ -39,11 +43,27 @@ internal fun outputConfiguration(outputs: List<WebpackOutput>): String {
     """.trimIndent()
 }
 
-private fun outputConfiguration(output: WebpackOutput): String =
+private fun outputConfiguration(
+    output: WebpackOutput,
+    outputDirectory: File,
+    entryName: String
+): String {
+    val buildDir = outputDirectory.resolve(output.name)
+    val entry = buildDir.resolve("${entryName}.js")
+
     // language=JavaScript
-    """
+    return """
           Object.assign({}, config, {
             name: '${output.name}',
+            entry: {
+              main: ${entry.toPathString()}
+            },
+            resolve: {
+              modules: [
+                  ${outputDirectory.resolve(output.name).toPathString()},
+                  'node_modules'
+              ]
+            },
             output: {
               path: config.output.path,
               filename: '${output.name}.js',
@@ -52,6 +72,7 @@ private fun outputConfiguration(output: WebpackOutput): String =
             }
           })
     """.trimIndent()
+}
 
 internal fun entryConfiguration(
     output: Output? = null,
