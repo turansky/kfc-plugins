@@ -3,12 +3,12 @@ package com.github.turansky.kfc.gradle.plugin
 open class WebpackExtension {
     internal val outputs = mutableListOf<WebpackOutput>()
 
-    fun output(name: String, root: String) {
-        outputs.add(WebpackOutput(name, root))
+    fun output(action: WebpackOutput.() -> Unit) {
+        outputs.add(WebpackOutput().apply(action))
     }
 }
 
-internal data class WebpackOutput(
-    val name: String,
-    val root: String
-)
+class WebpackOutput {
+    var name: String = "<undefined>"
+    var root: String = "<undefined>"
+}
