@@ -75,7 +75,15 @@ webpack {
 }
 ```
 
-Standard distribution dir used - `build/distributions`.
+Standard distribution directory used for output
+ ```
+ build/
+  distributions/
+    background.js
+    content.js
+```
+
+[Test example](examples/multiple-output)
 
 ## `library`
 
