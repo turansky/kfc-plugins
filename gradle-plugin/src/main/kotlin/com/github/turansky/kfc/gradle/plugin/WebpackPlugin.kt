@@ -89,6 +89,11 @@ private fun TaskContainer.configureOutputs(
     for ((output, task) in taskMap) {
         task.destinationDir = outputDirectory.resolve(output.name)
 
+        task.source = dce.source
+        task.classpath = dce.classpath
+        task.sourceCompatibility = dce.sourceCompatibility
+        task.targetCompatibility = dce.targetCompatibility
+
         task.dceOptions.devMode = devMode
         task.dceOptions.outputDirectory = task.destinationDir.absolutePath
         task.kotlinFilesOnly = kotlinFilesOnly
