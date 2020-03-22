@@ -8,6 +8,8 @@
 ## Table of contents
 * Plugins
   * [`webpack`](#webpack)
+    * [Resources](#resources)
+    * [Multiple outputs](#multiple-outputs)
   * [`library`](#library)
     * [NPM Dependencies](#npm-dependencies)
   * [`component`](#component)
@@ -22,11 +24,12 @@
 ```Kotlin
 plugins {
     kotlin("js") version "1.3.70" 
-    id("com.github.turansky.kfc.webpack") version "0.3.0"
+    id("com.github.turansky.kfc.webpack") version "0.5.0"
 }
 
 tasks {
     patchWebpackConfig {
+        // language=JavaScript
         patch("""
             config.output.libraryExport = ["com", "example", "app"]
         """)
@@ -47,6 +50,28 @@ By default `webpack` plugin add `src/main/resources` directory of:
 * Dependency subprojects 
 
 as Webpack `modules`.
+
+### Multiple outputs
+```Kotlin
+plugins {
+    kotlin("js") version "1.3.70" 
+    id("com.github.turansky.kfc.webpack") version "0.5.0"
+}
+
+webpack {
+    output {
+        name = "content"
+        root = "com.test.example.content"
+    }
+
+    output {
+        name = "background"
+        root = "com.test.example.background"
+    }
+}
+```
+
+Standard distribution dir used - `build/distributions`.
 
 ## `library`
 
