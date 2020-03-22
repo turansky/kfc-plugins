@@ -90,6 +90,7 @@ private fun TaskContainer.registerDceSubtask(
 
         source = root.source
         classpath = root.classpath
+
         sourceCompatibility = root.sourceCompatibility
         targetCompatibility = root.targetCompatibility
 
