@@ -2,6 +2,7 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.kotlin.dsl.*
@@ -70,40 +71,40 @@ private fun TaskContainer.configureOutputs(
         .singleOrNull()
         ?: return
 
-    val devMode = dce.dceOptions.devMode
-    val outputDirectory = dce.jsPackageDir("kotlin-dce-2")
-    val kotlinFilesOnly = dce.kotlinFilesOnly
-    val keep = dce.keep.toList()
-
-    val taskMap = mutableMapOf(outputs.first() to dce)
-        .apply {
-            outputs.asSequence()
-                .drop(1)
-                .forEach {
-                    val task = register<KotlinJsDce>("${dce.name}__${it.name}").get()
-                    dce.dependsOn(task)
-                    put(it, task)
-                }
-        }.toMap()
-
-    for ((output, task) in taskMap) {
-        task.destinationDir = outputDirectory.resolve(output.name)
-
-        task.source = dce.source
-        task.classpath = dce.classpath
-        task.sourceCompatibility = dce.sourceCompatibility
-        task.targetCompatibility = dce.targetCompatibility
-
-        task.dceOptions.devMode = devMode
-        task.dceOptions.outputDirectory = task.destinationDir.absolutePath
-        task.kotlinFilesOnly = kotlinFilesOnly
-
-        task.keep.clear()
-        task.keep.addAll(keep)
-        task.keepPath(output.root)
+    for (output in outputs) {
+        registerDceSubtask(dce, output)
     }
 
     configureEach<PatchWebpackConfig> {
-        inlinePatch(outputConfiguration(outputs, outputDirectory, project.jsProjectId))
+        inlinePatch(outputConfiguration(outputs, ::entry))
     }
 }
+
+private fun TaskContainer.registerDceSubtask(
+    root: KotlinJsDce,
+    output: WebpackOutput
+): Task =
+    register<KotlinJsDce>("${root.name}-${output.name}").get().apply {
+        destinationDir = outputDirectory(output)
+
+        source = root.source
+        classpath = root.classpath
+        sourceCompatibility = root.sourceCompatibility
+        targetCompatibility = root.targetCompatibility
+
+        dceOptions.devMode = root.dceOptions.devMode
+        dceOptions.outputDirectory = destinationDir.absolutePath
+        kotlinFilesOnly = root.kotlinFilesOnly
+
+        keepPath(output.root)
+
+        root.dependsOn(this)
+    }
+
+private fun Task.outputDirectory(output: WebpackOutput) =
+    jsPackageDir("kotlin-dce-plus")
+        .resolve(output.name)
+
+private fun Task.entry(output: WebpackOutput) =
+    outputDirectory(output)
+        .resolve("${jsProjectId}.js")

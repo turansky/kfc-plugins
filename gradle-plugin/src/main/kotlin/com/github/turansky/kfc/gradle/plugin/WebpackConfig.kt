@@ -21,12 +21,11 @@ internal fun outputConfiguration(path: String): String =
 
 internal fun outputConfiguration(
     outputs: List<WebpackOutput>,
-    outputDirectory: File,
-    entryName: String
+    getEntry: (WebpackOutput) -> File
 ): String {
     val configs = outputs
         .joinToString(",\n\n")
-        { outputConfiguration(it, outputDirectory, entryName) }
+        { outputConfiguration(it, getEntry(it)) }
 
     // language=JavaScript
     return """
@@ -45,11 +44,9 @@ internal fun outputConfiguration(
 
 private fun outputConfiguration(
     output: WebpackOutput,
-    outputDirectory: File,
-    entryName: String
+    entry: File
 ): String {
-    val buildDir = outputDirectory.resolve(output.name)
-    val entry = buildDir.resolve("${entryName}.js")
+    val buildDir = entry.parentFile
 
     // language=JavaScript
     return """
@@ -60,7 +57,7 @@ private fun outputConfiguration(
             },
             resolve: {
               modules: [
-                  ${outputDirectory.resolve(output.name).toPathString()},
+                  ${buildDir.toPathString()},
                   'node_modules'
               ]
             },
