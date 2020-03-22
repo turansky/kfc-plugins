@@ -5,6 +5,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.TaskContainer
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
@@ -72,7 +73,7 @@ private fun TaskContainer.configureOutputs(
         ?: return
 
     for (output in outputs) {
-        registerDceSubtask(dce, output)
+        dce.dependsOn(registerDceSubtask(dce, output))
     }
 
     configureEach<PatchWebpackConfig> {
@@ -83,8 +84,8 @@ private fun TaskContainer.configureOutputs(
 private fun TaskContainer.registerDceSubtask(
     root: KotlinJsDce,
     output: WebpackOutput
-): Task =
-    register<KotlinJsDce>("${root.name}-${output.name}").get().apply {
+): TaskProvider<KotlinJsDce> =
+    register<KotlinJsDce>("${root.name}-${output.name}") {
         destinationDir = outputDirectory(output)
 
         source = root.source
@@ -97,8 +98,6 @@ private fun TaskContainer.registerDceSubtask(
         kotlinFilesOnly = root.kotlinFilesOnly
 
         keepPath(output.root)
-
-        root.dependsOn(this)
     }
 
 private fun Task.outputDirectory(output: WebpackOutput) =
