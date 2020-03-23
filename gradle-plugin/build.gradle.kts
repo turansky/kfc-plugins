@@ -1,7 +1,8 @@
 plugins {
-    id("java-gradle-plugin")
+    `java-gradle-plugin`
+    `kotlin-dsl`
+
     id("com.gradle.plugin-publish") version "0.10.1"
-    id("org.gradle.kotlin.kotlin-dsl") version "1.3.3"
     id("com.github.turansky.kfc.plugin-publish") version "0.5.0"
 
     kotlin("jvm") version "1.3.71"
