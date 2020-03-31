@@ -12,10 +12,10 @@ include("examples:resources:lib-b")
 include("examples:resources:lib-c")
 include("examples:resources:app-d")
 
-include("examples:local-server:entity")
-include("examples:local-server:server")
-include("examples:local-server:view")
-include("examples:local-server:local-server")
+include("examples:webpack-plus-ktor:entity")
+include("examples:webpack-plus-ktor:server")
+include("examples:webpack-plus-ktor:view")
+include("examples:webpack-plus-ktor:local-server")
 
 include("examples:yfiles-optimizer")
 
