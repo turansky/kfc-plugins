@@ -11,5 +11,6 @@ localServer {
 
 dependencies {
     implementation(kotlin("stdlib-js"))
+
     implementation(project(":examples:webpack-plus-ktor:view"))
 }

@@ -2,9 +2,7 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 
-internal fun devServerConfiguration(
-    project: Project
-): String =
+internal fun devServerConfiguration(project: Project): String =
     // language=JavaScript
     """
       if (config.mode !== 'development') {
