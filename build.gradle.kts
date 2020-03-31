@@ -3,6 +3,7 @@ plugins {
     kotlin("multiplatform") version kotlinVersion apply false
     kotlin("jvm") version kotlinVersion apply false
     kotlin("js") version kotlinVersion apply false
+    kotlin("plugin.serialization") version kotlinVersion apply false
 
     id("com.github.turansky.kfc.webpack") apply false
     id("com.github.turansky.kfc.library") apply false
@@ -15,6 +16,14 @@ plugins {
 allprojects {
     repositories {
         jcenter()
+    }
+
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "org.jetbrains.kotlinx" && requested.name.startsWith("kotlinx-serialization-runtime")) {
+                useVersion("0.20.0")
+            }
+        }
     }
 }
 

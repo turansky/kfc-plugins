@@ -1,5 +1,7 @@
 plugins {
     kotlin("js")
+    kotlin("plugin.serialization")
+
     id("com.github.turansky.kfc.component")
 }
 
@@ -11,4 +13,5 @@ component {
 
 dependencies {
     implementation(kotlin("stdlib-js"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js")
 }
