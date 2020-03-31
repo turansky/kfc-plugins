@@ -5,9 +5,14 @@
     <title>Local server</title>
 
     <style>
-        body {
+        html, body {
             padding: 0;
             margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #view-container {
             width: 100%;
             height: 100%;
         }
@@ -16,9 +21,12 @@
     <script src="local-server.js"></script>
 </head>
 <body>
+<div id="view-container"></div>
 <script>
   const view = new View()
-  window.body.appendChild(view)
+
+  document.getElementById('view-container')
+    .appendChild(view)
 </script>
 </body>
 </html>
