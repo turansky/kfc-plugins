@@ -44,8 +44,9 @@ internal fun devServerConfiguration(project: Project): String =
       }
       
       const proxy = devServer.proxy = devServer.proxy || {}
-      proxy['/${project.name}/'] = {
+      proxy['/${project.name}'] = {
         target: serverUrl,
+        pathRewrite: {'^/${project.name}' : ''},
         secure: false,
       }
     """.trimIndent()
