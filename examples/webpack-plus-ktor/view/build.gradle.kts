@@ -14,4 +14,6 @@ component {
 dependencies {
     implementation(kotlin("stdlib-js"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js")
+
+    implementation(project(":examples:webpack-plus-ktor:entity"))
 }
