@@ -13,13 +13,15 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 
+private val APPLICATION_JSON = ContentType.parse("application/json")
+
 fun Application.main() {
     install(DefaultHeaders)
     install(CallLogging)
     routing {
         get("/persons") {
             call.respondText(
-                contentType = ContentType.parse("application/json"),
+                contentType = APPLICATION_JSON,
                 status = HttpStatusCode.OK
             ) { getPersons().toJsonString() }
         }
