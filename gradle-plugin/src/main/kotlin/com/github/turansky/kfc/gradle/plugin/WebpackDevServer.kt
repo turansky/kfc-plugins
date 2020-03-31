@@ -16,7 +16,7 @@ internal fun devServerConfiguration(
 
       console.log('Running ' + runTaskName + ' in background...')
       const rootDir = ${project.rootDir.toPathString()}
-      const childRunProcess = require('child_process').exec(
+      const childRun = require('child_process').exec(
         './gradlew ' + runTaskName,
         {
           'cwd': rootDir
@@ -27,4 +27,21 @@ internal fun devServerConfiguration(
           }
         }
       )
+
+      let isChildRunning = false
+
+      config.devServer = config.devServer || {}
+      config.devServer.before = function (app, server, compiler) {
+        if (isChildRunning) {
+          return
+        }
+  
+        isChildRunning = true
+  
+        const originalClose = server.middleware.close
+        server.middleware.close = function () {
+          childRun.kill('SIGINT')
+          originalClose(arguments)
+        }
+      }
     """.trimIndent()
