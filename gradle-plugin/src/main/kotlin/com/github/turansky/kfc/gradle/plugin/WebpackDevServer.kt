@@ -30,8 +30,8 @@ internal fun devServerConfiguration(
 
       let isChildRunning = false
 
-      config.devServer = config.devServer || {}
-      config.devServer.before = function (app, server, compiler) {
+      const devServer = config.devServer = config.devServer || {}
+      devServer.before = function (app, server, compiler) {
         if (isChildRunning) {
           return
         }
@@ -43,5 +43,11 @@ internal fun devServerConfiguration(
           childRun.kill('SIGINT')
           originalClose(arguments)
         }
+      }
+      
+      const proxy = devServer.proxy = devServer.proxy || {}
+      proxy['/${project.name}/'] = {
+        target: serverUrl,
+        secure: false,
       }
     """.trimIndent()
