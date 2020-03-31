@@ -12,6 +12,7 @@ include("examples:resources:lib-b")
 include("examples:resources:lib-c")
 include("examples:resources:app-d")
 
+include("examples:local-server:entity")
 include("examples:local-server:server")
 
 include("examples:yfiles-optimizer")
