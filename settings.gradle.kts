@@ -15,6 +15,7 @@ include("examples:resources:app-d")
 include("examples:local-server:entity")
 include("examples:local-server:server")
 include("examples:local-server:view")
+include("examples:local-server:local-server")
 
 include("examples:yfiles-optimizer")
 
