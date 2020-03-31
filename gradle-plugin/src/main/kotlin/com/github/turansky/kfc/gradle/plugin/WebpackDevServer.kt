@@ -2,7 +2,10 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 
-internal fun devServerConfiguration(project: Project): String =
+internal fun devServerConfiguration(
+    project: Project,
+    port: Int
+): String =
     // language=JavaScript
     """
       if (config.mode !== 'development') {
@@ -10,7 +13,6 @@ internal fun devServerConfiguration(project: Project): String =
       }
       
       const runTaskName = '${project.path}:run'
-      const serverUrl = 'http://localhost:8081'
 
       console.log('Running ' + runTaskName + ' in background...')
       const rootDir = ${project.rootDir.toPathString()}
@@ -45,7 +47,7 @@ internal fun devServerConfiguration(project: Project): String =
       
       const proxy = devServer.proxy = devServer.proxy || {}
       proxy['/${project.name}'] = {
-        target: serverUrl,
+        target: 'http://localhost:$port',
         pathRewrite: {'^/${project.name}' : ''},
         secure: false,
       }
