@@ -1,6 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import com.github.turansky.kfc.gradle.plugin.Output.LOCAL_SERVER
+import com.github.turansky.kfc.gradle.plugin.Output.DEV_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.*
@@ -13,7 +13,7 @@ class DevServerPlugin : Plugin<Project> {
         plugins.withType<KotlinJsPluginWrapper> {
             plugins.apply(WebpackPlugin::class)
 
-            val extension = extensions.create<DevServerExtension>("localServer")
+            val extension = extensions.create<DevServerExtension>("devServer")
             val generateExportAlias = tasks.register<GenerateExportAlias>("generateExportAlias")
 
             tasks {
@@ -28,7 +28,7 @@ class DevServerPlugin : Plugin<Project> {
                         enabled = false
                     }
 
-                    outputFileName = LOCAL_SERVER.fileName
+                    outputFileName = DEV_SERVER.fileName
                     sourceMaps = false
 
                     dependsOn(generateExportAlias)
@@ -42,7 +42,7 @@ class DevServerPlugin : Plugin<Project> {
                         |const mainEntry = config.entry.main[0]
                         |delete config.entry.main
                         |
-                        |config.entry['${LOCAL_SERVER.id}'] = mainEntry
+                        |config.entry['${DEV_SERVER.id}'] = mainEntry
                         |
                         |config.output = config.output || {}
                         |config.output.filename = '[name].js'
@@ -60,16 +60,16 @@ class DevServerPlugin : Plugin<Project> {
             }
 
             afterEvaluate {
-                val localServerRoot = extension.root
+                val devServerRoot = extension.root
                     ?: return@afterEvaluate
 
                 generateExportAlias {
-                    export = localServerRoot
+                    export = devServerRoot
                 }
 
                 tasks.configureEach<PatchWebpackConfig> {
                     val entry = entryConfiguration(
-                        output = LOCAL_SERVER,
+                        output = DEV_SERVER,
                         entry = generateExportAlias.get().entry
                     )
                     patch("entry", entry)

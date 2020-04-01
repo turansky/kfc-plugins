@@ -5,7 +5,7 @@ plugins {
 
 kotlin.target.browser()
 
-localServer {
+devServer {
     root = "com.test.view"
 
     proxy {
