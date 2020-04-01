@@ -84,17 +84,11 @@ class DevServerPlugin : Plugin<Project> {
 
                 tasks.configureEach<PatchWebpackConfig> {
                     for (proxy in proxies) {
-                        val port = proxy.port.also {
-                            check(it > 0) {
-                                "Invalid proxy port: '$it'"
-                            }
-                        }
-
                         patch(
                             "application-proxy",
                             devServerConfiguration(
                                 source = project.findRunTask(proxy.source),
-                                port = port
+                                port = proxy.port.also { it.validatePort() }
                             )
                         )
                     }
@@ -112,5 +106,11 @@ private fun Project.findRunTask(path: String): Task {
     }
 
     return project.tasks.getByPath(path)
+}
+
+private fun Int.validatePort() {
+    check(this > 0) {
+        "Invalid port: '$this'"
+    }
 }
 
