@@ -3,14 +3,11 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.Output.LOCAL_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.ApplicationPlugin
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
-
-open class LocalServerExtension {
-    var root: String? = null
-}
 
 class LocalServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
