@@ -10,8 +10,8 @@ devServer {
 
     proxy {
         // Or task path
-        // source = ":examples:webpack-plus-ktor:server:run"
-        source = ":examples:webpack-plus-ktor:server"
+        // source = ":examples:webpack-plus-ktor:ktor-server:run"
+        source = ":examples:webpack-plus-ktor:ktor-server"
         port = 8081
     }
 }
