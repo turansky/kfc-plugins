@@ -3,7 +3,6 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.Output.LOCAL_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.ApplicationPlugin
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
@@ -74,6 +73,34 @@ class LocalServerPlugin : Plugin<Project> {
                         entry = generateExportAlias.get().entry
                     )
                     patch("entry", entry)
+                }
+            }
+
+            afterEvaluate {
+                val proxies = extension.proxies
+                    .ifEmpty { return@afterEvaluate }
+                    .toList()
+
+                tasks.configureEach<PatchWebpackConfig> {
+                    for (proxy in proxies) {
+                        val source = requireNotNull(proxy.source) {
+                            "Proxy source project is undefined"
+                        }
+
+                        val port = proxy.port.also {
+                            check(it > 0) {
+                                "Invalid proxy port: '$it'"
+                            }
+                        }
+
+                        patch(
+                            "application-proxy",
+                            devServerConfiguration(
+                                project = source,
+                                port = port
+                            )
+                        )
+                    }
                 }
             }
         }
