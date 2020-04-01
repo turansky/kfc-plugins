@@ -9,6 +9,8 @@ devServer {
     root = "com.test.view"
 
     proxy {
+        // Or task path
+        // source = ":examples:webpack-plus-ktor:server:run"
         source = ":examples:webpack-plus-ktor:server"
         port = 8081
     }
