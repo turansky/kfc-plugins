@@ -15,7 +15,7 @@ include("examples:resources:app-d")
 include("examples:webpack-plus-ktor:entity")
 include("examples:webpack-plus-ktor:ktor-server")
 include("examples:webpack-plus-ktor:view")
-include("examples:webpack-plus-ktor:dev-server")
+include("examples:webpack-plus-ktor:webpack-server")
 
 include("examples:yfiles-optimizer")
 
