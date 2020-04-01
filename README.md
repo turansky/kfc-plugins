@@ -33,7 +33,7 @@ tasks {
     patchWebpackConfig {
         // language=JavaScript
         patch("""
-            config.output.libraryExport = ["com", "example", "app"]
+            config.output.libraryExport = ['com', 'example', 'app']
         """)
     }
 }

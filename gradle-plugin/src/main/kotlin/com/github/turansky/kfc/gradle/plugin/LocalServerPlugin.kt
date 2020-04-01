@@ -45,7 +45,7 @@ class LocalServerPlugin : Plugin<Project> {
                         |config.entry['${LOCAL_SERVER.id}'] = mainEntry
                         |
                         |config.output = config.output || {}
-                        |config.output.filename = "[name].js"
+                        |config.output.filename = '[name].js'
                         |config.output.libraryTarget = 'umd'
                         |delete config.output.library
                         """.trimMargin()
