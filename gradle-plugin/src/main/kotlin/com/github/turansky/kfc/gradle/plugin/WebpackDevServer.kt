@@ -1,13 +1,12 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Task
-import org.gradle.api.tasks.TaskProvider
 
 internal fun devServerConfiguration(
-    source: TaskProvider<Task>,
+    source: Task,
     port: Int
 ): String {
-    val project = source.get().project
+    val project = source.project
     val projectName = project.name
     val runTaskPath = "${project.path}:${source.name}"
 
