@@ -2,7 +2,7 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 
-open class LocalServerExtension {
+open class DevServerExtension {
     var root: String? = null
 
     internal val proxies = mutableListOf<ApplicationProxy>()

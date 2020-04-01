@@ -1,6 +1,6 @@
 plugins {
     kotlin("js")
-    id("com.github.turansky.kfc.local-server")
+    id("com.github.turansky.kfc.dev-server")
 }
 
 kotlin.target.browser()

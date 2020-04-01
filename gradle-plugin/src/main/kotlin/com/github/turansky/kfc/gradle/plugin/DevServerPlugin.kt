@@ -8,12 +8,12 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
-class LocalServerPlugin : Plugin<Project> {
+class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<KotlinJsPluginWrapper> {
             plugins.apply(WebpackPlugin::class)
 
-            val extension = extensions.create<LocalServerExtension>("localServer")
+            val extension = extensions.create<DevServerExtension>("localServer")
             val generateExportAlias = tasks.register<GenerateExportAlias>("generateExportAlias")
 
             tasks {
