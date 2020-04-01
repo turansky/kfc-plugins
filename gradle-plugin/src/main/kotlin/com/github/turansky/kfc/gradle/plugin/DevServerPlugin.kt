@@ -83,10 +83,6 @@ class DevServerPlugin : Plugin<Project> {
 
                 tasks.configureEach<PatchWebpackConfig> {
                     for (proxy in proxies) {
-                        val source = requireNotNull(proxy.source) {
-                            "Proxy source project is undefined"
-                        }
-
                         val port = proxy.port.also {
                             check(it > 0) {
                                 "Invalid proxy port: '$it'"
@@ -96,7 +92,7 @@ class DevServerPlugin : Plugin<Project> {
                         patch(
                             "application-proxy",
                             devServerConfiguration(
-                                project = source,
+                                source = proxy.sourceTask,
                                 port = port
                             )
                         )

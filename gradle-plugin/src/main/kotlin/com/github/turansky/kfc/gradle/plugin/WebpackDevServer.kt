@@ -1,29 +1,31 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import org.gradle.api.Project
+import org.gradle.api.Task
+import org.gradle.api.tasks.TaskProvider
 
 internal fun devServerConfiguration(
-    project: Project,
+    source: TaskProvider<Task>,
     port: Int
-): String =
+): String {
+    val project = source.get().project
+    val projectName = project.name
+    val runTaskPath = "${project.path}:${source.name}"
+
     // language=JavaScript
-    """
+    return """
       if (config.mode !== 'development') {
         return
       }
       
-      const runTaskName = '${project.path}:run'
-
-      console.log('Running ' + runTaskName + ' in background...')
-      const rootDir = ${project.rootDir.toPathString()}
+      console.log('Running $runTaskPath in background...')
       const childRun = require('child_process').exec(
-        './gradlew ' + runTaskName,
+        './gradlew $runTaskPath',
         {
-          cwd: rootDir
+          cwd: ${project.rootDir.toPathString()}
         },
         (err, stdout, stderr) => {
           if (err) {
-            console.log('Cannot run ' + runTaskName + ' server: ' + err)
+            console.log('Cannot run $runTaskPath server: ' + err)
           }
         }
       )
@@ -46,9 +48,10 @@ internal fun devServerConfiguration(
       }
       
       const proxy = devServer.proxy = devServer.proxy || {}
-      proxy['/${project.name}'] = {
+      proxy['/$projectName'] = {
         target: 'http://localhost:$port',
-        pathRewrite: {'^/${project.name}' : ''},
+        pathRewrite: {'^/$projectName' : ''},
         secure: false,
       }
     """.trimIndent()
+}
