@@ -19,7 +19,7 @@ internal fun devServerConfiguration(
       const childRun = require('child_process').exec(
         './gradlew ' + runTaskName,
         {
-          'cwd': rootDir
+          cwd: rootDir
         },
         (err, stdout, stderr) => {
           if (err) {
