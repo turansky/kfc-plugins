@@ -3,7 +3,6 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.Output.DEV_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
@@ -87,7 +86,7 @@ class DevServerPlugin : Plugin<Project> {
                         patch(
                             "application-proxy",
                             devServerConfiguration(
-                                source = project.findRunTask(proxy.source),
+                                source = project.tasks.getByPath(proxy.source),
                                 port = proxy.port.also { it.validatePort() }
                             )
                         )
@@ -96,16 +95,6 @@ class DevServerPlugin : Plugin<Project> {
             }
         }
     }
-}
-
-private fun Project.findRunTask(path: String): Task {
-    findProject(path)?.also {
-        return it.tasks
-            .named("run")
-            .get()
-    }
-
-    return project.tasks.getByPath(path)
 }
 
 private fun Int.validatePort() {
