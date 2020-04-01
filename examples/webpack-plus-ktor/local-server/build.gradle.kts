@@ -7,6 +7,11 @@ kotlin.target.browser()
 
 localServer {
     root = "com.test.view"
+
+    proxy {
+        source = project(":examples:webpack-plus-ktor:server")
+        port = 8081
+    }
 }
 
 dependencies {
