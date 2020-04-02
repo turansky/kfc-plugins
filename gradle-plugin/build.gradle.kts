@@ -16,20 +16,6 @@ kotlinDslPluginOptions {
     experimentalWarning.set(false)
 }
 
-tasks {
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            allWarningsAsErrors = true
-        }
-    }
-
-    wrapper {
-        gradleVersion = "6.3"
-        distributionType = Wrapper.DistributionType.ALL
-    }
-}
-
 dependencies {
     implementation("nu.studer:java-ordered-properties:1.0.2")
 
@@ -206,4 +192,9 @@ pluginBundle {
         tags = tags("gradle", "publish")
         version = PROJECT_VERSION
     }
+}
+
+tasks.wrapper {
+    gradleVersion = "6.3"
+    distributionType = Wrapper.DistributionType.ALL
 }
