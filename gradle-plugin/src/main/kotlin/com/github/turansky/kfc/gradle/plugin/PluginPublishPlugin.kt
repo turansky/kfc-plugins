@@ -90,7 +90,14 @@ private fun Project.changeVersion(
     version = newVersion
 
     for (file in versionFiles) {
-        file.writeText(file.readText().replace(oldVersion, newVersion))
+        val content = file.readText()
+        val newContent = content.replace(oldVersion, newVersion)
+
+        check(content != newContent) {
+            "Unable to found plugin version in file: $file"
+        }
+
+        file.writeText(newContent)
     }
 }
 
