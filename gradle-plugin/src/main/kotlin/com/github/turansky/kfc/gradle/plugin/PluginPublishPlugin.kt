@@ -58,9 +58,10 @@ class PluginPublishPlugin : Plugin<Project> {
 }
 
 private fun Project.versionFiles(): Set<File> =
-    fileTree(projectDir.resolve("src/main/kotlin"))
-        .matching { include("KotlinPluginArtifact.kt") }
-        .files
+    projectDir.resolve("src/main/kotlin")
+        .listFiles { _, name -> name == "KotlinPluginArtifact.kt" }
+        ?.toSet()
+        ?: emptySet()
 
 private fun Project.changeGroup(addPrefix: Boolean) {
     var group = group.toString()
