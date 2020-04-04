@@ -1,4 +1,5 @@
 plugins {
+    `java-gradle-plugin`
     `kotlin-dsl`
 
     id("com.gradle.plugin-publish") version "0.11.0"
