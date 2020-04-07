@@ -10,7 +10,7 @@ devServer {
 
     proxy {
         source = ":examples:webpack-plus-ktor:ktor-server:run"
-        port = 8081
+        port = 9876
     }
 }
 
