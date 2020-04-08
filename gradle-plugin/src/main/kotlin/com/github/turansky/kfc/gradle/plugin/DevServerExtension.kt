@@ -11,6 +11,7 @@ open class DevServerExtension {
 }
 
 class ApplicationProxy {
+    var root: String? = null
     var source: String = "<undefined>"
     var port: Int = 0
 }

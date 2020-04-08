@@ -9,6 +9,7 @@ devServer {
     root = "com.test.view"
 
     proxy {
+        root = "data"
         source = ":examples:webpack-plus-ktor:ktor-server:run"
         port = 9876
     }

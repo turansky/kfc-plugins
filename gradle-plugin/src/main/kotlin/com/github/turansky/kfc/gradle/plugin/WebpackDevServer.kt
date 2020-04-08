@@ -4,11 +4,11 @@ import org.gradle.api.Task
 import org.gradle.internal.os.OperatingSystem
 
 internal fun devServerConfiguration(
+    root: String,
     source: Task,
     port: Int
 ): String {
     val project = source.project
-    val projectName = project.name
     val runTaskPath = "${project.path}:${source.name}"
 
     // language=JavaScript
@@ -48,9 +48,9 @@ internal fun devServerConfiguration(
       }
       
       const proxy = devServer.proxy = devServer.proxy || {}
-      proxy['/$projectName'] = {
+      proxy['/$root'] = {
         target: 'http://localhost:$port',
-        pathRewrite: {'^/$projectName' : ''},
+        pathRewrite: {'^/$root' : ''},
         secure: false,
       }
     """.trimIndent()

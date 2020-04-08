@@ -86,6 +86,7 @@ class DevServerPlugin : Plugin<Project> {
                         patch(
                             "application-proxy",
                             devServerConfiguration(
+                                root = proxy.root ?: project.name,
                                 source = project.tasks.getByPath(proxy.source),
                                 port = proxy.port.also { it.validatePort() }
                             )
