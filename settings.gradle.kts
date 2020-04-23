@@ -1,5 +1,15 @@
 rootProject.name = "kfc-plugins"
 
+pluginManagement {
+    plugins {
+        val kotlinVersion = extra["kotlin.version"] as String
+        kotlin("multiplatform") version kotlinVersion
+        kotlin("jvm") version kotlinVersion
+        kotlin("js") version kotlinVersion
+        kotlin("plugin.serialization") version kotlinVersion
+    }
+}
+
 include("examples:component-extension")
 include("examples:component-extension-multiplatform")
 include("examples:multiple-output")
