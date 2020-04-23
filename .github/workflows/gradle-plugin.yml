@@ -1,6 +1,11 @@
 name: gradle plugin
 
-on: [push]
+on:
+  push:
+    branches:
+      - '*'
+  schedule:
+    - cron: 20 20 * * *
 
 jobs:
   build:
