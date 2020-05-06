@@ -8,8 +8,6 @@ plugins {
 
     id("com.gradle.plugin-publish") version "0.11.0"
     id("com.github.turansky.kfc.plugin-publish") version "0.8.3"
-
-    kotlin("jvm") version "1.3.72"
 }
 
 repositories {
