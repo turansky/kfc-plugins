@@ -1,9 +1,6 @@
 plugins {
-    kotlin("js")
     id("com.github.turansky.kfc.dev-server")
 }
-
-kotlin.target.browser()
 
 devServer {
     root = "com.test.view"

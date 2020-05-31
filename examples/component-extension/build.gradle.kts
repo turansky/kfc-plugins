@@ -1,9 +1,6 @@
 plugins {
-    kotlin("js")
     id("com.github.turansky.kfc.component")
 }
-
-kotlin.target.browser()
 
 component {
     root = "com.test.example.app"

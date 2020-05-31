@@ -1,10 +1,7 @@
 plugins {
-    kotlin("js")
     id("com.github.turansky.kfc.webcomponent")
     id("com.github.turansky.kfc.yfiles")
 }
-
-kotlin.target.browser()
 
 webcomponent {
     id = "red-button"

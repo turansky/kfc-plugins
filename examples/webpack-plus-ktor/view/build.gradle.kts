@@ -1,11 +1,7 @@
 plugins {
-    kotlin("js")
-    kotlin("plugin.serialization")
-
     id("com.github.turansky.kfc.component")
+    kotlin("plugin.serialization")
 }
-
-kotlin.target.browser()
 
 component {
     root = "com.test.view"
