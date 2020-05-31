@@ -1,16 +1,11 @@
 plugins {
-    kotlin("multiplatform")
+    id("com.github.turansky.kfc.multiplatform")
     kotlin("plugin.serialization")
 }
 
 kotlin {
-    jvm()
-    js {
-        browser()
-    }
-
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common")
