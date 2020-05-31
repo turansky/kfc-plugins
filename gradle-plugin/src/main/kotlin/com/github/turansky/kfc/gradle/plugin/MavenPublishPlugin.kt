@@ -6,8 +6,6 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
-import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin as StandardMavenPublishPlugin
 
 private val REPO_URL = StringProperty("kfc.publish.maven.repo.url")
@@ -15,11 +13,11 @@ private val SNAPSHOT_REPO_URL = StringProperty("kfc.publish.maven.snapshot.repo.
 
 class MavenPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        plugins.withType<KotlinMultiplatformPluginWrapper> {
+        plugins.withId(KotlinPlugin.MULTIPLATFORM) {
             configurePublication()
         }
 
-        plugins.withType<KotlinJsPluginWrapper> {
+        plugins.withId(KotlinPlugin.JS) {
             configurePublication(JS_SOURCES_JAR_TASK)
         }
     }

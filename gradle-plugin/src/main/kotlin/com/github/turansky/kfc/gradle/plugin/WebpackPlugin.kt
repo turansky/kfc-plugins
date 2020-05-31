@@ -8,7 +8,6 @@ import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 class WebpackPlugin : Plugin<Project> {
@@ -19,7 +18,7 @@ class WebpackPlugin : Plugin<Project> {
 
         val extension = extensions.create<WebpackExtension>("webpack")
 
-        plugins.withType<KotlinJsPluginWrapper> {
+        plugins.withId(KotlinPlugin.JS) {
             tasks {
                 val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig") {
                     addResourceModules()
