@@ -3,26 +3,26 @@ package com.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.jvm.tasks.Jar
-import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.invoke
+import org.gradle.kotlin.dsl.named
+import org.gradle.kotlin.dsl.register
 
 class LibraryPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        applyKotlinJsPlugin()
+        plugins.apply(WebpackPlugin::class)
+
         disableBrowserTasks()
 
-        plugins.withType<KotlinJsPluginWrapper> {
-            plugins.apply(WebpackPlugin::class)
+        tasks {
+            useModularJsTarget()
 
-            tasks {
-                useModularJsTarget()
+            val generateDependencyJson = register<GenerateDependencyJson>("generateDependencyJson")
 
-                val generateDependencyJson = register<GenerateDependencyJson>("generateDependencyJson")
-
-                named<Jar>(JS_JAR_TASK) {
-                    from(generateDependencyJson)
-                }
+            named<Jar>(JS_JAR_TASK) {
+                from(generateDependencyJson)
             }
         }
     }
 }
-
