@@ -41,6 +41,8 @@ enum class KfcPlugin(className: String) {
     NPM_BUILD("NpmBuildPlugin"),
     MAVEN_PUBLISH("MavenPublishPlugin"),
 
+    MULTIPLATFORM("MultiplatformPlugin"),
+
     WEBPACK("WebpackPlugin"),
     LIBRARY("LibraryPlugin"),
     COMPONENT("ComponentPlugin"),
@@ -103,6 +105,12 @@ pluginBundle {
         displayName = "Maven publish plugin"
         description = "Predefined maven publications for Kotlin"
         tags = tags("maven", "publish")
+    }
+
+    plugin(MULTIPLATFORM) {
+        displayName = "Kotlin multiplatform library plugin"
+        description = "Optimize Kotlin multiplatform library configuration"
+        tags = tags("multiplatform", "library")
     }
 
     plugin(WEBPACK) {
