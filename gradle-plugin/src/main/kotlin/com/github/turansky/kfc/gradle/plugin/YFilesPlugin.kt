@@ -10,16 +10,21 @@ import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmDependencyExtension
 
+private const val CSS_LOADER = "css-loader"
+private const val SVG_INLINE_LOADER = "svg-inline-loader"
+
+private const val IMPLEMENTATION = "implementation"
+
 // language=JavaScript
 private val RULES = """
     config.module.rules.push(
       {
         test: /\.css${'$'}/,
-        use: 'css-loader'
+        use: '$CSS_LOADER'
       },
       {
         test: /\.svg${'$'}/,
-        use: 'svg-inline-loader'
+        use: '$SVG_INLINE_LOADER'
       }
     )
 """.trimIndent()
@@ -45,8 +50,8 @@ class YFilesPlugin : Plugin<Project> {
         val npm = dependencies.extensions.getByName<NpmDependencyExtension>("npm")
 
         dependencies {
-            "implementation"(npm("css-loader", "^3.5.3"))
-            "implementation"(npm("svg-inline-loader", "^0.8.2"))
+            IMPLEMENTATION(npm(CSS_LOADER, "3.5.3"))
+            IMPLEMENTATION(npm(SVG_INLINE_LOADER, "0.8.2"))
         }
     }
 }
