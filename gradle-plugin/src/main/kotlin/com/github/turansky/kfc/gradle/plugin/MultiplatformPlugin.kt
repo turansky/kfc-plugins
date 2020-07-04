@@ -11,12 +11,10 @@ class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(KotlinPlugin.MULTIPLATFORM)
 
-        plugins.withId(KotlinPlugin.MULTIPLATFORM) {
-            extensions.configure<KotlinMultiplatformExtension>("kotlin") {
-                jvm()
-                js {
-                    browser()
-                }
+        extensions.configure<KotlinMultiplatformExtension>("kotlin") {
+            jvm()
+            js {
+                browser()
             }
         }
 
