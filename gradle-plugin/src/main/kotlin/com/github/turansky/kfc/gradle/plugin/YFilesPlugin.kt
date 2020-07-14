@@ -48,8 +48,9 @@ class YFilesPlugin : Plugin<Project> {
             }
         }
 
+        // TODO: remove after migration on Kotlin 1.4
+        @Suppress("USELESS_CAST")
         val npm = dependencies
-            // TODO: remove after migration on Kotlin 1.4
             .let { it as ExtensionAware }
             .extensions.getByName<NpmDependencyExtension>("npm")
 
