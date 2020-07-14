@@ -2,6 +2,7 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.tasks.Copy
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByName
@@ -47,7 +48,10 @@ class YFilesPlugin : Plugin<Project> {
             }
         }
 
-        val npm = dependencies.extensions.getByName<NpmDependencyExtension>("npm")
+        val npm = dependencies
+            // TODO: remove after migration on Kotlin 1.4
+            .let { it as ExtensionAware }
+            .extensions.getByName<NpmDependencyExtension>("npm")
 
         dependencies {
             IMPLEMENTATION(npm(CSS_LOADER, "3.5.3"))
