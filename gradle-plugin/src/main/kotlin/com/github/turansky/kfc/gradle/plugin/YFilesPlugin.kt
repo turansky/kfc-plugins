@@ -55,7 +55,7 @@ class YFilesPlugin : Plugin<Project> {
             .extensions.getByName<NpmDependencyExtension>("npm")
 
         dependencies {
-            IMPLEMENTATION(npm(CSS_LOADER, "3.6.0"))
+            IMPLEMENTATION(npm(CSS_LOADER, "4.2.1"))
             IMPLEMENTATION(npm(SVG_INLINE_LOADER, "0.8.2"))
         }
     }

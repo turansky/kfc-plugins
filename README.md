@@ -111,8 +111,8 @@ Generated `package.json` used to save NPM dependencies after publication in Mave
 If NPM dependencies are declared in Gradle, 
 ```Kotlin
 dependencies {
-    implementation(npm("style-loader", "1.1.3"))
-    implementation(npm("css-loader", "3.4.2"))
+    implementation(npm("style-loader", "1.2.1"))
+    implementation(npm("css-loader", "4.2.1"))
 }
 ```
 
@@ -120,8 +120,8 @@ then `library` plugin generate `package.json` and add it in `.jar` root.
 ```JSON
 {
     "devDependencies": {
-        "style-loader": "1.1.3",
-        "css-loader": "3.4.2"
+        "style-loader": "1.2.1",
+        "css-loader": "4.2.1"
     }
 }
 ```
