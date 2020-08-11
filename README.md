@@ -12,7 +12,6 @@
     * [Multiple outputs](#multiple-outputs)
   * [`library`](#library)
     * [NPM Dependencies](#npm-dependencies)
-  * [`component`](#component)
 
 ## `webpack`
 
@@ -125,49 +124,4 @@ then `library` plugin generate `package.json` and add it in `.jar` root.
         "css-loader": "3.4.2"
     }
 }
-```
-
-## `component`
-
-Apply [`webpack`](#webpack) plugin by default
-
-### Goal
-* Common distribution configuration for DCE/Webpack
-
-### Decision
-* `component` gradle extension
-* Webpack target - `umd` 
-
-#### `build.gradle.kts`
-```Kotlin
-plugins {
-    kotlin("js") version "1.3.72" 
-    id("com.github.turansky.kfc.component") version "0.9.1"
-}
-
-component {
-    // DCE     - keep += "${jsProjectId}.com.example.app"
-    // Webpack - output.libraryExport = ["com", "example", "app"]
-    root = "com.example.app"
-}
-```
-
-#### `App.kt`
-```Kotlin
-package com.example.app
-
-class App {
-    fun draw() { 
-        // ...
-    }
-}
-```
-
-#### `index.html`
-```HTML
-<script src="component.js"></script>
-<script>
-    const app = new App()
-    app.draw()
-</script>
 ```
