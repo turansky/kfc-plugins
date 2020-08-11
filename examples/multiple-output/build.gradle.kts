@@ -18,7 +18,5 @@ webpack {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-js"))
-
     testImplementation(kotlin("test-js"))
 }
