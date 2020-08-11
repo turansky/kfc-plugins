@@ -1,10 +1,12 @@
 plugins {
-    id("com.github.turansky.kfc.component")
+    id("com.github.turansky.kfc.webcomponent")
     kotlin("plugin.serialization")
 }
 
-component {
-    root = "com.test.view"
+webcomponent {
+    id = "super-puper-view"
+
+    source = "com.test.view.View"
 }
 
 dependencies {

@@ -1,9 +1,11 @@
 plugins {
-    id("com.github.turansky.kfc.component")
+    id("com.github.turansky.kfc.webcomponent")
 }
 
-component {
-    root = "Api"
+webcomponent {
+    id = "unreal-component"
+
+    source = "com.test.view.Api"
 }
 
 dependencies {
