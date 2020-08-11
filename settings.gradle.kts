@@ -10,7 +10,6 @@ pluginManagement {
     }
 }
 
-include("examples:component-extension")
 include("examples:multiple-output")
 
 include("examples:web-component-extension")
