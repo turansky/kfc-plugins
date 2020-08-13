@@ -21,11 +21,14 @@ private val RULES = """
     config.module.rules.push(
       {
         test: /\.css${'$'}/,
-        use: '$CSS_LOADER'
+        loader: '$CSS_LOADER',
+        options: {
+          esModule: false
+        }
       },
       {
         test: /\.svg${'$'}/,
-        use: '$SVG_INLINE_LOADER'
+        loader: '$SVG_INLINE_LOADER'
       }
     )
 """.trimIndent()
