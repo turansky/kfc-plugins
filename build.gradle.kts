@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
-
 plugins {
     kotlin("js") apply false
 }
@@ -7,15 +5,6 @@ plugins {
 allprojects {
     repositories {
         jcenter()
-    }
-}
-
-subprojects {
-    // TODO: remove after migration on Kotlin 1.4
-    plugins.withType<KotlinJsPluginWrapper> {
-        dependencies {
-            "implementation"(kotlin("stdlib-js"))
-        }
     }
 }
 
