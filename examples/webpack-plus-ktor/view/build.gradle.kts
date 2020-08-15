@@ -1,6 +1,5 @@
 plugins {
     id("com.github.turansky.kfc.webcomponent")
-    kotlin("plugin.serialization")
 }
 
 webcomponent {
@@ -10,7 +9,5 @@ webcomponent {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js")
-
     implementation(project(":examples:webpack-plus-ktor:entity"))
 }

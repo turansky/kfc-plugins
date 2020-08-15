@@ -17,14 +17,6 @@ subprojects {
             "implementation"(kotlin("stdlib-js"))
         }
     }
-
-    configurations.all {
-        resolutionStrategy.eachDependency {
-            if (requested.group == "org.jetbrains.kotlinx" && requested.name.startsWith("kotlinx-serialization-runtime")) {
-                useVersion("0.20.0")
-            }
-        }
-    }
 }
 
 tasks.wrapper {
