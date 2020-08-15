@@ -13,6 +13,8 @@ class LibraryPlugin : Plugin<Project> {
         applyKotlinJsPlugin()
         plugins.apply(WebpackPlugin::class)
 
+        disableBrowserTasks()
+
         tasks {
             useModularJsTarget()
 
