@@ -1,8 +1,8 @@
 package com.test.view
 
+import kotlinx.browser.document
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
-import kotlin.browser.document
 
 @JsName("View")
 fun View(): HTMLElement {
