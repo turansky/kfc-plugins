@@ -12,10 +12,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        // TODO: Remove after fix
-        //  https://youtrack.jetbrains.com/issue/KT-37587
-        projectDir.resolve("webpack.config.d").mkdir()
-
         val extension = extensions.create<WebpackExtension>("webpack")
 
         plugins.withId(KotlinPlugin.JS) {
