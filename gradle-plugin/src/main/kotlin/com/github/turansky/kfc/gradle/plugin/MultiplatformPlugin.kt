@@ -18,8 +18,6 @@ class MultiplatformPlugin : Plugin<Project> {
             }
         }
 
-        disableBrowserTasks()
-
         tasks {
             configureEach<KotlinJvmCompile> {
                 kotlinOptions {
