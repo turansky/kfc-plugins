@@ -26,7 +26,9 @@ plugins {
     id("com.github.turansky.kfc.webpack") version "0.11.0"
 }
 
-kotlin.target.browser()
+kotlin.js {
+    browser()
+}
 
 tasks {
     patchWebpackConfig {
@@ -59,7 +61,9 @@ plugins {
     id("com.github.turansky.kfc.webpack") version "0.11.0"
 }
 
-kotlin.target.browser()
+kotlin.js {
+    browser()
+}
 
 webpack {
     output {

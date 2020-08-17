@@ -3,7 +3,9 @@ plugins {
     id("com.github.turansky.kfc.webpack")
 }
 
-kotlin.target.browser()
+kotlin.js {
+    browser()
+}
 
 webpack {
     output {
