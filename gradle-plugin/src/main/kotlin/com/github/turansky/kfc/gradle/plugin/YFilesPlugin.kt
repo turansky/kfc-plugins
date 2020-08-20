@@ -9,7 +9,7 @@ import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
-import org.jetbrains.kotlin.gradle.targets.js.npm.NpmDependencyExtension
+import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
 
 private const val CSS_LOADER = "css-loader"
 private const val SVG_INLINE_LOADER = "svg-inline-loader"
@@ -51,15 +51,13 @@ class YFilesPlugin : Plugin<Project> {
             }
         }
 
-        // TODO: remove after migration on Kotlin 1.4
-        @Suppress("USELESS_CAST")
-        val npm = dependencies
+        val devNpm = dependencies
             .let { it as ExtensionAware }
-            .extensions.getByName<NpmDependencyExtension>("npm")
+            .extensions.getByName<DevNpmDependencyExtension>("devNpm")
 
         dependencies {
-            IMPLEMENTATION(npm(CSS_LOADER, "4.2.1"))
-            IMPLEMENTATION(npm(SVG_INLINE_LOADER, "0.8.2"))
+            IMPLEMENTATION(devNpm(CSS_LOADER, "4.2.1"))
+            IMPLEMENTATION(devNpm(SVG_INLINE_LOADER, "0.8.2"))
         }
     }
 }
