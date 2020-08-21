@@ -22,28 +22,28 @@ data class WebComponent(
 ) : Serializable {
     // language=JavaScript
     fun toCode(sourceModuleName: String): String = """
-        |import * as sourceModule from '$sourceModuleName'
-        |
-        |const SourceElement = sourceModule.$source
-        |
-        |export class $name extends HTMLElement {
-        |   constructor() {
-        |     super();
-        |     
-        |     $SOURCE = new SourceElement()      
-        |     const shadow = this.attachShadow({ mode: '$shadowMode' })
-        |     shadow.appendChild($SOURCE)
-        |     
-        |     ${events.joinToString("\n", transform = ::redispatchEvent)}
-        |   }
-        |   
-        |   ${properties.joinToString("\n\n")}
-        |
-        |   ${methods.joinToString("\n\n")}
-        |}    
-        |
-        |customElements.define('$id', $name)
-    """.trimMargin()
+        import * as sourceModule from '$sourceModuleName'
+        
+        const SourceElement = sourceModule.$source
+        
+        export class $name extends HTMLElement {
+           constructor() {
+             super();
+             
+             $SOURCE = new SourceElement()      
+             const shadow = this.attachShadow({ mode: '$shadowMode' })
+             shadow.appendChild($SOURCE)
+             
+             ${events.joinToString("\n", transform = ::redispatchEvent)}
+           }
+           
+           ${properties.joinToString("\n\n")}
+        
+           ${methods.joinToString("\n\n")}
+        }    
+        
+        customElements.define('$id', $name)
+    """.trimIndent()
 
     private val name: String = source.substringAfterLast(".")
 
