@@ -19,7 +19,7 @@
 * Make Kotlin `resources` content available for Webpack
 
 ### Task `patchWebpackConfig`
-```Kotlin
+```kotlin
 plugins {
     kotlin("js") version "1.4.0" 
     id("com.github.turansky.kfc.webpack") version "0.12.0"
@@ -54,7 +54,7 @@ By default `webpack` plugin add `src/main/resources` directory of:
 as Webpack `modules`.
 
 ### Multiple outputs
-```Kotlin
+```kotlin
 plugins {
     kotlin("js") version "1.4.0" 
     id("com.github.turansky.kfc.webpack") version "0.12.0"
@@ -79,7 +79,7 @@ webpack {
 
 Standard distribution directory used for output
  ```
- build/
+build/
   distributions/
     background.js
     content.js
@@ -101,7 +101,7 @@ Apply [`webpack`](#webpack) plugin by default
 * Kotlin/JS target - `commonjs` 
 
 #### `build.gradle.kts`
-```Kotlin
+```kotlin
 plugins {
     kotlin("js") version "1.4.0" 
     id("com.github.turansky.kfc.library") version "0.12.0"
