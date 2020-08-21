@@ -2,7 +2,6 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.tasks.Copy
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByName
@@ -51,9 +50,8 @@ class YFilesPlugin : Plugin<Project> {
             }
         }
 
-        val devNpm = dependencies
-            .let { it as ExtensionAware }
-            .extensions.getByName<DevNpmDependencyExtension>("devNpm")
+        val devNpm = dependencies.extensions
+            .getByName<DevNpmDependencyExtension>("devNpm")
 
         dependencies {
             IMPLEMENTATION(devNpm(CSS_LOADER, "4.2.1"))
