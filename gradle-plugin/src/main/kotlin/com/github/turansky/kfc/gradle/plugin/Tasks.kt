@@ -1,6 +1,5 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import com.github.turansky.kfc.gradle.plugin.JsTarget.COMMONJS
 import org.gradle.api.Task
 import org.gradle.kotlin.dsl.TaskContainerScope
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
@@ -26,7 +25,7 @@ internal fun Task.jsPackageDir(relative: String): File =
 internal fun TaskContainerScope.useModularJsTarget() {
     configureEach<KotlinJsCompile> {
         kotlinOptions {
-            moduleKind = COMMONJS
+            moduleKind = "commonjs"
         }
     }
 }
