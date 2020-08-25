@@ -10,15 +10,6 @@ internal fun defaultOutputConfiguration(): String =
         delete config.output.library
     """.trimIndent()
 
-internal fun outputConfiguration(path: String): String =
-    // language=JavaScript
-    """
-        config.output = config.output || {}
-        config.output.libraryTarget = 'umd'
-        config.output.libraryExport = ${libraryExport(path)}
-        delete config.output.library
-    """.trimIndent()
-
 internal fun outputConfiguration(
     outputs: List<WebpackOutput>,
     getEntry: (WebpackOutput) -> File
