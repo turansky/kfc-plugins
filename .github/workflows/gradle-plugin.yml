@@ -1,6 +1,6 @@
 name: gradle plugin
 
-on: [push]
+on: [ push ]
 
 jobs:
   build:

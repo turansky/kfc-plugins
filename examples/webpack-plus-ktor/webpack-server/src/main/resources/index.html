@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Dev server</title>
+  <meta charset="UTF-8">
+  <title>Dev server</title>
 
-    <style>
-        html, body {
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            height: 100%;
-        }
+  <style>
+      html, body {
+          padding: 0;
+          margin: 0;
+          width: 100%;
+          height: 100%;
+      }
 
-        #view-container {
-            width: 100%;
-            height: 100%;
-        }
+      #view-container {
+          width: 100%;
+          height: 100%;
+      }
 
-        #links {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-    </style>
+      #links {
+          position: absolute;
+          top: 0;
+          left: 0;
+      }
+  </style>
 
-    <script src="dev-server.js"></script>
+  <script src="dev-server.js"></script>
 </head>
 <body>
 <div id="view-container"></div>
 <div id="links">
-    <a href="/data/persons">Persons</a>
-    <a href="http://localhost:9876/persons">Persons [remote]</a>
+  <a href="/data/persons">Persons</a>
+  <a href="http://localhost:9876/persons">Persons [remote]</a>
 </div>
 <script>
   const view = new View()

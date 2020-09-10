@@ -1,7 +1,7 @@
 package com.test.example.app
 
-import org.w3c.dom.HTMLElement
 import kotlinx.browser.document
+import org.w3c.dom.HTMLElement
 
 class App {
     fun whatIsTheMeaningOfLife(): String = "42"
