@@ -2,12 +2,8 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.tasks.Copy
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByName
-import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.register
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
 
 private const val CSS_LOADER = "css-loader"
@@ -34,20 +30,8 @@ private val RULES = """
 
 class YFilesPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks {
-            configureEach<PatchWebpackConfig> {
-                patch("rules", RULES)
-            }
-
-            val copyYFilesMetamodule = register<Copy>("copyYFilesMetamodule") {
-                from(project.projectDir)
-                into(jsPackageDir("kotlin-dce"))
-                include("yfiles.js")
-            }
-
-            configureEach<KotlinJsDce> {
-                finalizedBy(copyYFilesMetamodule)
-            }
+        tasks.configureEach<PatchWebpackConfig> {
+            patch("rules", RULES)
         }
 
         val devNpm = dependencies.extensions
