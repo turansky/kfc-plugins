@@ -38,7 +38,7 @@ class YFilesPlugin : Plugin<Project> {
             .getByName<DevNpmDependencyExtension>("devNpm")
 
         dependencies {
-            IMPLEMENTATION(devNpm(CSS_LOADER, "4.2.1"))
+            IMPLEMENTATION(devNpm(CSS_LOADER, "4.3.0"))
             IMPLEMENTATION(devNpm(SVG_INLINE_LOADER, "0.8.2"))
         }
     }
