@@ -8,7 +8,6 @@ import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
-import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -22,15 +21,7 @@ class DevServerPlugin : Plugin<Project> {
         tasks {
             useModularJsTarget()
 
-            configureEach<KotlinJsDce> {
-                enabled = false
-            }
-
             configureEach<KotlinWebpack> {
-                if (name !in DEVELOPMENT_RUN_TASKS) {
-                    enabled = false
-                }
-
                 outputFileName = DEV_SERVER.fileName
                 sourceMaps = false
 
