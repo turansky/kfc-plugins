@@ -9,7 +9,7 @@ internal fun Project.applyKotlinJsPlugin(
     distribution: Boolean = false
 ) {
     if (!distribution) {
-        extensions.extraProperties[BUILD_DISTRIBUTION] = distribution.toString()
+        disableKotlinJsDistribution()
     }
 
     plugins.apply(KotlinPlugin.JS)
@@ -19,4 +19,8 @@ internal fun Project.applyKotlinJsPlugin(
             browser()
         }
     }
+}
+
+internal fun Project.disableKotlinJsDistribution() {
+    extensions.extraProperties[BUILD_DISTRIBUTION] = false.toString()
 }
