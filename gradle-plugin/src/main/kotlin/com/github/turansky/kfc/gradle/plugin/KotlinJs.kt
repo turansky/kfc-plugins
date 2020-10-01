@@ -8,7 +8,9 @@ private const val BUILD_DISTRIBUTION = "kotlin.js.generate.executable.default"
 internal fun Project.applyKotlinJsPlugin(
     distribution: Boolean = false
 ) {
-    extensions.extraProperties[BUILD_DISTRIBUTION] = distribution.toString()
+    if (!distribution) {
+        extensions.extraProperties[BUILD_DISTRIBUTION] = distribution.toString()
+    }
 
     plugins.apply(KotlinPlugin.JS)
 
