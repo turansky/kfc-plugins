@@ -14,6 +14,8 @@ include("examples:multiple-output")
 include("examples:web-component-extension")
 include("examples:yfiles-web-component")
 
+include("examples:optimizer:react-optimizer")
+
 include("examples:resources:lib-a")
 include("examples:resources:lib-b")
 include("examples:resources:lib-c")
