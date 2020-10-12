@@ -3,7 +3,11 @@ plugins {
 }
 
 kotlin.js {
-    browser()
+    browser {
+        dceTask {
+            keep("kfc-plugins-react-optimizer.App")
+        }
+    }
 }
 
 dependencies {
