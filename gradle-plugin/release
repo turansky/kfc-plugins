@@ -3,6 +3,8 @@
 set -e
 set -o pipefail
 
+./gradlew clean
+./gradlew build
 ./gradlew preparePublish
 ./gradlew publishPlugins
 ./gradlew prepareDevelopment
