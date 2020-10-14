@@ -9,6 +9,11 @@ class App {
     fun kyky(): List<String> = listOf("ky", "ky")
 }
 
-fun RedButton(): HTMLElement =
-    document.createElement("button")
-        .unsafeCast<HTMLElement>()
+@JsExport
+@ExperimentalJsExport
+@Suppress("unused")
+class RedButton {
+    val __element__: HTMLElement =
+        document.createElement("button")
+            .unsafeCast<HTMLElement>()
+}
