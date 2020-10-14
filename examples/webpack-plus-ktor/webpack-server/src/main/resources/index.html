@@ -24,6 +24,7 @@
       }
   </style>
 
+  <script src="view.js"></script>
   <script src="dev-server.js"></script>
 </head>
 <body>
@@ -33,10 +34,12 @@
   <a href="http://localhost:9876/persons">Persons [remote]</a>
 </div>
 <script>
-  const view = new View()
+    const view = new View()
 
-  document.getElementById('view-container')
-      .appendChild(view.__element__)
+    document.getElementById('view-container')
+        .appendChild(view)
+
+    alert(testMessage())
 </script>
 </body>
 </html>

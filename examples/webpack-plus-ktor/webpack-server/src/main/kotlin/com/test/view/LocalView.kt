@@ -1,4 +1,5 @@
 package com.test.view
 
-@JsName("View")
-fun LocalView(): View = View()
+@JsExport
+@ExperimentalJsExport
+fun testMessage(): String = "It's local server!"
