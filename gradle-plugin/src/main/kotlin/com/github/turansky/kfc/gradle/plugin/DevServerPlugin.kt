@@ -22,6 +22,10 @@ class DevServerPlugin : Plugin<Project> {
             useModularJsTarget()
 
             configureEach<KotlinWebpack> {
+                if (name !in DEVELOPMENT_RUN_TASKS) {
+                    enabled = false
+                }
+
                 outputFileName = DEV_SERVER.fileName
                 sourceMaps = false
 
