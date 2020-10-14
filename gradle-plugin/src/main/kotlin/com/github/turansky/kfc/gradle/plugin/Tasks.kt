@@ -9,6 +9,10 @@ internal val DEVELOPMENT_RUN_TASKS = setOf(
     "browserDevelopmentRun"
 )
 
+internal val DEVELOPMENT_DCE_TASKS = setOf(
+    "processDceDevKotlinJs"
+)
+
 internal const val JS_SOURCES_JAR_TASK = "jsSourcesJar"
 
 internal val Task.jsProjectId: String
