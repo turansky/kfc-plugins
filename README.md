@@ -21,8 +21,8 @@
 ### Task `patchWebpackConfig`
 ```kotlin
 plugins {
-    kotlin("js") version "1.4.10" 
-    id("com.github.turansky.kfc.webpack") version "0.13.0"
+    kotlin("js") version "1.4.10"
+    id("com.github.turansky.kfc.webpack") version "1.0.0"
 }
 
 kotlin.js {
@@ -56,8 +56,8 @@ as Webpack `modules`.
 ### Multiple outputs
 ```kotlin
 plugins {
-    kotlin("js") version "1.4.10" 
-    id("com.github.turansky.kfc.webpack") version "0.13.0"
+    kotlin("js") version "1.4.10"
+    id("com.github.turansky.kfc.webpack") version "1.0.0"
 }
 
 kotlin.js {
@@ -103,7 +103,7 @@ Apply [`webpack`](#webpack) plugin by default
 #### `build.gradle.kts`
 ```kotlin
 plugins {
-    kotlin("js") version "1.4.10" 
-    id("com.github.turansky.kfc.library") version "0.13.0"
+    kotlin("js") version "1.4.10"
+    id("com.github.turansky.kfc.library") version "1.0.0"
 }
 ```
