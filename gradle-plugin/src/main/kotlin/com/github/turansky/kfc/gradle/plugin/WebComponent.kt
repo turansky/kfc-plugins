@@ -4,11 +4,10 @@ import com.github.turansky.kfc.gradle.plugin.WebComponent.Property.Type.*
 import java.io.Serializable
 
 private const val SOURCE = "this._source"
-private const val ELEMENT = "$SOURCE.__element__"
 
 // language=JavaScript
 private fun redispatchEvent(type: String): String = """
-    $ELEMENT.addEventListener('$type', e => {
+    $SOURCE.addEventListener('$type', e => {
       this.dispatchEvent(new CustomEvent('$type', { detail: e.detail }))
     })
 """.trimIndent()
@@ -33,7 +32,7 @@ data class WebComponent(
              
              $SOURCE = new SourceElement()      
              const shadow = this.attachShadow({ mode: '$shadowMode' })
-             shadow.appendChild($ELEMENT)
+             shadow.appendChild($SOURCE)
              
              ${events.joinToString("\n", transform = ::redispatchEvent)}
            }
