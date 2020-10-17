@@ -1,0 +1,7 @@
+{
+  "name": "kfc-plugins",
+  "version": "7.7.7",
+  "dependencies": {
+    "kotlin": "1.4.10"
+  }
+}
