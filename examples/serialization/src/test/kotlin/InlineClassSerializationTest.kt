@@ -9,12 +9,17 @@ class InlineClassSerializationTest {
     @BeforeTest
     fun init() {
         json = Json {
-            prettyPrint = true
+            prettyPrint = false
         }
     }
 
     @Test
-    fun inlineKey() {
-        assertEquals(Key("42"), json.decodeFromString(Key.serializer(), """ "42" """))
+    fun keyDecode() {
+        assertEquals(Key("13"), json.decodeFromString(Key.serializer(), """"13""""))
+    }
+
+    @Test
+    fun keyEncode() {
+        assertEquals(""""42"""", json.encodeToString(Key.serializer(), Key("42")))
     }
 }
