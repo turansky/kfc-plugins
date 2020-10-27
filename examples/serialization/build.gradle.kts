@@ -10,6 +10,8 @@ kotlin.js {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
+
     testImplementation(kotlin("test-js"))
 }
 
