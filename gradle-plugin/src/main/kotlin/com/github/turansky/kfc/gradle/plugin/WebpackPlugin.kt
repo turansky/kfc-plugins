@@ -14,24 +14,34 @@ class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         val extension = extensions.create<WebpackExtension>("webpack")
 
+        plugins.withId(KotlinPlugin.MULTIPLATFORM) {
+            tasks {
+                applyConfiguration()
+            }
+        }
+
         plugins.withId(KotlinPlugin.JS) {
             tasks {
-                val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig") {
-                    addResourceModules()
-                }
-
-                named<Delete>("clean") {
-                    delete(patchWebpackConfig)
-                }
-
-                configureEach<KotlinJsCompile> {
-                    dependsOn(patchWebpackConfig)
-                }
+                applyConfiguration()
             }
         }
 
         afterEvaluate {
             tasks.configureOutputs(extension.outputs.toList())
+        }
+    }
+
+    private fun TaskContainerScope.applyConfiguration() {
+        val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig") {
+            addResourceModules()
+        }
+
+        named<Delete>("clean") {
+            delete(patchWebpackConfig)
+        }
+
+        configureEach<KotlinJsCompile> {
+            dependsOn(patchWebpackConfig)
         }
     }
 }
