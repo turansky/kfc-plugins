@@ -2,6 +2,7 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
@@ -10,6 +11,7 @@ private const val CSS_LOADER = "css-loader"
 private const val SVG_INLINE_LOADER = "svg-inline-loader"
 
 private const val IMPLEMENTATION = "implementation"
+private const val JS_MAIN_IMPLEMENTATION = "jsMainImplementation"
 
 // language=JavaScript
 private val RULES = """
@@ -34,12 +36,25 @@ class YFilesPlugin : Plugin<Project> {
             patch("rules", RULES)
         }
 
-        val devNpm = dependencies.extensions
-            .getByName<DevNpmDependencyExtension>("devNpm")
+        afterEvaluate {
+            plugins.withId(KotlinPlugin.MULTIPLATFORM) {
+                dependencies {
+                    applyConfiguration(JS_MAIN_IMPLEMENTATION)
+                }
+            }
 
-        dependencies {
-            IMPLEMENTATION(devNpm(CSS_LOADER, "5.0.0"))
-            IMPLEMENTATION(devNpm(SVG_INLINE_LOADER, "0.8.2"))
+            plugins.withId(KotlinPlugin.JS) {
+                dependencies {
+                    applyConfiguration(IMPLEMENTATION)
+                }
+            }
         }
+    }
+
+    private fun DependencyHandlerScope.applyConfiguration(configurationName: String) {
+        val devNpm = extensions.getByName<DevNpmDependencyExtension>("devNpm")
+
+        configurationName(devNpm(CSS_LOADER, "5.0.0"))
+        configurationName(devNpm(SVG_INLINE_LOADER, "0.8.2"))
     }
 }
