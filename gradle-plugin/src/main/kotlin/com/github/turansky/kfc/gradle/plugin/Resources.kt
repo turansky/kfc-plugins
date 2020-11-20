@@ -3,14 +3,19 @@ package com.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Project
 import java.io.File
 
-private val RESOURCES = "src/main/resources"
+private val RESOURCES = listOf(
+    "src/commonMain/resources",
+    "src/clientCommonMain/resources",
+    "src/jsMain/resources",
 
-internal fun Project.relatedResources(): List<File> {
-    return relatedProjects()
+    "src/main/resources"
+)
+
+internal fun Project.relatedResources(): List<File> =
+    relatedProjects()
         .asSequence()
         .map { it.projectDir }
-        .map { it.resolve(RESOURCES) }
+        .flatMap { RESOURCES.asSequence().map(it::resolve) }
         .filter { it.exists() }
         .filter { it.isDirectory }
         .toList()
-}
