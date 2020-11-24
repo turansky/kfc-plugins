@@ -31,12 +31,31 @@ private val RULES = """
     )
 """.trimIndent()
 
+// language=JavaScript
+private val TERSER_CONFIGURATION = """
+    const TerserPlugin = require('terser-webpack-plugin')
+    const terserOptions = {
+      output: {
+        comments: false
+      }
+    }
+
+    config.optimization = {
+      minimizer: [
+        new TerserPlugin({ 
+          terserOptions
+        })
+      ]
+    }
+""".trimIndent()
+
 class WebpackLoadersPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(WebpackPlugin::class)
 
         tasks.configureEach<PatchWebpackConfig> {
             patch("rules", RULES)
+            patch("terser-configuration", TERSER_CONFIGURATION)
         }
 
         afterEvaluate {
