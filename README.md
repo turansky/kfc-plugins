@@ -1,7 +1,7 @@
 [![CI Status](https://github.com/turansky/kfc-plugins/workflows/CI/badge.svg)](https://github.com/turansky/kfc-plugins/actions)
 [![CI Status](https://github.com/turansky/kfc-plugins/workflows/gradle%20plugin/badge.svg)](https://github.com/turansky/kfc-plugins/actions)
 [![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/github/turansky/kfc/root/com.github.turansky.kfc.root.gradle.plugin/maven-metadata.xml.svg?label=plugin&logo=gradle)](https://plugins.gradle.org/plugin/com.github.turansky.kfc.root)
-[![Kotlin](https://img.shields.io/badge/kotlin-1.4.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.4.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 # Kotlin/JS Fast Configuration
 
@@ -19,10 +19,11 @@
 * Make Kotlin `resources` content available for Webpack
 
 ### Task `patchWebpackConfig`
+
 ```kotlin
 plugins {
-    kotlin("js") version "1.4.10"
-    id("com.github.turansky.kfc.webpack") version "1.0.0"
+    kotlin("js") version "1.4.20"
+    id("com.github.turansky.kfc.webpack") version "1.3.0"
 }
 
 kotlin.js {
@@ -54,10 +55,11 @@ By default `webpack` plugin add `src/main/resources` directory of:
 as Webpack `modules`.
 
 ### Multiple outputs
+
 ```kotlin
 plugins {
-    kotlin("js") version "1.4.10"
-    id("com.github.turansky.kfc.webpack") version "1.0.0"
+    kotlin("js") version "1.4.20"
+    id("com.github.turansky.kfc.webpack") version "1.3.0"
 }
 
 kotlin.js {
@@ -101,9 +103,10 @@ Apply [`webpack`](#webpack) plugin by default
 * Kotlin/JS target - `commonjs` 
 
 #### `build.gradle.kts`
+
 ```kotlin
 plugins {
-    kotlin("js") version "1.4.10"
-    id("com.github.turansky.kfc.library") version "1.0.0"
+    kotlin("js") version "1.4.20"
+    id("com.github.turansky.kfc.library") version "1.3.0"
 }
 ```
