@@ -8,8 +8,11 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
 
+private val FONT_PATH = StringProperty("kfc.font.path")
+
 private const val CSS_LOADER = "css-loader"
 private const val SVG_INLINE_LOADER = "svg-inline-loader"
+private const val FILE_LOADER = "file-loader"
 
 private const val IMPLEMENTATION = "implementation"
 private const val JS_MAIN_IMPLEMENTATION = "jsMainImplementation"
@@ -30,6 +33,22 @@ private val RULES = """
       }
     )
 """.trimIndent()
+
+// language=JavaScript
+private fun fontRules(path: String): String = """
+    config.module.rules.push( 
+      { 
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?${'$'}/,
+        loader: '$FILE_LOADER',
+        options: {
+          name: '[name].[hash].[ext]',
+          publicPath: '/$path/',
+          outputPath: './$path/',
+          esModule: false
+        }
+      }
+    )
+    """.trimIndent()
 
 // language=JavaScript
 private val TERSER_CONFIGURATION = """
@@ -55,6 +74,11 @@ class WebpackLoadersPlugin : Plugin<Project> {
 
         tasks.configureEach<PatchWebpackConfig> {
             patch("rules", RULES)
+            val fontPath = propertyOrNull(FONT_PATH)
+            if (fontPath != null) {
+                patch("font-rules", fontRules(fontPath))
+            }
+
             patch("terser-configuration", TERSER_CONFIGURATION)
         }
 
@@ -78,5 +102,6 @@ class WebpackLoadersPlugin : Plugin<Project> {
 
         configurationName(devNpm(CSS_LOADER, "5.0.0"))
         configurationName(devNpm(SVG_INLINE_LOADER, "0.8.2"))
+        configurationName(devNpm(FILE_LOADER, "6.2.0"))
     }
 }
