@@ -27,7 +27,7 @@ dependencies {
     implementation("nu.studer:java-ordered-properties:1.0.3")
 
     // TODO: remove version after Gradle update on Kotlin 1.4
-    compileOnly(kotlin("gradle-plugin", "1.4.20"))
+    compileOnly(kotlin("gradle-plugin", "1.4.21"))
 }
 
 val REPO_URL = "https://github.com/turansky/kfc-plugins"
