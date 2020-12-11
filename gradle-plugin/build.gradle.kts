@@ -53,6 +53,7 @@ enum class KfcPlugin(className: String) {
     WEBPACK_LOADERS("WebpackLoadersPlugin"),
 
     LIBRARY("LibraryPlugin"),
+    CUSTOM_ELEMENT("CustomElementPlugin"),
     WEBCOMPONENT("WebComponentPlugin"),
     YFILES("YFilesPlugin"),
     DEV_SERVER("DevServerPlugin"),
@@ -136,6 +137,12 @@ pluginBundle {
         displayName = "Kotlin library plugin"
         description = "Optimize Kotlin library configuration"
         tags = tags("library")
+    }
+
+    plugin(CUSTOM_ELEMENT) {
+        displayName = "Kotlin/JS custom element plugin"
+        description = "Custom element adapter for Kotlin/JS"
+        tags = tags("webcomponent")
     }
 
     plugin(WEBCOMPONENT) {
