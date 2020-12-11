@@ -4,6 +4,15 @@ import org.w3c.dom.css.CSSStyleDeclaration
 
 @JsName("HTMLElement")
 open external class CustomElement : HTMLElement {
+    fun connectedCallback()
+    fun disconnectedCallback()
+    fun adoptedCallback()
+    fun attributeChangedCallback(
+        name: Boolean,
+        oldValue: dynamic,
+        newValue: dynamic,
+    )
+
     override val childElementCount: Int
     override val children: HTMLCollection
     override var contentEditable: String
