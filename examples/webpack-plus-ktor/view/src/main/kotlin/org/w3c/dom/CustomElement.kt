@@ -3,7 +3,7 @@ package org.w3c.dom
 import org.w3c.dom.css.CSSStyleDeclaration
 
 @JsName("HTMLElement")
-external class CustomElement : HTMLElement {
+open external class CustomElement : HTMLElement {
     override val childElementCount: Int
     override val children: HTMLCollection
     override var contentEditable: String
