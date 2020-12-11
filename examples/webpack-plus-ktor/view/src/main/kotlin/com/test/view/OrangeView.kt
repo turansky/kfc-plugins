@@ -5,9 +5,9 @@ import org.w3c.dom.OPEN
 import org.w3c.dom.ShadowRootInit
 import org.w3c.dom.ShadowRootMode
 
-class BlueView : CustomElement() {
+class OrangeView : CustomElement() {
     init {
         val shadow = attachShadow(ShadowRootInit(ShadowRootMode.OPEN))
-        shadow.appendChild(div("blue"))
+        shadow.appendChild(div("orange"))
     }
 }
