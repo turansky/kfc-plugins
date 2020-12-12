@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
 
 private val PROTOTYPE_REGEX = Regex("(\\w+).prototype = Object.create\\(HTMLElement\\.prototype\\);")
+private val UPPERCASE_REGEX = Regex("([A-Z]+)")
 
 private const val FUNCTION_END = "\n  }\n"
 
@@ -55,8 +56,8 @@ private fun File.isCandidate(projectName: String): Boolean =
 private fun fixCustomElements(content: String): String {
     var result = content
 
-    PROTOTYPE_REGEX.findAll(content).forEach {
-        val name = it.groups[1]!!.value
+    PROTOTYPE_REGEX.findAll(content).forEach { r ->
+        val name = r.groups[1]!!.value
 
         val prototype = "  $name.prototype = Object.create(HTMLElement.prototype);\n" +
                 "  $name.prototype.constructor = $name;\n"
@@ -68,14 +69,14 @@ private fun fixCustomElements(content: String): String {
 
         val startIndex = result.indexOf(constructor)
         val endIndex = result.indexOf(FUNCTION_END, startIndex)
-            .let { if (it != -1) it + FUNCTION_END.length else -1 }
+            .let { if (it != -1) it + FUNCTION_END.length else it }
 
         require(startIndex != -1 && endIndex != -1) {
             "Unable to find constructor for '$name' component"
         }
 
         result = result.substring(0, endIndex) +
-                "\n  }\n  customElements.define('$name', $name);" +
+                "\n  }\n  customElements.define('${name.toKebabCase()}', $name);\n\n" +
                 result.substring(endIndex)
 
         result = result.replaceFirst(
@@ -88,3 +89,8 @@ private fun fixCustomElements(content: String): String {
 
     return result
 }
+
+private fun String.toKebabCase(): String =
+    replace(UPPERCASE_REGEX, "-$1")
+        .removePrefix("-")
+        .toLowerCase()
