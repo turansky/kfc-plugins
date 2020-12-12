@@ -15,6 +15,7 @@ class DevServerPlugin : Plugin<Project> {
         // TODO: enable dev server without dist
         applyKotlinJsPlugin(true)
         plugins.apply(WebpackPlugin::class)
+        plugins.apply(WebComponentPlugin::class)
 
         val extension = extensions.create<DevServerExtension>("devServer")
         val generateExportAlias = tasks.register<GenerateExportAlias>("generateExportAlias")
