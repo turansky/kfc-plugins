@@ -9,5 +9,11 @@ class BlueView : CustomElement() {
     init {
         val shadow = attachShadow(ShadowRootInit(ShadowRootMode.CLOSED))
         shadow.appendChild(div("blue"))
+
+        println("BlueView started!")
+    }
+
+    override fun connectedCallback() {
+        println("BlueView connected!")
     }
 }
