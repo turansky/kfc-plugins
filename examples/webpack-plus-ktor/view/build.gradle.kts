@@ -1,4 +1,5 @@
 plugins {
+    id("com.github.turansky.kfc.custom-element")
     id("com.github.turansky.kfc.webcomponent")
 }
 
