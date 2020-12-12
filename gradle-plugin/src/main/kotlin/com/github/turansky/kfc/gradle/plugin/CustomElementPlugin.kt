@@ -14,6 +14,8 @@ private object KotlinJs {
     val TARGET_V5 = "v5"
 }
 
+private val PROTOTYPE_REGEX = Regex("(\\w+).prototype = Object.create\\(HTMLElement\\.prototype\\);")
+
 internal class CustomElementPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.withType<KotlinJsCompile>().configureEach {
@@ -43,7 +45,33 @@ internal class CustomElementPlugin : Plugin<Project> {
 }
 
 private fun fixCustomElements(content: String): String {
-    // TODO: fix elements
+    var result = content
 
-    return content
+    PROTOTYPE_REGEX.findAll(content).forEach {
+        val name = it.groups[1]!!.value
+
+        val prototype = "  $name.prototype = Object.create(HTMLElement.prototype);\n" +
+                "  $name.prototype.constructor = $name;\n"
+
+        result = result.replaceFirst(prototype, "")
+
+        val constructor = "  function $name() {\n" +
+                "    HTMLElement.call(this);\n"
+
+        val startIndex = result.indexOf(constructor)
+        val endIndex = result.indexOf("\n  }\n", startIndex)
+        require(startIndex != -1 && endIndex != -1) {
+            "Unable to find constructor for '$name' component"
+        }
+
+        result = result.substring(0, endIndex) + "\n}" + result.substring(endIndex)
+        result = result.replaceFirst(
+            constructor,
+            "  class $name extends HTMLElement {\n" +
+                    "  constructor() {\n" +
+                    "    super();\n"
+        )
+    }
+
+    return result
 }
