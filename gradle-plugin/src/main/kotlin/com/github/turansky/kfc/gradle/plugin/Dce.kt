@@ -7,5 +7,11 @@ internal fun KotlinJsDce.keepPath(path: String) {
     keep += keepId(path)
 }
 
+internal fun KotlinJsDce.keepPaths(paths: Iterable<String>) {
+    for (path in paths) {
+        keepPath(path)
+    }
+}
+
 private fun Task.keepId(path: String): String =
     "$jsProjectId.$path"

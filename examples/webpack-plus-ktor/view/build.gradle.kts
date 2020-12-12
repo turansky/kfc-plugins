@@ -4,9 +4,7 @@ plugins {
 }
 
 webcomponent {
-    id = "super-puper-view"
-
-    source = "com.test.view.View"
+    add("com.test.view.View")
 }
 
 dependencies {

@@ -13,6 +13,7 @@ class WebComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinJsPlugin(distribution = true)
         plugins.apply(WebpackPlugin::class)
+        plugins.apply(CustomElementPlugin::class)
 
         val extension = extensions.create<WebComponentExtension>("webcomponent")
 
@@ -31,12 +32,12 @@ class WebComponentPlugin : Plugin<Project> {
 
         afterEvaluate {
             generateWebComponent {
-                component = extension.build()
+                components = extension.components
             }
 
             tasks {
                 configureEach<KotlinJsDce> {
-                    keepPath(extension.source)
+                    keepPaths(extension.components)
                 }
 
                 configureEach<PatchWebpackConfig> {

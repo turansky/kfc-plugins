@@ -3,9 +3,7 @@ plugins {
 }
 
 webcomponent {
-    id = "unreal-component"
-
-    source = "com.test.view.Api"
+    add("com.test.view.Api")
 }
 
 dependencies {

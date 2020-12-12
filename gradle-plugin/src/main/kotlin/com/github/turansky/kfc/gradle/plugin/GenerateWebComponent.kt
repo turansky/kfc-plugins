@@ -9,7 +9,7 @@ private val GENERATE_WEB_COMPONENT = "generateWebComponent"
 
 open class GenerateWebComponent : DefaultTask() {
     @get:Input
-    var component: WebComponent? = null
+    var components: List<String> = emptyList()
 
     @get:OutputFile
     val entry: File
@@ -22,8 +22,9 @@ open class GenerateWebComponent : DefaultTask() {
 
     @TaskAction
     private fun generate() {
-        val component = checkNotNull(component)
-        getEntry(true).writeText(component.toCode(jsProjectId))
+        val components = components.toList()
+        check(components.isNotEmpty())
+        getEntry(true).writeText(WebComponent.wrap(jsProjectId, components))
     }
 }
 
