@@ -4,10 +4,10 @@ import org.w3c.dom.css.CSSStyleDeclaration
 
 @JsName("HTMLElement")
 open external class CustomElement : HTMLElement {
-    open fun connectedCallback()
-    open fun disconnectedCallback()
-    open fun adoptedCallback()
-    open fun attributeChangedCallback(
+    protected open fun connectedCallback()
+    protected open fun disconnectedCallback()
+    protected open fun adoptedCallback()
+    protected open fun attributeChangedCallback(
         name: Boolean,
         oldValue: dynamic,
         newValue: dynamic,
