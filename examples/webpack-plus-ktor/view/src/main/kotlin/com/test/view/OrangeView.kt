@@ -10,4 +10,12 @@ class OrangeView : CustomElement() {
         val shadow = attachShadow(ShadowRootInit(ShadowRootMode.CLOSED))
         shadow.appendChild(div("orange"))
     }
+
+    override fun connectedCallback() {
+        println("OrangeView connected!")
+    }
+
+    override fun disconnectedCallback() {
+        println("OrangeView disconnected!")
+    }
 }
