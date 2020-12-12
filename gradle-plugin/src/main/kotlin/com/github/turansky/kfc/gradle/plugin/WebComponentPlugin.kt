@@ -21,7 +21,7 @@ private val CALLBACKS = listOf(
     "attributeChangedCallback"
 )
 
-internal class CustomElementPlugin : Plugin<Project> {
+internal class WebComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.withType<KotlinJsDce>().configureEach {
             doLast {
