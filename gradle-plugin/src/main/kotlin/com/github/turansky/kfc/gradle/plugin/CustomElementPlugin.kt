@@ -12,6 +12,14 @@ private val PROTOTYPE_REGEX = Regex("(\\w+).prototype = Object.create\\(HTMLElem
 private val UPPERCASE_REGEX = Regex("([A-Z]+)")
 
 private const val FUNCTION_END = "\n  }\n"
+private const val CALLBACK_FUNCTION_END = "\n  };\n"
+
+private val CALLBACKS = listOf(
+    "connectedCallback",
+    "disconnectedCallback",
+    "adoptedCallback",
+    "attributeChangedCallback"
+)
 
 internal class CustomElementPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -64,6 +72,26 @@ private fun fixCustomElements(content: String): String {
 
         result = result.replaceFirst(prototype, "")
 
+        val inlinedCallbacks = mutableListOf<String>()
+        for (callback in CALLBACKS) {
+            val start = "$name.prototype.$callback = function"
+            val si = result.indexOf(start)
+            if (si == -1)
+                continue
+
+            val ei = result.indexOf(CALLBACK_FUNCTION_END, si) +
+                    CALLBACK_FUNCTION_END.length + 1
+
+            inlinedCallbacks.add(
+                callback + result.substring(
+                    si + start.length,
+                    ei - 1
+                )
+            )
+
+            result = result.substring(0, si) + result.substring(ei)
+        }
+
         val constructor = "  function $name() {\n" +
                 "    HTMLElement.call(this);\n"
 
@@ -76,6 +104,7 @@ private fun fixCustomElements(content: String): String {
         }
 
         result = result.substring(0, endIndex) +
+                inlinedCallbacks.joinToString("\n\n") +
                 "\n  }\n  customElements.define('${name.toKebabCase()}', $name);\n\n" +
                 result.substring(endIndex)
 
