@@ -32,12 +32,12 @@ class WebComponentPlugin : Plugin<Project> {
 
         afterEvaluate {
             generateWebComponent {
-                components = extension.components
+                classNames = extension.classNames
             }
 
             tasks {
                 configureEach<KotlinJsDce> {
-                    keepPaths(extension.components)
+                    keepPaths(extension.classNames)
                 }
 
                 configureEach<PatchWebpackConfig> {

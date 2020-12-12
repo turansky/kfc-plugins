@@ -1,8 +1,8 @@
 package com.github.turansky.kfc.gradle.plugin
 
 open class ComponentExtension {
-    internal val components: MutableList<String> = mutableListOf()
+    internal val classNames: MutableList<String> = mutableListOf()
 
-    fun export(component: String) =
-        components.add(component)
+    fun export(className: String) =
+        classNames.add(className)
 }

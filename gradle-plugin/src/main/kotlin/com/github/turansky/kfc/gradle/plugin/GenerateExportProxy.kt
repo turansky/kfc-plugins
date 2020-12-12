@@ -9,7 +9,7 @@ private val GENERATE_EXPORT_PROXY = "generateExportProxy"
 
 open class GenerateExportProxy : DefaultTask() {
     @get:Input
-    var components: List<String> = emptyList()
+    var classNames: List<String> = emptyList()
 
     @get:OutputFile
     val entry: File
@@ -22,9 +22,9 @@ open class GenerateExportProxy : DefaultTask() {
 
     @TaskAction
     private fun generate() {
-        val components = components.toList()
-        check(components.isNotEmpty())
-        getEntry(true).writeText(proxy(jsProjectId, components))
+        val classNames = classNames.toList()
+        check(classNames.isNotEmpty())
+        getEntry(true).writeText(proxy(jsProjectId, classNames))
     }
 }
 
