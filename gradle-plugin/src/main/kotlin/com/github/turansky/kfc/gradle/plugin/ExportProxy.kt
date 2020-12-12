@@ -1,8 +1,7 @@
 package com.github.turansky.kfc.gradle.plugin
 
-object WebComponent {
-
-    fun wrap(
+object ExportProxy {
+    fun create(
         moduleName: String,
         components: List<String>
     ): String =

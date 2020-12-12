@@ -24,7 +24,7 @@ open class GenerateWebComponent : DefaultTask() {
     private fun generate() {
         val components = components.toList()
         check(components.isNotEmpty())
-        getEntry(true).writeText(WebComponent.wrap(jsProjectId, components))
+        getEntry(true).writeText(ExportProxy.create(jsProjectId, components))
     }
 }
 
