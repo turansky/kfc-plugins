@@ -9,7 +9,7 @@ import org.gradle.kotlin.dsl.invoke
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
-class WebComponentPlugin : Plugin<Project> {
+class ComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinJsPlugin(distribution = true)
         plugins.apply(WebpackPlugin::class)

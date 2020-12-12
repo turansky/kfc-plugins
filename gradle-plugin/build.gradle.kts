@@ -54,7 +54,7 @@ enum class KfcPlugin(className: String) {
 
     LIBRARY("LibraryPlugin"),
     CUSTOM_ELEMENT("CustomElementPlugin"),
-    WEBCOMPONENT("WebComponentPlugin"),
+    WEBCOMPONENT("ComponentPlugin"),
     YFILES("YFilesPlugin"),
     DEV_SERVER("DevServerPlugin"),
 
