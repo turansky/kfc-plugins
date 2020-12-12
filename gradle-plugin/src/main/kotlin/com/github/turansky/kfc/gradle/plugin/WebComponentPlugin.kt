@@ -15,7 +15,7 @@ class WebComponentPlugin : Plugin<Project> {
         plugins.apply(WebpackPlugin::class)
         plugins.apply(CustomElementPlugin::class)
 
-        val extension = extensions.create<WebComponentExtension>("webcomponent")
+        val extension = extensions.create<ComponentExtension>("component")
 
         val generateWebComponent = tasks.registerGenerateWebComponent()
 

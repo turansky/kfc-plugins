@@ -3,8 +3,8 @@ plugins {
     id("com.github.turansky.kfc.yfiles")
 }
 
-webcomponent {
-    add("com.test.example.app.RedButton")
+component {
+    export("com.test.example.app.RedButton")
 }
 
 dependencies {

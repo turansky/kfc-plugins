@@ -2,8 +2,8 @@ plugins {
     id("com.github.turansky.kfc.webcomponent")
 }
 
-webcomponent {
-    add("com.test.view.Api")
+component {
+    export("com.test.view.Api")
 }
 
 dependencies {
