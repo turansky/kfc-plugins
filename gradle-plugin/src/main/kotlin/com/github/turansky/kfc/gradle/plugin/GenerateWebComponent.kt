@@ -24,7 +24,7 @@ open class GenerateWebComponent : DefaultTask() {
     private fun generate() {
         val components = components.toList()
         check(components.isNotEmpty())
-        getEntry(true).writeText(ExportProxy.create(jsProjectId, components))
+        getEntry(true).writeText(proxy(jsProjectId, components))
     }
 }
 
@@ -38,3 +38,13 @@ internal fun List<GenerateWebComponent>.entryConfiguration() =
     joinToString("\n") {
         "config.entry['${it.project.name}'] = ${it.entry.toPathString()}"
     }
+
+private fun proxy(
+    moduleName: String,
+    components: List<String>
+): String =
+    "import * as source from '$moduleName'\n\n" +
+            components.joinToString("\n") {
+                val name = it.substringAfterLast(".")
+                "export const $name = source.$it"
+            }
