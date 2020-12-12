@@ -10,6 +10,8 @@ import java.io.File
 
 private val PROTOTYPE_REGEX = Regex("(\\w+).prototype = Object.create\\(HTMLElement\\.prototype\\);")
 
+private const val FUNCTION_END = "\n  }\n"
+
 internal class CustomElementPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.withType<KotlinJsDce>().configureEach {
@@ -65,12 +67,17 @@ private fun fixCustomElements(content: String): String {
                 "    HTMLElement.call(this);\n"
 
         val startIndex = result.indexOf(constructor)
-        val endIndex = result.indexOf("\n  }\n", startIndex)
+        val endIndex = result.indexOf(FUNCTION_END, startIndex)
+            .let { if (it != -1) it + FUNCTION_END.length else -1 }
+
         require(startIndex != -1 && endIndex != -1) {
             "Unable to find constructor for '$name' component"
         }
 
-        result = result.substring(0, endIndex) + "\n}" + result.substring(endIndex)
+        result = result.substring(0, endIndex) +
+                "\n  }\n  customElements.define('$name', $name);" +
+                result.substring(endIndex)
+
         result = result.replaceFirst(
             constructor,
             "  class $name extends HTMLElement {\n" +
