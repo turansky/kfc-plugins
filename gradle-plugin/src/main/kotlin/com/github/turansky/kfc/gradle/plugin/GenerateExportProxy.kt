@@ -5,9 +5,9 @@ import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.register
 import java.io.File
 
-private val GENERATE_WEB_COMPONENT = "generateWebComponent"
+private val GENERATE_EXPORT_PROXY = "generateExportProxy"
 
-open class GenerateWebComponent : DefaultTask() {
+open class GenerateExportProxy : DefaultTask() {
     @get:Input
     var components: List<String> = emptyList()
 
@@ -16,7 +16,7 @@ open class GenerateWebComponent : DefaultTask() {
         get() = getEntry()
 
     private fun getEntry(createMode: Boolean = false): File =
-        jsPackageDir("webcomponent")
+        jsPackageDir("export-proxy")
             .also { if (createMode) it.mkdir() }
             .resolve("index.js")
 
@@ -28,13 +28,13 @@ open class GenerateWebComponent : DefaultTask() {
     }
 }
 
-internal fun TaskContainer.registerGenerateWebComponent(): TaskProvider<GenerateWebComponent> =
-    register<GenerateWebComponent>(GENERATE_WEB_COMPONENT)
+internal fun TaskContainer.registerGenerateExportProxy(): TaskProvider<GenerateExportProxy> =
+    register<GenerateExportProxy>(GENERATE_EXPORT_PROXY)
 
-internal fun TaskContainer.findGenerateWebComponent(): GenerateWebComponent? =
-    findByName(GENERATE_WEB_COMPONENT) as? GenerateWebComponent
+internal fun TaskContainer.findGenerateExportProxy(): GenerateExportProxy? =
+    findByName(GENERATE_EXPORT_PROXY) as? GenerateExportProxy
 
-internal fun List<GenerateWebComponent>.entryConfiguration() =
+internal fun List<GenerateExportProxy>.entryConfiguration() =
     joinToString("\n") {
         "config.entry['${it.project.name}'] = ${it.entry.toPathString()}"
     }

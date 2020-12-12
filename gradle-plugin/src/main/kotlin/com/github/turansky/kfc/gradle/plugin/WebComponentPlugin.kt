@@ -17,7 +17,7 @@ class WebComponentPlugin : Plugin<Project> {
 
         val extension = extensions.create<ComponentExtension>("component")
 
-        val generateWebComponent = tasks.registerGenerateWebComponent()
+        val generateWebComponent = tasks.registerGenerateExportProxy()
 
         tasks {
             useModularJsTarget()

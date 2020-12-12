@@ -57,7 +57,7 @@ class DevServerPlugin : Plugin<Project> {
                 )
 
                 relatedProjects()
-                    .mapNotNull { it.tasks.findGenerateWebComponent() }
+                    .mapNotNull { it.tasks.findGenerateExportProxy() }
                     .onEach { dependsOn(it) }
                     .takeIf { it.isNotEmpty() }
                     ?.also { patch("entries", it.entryConfiguration()) }
