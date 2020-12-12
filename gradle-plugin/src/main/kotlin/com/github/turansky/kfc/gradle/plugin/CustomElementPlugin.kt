@@ -2,47 +2,53 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-
-private object KotlinJs {
-    val COMPILE_TASK_NAMES = setOf(
-        "compileKotlinJs",
-        "compileTestKotlinJs"
-    )
-
-    val TARGET_V5 = "v5"
-}
+import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
+import java.io.File
 
 private val PROTOTYPE_REGEX = Regex("(\\w+).prototype = Object.create\\(HTMLElement\\.prototype\\);")
 
 internal class CustomElementPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks.withType<KotlinJsCompile>().configureEach {
+        tasks.withType<KotlinJsDce>().configureEach {
             doLast {
-                val jsTarget = kotlinOptions.target
-                if (jsTarget != KotlinJs.TARGET_V5) {
-                    logger.warn("Unsupported JS target '$jsTarget'!")
-                    return@doLast
-                }
-
-                if (name !in KotlinJs.COMPILE_TASK_NAMES)
-                    return@doLast
-
-                val outputFile = file(kotlinOptions.outputFile!!)
-                // IR invalid folder check
-                if (outputFile.parentFile.name != "kotlin")
-                    return@doLast
-
-                val content = outputFile.readText()
-                val newContent = fixCustomElements(content)
-                if (newContent != content) {
-                    outputFile.writeText(newContent)
+                val outputDirectory = getOutputDirectory(name)
+                fileTree(outputDirectory).visit {
+                    if (file.isCandidate(project.rootProject.name)) {
+                        val content = file.readText()
+                        val newContent = fixCustomElements(content)
+                        if (newContent != content) {
+                            file.writeText(newContent)
+                        }
+                    }
                 }
             }
         }
     }
 }
+
+private fun Project.getOutputDirectory(name: String): File {
+    val packageDir = tasks.getByName<KotlinJsCompile>("compileKotlinJs")
+        .kotlinOptions.outputFile
+        .let { file(it!!) }
+        .parentFile
+        .parentFile
+
+    val directoryName = when (name) {
+        "processDceKotlinJs" -> "kotlin-dce"
+        "processDceDevKotlinJs" -> "kotlin-dce-dev"
+        else -> TODO()
+    }
+
+    return packageDir.resolve(directoryName)
+}
+
+private fun File.isCandidate(projectName: String): Boolean =
+    name.endsWith(".js")
+            && !name.endsWith(".meta.js")
+            && name.startsWith(projectName)
 
 private fun fixCustomElements(content: String): String {
     var result = content
