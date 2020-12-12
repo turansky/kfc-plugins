@@ -6,13 +6,24 @@ import org.w3c.dom.HTMLElement
 
 @JsName("View")
 fun View(): HTMLElement {
-    return div().apply {
+    val container = div().apply {
         style.apply {
             width = "100%"
             height = "100%"
             backgroundColor = "red"
         }
     }
+
+    sequenceOf(BlueView(), OrangeView())
+        .onEach {
+            it.style.apply {
+                width = "33%"
+                height = "100%"
+            }
+        }
+        .forEach { container.appendChild(it) }
+
+    return container
 }
 
 private fun div(): HTMLDivElement =
