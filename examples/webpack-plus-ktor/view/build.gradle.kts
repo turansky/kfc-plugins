@@ -4,7 +4,8 @@ plugins {
 }
 
 webcomponent {
-    add("com.test.view.View")
+    add("com.test.view.BlueView")
+    add("com.test.view.OrangeView")
 }
 
 dependencies {

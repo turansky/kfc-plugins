@@ -34,10 +34,12 @@
   <a href="http://localhost:9876/persons">Persons [remote]</a>
 </div>
 <script>
-    const view = new View()
+    const blueView = new BlueView()
+    const orangeView = new OrangeView()
 
-    document.getElementById('view-container')
-        .appendChild(view)
+    const container = document.getElementById('view-container')
+    container.appendChild(blueView)
+    container.appendChild(orangeView)
 </script>
 </body>
 </html>
