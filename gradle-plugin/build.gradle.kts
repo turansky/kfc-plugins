@@ -53,7 +53,7 @@ enum class KfcPlugin(className: String) {
     WEBPACK_LOADERS("WebpackLoadersPlugin"),
 
     LIBRARY("LibraryPlugin"),
-    CUSTOM_ELEMENT("CustomElementPlugin"),
+    CUSTOM_ELEMENT("WebComponentPlugin"),
     WEBCOMPONENT("ComponentPlugin"),
     YFILES("YFilesPlugin"),
     DEV_SERVER("DevServerPlugin"),
