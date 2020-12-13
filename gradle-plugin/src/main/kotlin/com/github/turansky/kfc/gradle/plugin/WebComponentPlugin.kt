@@ -48,8 +48,14 @@ private fun Project.getOutputDirectory(name: String): File {
         .parentFile
 
     val directoryName = when (name) {
-        "processDceKotlinJs" -> "kotlin-dce"
-        "processDceDevKotlinJs" -> "kotlin-dce-dev"
+        "processDceKotlinJs",
+        "processDceJsKotlinJs"
+        -> "kotlin-dce"
+
+        "processDceDevKotlinJs",
+        "processDceDevJsKotlinJs"
+        -> "kotlin-dce-dev"
+
         else -> TODO()
     }
 
