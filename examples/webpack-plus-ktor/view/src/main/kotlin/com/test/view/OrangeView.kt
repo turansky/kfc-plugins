@@ -5,6 +5,8 @@ import org.w3c.dom.CustomElement
 import org.w3c.dom.ShadowRootInit
 import org.w3c.dom.ShadowRootMode
 
+@JsExport
+@ExperimentalJsExport
 class OrangeView : CustomElement() {
     init {
         val shadow = attachShadow(ShadowRootInit(ShadowRootMode.CLOSED))

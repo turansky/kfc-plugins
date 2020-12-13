@@ -35,6 +35,13 @@
 </div>
 <script>
     const blueView = new BlueView()
+    console.log(blueView.key)
+    blueView.content = "BLUE_CONTENT"
+    console.log(blueView.content)
+
+    blueView.export()
+        .then(data => console.log(`EXPORT R: ${data}`))
+
     const orangeView = new OrangeView()
 
     const container = document.getElementById('view-container')
