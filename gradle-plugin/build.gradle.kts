@@ -18,11 +18,6 @@ kotlinDslPluginOptions {
     experimentalWarning.set(false)
 }
 
-// TODO: remove after Gradle update on Kotlin 1.4
-tasks.compileKotlin {
-    kotlinOptions.allWarningsAsErrors = false
-}
-
 dependencies {
     implementation("nu.studer:java-ordered-properties:1.0.3")
 
