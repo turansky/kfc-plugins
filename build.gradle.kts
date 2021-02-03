@@ -9,6 +9,6 @@ allprojects {
 }
 
 tasks.wrapper {
-    gradleVersion = "6.8"
+    gradleVersion = "6.8.1"
     distributionType = Wrapper.DistributionType.ALL
 }
