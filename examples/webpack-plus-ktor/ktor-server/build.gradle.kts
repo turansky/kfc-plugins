@@ -8,7 +8,7 @@ application {
     mainClassName = "io.ktor.server.netty.DevelopmentEngine"
 }
 
-val ktorVersion = "1.3.2"
+val ktorVersion = "1.5.1"
 val logbackVersion = "1.2.3"
 
 dependencies {
