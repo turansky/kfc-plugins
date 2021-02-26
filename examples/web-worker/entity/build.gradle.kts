@@ -3,5 +3,8 @@ plugins {
 }
 
 kotlin.js {
+    moduleName = "ww-entity"
+
     browser()
+    useCommonJs()
 }

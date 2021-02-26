@@ -3,6 +3,8 @@ plugins {
 }
 
 kotlin.js {
+    moduleName = "ww-view"
+
     browser()
 }
 

@@ -3,7 +3,11 @@ plugins {
 }
 
 kotlin.js {
+    moduleName = "ww-worker"
+
     browser()
+    useCommonJs()
+    binaries.executable()
 }
 
 dependencies {

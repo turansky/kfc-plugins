@@ -3,7 +3,11 @@ plugins {
 }
 
 kotlin.js {
+    moduleName = "ww-local-server"
+
     browser()
+    useCommonJs()
+    binaries.executable()
 }
 
 dependencies {
