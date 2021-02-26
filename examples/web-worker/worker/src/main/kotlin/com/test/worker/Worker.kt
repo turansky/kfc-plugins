@@ -7,11 +7,18 @@ external val self: Worker
 fun main() {
     println("Worker start!!!")
 
-    self.onmessage = {
-        when (val data = it.data) {
-            is Int -> self.postMessage("Q(${data * data})")
-            else -> self.postMessage("REPLY: $data")
+    self.addMessageHandler {
+        when (type) {
+            MessageType.COUNT -> {
+                val count = data as Int
+                self.post(Message(count * count))
+            }
+
+            MessageType.INFO -> {
+                self.post(Message("REPLY: $data"))
+            }
         }
     }
-    self.postMessage("Hallo from worker!")
+
+    self.post(Message("Hallo from worker!"))
 }

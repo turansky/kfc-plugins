@@ -1,5 +1,8 @@
 package com.test.view
 
+import com.test.worker.Message
+import com.test.worker.addMessageHandler
+import com.test.worker.post
 import kotlinx.browser.document
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
@@ -20,14 +23,14 @@ fun main() {
     }
 
     val worker = Worker("worker.js")
-    worker.onmessage = { log("W", it.data) }
-    worker.postMessage("Hallo from !")
+    worker.addMessageHandler { log("W[$type]", data) }
+    worker.post(Message("Hallo from main!"))
 
     view.addEventListener("click", {
         count++
 
         log("C", count)
-        worker.postMessage(count)
+        worker.post(Message(count))
     })
 }
 

@@ -2,7 +2,7 @@ package com.test.worker
 
 import org.w3c.dom.Worker
 
-fun Worker.onMessage(handler: Message.() -> Unit) {
+fun Worker.addMessageHandler(handler: Message.() -> Unit) {
     onmessage = {
         handler(it.data.unsafeCast<Message>())
     }
