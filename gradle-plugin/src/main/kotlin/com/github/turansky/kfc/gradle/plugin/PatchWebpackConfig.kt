@@ -54,6 +54,7 @@ open class PatchWebpackConfig : DefaultTask() {
     }
 }
 
+@Suppress("JSUnnecessarySemicolon")
 private fun createPatch(
     name: String,
     body: String
@@ -61,7 +62,7 @@ private fun createPatch(
     // language=JavaScript
     """
         |// $name
-        |(function (config) {
+        |;(function (config) {
         |$body
         |})(config)
     """.trimMargin()
