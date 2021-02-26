@@ -7,9 +7,11 @@ external val self: Worker
 fun main() {
     println("Worker start!!!")
 
-    self.addEventListener("message", {
-        val data = it.asDynamic().data
-        println("From main: $data")
-    })
+    self.onmessage = {
+        when (val data = it.data) {
+            is Int -> self.postMessage("Q(${data * data})")
+            else -> self.postMessage("REPLY: $data")
+        }
+    }
     self.postMessage("Hallo from worker!")
 }

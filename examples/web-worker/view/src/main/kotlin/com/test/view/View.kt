@@ -6,15 +6,29 @@ import org.w3c.dom.HTMLElement
 import org.w3c.dom.Worker
 
 fun main() {
+    var count = 1
+
+    val body = document.body!!
+
     val view = View()
-    document.body!!.appendChild(view)
+    body.appendChild(view)
+
+    fun log(tag: String, data: Any?) {
+        val span = document.createElement("span")
+        span.textContent = "$tag: $data"
+        view.appendChild(span)
+    }
 
     val worker = Worker("worker.js")
-    worker.addEventListener("message", {
-        val data = it.asDynamic().data
-        view.textContent += "\n\n$data"
+    worker.onmessage = { log("W", it.data) }
+    worker.postMessage("Hallo from !")
+
+    view.addEventListener("click", {
+        count++
+
+        log("C", count)
+        worker.postMessage(count)
     })
-    worker.postMessage("Hallo!")
 }
 
 fun View(): HTMLElement {
@@ -24,6 +38,7 @@ fun View(): HTMLElement {
     container.style.apply {
         width = "100%"
         height = "100%"
+        display = "grid"
         backgroundColor = "yellow"
     }
 
