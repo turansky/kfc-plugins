@@ -11,7 +11,7 @@ open class PatchWebpackConfig : DefaultTask() {
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:Input
-    val inlinePatches: MutableList<String> = mutableListOf()
+    val unsafePatches: MutableList<String> = mutableListOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -30,13 +30,13 @@ open class PatchWebpackConfig : DefaultTask() {
         }
     }
 
-    internal fun inlinePatch(body: String) {
-        inlinePatches += body
+    fun unsafePatch(body: String) {
+        unsafePatches += body
     }
 
     @TaskAction
     private fun generatePatches() {
-        if (patches.isEmpty() && inlinePatches.isEmpty()) {
+        if (patches.isEmpty() && unsafePatches.isEmpty()) {
             return
         }
 
@@ -44,7 +44,7 @@ open class PatchWebpackConfig : DefaultTask() {
             .asSequence()
             .sortedBy { it.key }
             .map { (name, body) -> createPatch(name, body) }
-            .plus(inlinePatches)
+            .plus(unsafePatches)
             .joinToString("\n\n")
 
         configDirectory
@@ -58,9 +58,10 @@ private fun createPatch(
     name: String,
     body: String
 ): String =
+    // language=JavaScript
     """
         |// $name
-        |;(function (config) {
+        |(function (config) {
         |$body
         |})(config)
     """.trimMargin()

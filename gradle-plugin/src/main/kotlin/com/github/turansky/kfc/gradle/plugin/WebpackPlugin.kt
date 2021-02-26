@@ -82,7 +82,7 @@ private fun TaskContainer.configureOutputs(
     }
 
     configureEach<PatchWebpackConfig> {
-        inlinePatch(outputConfiguration(outputs, ::entry))
+        unsafePatch(outputConfiguration(outputs, ::entry))
     }
 }
 
