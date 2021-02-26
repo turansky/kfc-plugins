@@ -1,6 +1,6 @@
 package com.test.local
 
-external interface Local {
-    val firstName: String
-    val lastName: String
+// For dev server only
+fun main() {
+    println("Local!")
 }
