@@ -3,9 +3,18 @@ package com.test.view
 import kotlinx.browser.document
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
+import org.w3c.dom.Worker
 
 fun main() {
-    document.body!!.appendChild(View())
+    val view = View()
+    document.body!!.appendChild(view)
+
+    val worker = Worker("worker.js")
+    worker.addEventListener("message", {
+        val data = it.asDynamic().data
+        view.textContent += "\n\n$data"
+    })
+    worker.postMessage("Hallo!")
 }
 
 fun View(): HTMLElement {
