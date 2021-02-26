@@ -1,11 +1,20 @@
 package com.test.worker
 
 import org.w3c.dom.Worker
+import org.w3c.dom.events.Event
 
-fun Worker.addMessageHandler(handler: Message.() -> Unit) {
-    onmessage = {
-        handler(it.data.unsafeCast<Message>())
+private const val MESSAGE_TYPE: String = "message"
+
+fun Worker.addMessageHandler(
+    handler: Message.() -> Unit
+): () -> Unit {
+    val listener: (Event) -> Unit = {
+        val message = it.asDynamic().data
+        handler(message)
     }
+
+    addEventListener(MESSAGE_TYPE, listener)
+    return { removeEventListener(MESSAGE_TYPE, listener) }
 }
 
 fun Worker.post(message: Message) {
