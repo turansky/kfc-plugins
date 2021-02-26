@@ -22,6 +22,11 @@ include("examples:resources:lib-b")
 include("examples:resources:lib-c")
 include("examples:resources:app-d")
 
+include("examples:web-worker:entity")
+include("examples:web-worker:view")
+include("examples:web-worker:worker")
+include("examples:web-worker:local-server")
+
 include("examples:webpack-plus-ktor:entity")
 include("examples:webpack-plus-ktor:ktor-server")
 include("examples:webpack-plus-ktor:view")
