@@ -1,4 +1,4 @@
-package com.test.worker
+package com.test.entity
 
 external interface Person {
     val firstName: String

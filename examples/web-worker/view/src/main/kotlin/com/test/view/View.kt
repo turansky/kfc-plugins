@@ -1,4 +1,4 @@
-package com.test.worker
+package com.test.view
 
 import kotlinx.browser.document
 import org.w3c.dom.HTMLDivElement
