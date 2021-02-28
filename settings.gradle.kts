@@ -24,7 +24,9 @@ include("examples:resources:app-d")
 
 include("examples:web-worker:entity")
 include("examples:web-worker:view")
+include("examples:web-worker:view-io")
 include("examples:web-worker:worker")
+include("examples:web-worker:worker-io")
 include("examples:web-worker:local-server")
 
 include("examples:webpack-plus-ktor:entity")
