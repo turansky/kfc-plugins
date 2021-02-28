@@ -9,8 +9,8 @@ application {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-html-builder:$ktorVersion")
+    implementation(ktor("server-netty"))
+    implementation(ktor("html-builder"))
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
 
     implementation(project(":examples:webpack-plus-ktor:entity"))

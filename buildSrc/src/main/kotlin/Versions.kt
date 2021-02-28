@@ -1,6 +1,8 @@
 import org.gradle.api.Project
 
-val Project.ktorVersion: String
-    get() = property("ktor.version") as String
+fun Project.ktor(target: String): String {
+    val version = property("ktor.version") as String
+    return "io.ktor:ktor-$target:$version"
+}
 
 val logbackVersion = "1.2.3"
