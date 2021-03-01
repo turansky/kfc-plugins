@@ -10,10 +10,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
-import org.w3c.dom.Worker
-
-@JsModule("ww-worker-wl")
-external class ViewWorker : Worker
 
 fun main() {
     val body = document.body!!
