@@ -14,4 +14,4 @@ inline fun createWorker(id: String): Worker {
 }
 
 fun ViewWorker(): Worker =
-    createWorker("my-worker-wl")
+    createWorker("ww-worker-wl")
