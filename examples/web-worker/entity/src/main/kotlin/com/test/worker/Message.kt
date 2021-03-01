@@ -8,6 +8,7 @@ external interface Message {
 object MessageType {
     val COUNT: String = "count"
     val INFO: String = "info"
+    val BYTES: String = "bytes"
 }
 
 private fun Message(
@@ -25,3 +26,6 @@ fun Message(count: Int): Message =
 
 fun Message(message: String): Message =
     Message(MessageType.INFO, message)
+
+fun Message(bytes: ByteArray): Message =
+    Message(MessageType.BYTES, bytes)

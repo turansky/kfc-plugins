@@ -27,21 +27,26 @@ fun main() {
     }
 
     val worker = Worker("worker-io.js")
-    worker.addMessageHandler { log("W[$type]", data) }
-    worker.post(Message("Hallo from main!"))
+    worker.addMessageHandler {
+        log("W[$type]", data)
+    }
+    worker.post(Message("START!"))
+
+    fun testBytes() {
+        GlobalScope.launch {
+            val client = HttpClient()
+            val bytes = client.get<ByteArray>("https://httpbin.org/get")
+            log("DATA", bytes.size)
+
+            worker.post(Message(bytes))
+        }
+    }
 
     view.addEventListener("click", {
-        count++
-
-        log("C", count)
-        worker.post(Message(count))
+        testBytes()
     })
 
-    GlobalScope.launch {
-        val client = HttpClient()
-        val response = client.get<String>("https://httpbin.org/get")
-        log("DATA", response)
-    }
+    testBytes()
 }
 
 fun View(): HTMLElement {

@@ -13,13 +13,14 @@ fun main() {
 
     self.addMessageHandler {
         when (type) {
-            MessageType.COUNT -> {
-                val count = data as Int
-                self.post(Message(count * count))
+            MessageType.BYTES -> {
+                val bytes = data as ByteArray
+                self.post(Message("RECEIVE BYTES: ${bytes.size}"))
+                self.post(Message("RESULT: ${bytes.decodeToString()}"))
             }
 
             MessageType.INFO -> {
-                self.post(Message("REPLY: $data"))
+                self.post(Message("REPLY IO: $data"))
             }
         }
     }
