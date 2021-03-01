@@ -33,7 +33,10 @@ tasks.patchWebpackConfig {
         config.module.rules.push(
           {
             test: /\.worker-wl\.js${'$'}/,
-            use: { loader: 'worker-loader' },
+            loader: 'worker-loader',
+            options: {
+              esModule: false,
+            },
           },
         )
         
