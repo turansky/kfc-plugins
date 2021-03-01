@@ -13,8 +13,6 @@ import org.w3c.dom.HTMLElement
 import org.w3c.dom.Worker
 
 fun main() {
-    var count = 1
-
     val body = document.body!!
 
     val view = View()
