@@ -2,6 +2,7 @@ package com.test.view.wl
 
 import com.test.worker.Message
 import com.test.worker.addMessageHandler
+import com.test.worker.createWorker
 import com.test.worker.post
 import io.ktor.client.*
 import io.ktor.client.request.*
@@ -23,7 +24,7 @@ fun main() {
         view.appendChild(span)
     }
 
-    val worker = ViewWorker()
+    val worker = createWorker("ww-worker-wl")
     worker.addMessageHandler {
         log("W[$type]", data)
     }

@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package com.test.view.wl
+package com.test.worker
 
 import org.w3c.dom.Worker
 
@@ -12,6 +12,3 @@ inline fun createWorker(id: String): Worker {
     val WorkerClass = jsRequire("worker-loader!$id.js").default
     return js("(new WorkerClass())")
 }
-
-fun ViewWorker(): Worker =
-    createWorker("ww-worker-wl")

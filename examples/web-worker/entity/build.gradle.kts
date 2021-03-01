@@ -8,3 +8,7 @@ kotlin.js {
     browser()
     useCommonJs()
 }
+
+dependencies {
+    implementation(devNpm("worker-loader", "3.0.8"))
+}

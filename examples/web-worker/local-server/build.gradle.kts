@@ -30,16 +30,6 @@ tasks.patchWebpackConfig {
     // language=JavaScript
     patch(
         """
-        config.module.rules.push(
-          {
-            test: /\.worker-wl\.js${'$'}/,
-            loader: 'worker-loader',
-            options: {
-              esModule: false,
-            },
-          },
-        )
-        
         if (config.mode !== 'development') {
             return
         }
@@ -63,8 +53,6 @@ tasks.patchWebpackConfig {
 }
 
 dependencies {
-    implementation(devNpm("worker-loader", "3.0.8"))
-
     implementation(project(":examples:web-worker:view"))
     implementation(project(":examples:web-worker:worker"))
 
