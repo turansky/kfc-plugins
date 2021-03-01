@@ -1,4 +1,4 @@
-package com.test.worker.io
+package com.test.worker.wl
 
 import com.test.worker.Message
 import com.test.worker.MessageType

@@ -1,4 +1,4 @@
-package com.test.view.io
+package com.test.view.wl
 
 import com.test.worker.Message
 import com.test.worker.addMessageHandler

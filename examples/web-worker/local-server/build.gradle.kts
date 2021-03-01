@@ -25,6 +25,9 @@ tasks.patchWebpackConfig {
     val viewIo = runDir.resolve("ww-view-io.js")
     val workerIo = runDir.resolve("ww-worker-io.js")
 
+    val viewWl = runDir.resolve("ww-view-wl.js")
+    val workerWl = runDir.resolve("ww-worker-wl.js")
+
     // language=JavaScript
     patch(
         """
@@ -44,6 +47,9 @@ tasks.patchWebpackConfig {
         
         config.entry['view-io'] = '${viewIo.absolutePath}'
         config.entry['worker-io'] = '${workerIo.absolutePath}'
+        
+        config.entry['view-wl'] = '${viewWl.absolutePath}'
+        config.entry['worker-wl'] = '${workerWl.absolutePath}'
     """
     )
 }
