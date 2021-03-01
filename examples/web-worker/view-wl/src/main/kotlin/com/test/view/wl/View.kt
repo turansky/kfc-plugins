@@ -12,6 +12,9 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.Worker
 
+@JsModule("ww-worker-wl")
+external class ViewWorker : Worker
+
 fun main() {
     val body = document.body!!
 
@@ -24,7 +27,7 @@ fun main() {
         view.appendChild(span)
     }
 
-    val worker = Worker("worker-wl.js")
+    val worker = ViewWorker()
     worker.addMessageHandler {
         log("W[$type]", data)
     }

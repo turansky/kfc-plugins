@@ -26,11 +26,17 @@ tasks.patchWebpackConfig {
     val workerIo = runDir.resolve("ww-worker-io.js")
 
     val viewWl = runDir.resolve("ww-view-wl.js")
-    val workerWl = runDir.resolve("ww-worker-wl.js")
 
     // language=JavaScript
     patch(
         """
+        config.module.rules.push(
+          {
+            test: /\.worker-wl\.js${'$'}/,
+            use: { loader: 'worker-loader' },
+          },
+        )
+        
         if (config.mode !== 'development') {
             return
         }
@@ -49,12 +55,13 @@ tasks.patchWebpackConfig {
         config.entry['worker-io'] = '${workerIo.absolutePath}'
         
         config.entry['view-wl'] = '${viewWl.absolutePath}'
-        config.entry['worker-wl'] = '${workerWl.absolutePath}'
     """
     )
 }
 
 dependencies {
+    implementation(devNpm("worker-loader", "3.0.8"))
+
     implementation(project(":examples:web-worker:view"))
     implementation(project(":examples:web-worker:worker"))
 
