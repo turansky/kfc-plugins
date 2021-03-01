@@ -22,6 +22,9 @@ tasks.patchWebpackConfig {
     val view = runDir.resolve("ww-view.js")
     val worker = runDir.resolve("ww-worker.js")
 
+    val viewIo = runDir.resolve("ww-view-io.js")
+    val workerIo = runDir.resolve("ww-worker-io.js")
+
     // language=JavaScript
     patch(
         """
@@ -36,8 +39,11 @@ tasks.patchWebpackConfig {
         output.libraryTarget = 'umd'
         delete output.library 
         
-        config.entry.view = '${view.absolutePath}'
-        config.entry.worker = '${worker.absolutePath}'
+        config.entry['view'] = '${view.absolutePath}'
+        config.entry['worker'] = '${worker.absolutePath}'
+        
+        config.entry['view-io'] = '${viewIo.absolutePath}'
+        config.entry['worker-io'] = '${workerIo.absolutePath}'
     """
     )
 }
@@ -45,4 +51,7 @@ tasks.patchWebpackConfig {
 dependencies {
     implementation(project(":examples:web-worker:view"))
     implementation(project(":examples:web-worker:worker"))
+
+    implementation(project(":examples:web-worker:view-io"))
+    implementation(project(":examples:web-worker:worker-io"))
 }

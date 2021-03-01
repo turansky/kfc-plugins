@@ -22,7 +22,7 @@ fun main() {
         view.appendChild(span)
     }
 
-    val worker = Worker("worker.js")
+    val worker = Worker("worker-io.js")
     worker.addMessageHandler { log("W[$type]", data) }
     worker.post(Message("Hallo from main!"))
 
@@ -42,7 +42,7 @@ fun View(): HTMLElement {
         width = "100%"
         height = "100%"
         display = "grid"
-        backgroundColor = "green"
+        backgroundColor = "orange"
     }
 
     container.textContent = "View IO"
