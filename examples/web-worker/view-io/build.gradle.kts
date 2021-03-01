@@ -6,6 +6,7 @@ kotlin.js {
     moduleName = "ww-view-io"
 
     browser()
+    useCommonJs()
 }
 
 dependencies {
