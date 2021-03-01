@@ -3,7 +3,11 @@ package com.test.view.io
 import com.test.worker.Message
 import com.test.worker.addMessageHandler
 import com.test.worker.post
+import io.ktor.client.*
+import io.ktor.client.request.*
 import kotlinx.browser.document
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.Worker
@@ -32,6 +36,12 @@ fun main() {
         log("C", count)
         worker.post(Message(count))
     })
+
+    GlobalScope.launch {
+        val client = HttpClient()
+        val response = client.get<String>("https://httpbin.org/get")
+        log("DATA", response)
+    }
 }
 
 fun View(): HTMLElement {

@@ -12,4 +12,6 @@ kotlin.js {
 
 dependencies {
     implementation(project(":examples:web-worker:entity"))
+
+    implementation(ktor("client-js"))
 }
