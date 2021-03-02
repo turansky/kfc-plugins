@@ -111,7 +111,7 @@ class WebpackLoadersPlugin : Plugin<Project> {
     private fun DependencyHandlerScope.applyConfiguration(configurationName: String) {
         val devNpm = extensions.getByName<DevNpmDependencyExtension>("devNpm")
 
-        configurationName(devNpm(CSS_LOADER, "5.0.0"))
+        configurationName(devNpm(CSS_LOADER, "5.1.1"))
         configurationName(devNpm(SVG_INLINE_LOADER, "0.8.2"))
         configurationName(devNpm(FILE_LOADER, "6.2.0"))
     }
