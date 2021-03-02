@@ -6,6 +6,9 @@ import com.test.worker.addMessageHandler
 import com.test.worker.post
 import org.w3c.dom.Worker
 
+@JsModule("wl-worker")
+external class WLWorker : Worker
+
 external val self: Worker
 
 fun main() {
