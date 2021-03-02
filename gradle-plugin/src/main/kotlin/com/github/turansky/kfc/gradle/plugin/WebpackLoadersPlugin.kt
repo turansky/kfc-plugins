@@ -70,7 +70,7 @@ private fun workerRules(
         test: /\.worker\.js${'$'}/,
         loader: '$WORKER_LOADER',
         options: {
-          filename: '[name].[contenthash].[ext]',
+          filename: '[name].[contenthash].js',
           publicPath: '${publicPath ?: ""}',
           esModule: false,
         },
