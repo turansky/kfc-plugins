@@ -14,6 +14,7 @@ private val FONT_OUTPUT_PATH = StringProperty("kfc.font.output.path")
 private const val CSS_LOADER = "css-loader"
 private const val SVG_INLINE_LOADER = "svg-inline-loader"
 private const val FILE_LOADER = "file-loader"
+private const val WORKER_LOADER = "worker-loader"
 
 private const val IMPLEMENTATION = "implementation"
 private const val JS_MAIN_IMPLEMENTATION = "jsMainImplementation"
@@ -114,5 +115,6 @@ class WebpackLoadersPlugin : Plugin<Project> {
         configurationName(devNpm(CSS_LOADER, "5.1.1"))
         configurationName(devNpm(SVG_INLINE_LOADER, "0.8.2"))
         configurationName(devNpm(FILE_LOADER, "6.2.0"))
+        configurationName(devNpm(WORKER_LOADER, "3.0.8"))
     }
 }
