@@ -64,7 +64,7 @@ private fun fontRules(
 private val WORKER_RULES: String = """
     config.module.rules.push( 
       {
-        test: /worker\.js${'$'}/,
+        test: /[\.|\-]worker\.js${'$'}/,
         loader: '$WORKER_LOADER',
         options: {
           filename: '[name].[contenthash].js',
