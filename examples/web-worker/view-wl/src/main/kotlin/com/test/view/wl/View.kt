@@ -2,7 +2,6 @@ package com.test.view.wl
 
 import com.test.worker.Message
 import com.test.worker.addMessageHandler
-import com.test.worker.createWorker
 import com.test.worker.post
 import io.ktor.client.*
 import io.ktor.client.request.*
@@ -11,6 +10,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
+import org.w3c.dom.Worker
+
+@JsModule("wl-worker")
+external class ViewWorker : Worker
 
 fun main() {
     val body = document.body!!
@@ -24,7 +27,7 @@ fun main() {
         view.appendChild(span)
     }
 
-    val worker = createWorker("wl-worker")
+    val worker = ViewWorker()
     worker.addMessageHandler {
         log("W[$type]", data)
     }
