@@ -1,6 +1,6 @@
 package com.test.local
 
 // For dev server only
-fun main() {
+private fun main() {
     println("Local!")
 }

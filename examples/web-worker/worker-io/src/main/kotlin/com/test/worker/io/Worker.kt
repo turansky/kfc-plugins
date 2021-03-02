@@ -8,7 +8,7 @@ import org.w3c.dom.Worker
 
 private external val self: Worker
 
-fun main() {
+private fun main() {
     println("Worker IO start!!!")
 
     self.addMessageHandler {

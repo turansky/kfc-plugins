@@ -4,7 +4,7 @@ import org.w3c.dom.Worker
 
 private external val self: Worker
 
-fun main() {
+private fun main() {
     println("Worker start!!!")
 
     self.addMessageHandler {

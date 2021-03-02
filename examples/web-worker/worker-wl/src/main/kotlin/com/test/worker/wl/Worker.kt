@@ -11,7 +11,7 @@ external class WLWorker : Worker
 
 private external val self: Worker
 
-fun main() {
+private fun main() {
     println("Worker WL start!!!")
 
     self.addMessageHandler {

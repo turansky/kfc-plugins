@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
-fun main() {
+private fun main() {
     val body = document.body!!
 
     val view = View()

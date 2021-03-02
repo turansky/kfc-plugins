@@ -8,7 +8,7 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.Worker
 
-fun main() {
+private fun main() {
     var count = 1
 
     val body = document.body!!
