@@ -20,7 +20,7 @@ private const val IMPLEMENTATION = "implementation"
 private const val JS_MAIN_IMPLEMENTATION = "jsMainImplementation"
 
 // language=JavaScript
-private val RULES = """
+private val RULES: String = """
     config.module.rules.push(
       {
         test: /\.css${'$'}/,
@@ -54,29 +54,25 @@ private fun fontRules(
           publicPath: '$publicPath',
           outputPath: '$outputPath',
           esModule: false
-        }
-      }
+        },
+      },
     )
     """.trimIndent()
 }
 
 // language=JavaScript
-private fun workerRules(
-    publicPath: String?
-): String =
-    """
+private val WORKER_RULES: String = """
     config.module.rules.push( 
       {
         test: /\.worker\.js${'$'}/,
         loader: '$WORKER_LOADER',
         options: {
           filename: '[name].[contenthash].js',
-          publicPath: '${publicPath ?: ""}',
           esModule: false,
         },
       },
     )
-    """.trimIndent()
+""".trimIndent()
 
 // language=JavaScript
 private val TERSER_CONFIGURATION = """
@@ -109,7 +105,7 @@ class WebpackLoadersPlugin : Plugin<Project> {
             )
             patch("font-rules", fontRules)
 
-            patch("worker-rules", workerRules(null))
+            patch("worker-rules", WORKER_RULES)
 
             patch("terser-configuration", TERSER_CONFIGURATION)
         }
