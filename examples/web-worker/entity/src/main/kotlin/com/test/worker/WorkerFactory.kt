@@ -9,6 +9,6 @@ external fun jsRequire(path: String): dynamic
 
 inline fun createWorker(id: String): Worker {
     @Suppress("UNUSED_VARIABLE")
-    val WorkerClass = jsRequire("$id.js").default
+    val WorkerClass = jsRequire(id)
     return js("(new WorkerClass())")
 }
