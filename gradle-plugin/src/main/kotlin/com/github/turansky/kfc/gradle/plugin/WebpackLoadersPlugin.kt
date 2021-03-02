@@ -26,13 +26,13 @@ private val RULES = """
         test: /\.css${'$'}/,
         loader: '$CSS_LOADER',
         options: {
-          esModule: false
-        }
+          esModule: false,
+        },
       },
       {
         test: /\.svg${'$'}/,
-        loader: '$SVG_INLINE_LOADER'
-      }
+        loader: '$SVG_INLINE_LOADER',
+      },
     )
 """.trimIndent()
 
@@ -59,6 +59,24 @@ private fun fontRules(
     )
     """.trimIndent()
 }
+
+// language=JavaScript
+private fun workerRules(
+    publicPath: String?
+): String =
+    """
+    config.module.rules.push( 
+      {
+        test: /\.worker\.js${'$'}/,
+        loader: '$WORKER_LOADER',
+        options: {
+          filename: '[name].[contenthash].[ext]',
+          publicPath: '${publicPath ?: ""}',
+          esModule: false,
+        },
+      },
+    )
+    """.trimIndent()
 
 // language=JavaScript
 private val TERSER_CONFIGURATION = """
@@ -90,6 +108,8 @@ class WebpackLoadersPlugin : Plugin<Project> {
                 outputPath = propertyOrNull(FONT_OUTPUT_PATH)
             )
             patch("font-rules", fontRules)
+
+            patch("worker-rules", workerRules(null))
 
             patch("terser-configuration", TERSER_CONFIGURATION)
         }
