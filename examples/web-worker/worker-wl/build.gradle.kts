@@ -3,7 +3,7 @@ plugins {
 }
 
 kotlin.js {
-    moduleName = "wl.worker"
+    moduleName = "wl-worker"
 
     browser()
     useCommonJs()

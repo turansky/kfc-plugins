@@ -24,7 +24,7 @@ fun main() {
         view.appendChild(span)
     }
 
-    val worker = createWorker("wl.worker")
+    val worker = createWorker("wl-worker")
     worker.addMessageHandler {
         log("W[$type]", data)
     }
