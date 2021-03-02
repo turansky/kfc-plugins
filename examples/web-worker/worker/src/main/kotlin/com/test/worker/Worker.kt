@@ -2,7 +2,7 @@ package com.test.worker
 
 import org.w3c.dom.Worker
 
-external val self: Worker
+private external val self: Worker
 
 fun main() {
     println("Worker start!!!")

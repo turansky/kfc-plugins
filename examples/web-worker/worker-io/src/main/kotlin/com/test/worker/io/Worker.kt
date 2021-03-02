@@ -6,7 +6,7 @@ import com.test.worker.addMessageHandler
 import com.test.worker.post
 import org.w3c.dom.Worker
 
-external val self: Worker
+private external val self: Worker
 
 fun main() {
     println("Worker IO start!!!")

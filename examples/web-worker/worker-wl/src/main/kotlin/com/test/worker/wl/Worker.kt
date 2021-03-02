@@ -9,7 +9,7 @@ import org.w3c.dom.Worker
 @JsModule("wl-worker")
 external class WLWorker : Worker
 
-external val self: Worker
+private external val self: Worker
 
 fun main() {
     println("Worker WL start!!!")
