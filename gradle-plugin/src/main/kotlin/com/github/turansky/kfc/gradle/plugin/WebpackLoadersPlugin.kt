@@ -50,7 +50,7 @@ private fun fontRules(
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?${'$'}/,
         loader: '$FILE_LOADER',
         options: {
-          name: '[name].[hash].[ext]',
+          name: '[name].[contenthash].[ext]',
           publicPath: '$publicPath',
           outputPath: '$outputPath',
           esModule: false
