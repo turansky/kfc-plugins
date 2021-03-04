@@ -10,8 +10,6 @@ pluginManagement {
     }
 }
 
-include("examples:multiple-output")
-
 include("examples:web-component-extension")
 include("examples:yfiles-web-component")
 
