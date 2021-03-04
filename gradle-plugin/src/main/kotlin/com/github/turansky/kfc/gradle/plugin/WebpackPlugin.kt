@@ -91,6 +91,8 @@ private fun TaskContainer.registerDceSubtask(
     output: WebpackOutput
 ): TaskProvider<KotlinJsDce> =
     register<KotlinJsDce>("${root.name}-${output.name}") {
+        group = DEFAULT_TASK_GROUP
+
         destinationDir = outputDirectory(output)
 
         source = root.source

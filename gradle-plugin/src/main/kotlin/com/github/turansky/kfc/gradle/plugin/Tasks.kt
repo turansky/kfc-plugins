@@ -5,6 +5,8 @@ import org.gradle.kotlin.dsl.TaskContainerScope
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import java.io.File
 
+internal const val DEFAULT_TASK_GROUP: String = "KFC"
+
 internal val DEVELOPMENT_RUN_TASKS = setOf(
     "browserDevelopmentRun"
 )

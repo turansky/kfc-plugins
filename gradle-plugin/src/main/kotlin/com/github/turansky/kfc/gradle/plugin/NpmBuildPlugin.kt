@@ -14,10 +14,14 @@ class NpmBuildPlugin : Plugin<Project> {
 
         tasks {
             val cleanNpmBuild = register<Delete>("cleanNpmBuild") {
+                group = DEFAULT_TASK_GROUP
+
                 delete = setOf(npmDir)
             }
 
             val prepareNpmSources = register<Copy>("prepareNpmSources") {
+                group = DEFAULT_TASK_GROUP
+
                 from(project.buildDir.resolve("distributions"))
                 into(npmDir)
 
@@ -26,6 +30,8 @@ class NpmBuildPlugin : Plugin<Project> {
             }
 
             val prepareNpmPackage = register<Copy>("prepareNpmPackage") {
+                group = DEFAULT_TASK_GROUP
+
                 from(project.projectDir)
                 into(npmDir)
 

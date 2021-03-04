@@ -7,6 +7,10 @@ import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 open class PatchWebpackConfig : DefaultTask() {
+    init {
+        group = DEFAULT_TASK_GROUP
+    }
+
     @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()
 

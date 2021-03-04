@@ -8,6 +8,10 @@ import java.io.File
 private val GENERATE_EXPORT_PROXY = "generateExportProxy"
 
 open class GenerateExportProxy : DefaultTask() {
+    init {
+        group = DEFAULT_TASK_GROUP
+    }
+
     @get:Input
     var classNames: List<String> = emptyList()
 

@@ -7,6 +7,10 @@ import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 open class GenerateExportAlias : DefaultTask() {
+    init {
+        group = DEFAULT_TASK_GROUP
+    }
+
     @get:Input
     var export: String? = null
 
