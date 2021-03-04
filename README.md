@@ -54,41 +54,6 @@ By default `webpack` plugin add `src/main/resources` directory of:
 
 as Webpack `modules`.
 
-### Multiple outputs
-
-```kotlin
-plugins {
-    kotlin("js") version "1.4.31"
-    id("com.github.turansky.kfc.webpack") version "2.6.0"
-}
-
-kotlin.js {
-    browser()
-}
-
-webpack {
-    output {
-        name = "content"
-        root = "com.test.example.content"
-    }
-
-    output {
-        name = "background"
-        root = "com.test.example.background"
-    }
-}
-```
-
-Standard distribution directory used for output
- ```
-build/
-  distributions/
-    background.js
-    content.js
-```
-
-[Test example](examples/multiple-output)
-
 ## `library`
 
 Apply [`webpack`](#webpack) plugin by default
