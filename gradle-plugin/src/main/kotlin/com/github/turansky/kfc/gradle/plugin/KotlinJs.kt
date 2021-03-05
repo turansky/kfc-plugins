@@ -2,8 +2,10 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.invoke
+import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
+import java.io.File
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
 private val OUTPUT_NAME = StringProperty("kfc.output.name")
@@ -38,7 +40,8 @@ internal fun Project.applyKotlinJsPlugin(
 
     val fileName = getOutputFileName()
 
-    extensions.configure<KotlinJsProjectExtension>("kotlin") {
+    val kotlin = the<KotlinJsProjectExtension>()
+    kotlin.apply {
         js {
             moduleName = getModuleName()
 
@@ -70,8 +73,8 @@ internal fun Project.applyKotlinJsPlugin(
 
         named("testPackageJson") {
             onlyIf {
-                // TODO: use real test sources
-                file("src/test/kotlin").exists()
+                val sourceDir = kotlin.singleSourceDir("test")
+                sourceDir?.exists() ?: true
             }
         }
     }
@@ -80,3 +83,9 @@ internal fun Project.applyKotlinJsPlugin(
 internal fun Project.disableAutomaticJsDistribution() {
     extensions.extraProperties[BUILD_DISTRIBUTION] = false.toString()
 }
+
+private fun KotlinJsProjectExtension.singleSourceDir(
+    sourceSetName: String
+): File? =
+    sourceSets.getByName(sourceSetName)
+        .kotlin.sourceDirectories.singleOrNull()
