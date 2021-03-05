@@ -45,11 +45,7 @@ open class PatchWebpackConfig : DefaultTask() {
     }
 
     fun devEntry(name: String) {
-        devPatch(
-            """
-            config.entry['$name'] = '${dceDevPath(name)}'
-        """.trimIndent()
-        )
+        devPatch("config.entry['$name'] = '${dceDevPath(name)}'")
     }
 
     @TaskAction
