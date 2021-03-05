@@ -29,5 +29,7 @@ class MultiplatformPlugin : Plugin<Project> {
 
             useModularJsTarget()
         }
+
+        disableTestsWithoutSources("jsTest")
     }
 }

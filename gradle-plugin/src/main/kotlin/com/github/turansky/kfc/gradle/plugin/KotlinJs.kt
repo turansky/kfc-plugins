@@ -1,11 +1,12 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
-import java.io.File
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
 private val OUTPUT_NAME = StringProperty("kfc.output.name")
@@ -70,22 +71,27 @@ internal fun Project.applyKotlinJsPlugin(
         if (binaries) {
             disable<KotlinJsDce>()
         }
-
-        named("testPackageJson") {
-            onlyIf {
-                val sourceDir = kotlin.singleSourceDir("test")
-                sourceDir?.exists() ?: true
-            }
-        }
     }
+
+    disableTestsWithoutSources("test")
 }
 
 internal fun Project.disableAutomaticJsDistribution() {
     extensions.extraProperties[BUILD_DISTRIBUTION] = false.toString()
 }
 
-private fun KotlinJsProjectExtension.singleSourceDir(
+internal fun Project.disableTestsWithoutSources(
     sourceSetName: String
-): File? =
-    sourceSets.getByName(sourceSetName)
-        .kotlin.sourceDirectories.singleOrNull()
+) {
+    tasks.named("${sourceSetName}PackageJson") {
+        onlyIf {
+            val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
+            val sourceDir = kotlin.sourceSets
+                .getByName(sourceSetName)
+                .kotlin.sourceDirectories
+                .singleOrNull()
+
+            sourceDir?.exists() ?: true
+        }
+    }
+}
