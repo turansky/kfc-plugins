@@ -50,7 +50,6 @@ enum class KfcPlugin(className: String) {
     COMPONENT("ComponentPlugin"),
     APPLICATION("ApplicationPlugin"),
     WORKER("WorkerPlugin"),
-    YFILES("YFilesPlugin"),
     DEV_SERVER("DevServerPlugin"),
 
     PLUGIN_PUBLISH("PluginPublishPlugin");
@@ -156,12 +155,6 @@ pluginBundle {
         displayName = "Kotlin/JS worker plugin"
         description = "Kotlin/JS worker configuration"
         tags = tags("worker")
-    }
-
-    plugin(YFILES) {
-        displayName = "yFiles configuration plugin"
-        description = "Provide configuration for yFiles"
-        tags = tags("yfiles")
     }
 
     plugin(DEV_SERVER) {

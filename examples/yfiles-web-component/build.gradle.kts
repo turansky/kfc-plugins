@@ -1,6 +1,5 @@
 plugins {
     id("com.github.turansky.kfc.component")
-    id("com.github.turansky.kfc.yfiles")
 }
 
 component {
