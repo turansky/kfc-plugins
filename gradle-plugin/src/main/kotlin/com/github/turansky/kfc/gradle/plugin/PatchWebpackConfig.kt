@@ -4,6 +4,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.kotlin.dsl.getByName
+import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
 
 // language=JavaScript
@@ -42,6 +44,14 @@ open class PatchWebpackConfig : DefaultTask() {
         patch("$DEV_CONDITION\n\n$body")
     }
 
+    fun devEntry(name: String) {
+        devPatch(
+            """
+            config.entry['$name'] = '${dceDevPath(name)}'
+        """.trimIndent()
+        )
+    }
+
     @TaskAction
     private fun generatePatches() {
         if (patches.isEmpty()) {
@@ -59,6 +69,16 @@ open class PatchWebpackConfig : DefaultTask() {
             .resolve("patch.js")
             .writeText(content)
     }
+
+    @Suppress("UnstableApiUsage")
+    private fun dceDevPath(name: String): String =
+        project.tasks
+            .getByName<KotlinJsDce>("processDceDevKotlinJs")
+            .destinationDirectory
+            .file("$name.js")
+            .get()
+            .asFile
+            .absolutePath
 }
 
 @Suppress("JSUnnecessarySemicolon")
