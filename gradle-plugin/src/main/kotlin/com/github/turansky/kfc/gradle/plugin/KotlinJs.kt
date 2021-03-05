@@ -26,7 +26,9 @@ private fun Project.getOutputFileName(): String {
 }
 
 internal fun Project.applyKotlinJsPlugin(
-    distribution: Boolean = false
+    binaries: Boolean = false,
+    distribution: Boolean = false,
+    run: Boolean = false
 ) {
     disableAutomaticJsDistribution()
 
@@ -39,14 +41,20 @@ internal fun Project.applyKotlinJsPlugin(
             moduleName = getModuleName()
 
             browser {
-                webpackTask {
-                    output.library = null
+                commonWebpackConfig {
+                    output?.library = null
                     outputFileName = fileName
+                }
+                webpackTask {
+                    enabled = distribution
+                }
+                runTask {
+                    enabled = run
                 }
             }
 
-            if (distribution) {
-                binaries.executable()
+            if (binaries || distribution || run) {
+                this.binaries.executable()
             }
         }
     }

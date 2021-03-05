@@ -13,7 +13,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         // TODO: enable dev server without dist
-        applyKotlinJsPlugin(true)
+        applyKotlinJsPlugin(run = true)
         plugins.apply(WebpackPlugin::class)
         plugins.apply(WebComponentPlugin::class)
 

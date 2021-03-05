@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 class WorkerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        applyKotlinJsPlugin(true)
+        applyKotlinJsPlugin(binaries = true)
 
         tasks {
             useModularJsTarget()
