@@ -44,6 +44,7 @@ internal fun Project.applyKotlinJsPlugin(
     }
     if (distribution || run) {
         plugins.apply(WebComponentPlugin::class)
+        plugins.apply(WebpackLoadersPlugin::class)
     }
 
     val fileName = getOutputFileName()
