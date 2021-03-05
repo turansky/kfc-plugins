@@ -8,9 +8,7 @@ private const val BUILD_DISTRIBUTION = "kotlin.js.generate.executable.default"
 internal fun Project.applyKotlinJsPlugin(
     distribution: Boolean = false
 ) {
-    if (!distribution) {
-        disableKotlinJsDistribution()
-    }
+    disableAutomaticJsDistribution()
 
     plugins.apply(KotlinPlugin.JS)
 
@@ -21,10 +19,14 @@ internal fun Project.applyKotlinJsPlugin(
                     output.library = null
                 }
             }
+
+            if (distribution) {
+                binaries.executable()
+            }
         }
     }
 }
 
-internal fun Project.disableKotlinJsDistribution() {
+internal fun Project.disableAutomaticJsDistribution() {
     extensions.extraProperties[BUILD_DISTRIBUTION] = false.toString()
 }

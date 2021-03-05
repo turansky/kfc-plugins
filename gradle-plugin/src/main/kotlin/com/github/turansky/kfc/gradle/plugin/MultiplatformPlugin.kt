@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        disableKotlinJsDistribution()
+        disableAutomaticJsDistribution()
 
         plugins.apply(KotlinPlugin.MULTIPLATFORM)
 
