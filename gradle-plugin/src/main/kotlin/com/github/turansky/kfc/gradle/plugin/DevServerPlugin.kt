@@ -23,17 +23,15 @@ class DevServerPlugin : Plugin<Project> {
         tasks {
             useModularJsTarget()
 
-            configureEach<KotlinJsDce> {
-                if (name !in DEVELOPMENT_DCE_TASKS) {
-                    enabled = false
-                }
+            disable<KotlinJsDce> {
+                name !in DEVELOPMENT_DCE_TASKS
+            }
+
+            disable<KotlinWebpack> {
+                name !in DEVELOPMENT_RUN_TASKS
             }
 
             configureEach<KotlinWebpack> {
-                if (name !in DEVELOPMENT_RUN_TASKS) {
-                    enabled = false
-                }
-
                 outputFileName = DEV_SERVER.fileName
                 sourceMaps = false
 
