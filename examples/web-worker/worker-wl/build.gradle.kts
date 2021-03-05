@@ -1,13 +1,5 @@
 plugins {
-    kotlin("js")
-}
-
-kotlin.js {
-    moduleName = "wl-worker"
-
-    browser()
-    useCommonJs()
-    binaries.executable()
+    id("com.github.turansky.kfc.worker")
 }
 
 dependencies {
