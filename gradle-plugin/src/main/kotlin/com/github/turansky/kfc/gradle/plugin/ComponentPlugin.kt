@@ -41,7 +41,6 @@ class ComponentPlugin : Plugin<Project> {
                 }
 
                 configureEach<PatchWebpackConfig> {
-                    patch("output", defaultOutputConfiguration())
                     patch("entry", entryConfiguration(entry = generateWebComponent.get().entry))
                 }
             }

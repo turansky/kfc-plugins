@@ -52,9 +52,7 @@ class DevServerPlugin : Plugin<Project> {
                         |
                         |config.output = config.output || {}
                         |config.output.filename = '[name].js'
-                        |config.output.libraryTarget = 'umd'
-                        |delete config.output.library
-                        """.trimMargin()
+                    """.trimMargin()
                 )
 
                 relatedProjects()

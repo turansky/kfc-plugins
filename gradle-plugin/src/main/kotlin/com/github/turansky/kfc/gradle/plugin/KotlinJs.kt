@@ -16,7 +16,11 @@ internal fun Project.applyKotlinJsPlugin(
 
     extensions.configure<KotlinJsProjectExtension>("kotlin") {
         js {
-            browser()
+            browser {
+                webpackTask {
+                    output.library = null
+                }
+            }
         }
     }
 }
