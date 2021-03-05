@@ -48,6 +48,20 @@ open class PatchWebpackConfig : DefaultTask() {
         devPatch("config.entry['$name'] = '${dceDevPath(name)}'")
     }
 
+    fun devProxy(target: String) {
+        // language=JavaScript
+        devPatch(
+            """
+              const devServer = config.devServer 
+              devServer.index = ''
+              devServer.proxy = {
+                context: () => true,
+                target: '$target',
+              }
+            """.trimIndent()
+        )
+    }
+
     @TaskAction
     private fun generatePatches() {
         if (patches.isEmpty()) {
