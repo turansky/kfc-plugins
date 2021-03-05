@@ -19,15 +19,11 @@ class ComponentPlugin : Plugin<Project> {
 
         val generateWebComponent = tasks.registerGenerateExportProxy()
 
-        tasks {
-            useModularJsTarget()
+        tasks.configureEach<KotlinWebpack> {
+            outputFileName = COMPONENT.fileName
+            sourceMaps = false
 
-            configureEach<KotlinWebpack> {
-                outputFileName = COMPONENT.fileName
-                sourceMaps = false
-
-                dependsOn(generateWebComponent)
-            }
+            dependsOn(generateWebComponent)
         }
 
         afterEvaluate {

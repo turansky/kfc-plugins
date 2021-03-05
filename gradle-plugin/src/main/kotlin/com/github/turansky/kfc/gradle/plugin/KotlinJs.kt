@@ -1,6 +1,8 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.invoke
+import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
@@ -56,6 +58,14 @@ internal fun Project.applyKotlinJsPlugin(
             if (binaries || distribution || run) {
                 this.binaries.executable()
             }
+        }
+    }
+
+    tasks {
+        useModularJsTarget()
+
+        if (binaries) {
+            disable<KotlinJsDce>()
         }
     }
 }

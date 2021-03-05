@@ -12,7 +12,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        // TODO: enable dev server without dist
         applyKotlinJsPlugin(run = true)
         plugins.apply(WebpackPlugin::class)
         plugins.apply(WebComponentPlugin::class)
@@ -21,8 +20,6 @@ class DevServerPlugin : Plugin<Project> {
         val generateExportAlias = tasks.register<GenerateExportAlias>("generateExportAlias")
 
         tasks {
-            useModularJsTarget()
-
             disable<KotlinJsDce> {
                 name !in DEVELOPMENT_DCE_TASKS
             }
