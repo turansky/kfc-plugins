@@ -14,7 +14,7 @@ private fun Project.getModuleName(): String {
 
     return when (this) {
         rootProject -> rootProject.name
-        else -> "${rootProject.name}-$name}"
+        else -> "${rootProject.name}-$name"
     }
 }
 
