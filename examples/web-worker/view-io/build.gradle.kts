@@ -1,12 +1,5 @@
 plugins {
-    kotlin("js")
-}
-
-kotlin.js {
-    moduleName = "ww-view-io"
-
-    browser()
-    useCommonJs()
+    id("com.github.turansky.kfc.library")
 }
 
 dependencies {

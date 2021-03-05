@@ -1,14 +1,5 @@
 plugins {
-    kotlin("js")
-    id("com.github.turansky.kfc.webpack-loaders")
-}
-
-kotlin.js {
-    moduleName = "ww-view-wl"
-
-    browser()
-    useCommonJs()
-    binaries.executable()
+    id("com.github.turansky.kfc.application")
 }
 
 dependencies {

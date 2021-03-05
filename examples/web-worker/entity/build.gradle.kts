@@ -1,10 +1,3 @@
 plugins {
-    kotlin("js")
-}
-
-kotlin.js {
-    moduleName = "ww-entity"
-
-    browser()
-    useCommonJs()
+    id("com.github.turansky.kfc.library")
 }
