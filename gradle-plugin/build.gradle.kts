@@ -48,6 +48,7 @@ enum class KfcPlugin(className: String) {
     LIBRARY("LibraryPlugin"),
     WEBCOMPONENT("WebComponentPlugin"),
     COMPONENT("ComponentPlugin"),
+    APPLICATION("ApplicationPlugin"),
     WORKER("WorkerPlugin"),
     YFILES("YFilesPlugin"),
     DEV_SERVER("DevServerPlugin"),
@@ -143,6 +144,12 @@ pluginBundle {
         displayName = "Kotlin/JS component plugin"
         description = "Kotlin/JS component configuration"
         tags = tags("component")
+    }
+
+    plugin(APPLICATION) {
+        displayName = "Kotlin/JS application plugin"
+        description = "Kotlin/JS application configuration"
+        tags = tags("application")
     }
 
     plugin(WORKER) {
