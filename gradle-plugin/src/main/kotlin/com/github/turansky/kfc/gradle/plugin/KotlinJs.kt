@@ -67,6 +67,13 @@ internal fun Project.applyKotlinJsPlugin(
         if (binaries) {
             disable<KotlinJsDce>()
         }
+
+        named("testPackageJson") {
+            onlyIf {
+                // TODO: use real test sources
+                file("src/test/kotlin").exists()
+            }
+        }
     }
 }
 
