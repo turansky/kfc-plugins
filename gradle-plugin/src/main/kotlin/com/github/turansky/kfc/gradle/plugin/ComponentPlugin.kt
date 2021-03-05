@@ -12,7 +12,6 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 class ComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinJsPlugin(distribution = true)
-        plugins.apply(WebpackPlugin::class)
         plugins.apply(WebComponentPlugin::class)
 
         val extension = extensions.create<ComponentExtension>("component")

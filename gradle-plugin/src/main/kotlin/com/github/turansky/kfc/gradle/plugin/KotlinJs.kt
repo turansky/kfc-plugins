@@ -1,6 +1,7 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.the
@@ -38,6 +39,9 @@ internal fun Project.applyKotlinJsPlugin(
     disableAutomaticJsDistribution()
 
     plugins.apply(KotlinPlugin.JS)
+    if (!binaries) {
+        plugins.apply(WebpackPlugin::class)
+    }
 
     val fileName = getOutputFileName()
 

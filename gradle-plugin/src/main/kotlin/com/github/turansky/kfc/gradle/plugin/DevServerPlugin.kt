@@ -13,7 +13,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinJsPlugin(run = true)
-        plugins.apply(WebpackPlugin::class)
         plugins.apply(WebComponentPlugin::class)
 
         val extension = extensions.create<DevServerExtension>("devServer")
