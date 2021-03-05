@@ -42,6 +42,9 @@ internal fun Project.applyKotlinJsPlugin(
     if (!binaries) {
         plugins.apply(WebpackPlugin::class)
     }
+    if (distribution || run) {
+        plugins.apply(WebComponentPlugin::class)
+    }
 
     val fileName = getOutputFileName()
 

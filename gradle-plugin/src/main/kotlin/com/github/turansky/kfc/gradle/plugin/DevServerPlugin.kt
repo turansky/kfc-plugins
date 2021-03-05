@@ -3,7 +3,6 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.Output.DEV_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.register
@@ -13,7 +12,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinJsPlugin(run = true)
-        plugins.apply(WebComponentPlugin::class)
 
         val extension = extensions.create<DevServerExtension>("devServer")
         val generateExportAlias = tasks.register<GenerateExportAlias>("generateExportAlias")
