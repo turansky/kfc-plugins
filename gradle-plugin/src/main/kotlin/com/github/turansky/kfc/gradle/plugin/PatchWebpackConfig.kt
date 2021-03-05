@@ -6,6 +6,13 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
+// language=JavaScript
+private const val DEV_CONDITION: String = """
+if (config.mode !== 'development') {
+  return
+}
+"""
+
 open class PatchWebpackConfig : DefaultTask() {
     init {
         group = DEFAULT_TASK_GROUP
@@ -13,9 +20,6 @@ open class PatchWebpackConfig : DefaultTask() {
 
     @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()
-
-    @get:Input
-    val unsafePatches: MutableList<String> = mutableListOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -34,13 +38,13 @@ open class PatchWebpackConfig : DefaultTask() {
         }
     }
 
-    fun unsafePatch(body: String) {
-        unsafePatches += body
+    fun devPatch(body: String) {
+        patch("$DEV_CONDITION\n\n$body")
     }
 
     @TaskAction
     private fun generatePatches() {
-        if (patches.isEmpty() && unsafePatches.isEmpty()) {
+        if (patches.isEmpty()) {
             return
         }
 
@@ -48,7 +52,6 @@ open class PatchWebpackConfig : DefaultTask() {
             .asSequence()
             .sortedBy { it.key }
             .map { (name, body) -> createPatch(name, body) }
-            .plus(unsafePatches)
             .joinToString("\n\n")
 
         configDirectory
