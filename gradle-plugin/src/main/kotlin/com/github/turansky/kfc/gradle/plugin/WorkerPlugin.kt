@@ -13,13 +13,8 @@ class WorkerPlugin : Plugin<Project> {
         tasks {
             useModularJsTarget()
 
-            configureEach<KotlinJsDce> {
-                enabled = false
-            }
-
-            configureEach<KotlinWebpack> {
-                enabled = false
-            }
+            disable<KotlinJsDce>()
+            disable<KotlinWebpack>()
         }
     }
 }
