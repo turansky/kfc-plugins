@@ -9,28 +9,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
-private val MODULE_NAME = StringProperty("kfc.module.name")
-private val MODULE_KEEP = StringProperty("kfc.module.keep")
-private val OUTPUT_NAME = StringProperty("kfc.output.name")
-
 private const val BUILD_DISTRIBUTION = "kotlin.js.generate.executable.default"
-
-private fun Project.getModuleName(): String {
-    propertyOrNull(MODULE_NAME)
-        ?.let { return it }
-
-    return when (this) {
-        rootProject -> rootProject.name
-        else -> "${rootProject.name}-$name"
-    }
-}
-
-private fun Project.getOutputFileName(): String {
-    val name = propertyOrNull(OUTPUT_NAME)
-        ?: getModuleName()
-
-    return "$name.js"
-}
 
 internal fun Project.applyKotlinJsPlugin(
     binaries: Boolean = false,
@@ -48,17 +27,13 @@ internal fun Project.applyKotlinJsPlugin(
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
-    val moduleName = getModuleName()
-    val moduleKeep = propertyOrNull(MODULE_KEEP)
-        ?.takeIf { distribution }
-        ?.let { "$moduleName.$it" }
-
-    val fileName = getOutputFileName()
+    val moduleKeep = if (distribution) jsModuleKeep else null
+    val fileName = jsOutputFileName
 
     val kotlin = the<KotlinJsProjectExtension>()
     kotlin.apply {
         js {
-            this.moduleName = moduleName
+            moduleName = jsModuleName
 
             browser {
                 commonWebpackConfig {

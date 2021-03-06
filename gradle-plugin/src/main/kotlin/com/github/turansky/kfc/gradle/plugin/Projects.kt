@@ -3,11 +3,35 @@ package com.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Project
 import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 
+private val MODULE_NAME = StringProperty("kfc.module.name")
+private val MODULE_KEEP = StringProperty("kfc.module.keep")
+private val OUTPUT_NAME = StringProperty("kfc.output.name")
+
 private const val IMPLEMENTATION = "implementation"
 private const val JS_MAIN_IMPLEMENTATION = "jsMainImplementation"
 
 internal val Project.jsModuleName: String
-    get() = "${rootProject.name}-$name"
+    get() {
+        propertyOrNull(MODULE_NAME)
+            ?.let { return it }
+
+        return when (this) {
+            rootProject -> rootProject.name
+            else -> "${rootProject.name}-$name"
+        }
+    }
+
+internal val Project.jsModuleKeep: String?
+    get() = propertyOrNull(MODULE_KEEP)
+        ?.let { "$jsModuleName.$it" }
+
+internal val Project.jsOutputFileName: String
+    get() {
+        val name = propertyOrNull(OUTPUT_NAME)
+            ?: jsModuleName
+
+        return "$name.js"
+    }
 
 // TODO: optimize calculation
 internal fun Project.relatedProjects(): Set<Project> {
