@@ -4,12 +4,10 @@ plugins {
 
 devServer {
     root = "com.test.view"
+}
 
-    proxy {
-        root = "data"
-        source = ":examples:webpack-plus-ktor:ktor-server:run"
-        port = 9876
-    }
+tasks.patchWebpackConfig {
+    devProxy("http://localhost:8080")
 }
 
 dependencies {
