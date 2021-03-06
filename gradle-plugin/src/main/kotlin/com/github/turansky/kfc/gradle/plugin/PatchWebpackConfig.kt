@@ -8,13 +8,6 @@ import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
 
-// language=JavaScript
-private const val DEV_CONDITION: String = """
-if (config.mode !== 'development') {
-  return
-}
-"""
-
 open class PatchWebpackConfig : DefaultTask() {
     init {
         group = DEFAULT_TASK_GROUP
@@ -40,17 +33,16 @@ open class PatchWebpackConfig : DefaultTask() {
         }
     }
 
-    fun devPatch(body: String) {
-        patch("$DEV_CONDITION\n\n$body")
+    fun entry(
+        name: String,
+        moduleName: String = name
+    ) {
+        patch("config.entry['$name'] = '${dceDevPath(moduleName)}'")
     }
 
-    fun devEntry(name: String) {
-        devPatch("config.entry['$name'] = '${dceDevPath(name)}'")
-    }
-
-    fun devProxy(target: String) {
+    fun proxy(target: String) {
         // language=JavaScript
-        devPatch(
+        patch(
             """
               const devServer = config.devServer 
               devServer.index = ''

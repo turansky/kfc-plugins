@@ -19,10 +19,6 @@ tasks.patchWebpackConfig {
     // language=JavaScript
     patch(
         """
-        if (config.mode !== 'development') {
-            return
-        }
-        
         config.entry['view'] = '${view.absolutePath}'
         config.entry['worker'] = '${worker.absolutePath}'
         
