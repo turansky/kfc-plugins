@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
+private val MODULE_KEEP = StringProperty("kfc.module.keep")
 private val OUTPUT_NAME = StringProperty("kfc.output.name")
 
 private const val BUILD_DISTRIBUTION = "kotlin.js.generate.executable.default"
@@ -47,12 +48,17 @@ internal fun Project.applyKotlinJsPlugin(
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
+    val moduleName = getModuleName()
+    val moduleKeep = propertyOrNull(MODULE_KEEP)
+        ?.takeIf { distribution }
+        ?.let { "$moduleName.$it" }
+
     val fileName = getOutputFileName()
 
     val kotlin = the<KotlinJsProjectExtension>()
     kotlin.apply {
         js {
-            moduleName = getModuleName()
+            this.moduleName = moduleName
 
             browser {
                 commonWebpackConfig {
@@ -64,6 +70,10 @@ internal fun Project.applyKotlinJsPlugin(
                 }
                 runTask {
                     enabled = run
+                }
+                if (moduleKeep != null) {
+                    @Suppress("EXPERIMENTAL_API_USAGE")
+                    dceTask { keep += moduleKeep }
                 }
             }
 
