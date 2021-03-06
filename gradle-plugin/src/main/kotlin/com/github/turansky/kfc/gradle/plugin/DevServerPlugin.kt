@@ -27,7 +27,6 @@ class DevServerPlugin : Plugin<Project> {
 
             configureEach<KotlinWebpack> {
                 outputFileName = DEV_SERVER.fileName
-                sourceMaps = false
 
                 dependsOn(generateExportAlias)
             }
