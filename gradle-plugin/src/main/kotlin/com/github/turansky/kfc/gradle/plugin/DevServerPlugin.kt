@@ -71,31 +71,5 @@ class DevServerPlugin : Plugin<Project> {
                 patch("entry", entry)
             }
         }
-
-        afterEvaluate {
-            val proxies = extension.proxies
-                .ifEmpty { return@afterEvaluate }
-                .toList()
-
-            tasks.configureEach<PatchWebpackConfig> {
-                for (proxy in proxies) {
-                    patch(
-                        "application-proxy",
-                        devServerConfiguration(
-                            root = proxy.root ?: project.name,
-                            source = project.tasks.getByPath(proxy.source),
-                            port = proxy.port.also { it.validatePort() }
-                        )
-                    )
-                }
-            }
-        }
     }
 }
-
-private fun Int.validatePort() {
-    check(this > 0) {
-        "Invalid port: '$this'"
-    }
-}
-

@@ -12,7 +12,7 @@ open class GenerateExportAlias : DefaultTask() {
     }
 
     @get:Input
-    var export: String? = null
+    var export: String = ""
 
     @get:OutputFile
     val entry: File
@@ -25,7 +25,7 @@ open class GenerateExportAlias : DefaultTask() {
 
     @TaskAction
     private fun generate() {
-        val export = export ?: return
+        if (export.isEmpty()) return
 
         val content = alias(
             moduleName = jsProjectId,
