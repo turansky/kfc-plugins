@@ -1,22 +1,11 @@
 plugins {
-    kotlin("js")
-    id("com.github.turansky.kfc.webpack-loaders")
-}
-
-val MODULE_NAME = "ww-local-server"
-
-kotlin.js {
-    moduleName = MODULE_NAME
-
-    browser()
-    useCommonJs()
-    binaries.executable()
+    id("com.github.turansky.kfc.dev-server")
 }
 
 tasks.patchWebpackConfig {
     val runDir = project.rootProject.buildDir
         .resolve("js/packages")
-        .resolve(MODULE_NAME)
+        .resolve("ww-local-server")
         .resolve("kotlin-dce-dev")
 
     val view = runDir.resolve("ww-view.js")
@@ -33,13 +22,6 @@ tasks.patchWebpackConfig {
         if (config.mode !== 'development') {
             return
         }
-        
-        delete config.entry.main
-
-        const output = config.output
-        output.filename = '[name].js'
-        output.libraryTarget = 'umd'
-        delete output.library 
         
         config.entry['view'] = '${view.absolutePath}'
         config.entry['worker'] = '${worker.absolutePath}'
