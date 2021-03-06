@@ -3,31 +3,13 @@ plugins {
 }
 
 tasks.patchWebpackConfig {
-    val runDir = project.rootProject.buildDir
-        .resolve("js/packages")
-        .resolve("ww-local-server")
-        .resolve("kotlin-dce-dev")
+    entry("view", "ww-view")
+    entry("worker", "ww-worker")
 
-    val view = runDir.resolve("ww-view.js")
-    val worker = runDir.resolve("ww-worker.js")
+    entry("view-io", "ww-view-io")
+    entry("worker-io", "ww-worker-io")
 
-    val viewIo = runDir.resolve("ww-view-io.js")
-    val workerIo = runDir.resolve("ww-worker-io.js")
-
-    val viewWl = runDir.resolve("ww-view-wl.js")
-
-    // language=JavaScript
-    patch(
-        """
-        config.entry['view'] = '${view.absolutePath}'
-        config.entry['worker'] = '${worker.absolutePath}'
-        
-        config.entry['view-io'] = '${viewIo.absolutePath}'
-        config.entry['worker-io'] = '${workerIo.absolutePath}'
-        
-        config.entry['view-wl'] = '${viewWl.absolutePath}'
-    """
-    )
+    entry("view-wl", "ww-view-wl")
 }
 
 dependencies {
