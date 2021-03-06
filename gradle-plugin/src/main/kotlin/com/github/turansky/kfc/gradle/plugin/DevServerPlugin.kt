@@ -36,12 +36,8 @@ class DevServerPlugin : Plugin<Project> {
                     "00__init__00",
                     // language=JavaScript
                     """
-                        const mainEntry = config.entry.main[0]
                         delete config.entry.main
-                        
-                        config.entry['${DEV_SERVER.id}'] = mainEntry
-                        
-                        config.output = config.output || {}
+
                         config.output.filename = '[name].js'
                     """.trimIndent()
                 )
