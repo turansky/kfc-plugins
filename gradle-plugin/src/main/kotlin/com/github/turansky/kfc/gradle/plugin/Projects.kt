@@ -25,13 +25,12 @@ internal val Project.jsModuleKeep: String?
     get() = propertyOrNull(MODULE_KEEP)
         ?.let { "$jsModuleName.$it" }
 
-internal val Project.jsOutputFileName: String
-    get() {
-        val name = propertyOrNull(OUTPUT_NAME)
-            ?: jsModuleName
+internal val Project.jsOutputName: String
+    get() = propertyOrNull(OUTPUT_NAME)
+        ?: jsModuleName
 
-        return "$name.js"
-    }
+internal val Project.jsOutputFileName: String
+    get() = "$jsOutputName.js"
 
 // TODO: optimize calculation
 internal fun Project.relatedProjects(): Set<Project> {

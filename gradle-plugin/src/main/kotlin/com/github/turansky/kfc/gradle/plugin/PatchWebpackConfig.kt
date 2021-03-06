@@ -1,6 +1,7 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
@@ -38,6 +39,12 @@ open class PatchWebpackConfig : DefaultTask() {
         moduleName: String = name
     ) {
         patch("config.entry['$name'] = '${dceDevPath(moduleName)}'")
+    }
+
+    fun entry(
+        project: Project
+    ) {
+        entry(project.jsOutputName, project.jsModuleName)
     }
 
     fun proxy(target: String) {
