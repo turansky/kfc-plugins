@@ -6,7 +6,7 @@ import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 private const val IMPLEMENTATION = "implementation"
 private const val JS_MAIN_IMPLEMENTATION = "jsMainImplementation"
 
-internal val Project.jsProjectId: String
+internal val Project.jsModuleName: String
     get() = "${rootProject.name}-$name"
 
 // TODO: optimize calculation

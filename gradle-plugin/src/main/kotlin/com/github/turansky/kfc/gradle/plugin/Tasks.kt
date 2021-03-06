@@ -17,15 +17,15 @@ internal val DEVELOPMENT_DCE_TASKS = setOf(
 
 internal const val JS_SOURCES_JAR_TASK = "jsSourcesJar"
 
-internal val Task.jsProjectId: String
-    get() = project.jsProjectId
+internal val Task.jsModuleName: String
+    get() = project.jsModuleName
 
 internal fun Task.jsPackageDir(relative: String): File =
     project.rootProject
         .buildDir
         .resolve("js")
         .resolve("packages")
-        .resolve(jsProjectId)
+        .resolve(jsModuleName)
         .resolve(relative)
 
 internal fun TaskContainerScope.useModularJsTarget() {

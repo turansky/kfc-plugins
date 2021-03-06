@@ -28,7 +28,7 @@ open class GenerateExportProxy : DefaultTask() {
     private fun generate() {
         val classNames = classNames.toList()
         check(classNames.isNotEmpty())
-        getEntry(true).writeText(proxy(jsProjectId, classNames))
+        getEntry(true).writeText(proxy(jsModuleName, classNames))
     }
 }
 

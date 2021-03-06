@@ -14,4 +14,4 @@ internal fun KotlinJsDce.keepPaths(paths: Iterable<String>) {
 }
 
 private fun Task.keepId(path: String): String =
-    "$jsProjectId.$path"
+    "$jsModuleName.$path"
