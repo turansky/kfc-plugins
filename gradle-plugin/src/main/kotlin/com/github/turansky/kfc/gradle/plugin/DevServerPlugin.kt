@@ -54,6 +54,11 @@ class DevServerPlugin : Plugin<Project> {
                     .onEach { dependsOn(it) }
                     .takeIf { it.isNotEmpty() }
                     ?.also { patch("entries", it.entryConfiguration()) }
+
+                // TODO: use only direct application dependencies?
+                relatedProjects()
+                    .filter { it.plugins.hasPlugin(ApplicationPlugin::class.java) }
+                    .forEach { entry(it) }
             }
         }
 

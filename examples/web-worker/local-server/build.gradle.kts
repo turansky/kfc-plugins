@@ -8,8 +8,6 @@ tasks.patchWebpackConfig {
 
     entry("view-io", "ww-view-io")
     entry("worker-io", "ww-worker-io")
-
-    entry("view-wl", "ww-view-wl")
 }
 
 dependencies {
