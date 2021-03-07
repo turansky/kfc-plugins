@@ -70,7 +70,7 @@ internal fun Project.applyKotlinJsPlugin(
 }
 
 internal fun Project.disableAutomaticJsDistribution() {
-    extensions.extraProperties[BUILD_DISTRIBUTION] = false.toString()
+    ext(BUILD_DISTRIBUTION, false)
 }
 
 internal fun Project.disableTestsWithoutSources(

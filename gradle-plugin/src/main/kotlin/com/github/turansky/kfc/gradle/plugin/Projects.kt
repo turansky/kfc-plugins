@@ -44,3 +44,11 @@ internal fun Project.relatedProjects(): Set<Project> {
         .plus(this)
         .toSet()
 }
+
+internal fun Project.ext(
+    propertyName: String,
+    value: Boolean
+) {
+    extensions.extraProperties[propertyName] = value.toString()
+}
+
