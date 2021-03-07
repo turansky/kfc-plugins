@@ -16,9 +16,6 @@ private const val SVG_INLINE_LOADER = "svg-inline-loader"
 private const val FILE_LOADER = "file-loader"
 private const val WORKER_LOADER = "worker-loader"
 
-private const val IMPLEMENTATION = "implementation"
-private const val JS_MAIN_IMPLEMENTATION = "jsMainImplementation"
-
 // language=JavaScript
 private val RULES: String = """
     config.module.rules.push(

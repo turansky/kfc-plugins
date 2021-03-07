@@ -7,9 +7,6 @@ private val MODULE_NAME = StringProperty("kfc.module.name")
 private val MODULE_KEEP = StringProperty("kfc.module.keep")
 private val OUTPUT_NAME = StringProperty("kfc.output.name")
 
-private const val IMPLEMENTATION = "implementation"
-private const val JS_MAIN_IMPLEMENTATION = "jsMainImplementation"
-
 internal val Project.jsModuleName: String
     get() {
         propertyOrNull(MODULE_NAME)
