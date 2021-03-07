@@ -5,6 +5,8 @@ import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
 private val MODULE_KEEP = StringProperty("kfc.module.keep")
+
+private val OUTPUT_DIR = StringProperty("kfc.output.dir")
 private val OUTPUT_NAME = StringProperty("kfc.output.name")
 
 internal val Project.jsModuleName: String
@@ -21,6 +23,9 @@ internal val Project.jsModuleName: String
 internal val Project.jsModuleKeep: String?
     get() = propertyOrNull(MODULE_KEEP)
         ?.let { "$jsModuleName.$it" }
+
+internal val Project.jsOutputDir: String?
+    get() = propertyOrNull(OUTPUT_DIR)
 
 internal val Project.jsOutputName: String
     get() = propertyOrNull(OUTPUT_NAME)

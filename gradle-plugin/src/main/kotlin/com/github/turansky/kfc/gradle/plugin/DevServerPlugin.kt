@@ -32,13 +32,20 @@ class DevServerPlugin : Plugin<Project> {
             }
 
             configureEach<PatchWebpackConfig> {
+                val outputDir = project.jsOutputDir
+                val fileName = if (outputDir != null) {
+                    "$outputDir/[name].js"
+                } else {
+                    "[name].js"
+                }
+
                 patch(
                     "00__init__00",
                     // language=JavaScript
                     """
                         delete config.entry.main
 
-                        config.output.filename = '[name].js'
+                        config.output.filename = '$fileName'
                     """.trimIndent()
                 )
 
