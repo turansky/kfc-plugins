@@ -1,6 +1,5 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import com.github.turansky.kfc.gradle.plugin.Output.COMPONENT
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
@@ -17,7 +16,6 @@ class ComponentPlugin : Plugin<Project> {
         val generateWebComponent = tasks.registerGenerateExportProxy()
 
         tasks.configureEach<KotlinWebpack> {
-            outputFileName = COMPONENT.fileName
             sourceMaps = false
 
             dependsOn(generateWebComponent)

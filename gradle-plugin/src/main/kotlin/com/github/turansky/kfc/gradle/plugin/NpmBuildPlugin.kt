@@ -1,6 +1,5 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import com.github.turansky.kfc.gradle.plugin.Output.COMPONENT
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
@@ -25,8 +24,9 @@ class NpmBuildPlugin : Plugin<Project> {
                 from(project.buildDir.resolve("distributions"))
                 into(npmDir)
 
-                include(COMPONENT.fileName)
-                rename(COMPONENT.fileName, "index.js")
+                val outputFileName = jsOutputFileName
+                include(outputFileName)
+                rename(outputFileName, "index.js")
             }
 
             val prepareNpmPackage = register<Copy>("prepareNpmPackage") {
