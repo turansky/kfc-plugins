@@ -6,6 +6,8 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 
 private val REDUNDANT_PACKAGES = listOf(
+    "kotlin.js",
+
     "org.w3c.dom.url",
     "org.w3c.dom"
 )
@@ -19,7 +21,10 @@ internal class DefinitionsPlugin : Plugin<Project> {
 
                 if (definitionFile.exists()) {
                     val content = definitionFile.readText()
-                    val newContent = content
+                    val newContent = REDUNDANT_PACKAGES
+                        .fold(content) { acc, p ->
+                            acc.replace("$p.", "")
+                        }
 
                     if (newContent != content) {
                         definitionFile.writeText(newContent)
