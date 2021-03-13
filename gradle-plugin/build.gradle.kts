@@ -49,7 +49,11 @@ enum class KfcPlugin(className: String) {
     WORKER("WorkerPlugin"),
     DEV_SERVER("DevServerPlugin"),
 
-    PLUGIN_PUBLISH("PluginPublishPlugin");
+    DEFINITIONS("DefinitionsPlugin"),
+
+    PLUGIN_PUBLISH("PluginPublishPlugin"),
+
+    ;
 
     val pluginName: String = name.toLowerCase().replace("_", "-")
 
@@ -146,6 +150,12 @@ pluginBundle {
         displayName = "Development server plugin"
         description = "Testing server for Kotlin/JS"
         tags = tags("dev server", "dev testing")
+    }
+
+    plugin(DEFINITIONS) {
+        displayName = "Kotlin/JS definitions plugin"
+        description = "Kotlin/JS definitions configuration"
+        tags = tags("definitions")
     }
 
     plugin(PLUGIN_PUBLISH) {
