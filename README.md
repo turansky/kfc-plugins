@@ -9,7 +9,6 @@
 * Plugins
   * [`webpack`](#webpack)
     * [Resources](#resources)
-    * [Multiple outputs](#multiple-outputs)
   * [`library`](#library)
 
 ## `webpack`
