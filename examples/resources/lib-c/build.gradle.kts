@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(npm("style-loader", "1.2.1"))
-    implementation(npm("css-loader", "4.2.1"))
+    implementation(npmv("style-loader"))
+    implementation(npmv("css-loader"))
 }
