@@ -16,7 +16,7 @@ internal fun Project.applyKotlinDefaults() {
     configureStrictMode()
     disableTestsWithoutSources()
 
-    dependencies.extensions.create(
+    extensions.create(
         NpmvDependencyExtension::class.java,
         "npmv",
         NpmvDependencyExtensionImpl::class.java,
