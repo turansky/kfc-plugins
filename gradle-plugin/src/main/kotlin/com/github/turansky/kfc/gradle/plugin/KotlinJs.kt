@@ -2,21 +2,17 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
-
-private const val BUILD_DISTRIBUTION = "kotlin.js.generate.executable.default"
 
 internal fun Project.applyKotlinJsPlugin(
     binaries: Boolean = false,
     distribution: Boolean = false,
     run: Boolean = false
 ) {
-    disableAutomaticJsDistribution()
+    applyKotlinDefaults()
 
     plugins.apply(KotlinPlugin.JS)
     if (!binaries) {
@@ -63,28 +59,6 @@ internal fun Project.applyKotlinJsPlugin(
 
         if (binaries) {
             disable<KotlinJsDce>()
-        }
-    }
-
-    disableTestsWithoutSources("test")
-}
-
-internal fun Project.disableAutomaticJsDistribution() {
-    ext(BUILD_DISTRIBUTION, false)
-}
-
-internal fun Project.disableTestsWithoutSources(
-    sourceSetName: String
-) {
-    tasks.named("${sourceSetName}PackageJson") {
-        onlyIf {
-            val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
-            val sourceDir = kotlin.sourceSets
-                .getByName(sourceSetName)
-                .kotlin.sourceDirectories
-                .singleOrNull()
-
-            sourceDir?.exists() ?: true
         }
     }
 }

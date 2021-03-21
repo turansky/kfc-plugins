@@ -13,7 +13,7 @@ class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         ext(NO_WARN, true)
 
-        disableAutomaticJsDistribution()
+        applyKotlinDefaults()
 
         plugins.apply(KotlinPlugin.MULTIPLATFORM)
 
@@ -33,7 +33,5 @@ class MultiplatformPlugin : Plugin<Project> {
 
             useModularJsTarget()
         }
-
-        disableTestsWithoutSources("jsTest")
     }
 }
