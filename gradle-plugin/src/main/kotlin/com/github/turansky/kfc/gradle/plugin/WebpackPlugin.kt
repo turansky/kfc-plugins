@@ -27,6 +27,9 @@ class WebpackPlugin : Plugin<Project> {
     private fun TaskContainerScope.applyConfiguration() {
         val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig") {
             addResourceModules()
+
+            if (project.property(Momentjs.IGNORE_LOCALES_FLAG))
+                patch(Momentjs.IGNORE_LOCALES_PATCH)
         }
 
         named<Delete>("clean") {
@@ -51,10 +54,10 @@ private fun PatchWebpackConfig.addResourceModules() {
 
     // language=JavaScript
     val body = """
-            |config.resolve.modules.unshift(
-            |    $paths
-            |)
-        """.trimMargin()
+        config.resolve.modules.unshift(
+            $paths
+        )
+    """.trimIndent()
 
     patch("resources", body)
 }
