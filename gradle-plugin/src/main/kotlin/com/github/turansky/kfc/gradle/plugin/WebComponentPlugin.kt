@@ -3,7 +3,6 @@ package com.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByName
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
@@ -23,7 +22,7 @@ private val CALLBACKS = listOf(
 
 internal class WebComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks.withType<KotlinJsDce>().configureEach {
+        tasks.configureEach<KotlinJsDce> {
             doLast {
                 val outputDirectory = getOutputDirectory(name)
                 fileTree(outputDirectory).visit {

@@ -2,7 +2,6 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 
 private val REDUNDANT_PACKAGES = listOf(
@@ -14,7 +13,7 @@ private val REDUNDANT_PACKAGES = listOf(
 
 internal class DefinitionsPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks.withType<Kotlin2JsCompile>().configureEach {
+        tasks.configureEach<Kotlin2JsCompile> {
             doLast {
                 val definitionFile = outputFile.parentFile
                     .resolve(outputFile.name.substringBeforeLast(".") + ".d.ts")

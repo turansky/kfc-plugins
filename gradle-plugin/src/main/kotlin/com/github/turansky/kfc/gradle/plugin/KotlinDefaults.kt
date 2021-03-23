@@ -3,7 +3,6 @@ package com.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getByName
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
@@ -28,7 +27,7 @@ internal fun Project.applyKotlinDefaults() {
 
 private fun Project.configureStrictMode() {
     if (property(STRICT_MODE)) {
-        tasks.withType<KotlinCompile<*>>().configureEach {
+        tasks.configureEach<KotlinCompile<*>> {
             kotlinOptions.allWarningsAsErrors = true
         }
     }
