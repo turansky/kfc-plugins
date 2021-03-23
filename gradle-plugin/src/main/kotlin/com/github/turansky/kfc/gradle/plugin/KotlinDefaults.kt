@@ -1,6 +1,7 @@
 package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
@@ -12,6 +13,7 @@ private val STRICT_MODE = BooleanProperty("kfc.strict.mode", true)
 
 internal fun Project.applyKotlinDefaults() {
     ext(BUILD_DISTRIBUTION, false)
+    plugins.apply(SourceMapsPlugin::class)
 
     configureStrictMode()
     disableTestsWithoutSources()
