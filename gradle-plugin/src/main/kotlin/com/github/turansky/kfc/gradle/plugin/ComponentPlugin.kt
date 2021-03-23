@@ -16,8 +16,6 @@ class ComponentPlugin : Plugin<Project> {
         val generateWebComponent = tasks.registerGenerateExportProxy()
 
         tasks.configureEach<KotlinWebpack> {
-            sourceMaps = false
-
             dependsOn(generateWebComponent)
         }
 
