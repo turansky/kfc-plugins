@@ -27,11 +27,11 @@ private const val KT_38040_PATCH = """
 internal class WorkaroundPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         if (property(KT_38040_FLAG)) {
-            tasks.named<Delete>("clean") {
-                delete(karmaConfigDir())
-            }
-
             afterEvaluate {
+                tasks.named<Delete>("clean") {
+                    delete(karmaConfigDir())
+                }
+
                 sequenceOf(
                     tasks.findByName("browserTest"),
                     tasks.findByName("jsBrowserTest")

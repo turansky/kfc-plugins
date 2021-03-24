@@ -7,3 +7,4 @@ build/
 *.iml
 
 webpack.config.d/
+karma.config.d/

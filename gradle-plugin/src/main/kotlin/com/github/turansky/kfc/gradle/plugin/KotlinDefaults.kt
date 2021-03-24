@@ -13,6 +13,7 @@ private val STRICT_MODE = BooleanProperty("kfc.strict.mode", true)
 internal fun Project.applyKotlinDefaults() {
     ext(BUILD_DISTRIBUTION, false)
     plugins.apply(SourceMapsPlugin::class)
+    plugins.apply(WorkaroundPlugin::class)
 
     configureStrictMode()
     disableTestsWithoutSources()
