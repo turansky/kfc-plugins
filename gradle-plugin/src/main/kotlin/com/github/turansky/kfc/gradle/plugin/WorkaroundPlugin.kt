@@ -37,7 +37,9 @@ internal class WorkaroundPlugin : Plugin<Project> {
                     tasks.findByName("jsBrowserTest")
                 ).filterNotNull()
                     .forEach {
-                        it.applyKarmaPatch(KT_38040, KT_38040_PATCH)
+                        it.doFirst {
+                            applyKarmaPatch(KT_38040, KT_38040_PATCH)
+                        }
                     }
             }
         }
