@@ -13,7 +13,6 @@ internal class SourceMapsPlugin : Plugin<Project> {
             tasks.configureEach<KotlinJsCompile> {
                 kotlinOptions {
                     sourceMap = false
-                    sourceMapEmbedSources = "never"
                 }
             }
 
