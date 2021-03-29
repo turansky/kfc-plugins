@@ -51,19 +51,23 @@ private fun Project.fontRules(): String {
     """.trimIndent()
 }
 
-// language=JavaScript
-private val WORKER_RULES: String = """
+private fun Project.workerRules(): String {
+    val fileName = outputPath("/", "[name].[contenthash].js")
+
+    // language=JavaScript
+    return """
     config.module.rules.push( 
       {
         test: /[\.|\-]worker\.js${'$'}/,
         loader: '$WORKER_LOADER',
         options: {
-          filename: '[name].[contenthash].js',
+          filename: '$fileName',
           esModule: false,
         },
       },
     )
-""".trimIndent()
+    """.trimIndent()
+}
 
 // language=JavaScript
 private val TERSER_CONFIGURATION = """
@@ -92,7 +96,7 @@ class WebpackLoadersPlugin : Plugin<Project> {
 
             patch("font-rules", fontRules())
 
-            patch("worker-rules", WORKER_RULES)
+            patch("worker-rules", workerRules())
 
             patch("terser-configuration", TERSER_CONFIGURATION)
         }
