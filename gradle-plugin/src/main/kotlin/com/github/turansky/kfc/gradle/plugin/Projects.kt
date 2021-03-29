@@ -6,7 +6,7 @@ import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 private val MODULE_NAME = StringProperty("kfc.module.name")
 private val MODULE_KEEP = StringProperty("kfc.module.keep")
 
-private val OUTPUT_DIR = StringProperty("kfc.output.dir")
+private val OUTPUT_PATH = StringProperty("kfc.output.path")
 private val OUTPUT_NAME = StringProperty("kfc.output.name")
 
 internal val Project.jsModuleName: String
@@ -24,15 +24,31 @@ internal val Project.jsModuleKeep: String?
     get() = propertyOrNull(MODULE_KEEP)
         ?.let { "$jsModuleName.$it" }
 
-internal val Project.jsOutputDir: String?
-    get() = propertyOrNull(OUTPUT_DIR)
+private val Project.jsOutputPath: String?
+    get() = propertyOrNull(OUTPUT_PATH)
+
+internal fun Project.outputPath(
+    path: String
+): String =
+    outputPath("", path)
+
+internal fun Project.outputPath(
+    prefix: String,
+    suffix: String
+): String {
+    val basePath = jsOutputPath
+        ?.let { "$it/" }
+        ?: ""
+
+    return prefix + basePath + suffix
+}
 
 internal val Project.jsOutputName: String
     get() = propertyOrNull(OUTPUT_NAME)
         ?: jsModuleName
 
 internal val Project.jsOutputFileName: String
-    get() = "$jsOutputName.js"
+    get() = outputPath("$jsOutputName.js")
 
 // TODO: optimize calculation
 internal fun Project.relatedProjects(): Set<Project> {

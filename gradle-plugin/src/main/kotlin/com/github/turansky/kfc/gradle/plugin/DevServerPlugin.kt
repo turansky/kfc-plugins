@@ -32,12 +32,7 @@ class DevServerPlugin : Plugin<Project> {
             }
 
             configureEach<PatchWebpackConfig> {
-                val outputDir = project.jsOutputDir
-                val fileName = if (outputDir != null) {
-                    "$outputDir/[name].js"
-                } else {
-                    "[name].js"
-                }
+                val fileName = outputPath("[name].js")
 
                 patch(
                     "00__init__00",
