@@ -70,6 +70,14 @@ internal fun Project.ext(
     propertyName: String,
     value: Boolean
 ) {
-    extensions.extraProperties[propertyName] = value.toString()
+    ext(propertyName, value.toString())
 }
+
+internal fun Project.ext(
+    propertyName: String,
+    value: String
+) {
+    extensions.extraProperties[propertyName] = value
+}
+
 
