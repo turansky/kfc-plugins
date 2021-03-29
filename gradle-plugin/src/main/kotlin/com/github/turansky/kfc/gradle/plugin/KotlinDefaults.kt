@@ -6,17 +6,22 @@ import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
+private const val JS_COMPILER = "kotlin.js.compiler"
 private const val BUILD_DISTRIBUTION = "kotlin.js.generate.executable.default"
 
 private val STRICT_MODE = BooleanProperty("kfc.strict.mode", true)
 
-internal fun Project.applyKotlinDefaults() {
+internal fun Project.applyKotlinDefaults(both: Boolean) {
+    if (both) {
+        ext(JS_COMPILER, "both")
+    }
     ext(BUILD_DISTRIBUTION, false)
+
     plugins.apply(SourceMapsPlugin::class)
     plugins.apply(WorkaroundPlugin::class)
 
     configureStrictMode()
-    disableTestsWithoutSources()
+    // disableTestsWithoutSources()
 
     extensions.create(
         NpmvDependencyExtension::class.java,

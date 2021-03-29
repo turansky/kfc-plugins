@@ -13,7 +13,7 @@ class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         ext(NO_WARN, true)
 
-        applyKotlinDefaults()
+        applyKotlinDefaults(true)
 
         plugins.apply(KotlinPlugin.MULTIPLATFORM)
 
