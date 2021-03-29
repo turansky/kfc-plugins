@@ -4,7 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.jvm.tasks.Jar
+import org.gradle.api.tasks.bundling.Zip
 import org.gradle.kotlin.dsl.*
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin as StandardMavenPublishPlugin
 
@@ -18,7 +18,7 @@ class MavenPublishPlugin : Plugin<Project> {
         }
 
         plugins.withId(KotlinPlugin.JS) {
-            configurePublication(JS_SOURCES_JAR_TASK)
+            configurePublication(KOTLIN_SOURCES_TASK)
         }
     }
 }
@@ -32,7 +32,7 @@ private fun Project.configurePublication(sourceTaskName: String? = null) {
                 create<MavenPublication>("mavenKotlin") {
                     from(components["kotlin"])
                     if (sourceTaskName != null) {
-                        artifact(tasks.named<Jar>(sourceTaskName).get())
+                        artifact(tasks.named<Zip>(sourceTaskName).get())
                     }
                 }
             }

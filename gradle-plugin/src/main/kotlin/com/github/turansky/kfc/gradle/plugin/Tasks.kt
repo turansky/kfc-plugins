@@ -15,7 +15,7 @@ internal val DEVELOPMENT_DCE_TASKS = setOf(
     "processDceDevKotlinJs"
 )
 
-internal const val JS_SOURCES_JAR_TASK = "jsSourcesJar"
+internal const val KOTLIN_SOURCES_TASK = "kotlinSourcesJar"
 
 internal val Task.jsModuleName: String
     get() = project.jsModuleName
