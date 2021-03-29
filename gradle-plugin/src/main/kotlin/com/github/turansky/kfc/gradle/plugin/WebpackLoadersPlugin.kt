@@ -8,9 +8,6 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
 
-private val FONT_PUBLIC_PATH = StringProperty("kfc.font.public.path")
-private val FONT_OUTPUT_PATH = StringProperty("kfc.font.output.path")
-
 private const val CSS_LOADER = "css-loader"
 private const val SVG_INLINE_LOADER = "svg-inline-loader"
 private const val FILE_LOADER = "file-loader"
@@ -33,14 +30,11 @@ private val RULES: String = """
     )
 """.trimIndent()
 
-// language=JavaScript
-private fun fontRules(
-    publicPath: String?,
-    outputPath: String?
-): String {
-    publicPath ?: return ""
-    outputPath ?: return ""
+private fun Project.fontRules(): String {
+    val publicPath = outputPath("/", "fonts")
+    val outputPath = outputPath("./", "fonts")
 
+    // language=JavaScript
     return """
     config.module.rules.push( 
       { 
@@ -96,11 +90,7 @@ class WebpackLoadersPlugin : Plugin<Project> {
         tasks.configureEach<PatchWebpackConfig> {
             patch("rules", RULES)
 
-            val fontRules = fontRules(
-                publicPath = propertyOrNull(FONT_PUBLIC_PATH),
-                outputPath = propertyOrNull(FONT_OUTPUT_PATH)
-            )
-            patch("font-rules", fontRules)
+            patch("font-rules", fontRules())
 
             patch("worker-rules", WORKER_RULES)
 
