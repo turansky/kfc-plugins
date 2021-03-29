@@ -13,6 +13,8 @@ private const val SVG_INLINE_LOADER = "svg-inline-loader"
 private const val FILE_LOADER = "file-loader"
 private const val WORKER_LOADER = "worker-loader"
 
+private const val JS_FILE_TEMPLATE = "[name].[contenthash].js"
+
 // language=JavaScript
 private val RULES: String = """
     config.module.rules.push(
@@ -52,18 +54,25 @@ private fun Project.fontRules(): String {
 }
 
 private fun Project.workerRules(): String {
-    val fileName = outputPath("/", "[name].[contenthash].js")
+    val fileName = outputPath("/", JS_FILE_TEMPLATE)
 
     // language=JavaScript
     return """
+    const options = !config.devServer
+        ? {
+          filename: '$fileName',
+          esModule: false,
+        }
+        : {
+          esModule: false,
+          inline: 'fallback',
+        }
+
     config.module.rules.push( 
       {
         test: /[\.|\-]worker\.js${'$'}/,
         loader: '$WORKER_LOADER',
-        options: {
-          filename: '$fileName',
-          esModule: false,
-        },
+        options: options,
       },
     )
     """.trimIndent()
