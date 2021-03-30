@@ -10,9 +10,10 @@ private const val JS_COMPILER = "kotlin.js.compiler"
 private const val BUILD_DISTRIBUTION = "kotlin.js.generate.executable.default"
 
 private val STRICT_MODE = BooleanProperty("kfc.strict.mode", true)
+private val PROGRESSIVE_MODE = BooleanProperty("kfc.progressive.mode", true)
 
 internal fun Project.applyKotlinDefaults(both: Boolean) {
-    if (both) {
+    if (both && property(PROGRESSIVE_MODE)) {
         ext(JS_COMPILER, "both")
     }
     ext(BUILD_DISTRIBUTION, false)
