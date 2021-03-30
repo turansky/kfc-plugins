@@ -21,7 +21,7 @@ internal fun Project.applyKotlinDefaults(both: Boolean) {
     plugins.apply(WorkaroundPlugin::class)
 
     configureStrictMode()
-    // disableTestsWithoutSources()
+    disableTestsWithoutSources()
 
     extensions.create(
         NpmvDependencyExtension::class.java,
@@ -41,19 +41,33 @@ private fun Project.configureStrictMode() {
 
 private fun Project.disableTestsWithoutSources() {
     afterEvaluate {
-        val sourceSetName = sequenceOf("jsTest", "test")
-            .single { tasks.findByPath("${it}PackageJson") != null }
+        val sourceSet = SourceSet.values()
+            .single { it.taskNames.mapNotNull(tasks::findByPath).isNotEmpty() }
 
-        tasks.named("${sourceSetName}PackageJson") {
-            onlyIf {
-                val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
-                val sourceDir = kotlin.sourceSets
-                    .getByName(sourceSetName)
-                    .kotlin.sourceDirectories
-                    .singleOrNull()
+        sourceSet.taskNames
+            .mapNotNull(tasks::findByPath)
+            .forEach {
+                it.onlyIf {
+                    val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
+                    val sourceDir = kotlin.sourceSets
+                        .getByName(sourceSet.id)
+                        .kotlin.sourceDirectories
+                        .singleOrNull()
 
-                sourceDir?.exists() ?: true
+                    sourceDir?.exists() ?: true
+                }
             }
-        }
     }
+}
+
+private enum class SourceSet(
+    vararg names: String
+) {
+    MULTIPLATFORM("jsTest", "jsIrTest", "jsLegacyTest"),
+    JS("test", "irTest", "legacyTest"),
+
+    ;
+
+    val id = names.first()
+    val taskNames = names.map { "${it}PackageJson" }
 }
