@@ -105,7 +105,8 @@ class WebpackLoadersPlugin : Plugin<Project> {
 
             patch("font-rules", fontRules())
 
-            patch("worker-rules", workerRules())
+            if (!project.name.endsWith("-worker"))
+                patch("worker-rules", workerRules())
 
             patch("terser-configuration", TERSER_CONFIGURATION)
         }
