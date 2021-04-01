@@ -6,8 +6,8 @@ plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
 
-    id("com.gradle.plugin-publish") version "0.13.0"
-    id("com.github.turansky.kfc.plugin-publish") version "3.0.0"
+    id("com.gradle.plugin-publish") version "0.14.0"
+    id("com.github.turansky.kfc.plugin-publish") version "3.5.0"
 }
 
 repositories {
