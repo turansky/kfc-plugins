@@ -7,7 +7,7 @@ plugins {
     `kotlin-dsl`
 
     id("com.gradle.plugin-publish") version "0.14.0"
-    id("com.github.turansky.kfc.plugin-publish") version "3.5.0"
+    id("com.github.turansky.kfc.plugin-publish") version "3.6.1"
 }
 
 repositories {
@@ -166,6 +166,6 @@ pluginBundle {
 }
 
 tasks.wrapper {
-    gradleVersion = "6.8.3"
+    gradleVersion = "7.0"
     distributionType = Wrapper.DistributionType.ALL
 }
