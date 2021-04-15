@@ -78,24 +78,6 @@ private fun Project.workerRules(): String {
     """.trimIndent()
 }
 
-// language=JavaScript
-private val TERSER_CONFIGURATION = """
-    const TerserPlugin = require('terser-webpack-plugin')
-    const terserOptions = {
-      output: {
-        comments: false
-      }
-    }
-
-    config.optimization = {
-      minimizer: [
-        new TerserPlugin({ 
-          terserOptions
-        })
-      ]
-    }
-""".trimIndent()
-
 class WebpackLoadersPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(WebpackPlugin::class)
@@ -107,8 +89,6 @@ class WebpackLoadersPlugin : Plugin<Project> {
 
             if (!project.name.endsWith("-worker"))
                 patch("worker-rules", workerRules())
-
-            patch("terser-configuration", TERSER_CONFIGURATION)
         }
 
         afterEvaluate {
