@@ -29,7 +29,7 @@ class WebpackPlugin : Plugin<Project> {
             addResourceModules()
 
             if (project.property(Momentjs.IGNORE_LOCALES_FLAG))
-                patch(Momentjs.IGNORE_LOCALES_PATCH)
+                patch("momentjs-locales-ignore", Momentjs.IGNORE_LOCALES_PATCH)
         }
 
         named<Delete>("clean") {

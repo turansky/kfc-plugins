@@ -6,8 +6,11 @@ internal object Momentjs {
     // language=Kotlin
     val IGNORE_LOCALES_PATCH: String = """
        const { IgnorePlugin } = require('webpack')
-            config.plugins.push(
-                new IgnorePlugin(/^\.\/locale${'$'}/, /moment${'$'}/),
-            ) 
+       config.plugins.push(
+         new IgnorePlugin({
+           resourceRegExp: /^\.\/locale${'$'}/, 
+           contextRegExp: /moment${'$'}/,
+         })
+       )
     """.trimIndent()
 }
