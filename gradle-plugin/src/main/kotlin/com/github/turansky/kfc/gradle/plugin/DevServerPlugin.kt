@@ -9,6 +9,12 @@ import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
+// language=JavaScript
+private const val PORT_PATCH: String = """
+  const devServer = config.devServer 
+  devServer.port = 9000
+"""
+
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinJsPlugin(run = true)
@@ -43,6 +49,8 @@ class DevServerPlugin : Plugin<Project> {
                         config.output.filename = '$fileName'
                     """.trimIndent()
                 )
+
+                patch("dev-server-port", PORT_PATCH)
 
                 relatedProjects()
                     .mapNotNull { it.tasks.findGenerateExportProxy() }
