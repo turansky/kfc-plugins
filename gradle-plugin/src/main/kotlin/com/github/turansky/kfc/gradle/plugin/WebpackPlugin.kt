@@ -30,6 +30,18 @@ class WebpackPlugin : Plugin<Project> {
 
             if (project.property(Momentjs.IGNORE_LOCALES_FLAG))
                 patch("momentjs-locales-ignore", Momentjs.IGNORE_LOCALES_PATCH)
+
+            // TODO: remove
+            //   https://youtrack.jetbrains.com/issue/KT-46082
+            // language=JavaScript
+            patch(
+                """
+                if (!config.resolve.fallback)
+                    config.resolve.fallback = {}
+                    
+                config.resolve.fallback.crypto = false
+                """
+            )
         }
 
         named<Delete>("clean") {
