@@ -51,9 +51,7 @@ open class PatchWebpackConfig : DefaultTask() {
         // language=JavaScript
         patch(
             """
-              const devServer = config.devServer 
-              devServer.index = ''
-              devServer.proxy = {
+              config.devServer.proxy = {
                 context: () => true,
                 target: '$target',
               }
