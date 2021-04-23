@@ -3,9 +3,9 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.Output.DEV_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.register
+import org.gradle.kotlin.dsl.*
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
@@ -15,8 +15,34 @@ private const val PORT_PATCH: String = """
   devServer.port = 9000
 """
 
+// language=JavaScript
+private const val KT_46162_PATCH: String = """
+  const devServer = config.devServer
+
+  devServer.static = devServer.contentBase
+
+  delete devServer.contentBase
+  delete devServer.overlay
+  delete devServer.noInfo
+  delete devServer.lazy
+  delete devServer.inline
+"""
+
+// WA for https://youtrack.jetbrains.com/issue/KT-46162
+private class DevServerRootPlugin : Plugin<Project> {
+    override fun apply(target: Project): Unit = with(target) {
+        plugins.withType<NodeJsRootPlugin> {
+            the<NodeJsRootExtension>().versions.apply {
+                webpackDevServer.version = "4.0.0-beta.2"
+            }
+        }
+    }
+}
+
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        rootProject.plugins.apply(DevServerRootPlugin::class)
+
         applyKotlinJsPlugin(run = true)
 
         val extension = extensions.create<DevServerExtension>("devServer")
@@ -50,6 +76,7 @@ class DevServerPlugin : Plugin<Project> {
                     """.trimIndent()
                 )
 
+                patch("00__KT_46162__00", KT_46162_PATCH)
                 patch("dev-server-port", PORT_PATCH)
 
                 relatedProjects()
