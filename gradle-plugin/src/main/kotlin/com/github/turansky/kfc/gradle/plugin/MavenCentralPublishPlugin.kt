@@ -2,8 +2,11 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPom
-import org.gradle.kotlin.dsl.apply
+import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.kotlin.dsl.*
+import org.gradle.plugins.signing.SigningExtension
 import org.gradle.plugins.signing.SigningPlugin
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin as StandardMavenPublishPlugin
 
@@ -14,6 +17,25 @@ class MavenCentralPublishPlugin : Plugin<Project> {
 
         fun pomProperty(name: String): String =
             property("kfc.pom.$name") as String
+
+        configure<PublishingExtension> {
+            publications {
+                create<MavenPublication>("mavenKotlin") {
+                    from(components["kotlin"])
+                    artifact(tasks.named("kotlinSourcesJar").get())
+
+                    pom.configure(::pomProperty)
+                }
+            }
+        }
+
+        if (hasProperty("signing.keyId")) {
+            val publishing = extensions.getByName<PublishingExtension>("publishing")
+
+            configure<SigningExtension> {
+                sign(publishing.publications)
+            }
+        }
     }
 }
 
