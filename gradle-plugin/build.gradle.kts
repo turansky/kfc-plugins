@@ -14,10 +14,6 @@ repositories {
     mavenCentral()
 }
 
-kotlinDslPluginOptions {
-    experimentalWarning.set(false)
-}
-
 dependencies {
     implementation("nu.studer:java-ordered-properties:1.0.3")
     compileOnly(kotlin("gradle-plugin"))
