@@ -51,6 +51,7 @@ enum class KfcPlugin(className: String) {
 
     DEFINITIONS("DefinitionsPlugin"),
 
+    MAVEN_CENTRAL_PUBLISH("MavenCentralPublishPlugin"),
     PLUGIN_PUBLISH("PluginPublishPlugin"),
 
     ;
@@ -156,6 +157,12 @@ pluginBundle {
         displayName = "Kotlin/JS definitions plugin"
         description = "Kotlin/JS definitions configuration"
         tags = tags("definitions")
+    }
+
+    plugin(MAVEN_CENTRAL_PUBLISH) {
+        displayName = "Maven central publish plugin"
+        description = "Maven central publish configuration"
+        tags = tags("maven", "central", "publish")
     }
 
     plugin(PLUGIN_PUBLISH) {
