@@ -64,10 +64,7 @@ private class RootPluginPublishPlugin : Plugin<Project> {
 
 private fun Project.versionFiles(): Set<File> =
     fileTree(projectDir)
-        .matching {
-            include("src/main/kotlin/**/KotlinPluginArtifact.kt")
-            include("**/src/main/kotlin/**/KotlinPluginArtifact.kt")
-        }
+        .matching { include("**/src/main/kotlin/**/KotlinPluginArtifact.kt") }
         .files
 
 private fun Project.changeGroup(addPrefix: Boolean) {
