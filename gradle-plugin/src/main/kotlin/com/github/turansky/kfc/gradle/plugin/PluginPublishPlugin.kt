@@ -6,6 +6,7 @@ import com.github.turansky.kfc.gradle.plugin.JvmTarget.JVM_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.TaskContainerScope
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.named
@@ -13,7 +14,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 
-private const val KOTLIN_PLUGIN_ARTIFACT = "KotlinPluginArtifact.kt"
 private const val GRADLE_PLUGIN_PREFIX = "gradle.plugin."
 
 open class PluginPublishExtension {
@@ -40,7 +40,7 @@ class PluginPublishPlugin : Plugin<Project> {
 
             register("preparePublish") {
                 doLast {
-                    changeVersion(Version::toRelease, project.versionFiles())
+                    changeVersion(Version::toRelease, versionFiles())
                     if (extension.gradlePluginPrefix) {
                         changeGroup(addPrefix = false)
                     }
@@ -49,7 +49,7 @@ class PluginPublishPlugin : Plugin<Project> {
 
             register("prepareDevelopment") {
                 doLast {
-                    changeVersion(Version::toNextSnapshot, project.versionFiles())
+                    changeVersion(Version::toNextSnapshot, versionFiles())
                     if (extension.gradlePluginPrefix) {
                         changeGroup(addPrefix = true)
                     }
@@ -59,14 +59,13 @@ class PluginPublishPlugin : Plugin<Project> {
     }
 }
 
-private fun Project.versionFiles(): Set<File> {
-    val compileKotlin = tasks.findByName("compileKotlin") as KotlinCompile?
+private fun TaskContainerScope.versionFiles(): Set<File> {
+    val compileKotlin = findByName("compileKotlin") as KotlinCompile?
+        ?: return emptySet()
 
-    return if (compileKotlin != null) {
-        compileKotlin.source.matching { include("**/$KOTLIN_PLUGIN_ARTIFACT") }
-    } else {
-        fileTree(projectDir).matching { include("**/src/main/kotlin/**/$KOTLIN_PLUGIN_ARTIFACT") }
-    }.files
+    return compileKotlin.source
+        .matching { include("**/KotlinPluginArtifact.kt") }
+        .files
 }
 
 private fun Project.changeGroup(addPrefix: Boolean) {
