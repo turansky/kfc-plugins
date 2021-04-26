@@ -26,6 +26,10 @@ class MavenCentralPublishPlugin : Plugin<Project> {
                     from(components["kotlin"])
                     artifact(tasks.named("kotlinSourcesJar").get())
 
+                    val javadoc = tasks.findByName("javadoc")
+                    if (javadoc != null)
+                        artifact(javadoc)
+
                     pom.configure(::pomProperty, releaseMode)
                 }
             }
