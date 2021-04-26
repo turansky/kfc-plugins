@@ -15,6 +15,8 @@ class MavenCentralPublishPlugin : Plugin<Project> {
         plugins.apply(StandardMavenPublishPlugin::class)
         plugins.apply(SigningPlugin::class)
 
+        val releaseMode = hasProperty("signing.keyId")
+
         fun pomProperty(name: String): String =
             property("kfc.pom.$name") as String
 
@@ -24,12 +26,12 @@ class MavenCentralPublishPlugin : Plugin<Project> {
                     from(components["kotlin"])
                     artifact(tasks.named("kotlinSourcesJar").get())
 
-                    pom.configure(::pomProperty)
+                    pom.configure(::pomProperty, releaseMode)
                 }
             }
         }
 
-        if (hasProperty("signing.keyId")) {
+        if (releaseMode) {
             val publishing = extensions.getByName<PublishingExtension>("publishing")
 
             configure<SigningExtension> {
@@ -40,7 +42,8 @@ class MavenCentralPublishPlugin : Plugin<Project> {
 }
 
 private fun MavenPom.configure(
-    pomProperty: (name: String) -> String
+    pomProperty: (name: String) -> String,
+    releaseMode: Boolean,
 ) {
     val projectUrl = pomProperty("url")
     val connectionUrl = "scm:git:$projectUrl.git"
@@ -57,11 +60,13 @@ private fun MavenPom.configure(
         }
     }
 
-    developers {
-        developer {
-            id.set(pomProperty("developer.id"))
-            name.set(pomProperty("developer.name"))
-            email.set(pomProperty("developer.email"))
+    if (releaseMode) {
+        developers {
+            developer {
+                id.set(pomProperty("developer.id"))
+                name.set(pomProperty("developer.name"))
+                email.set(pomProperty("developer.email"))
+            }
         }
     }
 
