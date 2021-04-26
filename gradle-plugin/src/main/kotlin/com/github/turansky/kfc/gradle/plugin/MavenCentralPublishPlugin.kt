@@ -18,22 +18,24 @@ class MavenCentralPublishPlugin : Plugin<Project> {
         fun pomProperty(name: String): String =
             property("kfc.pom.$name") as String
 
-        configure<PublishingExtension> {
-            publications {
-                create<MavenPublication>("mavenKotlin") {
-                    from(components["kotlin"])
-                    artifact(tasks.named("kotlinSourcesJar").get())
+        plugins.withType<StandardMavenPublishPlugin> {
+            configure<PublishingExtension> {
+                publications {
+                    create<MavenPublication>("mavenKotlin") {
+                        from(components["kotlin"])
+                        artifact(tasks.named("kotlinSourcesJar").get())
 
-                    pom.configure(::pomProperty)
+                        pom.configure(::pomProperty)
+                    }
                 }
             }
-        }
 
-        if (hasProperty("signing.keyId")) {
-            val publishing = extensions.getByName<PublishingExtension>("publishing")
+            if (hasProperty("signing.keyId")) {
+                val publishing = extensions.getByName<PublishingExtension>("publishing")
 
-            configure<SigningExtension> {
-                sign(publishing.publications)
+                configure<SigningExtension> {
+                    sign(publishing.publications)
+                }
             }
         }
     }
