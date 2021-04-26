@@ -5,6 +5,7 @@ import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPom
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.*
 import org.gradle.plugins.signing.SigningExtension
 import org.gradle.plugins.signing.SigningPlugin
@@ -20,15 +21,21 @@ class MavenCentralPublishPlugin : Plugin<Project> {
         fun pomProperty(name: String): String =
             property("kfc.pom.$name") as String
 
+        val jvmMode = plugins.hasPlugin(KotlinPlugin.JVM)
+        val javadocJar = if (jvmMode) {
+            tasks.register("emptyJavadocJar", Jar::class) {
+                archiveClassifier.set("javadoc")
+            }
+        } else null
+
         configure<PublishingExtension> {
             publications {
                 create<MavenPublication>("mavenKotlin") {
                     from(components["kotlin"])
                     artifact(tasks.named("kotlinSourcesJar").get())
 
-                    val javadoc = tasks.findByName("javadoc")
-                    if (javadoc != null)
-                        artifact(javadoc)
+                    if (javadocJar != null)
+                        artifact(javadocJar.get())
 
                     pom.configure(::pomProperty, releaseMode)
                 }
