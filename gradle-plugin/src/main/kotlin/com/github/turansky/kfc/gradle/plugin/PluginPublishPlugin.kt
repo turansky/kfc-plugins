@@ -6,23 +6,18 @@ import com.github.turansky.kfc.gradle.plugin.JvmTarget.JVM_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.kotlin.dsl.TaskContainerScope
-import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.named
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 
 private const val GRADLE_PLUGIN_PREFIX = "gradle.plugin."
-
-open class PluginPublishExtension {
-    var gradlePluginPrefix: Boolean = false
-}
+private val USE_GRADLE_PLUGIN_PREFIX = BooleanProperty("kfc.gradle.plugin.prefix")
 
 class PluginPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        val extension = extensions.create<PluginPublishExtension>("pluginPublish")
+        rootProject.plugins.apply(RootPluginPublishPlugin::class)
 
         tasks {
             configureEach<KotlinJvmCompile> {
@@ -37,11 +32,19 @@ class PluginPublishPlugin : Plugin<Project> {
                     from("$projectDir/LICENSE.md")
                 }
             }
+        }
+    }
+}
 
+private class RootPluginPublishPlugin : Plugin<Project> {
+    override fun apply(target: Project): Unit = with(target) {
+        val useGradlePluginPrefix = property(USE_GRADLE_PLUGIN_PREFIX)
+
+        tasks {
             register("preparePublish") {
                 doLast {
-                    changeVersion(Version::toRelease, versionFiles())
-                    if (extension.gradlePluginPrefix) {
+                    changeVersion(Version::toRelease, project.versionFiles())
+                    if (useGradlePluginPrefix) {
                         changeGroup(addPrefix = false)
                     }
                 }
@@ -49,8 +52,8 @@ class PluginPublishPlugin : Plugin<Project> {
 
             register("prepareDevelopment") {
                 doLast {
-                    changeVersion(Version::toNextSnapshot, versionFiles())
-                    if (extension.gradlePluginPrefix) {
+                    changeVersion(Version::toNextSnapshot, project.versionFiles())
+                    if (useGradlePluginPrefix) {
                         changeGroup(addPrefix = true)
                     }
                 }
@@ -59,14 +62,13 @@ class PluginPublishPlugin : Plugin<Project> {
     }
 }
 
-private fun TaskContainerScope.versionFiles(): Set<File> {
-    val compileKotlin = findByName("compileKotlin") as KotlinCompile?
-        ?: return emptySet()
-
-    return compileKotlin.source
-        .matching { include("**/KotlinPluginArtifact.kt") }
+private fun Project.versionFiles(): Set<File> =
+    fileTree(projectDir)
+        .matching {
+            include("src/main/kotlin/**/KotlinPluginArtifact.kt")
+            include("**/src/main/kotlin/**/KotlinPluginArtifact.kt")
+        }
         .files
-}
 
 private fun Project.changeGroup(addPrefix: Boolean) {
     var group = group.toString()
