@@ -38,6 +38,8 @@ open class PatchWebpackConfig : DefaultTask() {
         name: String,
         moduleName: String = name
     ) {
+        if (project.jsIrCompiler) return
+
         patch("config.entry['$name'] = '${entryPath(moduleName)}'")
     }
 
