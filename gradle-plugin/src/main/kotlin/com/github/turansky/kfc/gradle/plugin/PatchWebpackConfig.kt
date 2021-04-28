@@ -38,7 +38,7 @@ open class PatchWebpackConfig : DefaultTask() {
         name: String,
         moduleName: String = name
     ) {
-        patch("config.entry['$name'] = '${dceDevPath(moduleName)}'")
+        patch("config.entry['$name'] = '${entryPath(moduleName)}'")
     }
 
     fun entry(
@@ -78,7 +78,7 @@ open class PatchWebpackConfig : DefaultTask() {
     }
 
     @Suppress("UnstableApiUsage")
-    private fun dceDevPath(name: String): String =
+    private fun entryPath(name: String): String =
         project.tasks
             .getByName<KotlinJsDce>("processDceDevKotlinJs")
             .destinationDirectory
