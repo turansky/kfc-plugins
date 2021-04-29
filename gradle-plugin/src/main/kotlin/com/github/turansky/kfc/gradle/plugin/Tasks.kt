@@ -24,12 +24,7 @@ internal val Task.jsModuleName: String
     get() = project.jsModuleName
 
 internal fun Task.jsPackageDir(relative: String): File =
-    project.rootProject
-        .buildDir
-        .resolve("js")
-        .resolve("packages")
-        .resolve(jsModuleName)
-        .resolve(relative)
+    project.jsPackageDir(relative)
 
 internal fun TaskContainerScope.useModularJsTarget() {
     configureEach<KotlinJsCompile> {

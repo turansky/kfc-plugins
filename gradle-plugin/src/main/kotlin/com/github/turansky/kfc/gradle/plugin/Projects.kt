@@ -2,6 +2,7 @@ package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
+import java.io.File
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
 private val MODULE_KEEP = StringProperty("kfc.module.keep")
@@ -19,6 +20,13 @@ internal val Project.jsModuleName: String
             else -> "${rootProject.name}-$name"
         }
     }
+
+internal fun Project.jsPackageDir(relative: String): File =
+    rootProject.buildDir
+        .resolve("js")
+        .resolve("packages")
+        .resolve(jsModuleName)
+        .resolve(relative)
 
 internal val Project.jsModuleKeep: String?
     get() = propertyOrNull(MODULE_KEEP)
