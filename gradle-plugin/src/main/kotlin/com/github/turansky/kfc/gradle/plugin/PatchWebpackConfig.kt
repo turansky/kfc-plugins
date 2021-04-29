@@ -56,7 +56,7 @@ open class PatchWebpackConfig : DefaultTask() {
     ) {
         if (project.jsIrCompiler) {
             // TODO: use task for path calculation
-            val fileName = project.jsModuleName + ".js"
+            val fileName = "kotlin/${project.jsModuleName}.js"
             entry(project.jsOutputName, project.jsPackageDir(fileName))
         } else {
             entry(project.jsOutputName, project.jsModuleName)
