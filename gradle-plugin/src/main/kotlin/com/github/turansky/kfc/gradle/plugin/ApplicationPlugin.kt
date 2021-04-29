@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.registering
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 private const val BPW = "browserProductionWebpack"
@@ -24,7 +25,9 @@ class ApplicationPlugin : Plugin<Project> {
     }
 
     private fun Project.applyIr() {
-        // Implement
+        tasks.named<KotlinWebpack>(BDW) {
+            destinationDirectory = tasks.named<KotlinWebpack>(BPW).get().destinationDirectory
+        }
     }
 
     private fun Project.applyLegacy() {
