@@ -10,9 +10,6 @@ import org.gradle.kotlin.dsl.registering
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
-private const val COMPILE_PRODUCTION: String = "compileProductionExecutableKotlinJs"
-private const val COMPILE_DEVELOPMENT: String = "compileDevelopmentExecutableKotlinJs"
-
 private const val BPW: String = "browserProductionWebpack"
 private const val BDW: String = "browserDevelopmentWebpack"
 

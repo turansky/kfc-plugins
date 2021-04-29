@@ -16,6 +16,8 @@ internal val DEVELOPMENT_DCE_TASKS = setOf(
     "processDceDevKotlinJs"
 )
 
+internal const val COMPILE_PRODUCTION: String = "compileProductionExecutableKotlinJs"
+internal const val COMPILE_DEVELOPMENT: String = "compileDevelopmentExecutableKotlinJs"
 internal const val KOTLIN_SOURCES_TASK = "kotlinSourcesJar"
 
 internal val Task.jsModuleName: String
