@@ -23,7 +23,7 @@ internal fun Project.applyKotlinJsPlugin(
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
-    val moduleKeep = if (distribution) jsModuleKeep else null
+    val moduleKeep = if (distribution && !jsIrCompiler) jsModuleKeep else null
     val fileName = jsOutputFileName
 
     val kotlin = the<KotlinJsProjectExtension>()
