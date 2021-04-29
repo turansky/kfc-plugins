@@ -36,17 +36,31 @@ open class PatchWebpackConfig : DefaultTask() {
 
     fun entry(
         name: String,
+        file: File,
+    ) {
+        patch("config.entry['$name'] = '${file.absolutePath}'")
+    }
+
+    fun entry(
+        name: String,
         moduleName: String = name
     ) {
-        if (project.jsIrCompiler) return
+        if (project.jsIrCompiler)
+            TODO("Support in IR?")
 
-        patch("config.entry['$name'] = '${entryPath(moduleName)}'")
+        entry(name, dceFile(moduleName))
     }
 
     fun entry(
         project: Project
     ) {
-        entry(project.jsOutputName, project.jsModuleName)
+        if (project.jsIrCompiler) {
+            // TODO: use task for path calculation
+            val fileName = project.jsModuleName + ".js"
+            entry(project.jsOutputName, project.jsPackageDir(fileName))
+        } else {
+            entry(project.jsOutputName, project.jsModuleName)
+        }
     }
 
     fun proxy(target: String) {
@@ -80,14 +94,13 @@ open class PatchWebpackConfig : DefaultTask() {
     }
 
     @Suppress("UnstableApiUsage")
-    private fun entryPath(name: String): String =
+    private fun dceFile(name: String): File =
         project.tasks
             .getByName<KotlinJsDce>("processDceDevKotlinJs")
             .destinationDirectory
             .file("$name.js")
             .get()
             .asFile
-            .absolutePath
 }
 
 @Suppress("JSUnnecessarySemicolon")
