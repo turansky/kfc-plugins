@@ -17,6 +17,5 @@ dependencies {
     implementation(project(":examples:web-worker:view-io"))
     implementation(project(":examples:web-worker:worker-io"))
 
-    implementation(project(":examples:web-worker:view-wl"))
-    implementation(project(":examples:web-worker:worker-wl"))
+    runtimeOnly(project(":examples:web-worker:view-wl"))
 }
