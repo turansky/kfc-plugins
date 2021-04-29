@@ -10,8 +10,11 @@ import org.gradle.kotlin.dsl.registering
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
-private const val BPW = "browserProductionWebpack"
-private const val BDW = "browserDevelopmentWebpack"
+private const val COMPILE_PRODUCTION: String = "compileProductionExecutableKotlinJs"
+private const val COMPILE_DEVELOPMENT: String = "compileDevelopmentExecutableKotlinJs"
+
+private const val BPW: String = "browserProductionWebpack"
+private const val BDW: String = "browserDevelopmentWebpack"
 
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -25,6 +28,18 @@ class ApplicationPlugin : Plugin<Project> {
     }
 
     private fun Project.applyIr() {
+        tasks.named(COMPILE_PRODUCTION) {
+            eachRuntimeProjectDependency {
+                dependsOn(it.tasks.named(COMPILE_PRODUCTION))
+            }
+        }
+
+        tasks.named(COMPILE_DEVELOPMENT) {
+            eachRuntimeProjectDependency {
+                dependsOn(it.tasks.named(COMPILE_DEVELOPMENT))
+            }
+        }
+
         tasks.named<KotlinWebpack>(BDW) {
             destinationDirectory = tasks.named<KotlinWebpack>(BPW).get().destinationDirectory
         }
@@ -32,8 +47,9 @@ class ApplicationPlugin : Plugin<Project> {
 
     private fun Project.applyLegacy() {
         val replaceWorker by tasks.registering(Copy::class) {
-            for (runtimeProject in project.relatedRuntimeProjects())
-                from(runtimeProject.tasks.getByName(BPW))
+            eachRuntimeProjectDependency {
+                from(it.tasks.getByName(BPW))
+            }
 
             val processDceKotlinJs = tasks.named<KotlinJsDce>("processDceKotlinJs")
             into(processDceKotlinJs.get().destinationDirectory)

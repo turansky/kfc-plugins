@@ -1,5 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
+import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.kotlin.dsl.TaskContainerScope
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
@@ -34,4 +35,11 @@ internal fun TaskContainerScope.useModularJsTarget() {
             moduleKind = "commonjs"
         }
     }
+}
+
+internal fun Task.eachRuntimeProjectDependency(
+    action: (Project) -> Unit
+) {
+    project.relatedRuntimeProjects()
+        .forEach(action)
 }
