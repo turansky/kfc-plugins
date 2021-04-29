@@ -64,6 +64,14 @@ class DevServerPlugin : Plugin<Project> {
                 dependsOn(generateExportAlias)
             }
 
+            if (jsIrCompiler) {
+                named(COMPILE_DEVELOPMENT) {
+                    eachApplicationDependency {
+                        dependsOn(it.tasks.named(COMPILE_DEVELOPMENT))
+                    }
+                }
+            }
+
             configureEach<PatchWebpackConfig> {
                 val fileName = outputPath("[name].js")
 
