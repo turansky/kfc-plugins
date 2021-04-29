@@ -3,6 +3,7 @@ package com.github.turansky.kfc.gradle.plugin
 import com.github.turansky.kfc.gradle.plugin.Output.DEV_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
@@ -85,10 +86,8 @@ class DevServerPlugin : Plugin<Project> {
                     .takeIf { it.isNotEmpty() }
                     ?.also { patch("entries", it.entryConfiguration()) }
 
-                eachRuntimeProjectDependency {
-                    if (it.plugins.hasPlugin(ApplicationPlugin::class)) {
-                        entry(it)
-                    }
+                eachApplicationDependency {
+                    entry(it)
                 }
             }
         }
@@ -111,3 +110,12 @@ class DevServerPlugin : Plugin<Project> {
         }
     }
 }
+
+internal fun Task.eachApplicationDependency(
+    action: (Project) -> Unit
+) {
+    project.relatedRuntimeProjects()
+        .filter { it.plugins.hasPlugin(ApplicationPlugin::class) }
+        .forEach(action)
+}
+
