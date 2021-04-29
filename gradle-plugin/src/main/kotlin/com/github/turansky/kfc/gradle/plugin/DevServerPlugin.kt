@@ -85,10 +85,11 @@ class DevServerPlugin : Plugin<Project> {
                     .takeIf { it.isNotEmpty() }
                     ?.also { patch("entries", it.entryConfiguration()) }
 
-                // TODO: use only direct application dependencies?
-                relatedProjects()
-                    .filter { it.plugins.hasPlugin(ApplicationPlugin::class.java) }
-                    .forEach { entry(it) }
+                eachRuntimeProjectDependency {
+                    if (it.plugins.hasPlugin(ApplicationPlugin::class)) {
+                        entry(it)
+                    }
+                }
             }
         }
 
