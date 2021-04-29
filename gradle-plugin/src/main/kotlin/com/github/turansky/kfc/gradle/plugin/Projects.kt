@@ -50,6 +50,14 @@ internal val Project.jsOutputName: String
 internal val Project.jsOutputFileName: String
     get() = outputPath("$jsOutputName.js")
 
+internal fun Project.relatedRuntimeProjects(): Set<Project> =
+    configurations.getByName(RUNTIME_ONLY)
+        .allDependencies
+        .asSequence()
+        .filterIsInstance<DefaultProjectDependency>()
+        .map { it.dependencyProject }
+        .toSet()
+
 // TODO: optimize calculation
 internal fun Project.relatedProjects(): Set<Project> {
     val configuration = configurations.findByName(JS_MAIN_IMPLEMENTATION)
