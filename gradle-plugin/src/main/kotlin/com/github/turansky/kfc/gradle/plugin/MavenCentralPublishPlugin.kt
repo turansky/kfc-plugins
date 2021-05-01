@@ -13,6 +13,20 @@ import org.gradle.api.publish.maven.plugins.MavenPublishPlugin as StandardMavenP
 
 class MavenCentralPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        plugins.withId(KotlinPlugin.MULTIPLATFORM) {
+            configurePublication()
+        }
+
+        plugins.withId(KotlinPlugin.JVM) {
+            configurePublication()
+        }
+
+        plugins.withId(KotlinPlugin.JS) {
+            configurePublication()
+        }
+    }
+
+    private fun Project.configurePublication() {
         plugins.apply(StandardMavenPublishPlugin::class)
         plugins.apply(SigningPlugin::class)
 
