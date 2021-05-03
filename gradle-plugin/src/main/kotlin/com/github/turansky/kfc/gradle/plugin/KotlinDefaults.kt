@@ -53,25 +53,31 @@ private fun Project.disableTestsWithoutSources() {
             .forEach {
                 it.onlyIf {
                     val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
-                    val sourceDir = kotlin.sourceSets
-                        .getByName(sourceSet.id)
-                        .kotlin.sourceDirectories
-                        .singleOrNull()
-
-                    sourceDir?.exists() ?: true
+                    sourceSet.names
+                        .asSequence()
+                        .map { kotlin.sourceSets.getByName(it) }
+                        .mapNotNull { it.kotlin.sourceDirectories.singleOrNull() }
+                        .any { it.exists() }
                 }
             }
     }
 }
 
 private enum class SourceSet(
-    vararg names: String
+    val names: Set<String>,
+    val taskPrefixes: Set<String>,
 ) {
-    MULTIPLATFORM("jsTest", "jsIrTest", "jsLegacyTest"),
-    JS("test", "irTest", "legacyTest"),
+    MULTIPLATFORM(
+        names = setOf("jsTest", "commonTest"),
+        taskPrefixes = setOf("jsTest", "jsIrTest", "jsLegacyTest")
+    ),
+
+    JS(
+        names = setOf("test"),
+        taskPrefixes = setOf("test", "irTest", "legacyTest")
+    ),
 
     ;
 
-    val id = names.first()
-    val taskNames = names.map { "${it}PackageJson" }
+    val taskNames = taskPrefixes.map { "${it}PackageJson" }
 }
