@@ -23,6 +23,7 @@ internal fun Project.applyKotlinDefaults(both: Boolean) {
 
     plugins.apply(SourceMapsPlugin::class)
     plugins.apply(WorkaroundPlugin::class)
+    plugins.apply(ValueClassSerializationPlugin::class)
 
     configureStrictMode()
     disableTestsWithoutSources()
