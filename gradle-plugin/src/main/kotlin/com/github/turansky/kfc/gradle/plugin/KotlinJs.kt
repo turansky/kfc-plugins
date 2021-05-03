@@ -27,32 +27,30 @@ internal fun Project.applyKotlinJsPlugin(
     val fileName = jsOutputFileName
 
     val kotlin = the<KotlinJsProjectExtension>()
-    kotlin.apply {
-        js {
-            moduleName = jsModuleName
+    kotlin.js {
+        moduleName = jsModuleName
 
-            browser {
-                commonWebpackConfig {
-                    output?.library = null
-                    outputFileName = fileName
-                }
-                webpackTask {
-                    enabled = distribution
-                    saveEvaluatedConfigFile = false
-                }
-                runTask {
-                    enabled = run
-                    saveEvaluatedConfigFile = false
-                }
-                if (moduleKeep != null) {
-                    @Suppress("EXPERIMENTAL_API_USAGE")
-                    dceTask { keep += moduleKeep }
-                }
+        browser {
+            commonWebpackConfig {
+                output?.library = null
+                outputFileName = fileName
             }
+            webpackTask {
+                enabled = distribution
+                saveEvaluatedConfigFile = false
+            }
+            runTask {
+                enabled = run
+                saveEvaluatedConfigFile = false
+            }
+            if (moduleKeep != null) {
+                @Suppress("EXPERIMENTAL_API_USAGE")
+                dceTask { keep += moduleKeep }
+            }
+        }
 
-            if (binaries || distribution || run) {
-                this.binaries.executable()
-            }
+        if (binaries || distribution || run) {
+            this.binaries.executable()
         }
     }
 
