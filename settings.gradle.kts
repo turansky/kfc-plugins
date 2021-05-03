@@ -22,6 +22,8 @@ include("examples:resources:lib-b")
 include("examples:resources:lib-c")
 include("examples:resources:app-d")
 
+include("examples:value-class")
+
 include("examples:web-worker:entity")
 include("examples:web-worker:view")
 include("examples:web-worker:view-io")
