@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("nu.studer:java-ordered-properties:1.0.3")
+    implementation("nu.studer:java-ordered-properties:1.0.4")
     compileOnly(kotlin("gradle-plugin"))
 }
 
@@ -169,6 +169,6 @@ pluginBundle {
 }
 
 tasks.wrapper {
-    gradleVersion = "7.0"
+    gradleVersion = "6.8.3"
     distributionType = Wrapper.DistributionType.ALL
 }
