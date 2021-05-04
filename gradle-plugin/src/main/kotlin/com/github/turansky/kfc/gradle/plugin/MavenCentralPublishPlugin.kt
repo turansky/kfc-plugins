@@ -68,7 +68,7 @@ class MavenCentralPublishPlugin : Plugin<Project> {
 
 private fun MavenPom.configure(
     pomProperty: (name: String) -> String,
-    releaseMode: Boolean,
+    releaseMode: Boolean
 ) {
     val projectUrl = pomProperty("url")
     val connectionUrl = "scm:git:$projectUrl.git"

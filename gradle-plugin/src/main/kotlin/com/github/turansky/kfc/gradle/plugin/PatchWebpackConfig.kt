@@ -36,7 +36,7 @@ open class PatchWebpackConfig : DefaultTask() {
 
     fun entry(
         name: String,
-        file: File,
+        file: File
     ) {
         patch("config.entry['$name'] = '${file.absolutePath}'")
     }
