@@ -34,7 +34,8 @@ private class DevServerRootPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().versions.apply {
-                webpackDevServer.version = "4.0.0-beta.2"
+                webpackDevServer.version = "4.0.0-beta.3"
+                webpackCli.version = "4.7.0"
             }
         }
     }
