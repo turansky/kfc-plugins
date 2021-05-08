@@ -77,14 +77,19 @@ open class PatchWebpackConfig : DefaultTask() {
 
     @TaskAction
     private fun generatePatches() {
-        if (patches.isEmpty()) {
+        val globalPatchFile: File = project.rootDir.resolve("webpack.patch.js")
+        val globalPatch = if (globalPatchFile.exists()) {
+            createPatch("00__global__00", globalPatchFile.readText())
+        } else null
+
+        if (globalPatch == null && patches.isEmpty())
             return
-        }
 
         val content = patches
             .asSequence()
             .sortedBy { it.key }
             .map { (name, body) -> createPatch(name, body) }
+            .let { if (globalPatch != null) it + globalPatch else it }
             .joinToString("\n\n")
 
         configDirectory
