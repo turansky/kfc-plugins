@@ -4,9 +4,10 @@ import com.github.turansky.kfc.gradle.plugin.Output.DEV_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.hasPlugin
+import org.gradle.kotlin.dsl.invoke
+import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
@@ -29,23 +30,8 @@ private const val KT_46162_PATCH: String = """
   delete devServer.inline
 """
 
-// WA for https://youtrack.jetbrains.com/issue/KT-46162
-private class DevServerRootPlugin : Plugin<Project> {
-    override fun apply(target: Project): Unit = with(target) {
-        plugins.withType<NodeJsRootPlugin> {
-            the<NodeJsRootExtension>().versions.apply {
-                webpack.version = "5.36.2"
-                webpackCli.version = "4.7.0"
-                webpackDevServer.version = "4.0.0-beta.3"
-            }
-        }
-    }
-}
-
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        rootProject.plugins.apply(DevServerRootPlugin::class)
-
         applyKotlinJsPlugin(run = true)
 
         val extension = extensions.create<DevServerExtension>("devServer")

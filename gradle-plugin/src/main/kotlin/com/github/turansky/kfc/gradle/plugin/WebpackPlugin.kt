@@ -3,14 +3,28 @@ package com.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Delete
-import org.gradle.kotlin.dsl.TaskContainerScope
-import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.register
+import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+
+// WA for https://youtrack.jetbrains.com/issue/KT-46162
+private class WebpackRootPlugin : Plugin<Project> {
+    override fun apply(target: Project): Unit = with(target) {
+        plugins.withType<NodeJsRootPlugin> {
+            the<NodeJsRootExtension>().versions.apply {
+                webpack.version = "5.36.2"
+                webpackCli.version = "4.7.0"
+                webpackDevServer.version = "4.0.0-beta.3"
+            }
+        }
+    }
+}
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        rootProject.plugins.apply(WebpackRootPlugin::class)
+
         plugins.withId(KotlinPlugin.MULTIPLATFORM) {
             tasks {
                 applyConfiguration()
