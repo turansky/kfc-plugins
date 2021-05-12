@@ -7,8 +7,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 
-private const val PARAMETER_NAME = "local0"
-private val VALUE_CLASS_RETURN = Regex("""return (\w+)_init\(bitMask0, $PARAMETER_NAME, null\);""")
+private val VALUE_CLASS_RETURN = Regex("""return (\w+)_init\(bitMask0, local0, null\);""")
 
 internal class ValueClassSerializationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
