@@ -36,9 +36,12 @@ internal class ValueClassSerializationPlugin : Plugin<Project> {
 private fun applySerializationFixes(
     source: String
 ): String {
-    VALUE_CLASS_RETURN.findAll(source)
+    val classNames = VALUE_CLASS_RETURN.findAll(source)
         .map { it.groupValues[1] }
-        .forEach { println(it) }
+        .toSet()
+
+    if (classNames.isEmpty())
+        return source
 
     return source
 }
