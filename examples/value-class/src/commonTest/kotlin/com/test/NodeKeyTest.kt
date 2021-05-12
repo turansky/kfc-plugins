@@ -13,4 +13,22 @@ class NodeKeyTest {
 
         assertEquals(id, newId)
     }
+
+    @Test
+    fun int() {
+        val id = NodeKeyI(1234)
+        val data = Json.encodeToString(NodeKeyI.serializer(), id)
+        val newId = Json.decodeFromString(NodeKeyI.serializer(), data)
+
+        assertEquals(id, newId)
+    }
+
+    @Test
+    fun double() {
+        val id = NodeKeyD(1234.0)
+        val data = Json.encodeToString(NodeKeyD.serializer(), id)
+        val newId = Json.decodeFromString(NodeKeyD.serializer(), data)
+
+        assertEquals(id, newId)
+    }
 }
