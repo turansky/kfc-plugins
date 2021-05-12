@@ -73,15 +73,21 @@ private fun String.replaceMethodBody(
     return replaceFirst(method, method.replaceFirst(methodBody, newMethodBody))
 }
 
-private enum class ValueType {
-    STRING,
-    INT,
-    DOUBLE,
+private enum class ValueType(
+    encodeHash: String
+) {
+    STRING("61zpoe\$"),
+    INT("za3lpa\$"),
+    DOUBLE("14dthe\$"),
 
     ;
 
     val id: String by lazy {
         name.toLowerCase().capitalize()
+    }
+
+    val encodeMethodName: String by lazy {
+        "encode${id}_$encodeHash"
     }
 
     val decodeMethodName: String by lazy {
