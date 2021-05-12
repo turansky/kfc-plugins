@@ -46,12 +46,12 @@ private fun applySerializationFixes(
     var result = source
     for (className in classNames) {
         result = result.replaceMethodBody(className, "serialize") {
-            // val type = it.encodeValueType()
-            it
+            val value = it.substringAfter(" 0, ").substringBefore(");")
+            "    encoder.${it.encodeMethodName()}($value);"
         }
 
         result = result.replaceMethodBody(className, "deserialize") {
-            "    return new $className(decoder.${it.decodeMethodName()}())"
+            "    return new $className(decoder.${it.decodeMethodName()}());"
         }
     }
 
@@ -95,10 +95,13 @@ private enum class ValueType(
     }
 }
 
-private fun String.encodeValueType(): ValueType =
-    ValueType.values().first {
+private fun String.encodeMethodName(): String {
+    val type = ValueType.values().first {
         "encode${it.id}Element" in this
     }
+
+    return type.encodeMethodName
+}
 
 private fun String.decodeMethodName(): String {
     val type = ValueType.values().first {
