@@ -43,5 +43,56 @@ private fun applySerializationFixes(
     if (classNames.isEmpty())
         return source
 
-    return source
+    var result = source
+    for (className in classNames) {
+        result = result.replaceMethodBody(className, "serialize") {
+            // val type = it.encodeValueType()
+            it
+        }
+
+        result = result.replaceMethodBody(className, "deserialize") {
+            val type = it.decodeValueType()
+            "    return new $className(decoder.decode${type.id}())"
+        }
+    }
+
+    return result
 }
+
+private fun String.replaceMethodBody(
+    className: String,
+    methodName: String,
+    transform: (String) -> String
+): String {
+    val start = "\n  $className${'$'}${'$'}serializer.prototype.${methodName}_"
+    val startIndex = indexOf(start)
+    val endIndex = indexOf("\n  };", startIndex)
+    val method = substring(startIndex, endIndex)
+    val methodBody = method.substringAfter("{\n")
+    val newMethodBody = transform(methodBody)
+
+    return replaceFirst(method, method.replaceFirst(methodBody, newMethodBody))
+}
+
+private enum class ValueType {
+    STRING,
+    INT,
+    DOUBLE,
+
+    ;
+
+    val id: String by lazy {
+        name.toLowerCase().capitalize()
+    }
+}
+
+private fun String.encodeValueType(): ValueType =
+    ValueType.values().first {
+        "encode${it.id}Element" in this
+    }
+
+private fun String.decodeValueType(): ValueType =
+    ValueType.values().first {
+        "decode${it.id}Element" in this
+    }
+
