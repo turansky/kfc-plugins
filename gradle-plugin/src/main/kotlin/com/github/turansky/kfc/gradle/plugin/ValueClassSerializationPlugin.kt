@@ -51,8 +51,7 @@ private fun applySerializationFixes(
         }
 
         result = result.replaceMethodBody(className, "deserialize") {
-            val type = it.decodeValueType()
-            "    return new $className(decoder.decode${type.id}())"
+            "    return new $className(decoder.${it.decodeMethodName()}())"
         }
     }
 
@@ -91,8 +90,11 @@ private fun String.encodeValueType(): ValueType =
         "encode${it.id}Element" in this
     }
 
-private fun String.decodeValueType(): ValueType =
-    ValueType.values().first {
+private fun String.decodeMethodName(): String {
+    val type = ValueType.values().first {
         "decode${it.id}Element" in this
     }
+
+    return "decode${type.id}"
+}
 
