@@ -7,10 +7,12 @@ import kotlin.test.assertEquals
 class UserIdTest {
     @Test
     fun string() {
-        val id = UserIdS("1234")
-        val data = Json.encodeToString(UserIdS.serializer(), id)
-        val newId = Json.decodeFromString(UserIdS.serializer(), data)
+        val id = UserIdS("user-1234")
 
+        val data = Json.encodeToString(UserIdS.serializer(), id)
+        assertEquals(data, """"user-1234"""")
+
+        val newId = Json.decodeFromString(UserIdS.serializer(), """"user-1234"""")
         assertEquals(id, newId)
     }
 
@@ -18,17 +20,19 @@ class UserIdTest {
     fun int() {
         val id = UserIdI(1234)
         val data = Json.encodeToString(UserIdI.serializer(), id)
-        val newId = Json.decodeFromString(UserIdI.serializer(), data)
+        assertEquals(data, "1234")
 
+        val newId = Json.decodeFromString(UserIdI.serializer(), "1234")
         assertEquals(id, newId)
     }
 
     @Test
     fun double() {
-        val id = UserIdD(1234.0)
+        val id = UserIdD(1234.56)
         val data = Json.encodeToString(UserIdD.serializer(), id)
-        val newId = Json.decodeFromString(UserIdD.serializer(), data)
+        assertEquals(data, "1234.56")
 
+        val newId = Json.decodeFromString(UserIdD.serializer(), "1234.56")
         assertEquals(id, newId)
     }
 }
