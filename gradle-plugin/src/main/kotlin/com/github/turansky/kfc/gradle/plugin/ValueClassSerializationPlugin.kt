@@ -37,6 +37,7 @@ private fun applySerializationFixes(
 ): String {
     val classNames = VALUE_CLASS_RETURN.findAll(source)
         .map { it.groupValues[1] }
+        .filter { "\n  function ${it}_init(" !in source }
         .toSet()
 
     if (classNames.isEmpty())
