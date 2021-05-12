@@ -23,10 +23,22 @@ internal class ValueClassSerializationPlugin : Plugin<Project> {
                         return@doLast
 
                     val content = outputFile.readText()
-                    val newContent = content.replace(VALUE_CLASS_RETURN, "return new $1($PARAMETER_NAME)")
-                    outputFile.writeText(newContent)
+                    val newContent = applySerializationFixes(content)
+                    if (newContent != content) {
+                        outputFile.writeText(newContent)
+                    }
                 }
             }
         }
     }
+}
+
+private fun applySerializationFixes(
+    source: String
+): String {
+    VALUE_CLASS_RETURN.findAll(source)
+        .map { it.groupValues[1] }
+        .forEach { println(it) }
+
+    return source
 }
