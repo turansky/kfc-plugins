@@ -5,6 +5,18 @@ import kotlin.jvm.JvmInline
 
 @JvmInline
 @Serializable
-value class UserId(
+value class UserIdS(
     val id: String
+)
+
+@JvmInline
+@Serializable
+value class UserIdI(
+    val id: Int
+)
+
+@JvmInline
+@Serializable
+value class UserIdD(
+    val id: Double
 )
