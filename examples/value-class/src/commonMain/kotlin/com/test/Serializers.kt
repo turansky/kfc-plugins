@@ -18,7 +18,6 @@ class StringSerializer : KSerializer<String> {
     }
 }
 
-
 class IntSerializer : KSerializer<Int> {
     override val descriptor: SerialDescriptor
         get() = TODO("not implemented")
