@@ -83,6 +83,10 @@ private enum class ValueType {
     val id: String by lazy {
         name.toLowerCase().capitalize()
     }
+
+    val decodeMethodName: String by lazy {
+        "decode${id}"
+    }
 }
 
 private fun String.encodeValueType(): ValueType =
@@ -95,6 +99,6 @@ private fun String.decodeMethodName(): String {
         "decode${it.id}Element" in this
     }
 
-    return "decode${type.id}"
+    return type.decodeMethodName
 }
 
