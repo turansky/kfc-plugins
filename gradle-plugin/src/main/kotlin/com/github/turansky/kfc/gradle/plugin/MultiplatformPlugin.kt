@@ -11,7 +11,7 @@ private val JS_ONLY = BooleanProperty("kfc.js.only")
 
 class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        ext(NO_WARN, true)
+        rootProject.ext(NO_WARN, true)
 
         applyKotlinDefaults(true)
 
