@@ -72,6 +72,8 @@ class WebpackPlugin : Plugin<Project> {
                     patches[Momentjs.PATCH_NAME] = Momentjs.IGNORE_LOCALES_PATCH
                 }
             }
+
+            dependsOn(":kotlinNpmInstall")
         }
 
         named<Delete>("clean") {
