@@ -8,6 +8,25 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 
+// TODO: remove
+//   https://youtrack.jetbrains.com/issue/KT-46082
+// language=JavaScript
+private const val KT_46082_PATCH: String = """
+  const resolve = config.resolve
+  const alias = resolve.alias = resolve.alias || {}
+  const fallback = resolve.fallback = resolve.fallback || {}
+
+  fallback.crypto = false
+
+  function addAlias (moduleName) {
+      alias[moduleName + '-jsLegacy'] = moduleName + '-js-legacy'
+  }
+
+  addAlias('kotlinx-serialization-kotlinx-serialization-core')
+  addAlias('kotlinx-serialization-kotlinx-serialization-json')
+"""
+
+
 // WA for https://youtrack.jetbrains.com/issue/KT-46162
 private class WebpackRootPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -45,17 +64,7 @@ class WebpackPlugin : Plugin<Project> {
             if (project.property(Momentjs.IGNORE_LOCALES_FLAG))
                 patch("momentjs-locales-ignore", Momentjs.IGNORE_LOCALES_PATCH)
 
-            // TODO: remove
-            //   https://youtrack.jetbrains.com/issue/KT-46082
-            // language=JavaScript
-            patch(
-                """
-                if (!config.resolve.fallback)
-                    config.resolve.fallback = {}
-                    
-                config.resolve.fallback.crypto = false
-                """
-            )
+            patch(KT_46082_PATCH)
         }
 
         named<Delete>("clean") {
