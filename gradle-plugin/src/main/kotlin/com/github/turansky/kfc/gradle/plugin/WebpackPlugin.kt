@@ -61,10 +61,17 @@ class WebpackPlugin : Plugin<Project> {
         val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig") {
             addResourceModules()
 
-            if (project.property(Momentjs.IGNORE_LOCALES_FLAG))
-                patch("momentjs-locales-ignore", Momentjs.IGNORE_LOCALES_PATCH)
-
             patch(KT_46082_PATCH)
+
+            doFirst {
+                val momentjsInstalled = project.rootProject.buildDir
+                    .resolve("js/node_modules/moment")
+                    .exists()
+
+                if (momentjsInstalled && !patches.containsKey(Momentjs.PATCH_NAME)) {
+                    patches[Momentjs.PATCH_NAME] = Momentjs.IGNORE_LOCALES_PATCH
+                }
+            }
         }
 
         named<Delete>("clean") {

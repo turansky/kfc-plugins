@@ -1,7 +1,7 @@
 package com.github.turansky.kfc.gradle.plugin
 
 internal object Momentjs {
-    val IGNORE_LOCALES_FLAG: BooleanProperty = BooleanProperty("kfc.ignore.momentjs.locales")
+    const val PATCH_NAME: String = "momentjs-locales-ignore"
 
     // language=JavaScript
     val IGNORE_LOCALES_PATCH: String = """
