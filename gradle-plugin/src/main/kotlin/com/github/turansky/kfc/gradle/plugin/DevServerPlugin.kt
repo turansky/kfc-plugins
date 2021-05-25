@@ -17,19 +17,6 @@ private const val PORT_PATCH: String = """
   devServer.port = 9000
 """
 
-// language=JavaScript
-private const val KT_46162_PATCH: String = """
-  const devServer = config.devServer
-
-  devServer.static = devServer.contentBase
-
-  delete devServer.contentBase
-  delete devServer.overlay
-  delete devServer.noInfo
-  delete devServer.lazy
-  delete devServer.inline
-"""
-
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinJsPlugin(run = true)
@@ -73,7 +60,6 @@ class DevServerPlugin : Plugin<Project> {
                     """.trimIndent()
                 )
 
-                patch("00__KT_46162__00", KT_46162_PATCH)
                 patch("dev-server-port", PORT_PATCH)
 
                 relatedProjects()
