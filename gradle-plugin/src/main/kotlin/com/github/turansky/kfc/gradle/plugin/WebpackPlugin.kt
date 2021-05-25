@@ -26,7 +26,6 @@ private const val KT_46082_PATCH: String = """
   addAlias('kotlinx-serialization-kotlinx-serialization-json')
 """
 
-
 // WA for https://youtrack.jetbrains.com/issue/KT-46162
 private class WebpackRootPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -62,6 +61,14 @@ class WebpackPlugin : Plugin<Project> {
             addResourceModules()
 
             patch(KT_46082_PATCH)
+
+            patch(
+                "chunk-name",
+                """
+                    if (!!config.output) 
+                      config.output.chunkFilename = '${project.jsChunkFileName}'
+                """.trimIndent()
+            )
 
             doFirst {
                 val momentjsInstalled = project.rootProject.buildDir
