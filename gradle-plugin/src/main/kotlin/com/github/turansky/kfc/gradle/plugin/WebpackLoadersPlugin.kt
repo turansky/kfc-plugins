@@ -1,3 +1,5 @@
+@file:Suppress("JSLastCommaInObjectLiteral")
+
 package com.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
@@ -12,6 +14,7 @@ private const val CSS_LOADER = "css-loader"
 private const val SVG_INLINE_LOADER = "svg-inline-loader"
 private const val FILE_LOADER = "file-loader"
 private const val WORKER_LOADER = "worker-loader"
+private const val STRING_REPLACE_LOADER = "string-replace-loader"
 
 private const val JS_FILE_TEMPLATE = "[name].[contenthash].js"
 
@@ -28,6 +31,14 @@ private val RULES: String = """
       {
         test: /\.svg${'$'}/,
         loader: '$SVG_INLINE_LOADER',
+      },
+      {
+        test: /\.js${'$'}/,
+        loader: '$STRING_REPLACE_LOADER',
+        options: {
+          search: '__dynamic_import__',
+          replace: 'import',
+        }
       },
     )
 """.trimIndent()
@@ -113,5 +124,6 @@ class WebpackLoadersPlugin : Plugin<Project> {
         configurationName(devNpm(SVG_INLINE_LOADER, "0.8.2"))
         configurationName(devNpm(FILE_LOADER, "6.2.0"))
         configurationName(devNpm(WORKER_LOADER, "3.0.8"))
+        configurationName(devNpm(STRING_REPLACE_LOADER, "3.0.1"))
     }
 }
