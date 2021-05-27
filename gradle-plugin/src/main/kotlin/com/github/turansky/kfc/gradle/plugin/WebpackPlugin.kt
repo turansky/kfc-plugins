@@ -31,7 +31,7 @@ private class WebpackRootPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().versions.apply {
-                webpack.version = "5.37.1"
+                webpack.version = "5.38.0"
                 webpackCli.version = "4.7.0"
                 webpackDevServer.version = "4.0.0-beta.3"
             }
