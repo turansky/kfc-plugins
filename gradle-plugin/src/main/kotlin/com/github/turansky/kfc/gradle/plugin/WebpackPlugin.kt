@@ -8,25 +8,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 
-// TODO: remove
-//   https://youtrack.jetbrains.com/issue/KT-46082
-// language=JavaScript
-private const val KT_46082_PATCH: String = """
-  const resolve = config.resolve
-  const alias = resolve.alias = resolve.alias || {}
-  const fallback = resolve.fallback = resolve.fallback || {}
-
-  fallback.crypto = false
-
-  function addAlias (moduleName) {
-      alias[moduleName + '-jsLegacy'] = moduleName + '-js-legacy'
-  }
-
-  addAlias('kotlinx-serialization-kotlinx-serialization-core')
-  addAlias('kotlinx-serialization-kotlinx-serialization-json')
-"""
-
-// WA for https://youtrack.jetbrains.com/issue/KT-46162
 private class WebpackRootPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<NodeJsRootPlugin> {
@@ -59,8 +40,6 @@ class WebpackPlugin : Plugin<Project> {
     private fun TaskContainerScope.applyConfiguration() {
         val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig") {
             addResourceModules()
-
-            patch(KT_46082_PATCH)
 
             patch(
                 "chunk-name",
