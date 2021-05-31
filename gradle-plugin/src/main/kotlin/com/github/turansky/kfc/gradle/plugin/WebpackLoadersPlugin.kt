@@ -120,10 +120,10 @@ class WebpackLoadersPlugin : Plugin<Project> {
     private fun DependencyHandlerScope.applyConfiguration(configurationName: String) {
         val devNpm = extensions.getByName<DevNpmDependencyExtension>("devNpm")
 
-        configurationName(devNpm(CSS_LOADER, "5.2.4"))
+        configurationName(devNpm(CSS_LOADER, "5.2.6"))
         configurationName(devNpm(SVG_INLINE_LOADER, "0.8.2"))
         configurationName(devNpm(FILE_LOADER, "6.2.0"))
         configurationName(devNpm(WORKER_LOADER, "3.0.8"))
-        configurationName(devNpm(STRING_REPLACE_LOADER, "3.0.1"))
+        configurationName(devNpm(STRING_REPLACE_LOADER, "3.0.2"))
     }
 }
