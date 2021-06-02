@@ -18,6 +18,8 @@ private const val STRING_REPLACE_LOADER = "string-replace-loader"
 
 private const val JS_FILE_TEMPLATE = "[name].[contenthash].js"
 
+private val WORKER_FALLBACK = BooleanProperty("kfc.worker.fallback")
+
 // language=JavaScript
 private val RULES: String = """
     config.module.rules.push(
@@ -69,7 +71,7 @@ private fun Project.workerRules(): String {
 
     // language=JavaScript
     return """
-    const useFallback = !!config.devServer     
+    const useFallback = !!config.devServer || ${property(WORKER_FALLBACK)}   
 
     config.module.rules.push( 
       {
