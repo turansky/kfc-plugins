@@ -69,21 +69,17 @@ private fun Project.workerRules(): String {
 
     // language=JavaScript
     return """
-    const options = !config.devServer
-        ? {
-          filename: '$fileName',
-          esModule: false,
-        }
-        : {
-          esModule: false,
-          inline: 'fallback',
-        }
+    const useFallback = !!config.devServer     
 
     config.module.rules.push( 
       {
         test: /[\.|\-]worker\.js${'$'}/,
         loader: '$WORKER_LOADER',
-        options: options,
+        options: {
+          filename: '$fileName',
+          inline: useFallback ? 'fallback' : undefined,  
+          esModule: false,
+        }
       },
     )
     """.trimIndent()
