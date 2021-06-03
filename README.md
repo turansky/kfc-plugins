@@ -22,7 +22,7 @@
 ```kotlin
 plugins {
     kotlin("js") version "1.5.10"
-    id("com.github.turansky.kfc.webpack") version "4.8.0"
+    id("com.github.turansky.kfc.webpack") version "4.9.3"
 }
 
 kotlin.js {
@@ -34,7 +34,7 @@ tasks {
         // language=JavaScript
         patch(
             """
-            config.output.libraryExport = ['com', 'example', 'app']
+            config.output.library.export = ['com', 'example', 'app']
         """)
     }
 }
@@ -72,6 +72,6 @@ Apply [`webpack`](#webpack) plugin by default
 ```kotlin
 plugins {
     kotlin("js") version "1.5.10"
-    id("com.github.turansky.kfc.library") version "4.8.0"
+    id("com.github.turansky.kfc.library") version "4.9.3"
 }
 ```
