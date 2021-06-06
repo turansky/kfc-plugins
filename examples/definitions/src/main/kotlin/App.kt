@@ -7,19 +7,19 @@ import kotlin.js.Date
 import kotlin.js.Promise
 
 @JsExport
-@OptIn(ExperimentalJsExport::class)
+@ExperimentalJsExport
 fun load(url: URL): Promise<String> =
     window.fetch("https://httpbin.org/get", RequestInit(headers = js("({})")))
         .then { response -> response.json() }
         .then { it.unsafeCast<String>() }
 
 @JsExport
-@OptIn(ExperimentalJsExport::class)
+@ExperimentalJsExport
 fun embed(element: HTMLElement) {
     document.body!!.appendChild(element)
 }
 
 @JsExport
-@OptIn(ExperimentalJsExport::class)
+@ExperimentalJsExport
 fun now(): Date =
     Date()

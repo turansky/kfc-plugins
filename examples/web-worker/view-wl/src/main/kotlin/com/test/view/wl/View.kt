@@ -7,11 +7,13 @@ import com.test.worker.wl.WLWorker
 import io.ktor.client.*
 import io.ktor.client.request.*
 import kotlinx.browser.document
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
+@DelicateCoroutinesApi
 private fun main() {
     val body = document.body!!
 

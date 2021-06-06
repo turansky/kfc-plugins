@@ -5,6 +5,7 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
 @JsName("View")
+@ExperimentalJsExport
 fun View(): HTMLElement {
     val container = div().apply {
         style.apply {
