@@ -50,6 +50,8 @@ enum class KfcPlugin(className: String) {
     MAVEN_CENTRAL_PUBLISH("MavenCentralPublishPlugin"),
     PLUGIN_PUBLISH("PluginPublishPlugin"),
 
+    REACT_DATES("ReactDatesPlugin"),
+
     ;
 
     val pluginName: String = name.toLowerCase().replace("_", "-")
@@ -165,6 +167,12 @@ pluginBundle {
         displayName = "Plugin publish plugin"
         description = "Provide publish tasks for gradle plugin project"
         tags = tags("gradle", "publish")
+    }
+
+    plugin(REACT_DATES) {
+        displayName = "react-dates plugin"
+        description = "React 17+ compatibility fix for react-dates"
+        tags = tags("react", "react-dates")
     }
 }
 
