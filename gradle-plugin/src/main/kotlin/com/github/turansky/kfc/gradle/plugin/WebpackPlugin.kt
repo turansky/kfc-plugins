@@ -13,8 +13,8 @@ private class WebpackRootPlugin : Plugin<Project> {
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().versions.apply {
                 webpack.version = "5.50.0"
-                webpackCli.version = "4.7.2"
-                webpackDevServer.version = "4.0.0-rc.0"
+                webpackCli.version = "4.8.0"
+                webpackDevServer.version = "4.0.0-rc.1"
             }
         }
     }
