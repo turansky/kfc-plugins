@@ -10,6 +10,12 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
 include("examples:definitions")
 
 include("examples:web-component-extension")

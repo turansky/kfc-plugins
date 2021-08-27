@@ -10,10 +10,6 @@ plugins {
     id("com.github.turansky.kfc.plugin-publish") version "4.30.0"
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation("nu.studer:java-ordered-properties:1.0.4")
     compileOnly(kotlin("gradle-plugin"))
