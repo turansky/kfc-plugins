@@ -7,7 +7,7 @@ plugins {
     `kotlin-dsl`
 
     id("com.gradle.plugin-publish") version "0.16.0"
-    id("com.github.turansky.kfc.plugin-publish") version "4.34.0"
+    id("com.github.turansky.kfc.plugin-publish") version "4.35.0"
 }
 
 dependencies {
