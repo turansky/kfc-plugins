@@ -47,6 +47,7 @@ enum class KfcPlugin(className: String) {
     PLUGIN_PUBLISH("PluginPublishPlugin"),
 
     LATEST_WEBPACK("LatestWebpackPlugin"),
+    LEGACY_UNION("LegacyUnionPlugin"),
     REACT_DATES("ReactDatesPlugin"),
 
     ;
@@ -169,6 +170,12 @@ pluginBundle {
     plugin(LATEST_WEBPACK) {
         displayName = "Latest webpack plugin"
         description = "Configure latest/stable webpack for Kotlin/JS projects"
+        tags = tags("webpack")
+    }
+
+    plugin(LEGACY_UNION) {
+        displayName = "Legacy union plugin"
+        description = "Union compatibility plugin for Kotlin/JS legacy compiler"
         tags = tags("webpack")
     }
 
