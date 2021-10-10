@@ -46,6 +46,7 @@ enum class KfcPlugin(className: String) {
     MAVEN_CENTRAL_PUBLISH("MavenCentralPublishPlugin"),
     PLUGIN_PUBLISH("PluginPublishPlugin"),
 
+    LATEST_WEBPACK("LatestWebpackPlugin"),
     REACT_DATES("ReactDatesPlugin"),
 
     ;
@@ -163,6 +164,12 @@ pluginBundle {
         displayName = "Plugin publish plugin"
         description = "Provide publish tasks for gradle plugin project"
         tags = tags("gradle", "publish")
+    }
+
+    plugin(LATEST_WEBPACK) {
+        displayName = "Latest webpack plugin"
+        description = "Configure latest/stable webpack for Kotlin/JS projects"
+        tags = tags("webpack")
     }
 
     plugin(REACT_DATES) {
