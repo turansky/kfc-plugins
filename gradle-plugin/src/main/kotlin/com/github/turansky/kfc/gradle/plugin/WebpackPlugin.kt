@@ -5,24 +5,10 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.Delete
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
-
-private class WebpackRootPlugin : Plugin<Project> {
-    override fun apply(target: Project): Unit = with(target) {
-        plugins.withType<NodeJsRootPlugin> {
-            the<NodeJsRootExtension>().versions.apply {
-                webpack.version = "5.58.1"
-                webpackCli.version = "4.9.0"
-                webpackDevServer.version = "4.3.1"
-            }
-        }
-    }
-}
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        rootProject.plugins.apply(WebpackRootPlugin::class)
+        plugins.apply(LatestWebpackPlugin::class)
 
         plugins.withId(KotlinPlugin.MULTIPLATFORM) {
             tasks {
