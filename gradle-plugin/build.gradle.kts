@@ -6,8 +6,8 @@ plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
 
-    id("com.gradle.plugin-publish") version "0.16.0"
-    id("com.github.turansky.kfc.plugin-publish") version "4.43.0"
+    id("com.gradle.plugin-publish") version "0.17.0"
+    id("com.github.turansky.kfc.plugin-publish") version "4.44.0"
 }
 
 dependencies {
@@ -164,7 +164,7 @@ pluginBundle {
     plugin(PLUGIN_PUBLISH) {
         displayName = "Plugin publish plugin"
         description = "Provide publish tasks for gradle plugin project"
-        tags = tags("gradle", "publish")
+        tags = tags("publish")
     }
 
     plugin(LATEST_WEBPACK) {
