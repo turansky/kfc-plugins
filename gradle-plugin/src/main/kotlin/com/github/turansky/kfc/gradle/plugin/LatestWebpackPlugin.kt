@@ -16,7 +16,7 @@ class LatestWebpackPlugin : Plugin<Project> {
 private fun Project.configureLatestWebpack() {
     plugins.withType<NodeJsRootPlugin> {
         the<NodeJsRootExtension>().versions.apply {
-            webpack.version = "5.64.0"
+            webpack.version = "5.64.1"
             webpackCli.version = "4.9.1"
             webpackDevServer.version = "4.5.0"
         }
