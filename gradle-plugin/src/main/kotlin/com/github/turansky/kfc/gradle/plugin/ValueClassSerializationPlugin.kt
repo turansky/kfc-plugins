@@ -17,6 +17,8 @@ internal class ValueClassSerializationPlugin : Plugin<Project> {
         plugins.withId(KotlinPlugin.SERIALIZATION) {
             tasks.withType<Kotlin2JsCompile> {
                 doLast {
+                    val outputFile = outputFileProperty.get()
+
                     // IR check (both)
                     if (outputFile.isDirectory)
                         return@doLast

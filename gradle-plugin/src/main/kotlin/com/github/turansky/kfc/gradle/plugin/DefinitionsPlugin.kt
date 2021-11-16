@@ -15,6 +15,7 @@ internal class DefinitionsPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.configureEach<Kotlin2JsCompile> {
             doLast {
+                val outputFile = outputFileProperty.get()
                 val definitionFile = outputFile.parentFile
                     .resolve(outputFile.name.substringBeforeLast(".") + ".d.ts")
 
