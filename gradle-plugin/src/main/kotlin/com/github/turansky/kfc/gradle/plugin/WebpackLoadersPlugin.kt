@@ -40,6 +40,7 @@ private val RULES: String = """
         options: {
           search: '__dynamic_import__',
           replace: 'import',
+          flags: 'g',
         }
       },
     )
