@@ -24,9 +24,8 @@ class NpmBuildPlugin : Plugin<Project> {
                 from(project.buildDir.resolve("distributions"))
                 into(npmDir)
 
-                val outputFileName = jsOutputFileName
-                include(outputFileName)
-                rename(outputFileName, "index.js")
+                include("*.js")
+                rename(jsOutputFileName, "index.js")
             }
 
             val prepareNpmPackage = register<Copy>("prepareNpmPackage") {
