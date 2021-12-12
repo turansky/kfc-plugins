@@ -8,6 +8,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        plugins.apply(LatestNodePlugin::class)
         plugins.apply(LatestWebpackPlugin::class)
 
         plugins.withId(KotlinPlugin.MULTIPLATFORM) {
