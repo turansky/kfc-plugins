@@ -18,7 +18,7 @@ private fun Project.configureLatestWebpack() {
         the<NodeJsRootExtension>().versions.apply {
             webpack.version = "5.65.0"
             webpackCli.version = "4.9.1"
-            webpackDevServer.version = "4.7.1"
+            webpackDevServer.version = "4.7.2"
         }
     }
 }
