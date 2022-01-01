@@ -5,6 +5,8 @@ import com.test.worker.addMessageHandler
 import com.test.worker.post
 import io.ktor.client.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.util.*
 import kotlinx.browser.document
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -35,7 +37,10 @@ private fun main() {
     fun testBytes() {
         GlobalScope.launch {
             val client = HttpClient()
-            val bytes = client.get<ByteArray>("https://httpbin.org/get")
+            val bytes = client.get("https://httpbin.org/get")
+                .bodyAsChannel()
+                .toByteArray()
+
             log("DATA", bytes.size)
 
             worker.post(Message(bytes))
