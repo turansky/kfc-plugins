@@ -6,5 +6,5 @@ set -o pipefail
 ./gradlew clean
 ./gradlew build
 ./gradlew preparePublish
-./gradlew publishPlugins
+./gradlew kfc-gradle-plugin:publishPlugins
 ./gradlew prepareDevelopment

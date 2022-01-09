@@ -44,4 +44,4 @@ include("examples:webpack-plus-ktor:webpack-server")
 
 include("examples:yfiles-optimizer")
 
-includeBuild("gradle-plugin")
+includeBuild("kfc")

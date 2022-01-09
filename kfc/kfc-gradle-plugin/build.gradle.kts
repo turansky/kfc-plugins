@@ -185,7 +185,3 @@ pluginBundle {
         tags = tags("react", "react-dates")
     }
 }
-
-tasks.wrapper {
-    gradleVersion = "7.3.3"
-}
