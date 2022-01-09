@@ -15,6 +15,11 @@ dependencies {
     compileOnly(kotlin("gradle-plugin"))
 }
 
+// TODO: remove after Gradle update
+tasks.compileKotlin {
+    kotlinOptions.allWarningsAsErrors = false
+}
+
 val REPO_URL = "https://github.com/turansky/kfc-plugins"
 val PROJECT_VERSION = project.version.toString()
 
