@@ -4,18 +4,11 @@ import com.test.worker.Message
 import com.test.worker.addMessageHandler
 import com.test.worker.post
 import com.test.worker.wl.WLWorker
-import io.ktor.client.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.util.*
 import kotlinx.browser.document
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.browser.window
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
-@DelicateCoroutinesApi
 private fun main() {
     val body = document.body!!
 
@@ -35,16 +28,13 @@ private fun main() {
     worker.post(Message("START WL!"))
 
     fun testBytes() {
-        GlobalScope.launch {
-            val client = HttpClient()
-            val bytes = client.get("https://httpbin.org/get")
-                .bodyAsChannel()
-                .toByteArray()
-
-            log("DATA", bytes.size)
-
-            worker.post(Message(bytes))
-        }
+        window.fetch("https://httpbin.org/get")
+            .then { it.text() }
+            .then { it }
+            .then { data ->
+                log("DATA", data)
+                worker.post(Message(data))
+            }
     }
 
     view.addEventListener("click", {
