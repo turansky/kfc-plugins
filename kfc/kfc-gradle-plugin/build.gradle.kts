@@ -46,7 +46,10 @@ enum class KfcPlugin(className: String) {
     WORKER("WorkerPlugin"),
     DEV_SERVER("DevServerPlugin"),
 
+    // TODO https://github.com/gradle/gradle/issues/19528
+    /*
     REACT("ReactPlugin"),
+    */
     DEFINITIONS("DefinitionsPlugin"),
 
     MAVEN_CENTRAL_PUBLISH("MavenCentralPublishPlugin"),
@@ -155,11 +158,14 @@ pluginBundle {
         tags = tags("dev server", "dev testing")
     }
 
+    // TODO https://github.com/gradle/gradle/issues/19528
+    /*
     plugin(REACT) {
         displayName = "React plugin"
         description = "React support for Kotlin/JS projects"
         tags = tags("react", "lazy")
     }
+    */
 
     plugin(DEFINITIONS) {
         displayName = "Kotlin/JS definitions plugin"
