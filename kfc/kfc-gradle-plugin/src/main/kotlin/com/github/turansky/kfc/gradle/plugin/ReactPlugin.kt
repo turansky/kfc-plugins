@@ -65,6 +65,7 @@ private fun addLazySupport(
     for (componentName in componentNames) {
         appDir.resolve("${appName}__$componentName.js")
             .writeText(
+                // language=JavaScript
                 """
                 import { $componentName } from './$mainLibName'
             
@@ -74,6 +75,7 @@ private fun addLazySupport(
     }
 
     file.writeText(
+        // language=JavaScript
         """
         import { main } from './$mainLibName'
         
