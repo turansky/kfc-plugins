@@ -44,4 +44,6 @@ include("examples:webpack-plus-ktor:webpack-server")
 
 include("examples:yfiles-optimizer")
 
+include("react-app")
+
 includeBuild("kfc")
