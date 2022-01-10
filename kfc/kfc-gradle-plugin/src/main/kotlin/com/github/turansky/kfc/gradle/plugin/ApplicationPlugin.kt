@@ -3,14 +3,12 @@ package com.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
-import org.gradle.kotlin.dsl.getValue
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.provideDelegate
-import org.gradle.kotlin.dsl.registering
+import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 private val WEBPACK_RUN = BooleanProperty("kfc.webpack.run")
+private val REACT_LAZY = BooleanProperty("kfc.react.lazy")
 
 private const val BPW: String = "browserProductionWebpack"
 private const val BDW: String = "browserDevelopmentWebpack"
@@ -21,6 +19,10 @@ class ApplicationPlugin : Plugin<Project> {
             distribution = true,
             run = property(WEBPACK_RUN),
         )
+
+        if (property(REACT_LAZY)) {
+            plugins.apply(ReactPlugin::class)
+        }
 
         if (jsIrCompiler) {
             applyIr()
