@@ -1,6 +1,5 @@
 plugins {
     id("com.github.turansky.kfc.application")
-    id("com.github.turansky.kfc.react")
 }
 
 val kotlinWrappersVersion = property("kotlin-wrappers.version") as String
