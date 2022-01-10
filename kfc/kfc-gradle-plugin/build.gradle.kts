@@ -46,6 +46,7 @@ enum class KfcPlugin(className: String) {
     WORKER("WorkerPlugin"),
     DEV_SERVER("DevServerPlugin"),
 
+    REACT("ReactPlugin"),
     DEFINITIONS("DefinitionsPlugin"),
 
     MAVEN_CENTRAL_PUBLISH("MavenCentralPublishPlugin"),
@@ -152,6 +153,12 @@ pluginBundle {
         displayName = "Development server plugin"
         description = "Testing server for Kotlin/JS"
         tags = tags("dev server", "dev testing")
+    }
+
+    plugin(REACT) {
+        displayName = "React plugin"
+        description = "React support for Kotlin/JS projects"
+        tags = tags("react", "lazy")
     }
 
     plugin(DEFINITIONS) {
