@@ -10,12 +10,17 @@ import org.gradle.kotlin.dsl.registering
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
+private val WEBPACK_RUN = BooleanProperty("kfc.webpack.run")
+
 private const val BPW: String = "browserProductionWebpack"
 private const val BDW: String = "browserDevelopmentWebpack"
 
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        applyKotlinJsPlugin(distribution = true)
+        applyKotlinJsPlugin(
+            distribution = true,
+            run = property(WEBPACK_RUN),
+        )
 
         if (jsIrCompiler) {
             applyIr()
