@@ -1,11 +1,5 @@
 plugins {
-    kotlin("js")
-}
-
-kotlin.js {
-    browser()
-
-    binaries.executable()
+    id("com.github.turansky.kfc.application")
 }
 
 val kotlinWrappersVersion = property("kotlin-wrappers.version") as String
