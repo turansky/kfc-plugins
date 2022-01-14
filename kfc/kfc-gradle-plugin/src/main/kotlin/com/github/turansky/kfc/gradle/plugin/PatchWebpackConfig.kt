@@ -1,5 +1,6 @@
 package com.github.turansky.kfc.gradle.plugin
 
+import groovy.lang.Tuple2
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
@@ -16,6 +17,9 @@ open class PatchWebpackConfig : DefaultTask() {
 
     @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()
+
+    @get:Input
+    val replacements: MutableMap<String, Tuple2<String, Boolean>> = mutableMapOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -75,6 +79,14 @@ open class PatchWebpackConfig : DefaultTask() {
         )
     }
 
+    fun replace(
+        oldValue: String,
+        newValue: String,
+        strict: Boolean = false,
+    ) {
+        replacements[oldValue] = Tuple2(newValue, strict)
+    }
+
     @TaskAction
     private fun generatePatches() {
         val globalPatchFile: File = project.rootDir.resolve("webpack.patch.js")
@@ -82,7 +94,9 @@ open class PatchWebpackConfig : DefaultTask() {
             createPatch("00__global__00", globalPatchFile.readText())
         } else null
 
-        if (globalPatch == null && patches.isEmpty())
+        val replacementPatch: String? = createReplacePatch(replacements)
+
+        if (globalPatch == null && patches.isEmpty() && replacementPatch == null)
             return
 
         val content = patches
@@ -90,6 +104,7 @@ open class PatchWebpackConfig : DefaultTask() {
             .sortedBy { it.key }
             .map { (name, body) -> createPatch(name, body) }
             .let { if (globalPatch != null) it + globalPatch else it }
+            .let { if (replacementPatch != null) it + replacementPatch else it }
             .joinToString("\n\n")
 
         configDirectory
@@ -106,6 +121,36 @@ open class PatchWebpackConfig : DefaultTask() {
             .file("$name.js")
             .get()
             .asFile
+}
+
+@Suppress("JSUnnecessarySemicolon")
+private fun createReplacePatch(replacements: Map<String, Tuple2<String, Boolean>>): String? {
+    if (replacements.isEmpty())
+        return null
+
+    val replacementOptions = replacements.map { (oldValue, entry) ->
+        val (newValue, strict) = entry
+        "{ search: '$oldValue', replace: '$newValue', strict: $strict },"
+    }.joinToString("\n                ")
+
+    // language=JavaScript
+    return createPatch(
+        name = "string replacements",
+        body = """
+        config.module.rules.push(
+          {
+            test: /\.js$/,
+            loader: 'string-replace-loader',
+            options: {
+              multiple: [
+                $replacementOptions
+              ],
+              flags: 'g',
+            }
+          },
+        )
+        """.trimIndent()
+    )
 }
 
 @Suppress("JSUnnecessarySemicolon")
