@@ -40,14 +40,14 @@ open class PatchWebpackConfig : DefaultTask() {
 
     fun entry(
         name: String,
-        file: File
+        file: File,
     ) {
         patch("config.entry['$name'] = '${file.absolutePath}'")
     }
 
     fun entry(
         name: String,
-        moduleName: String = name
+        moduleName: String = name,
     ) {
         if (project.jsIrCompiler)
             TODO("Support in IR?")
@@ -56,7 +56,7 @@ open class PatchWebpackConfig : DefaultTask() {
     }
 
     fun entry(
-        project: Project
+        project: Project,
     ) {
         if (project.jsIrCompiler) {
             // TODO: use task for path calculation
@@ -156,7 +156,7 @@ private fun createReplacePatch(replacements: Map<String, Tuple2<String, Boolean>
 @Suppress("JSUnnecessarySemicolon")
 private fun createPatch(
     name: String,
-    body: String
+    body: String,
 ): String =
     // language=JavaScript
     """
