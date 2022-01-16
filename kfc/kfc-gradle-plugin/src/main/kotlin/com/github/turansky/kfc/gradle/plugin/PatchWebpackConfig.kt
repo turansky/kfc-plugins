@@ -87,21 +87,15 @@ open class PatchWebpackConfig : DefaultTask() {
 
     @TaskAction
     private fun generatePatches() {
-        val globalPatchFile: File = project.rootDir.resolve("webpack.patch.js")
-        val globalPatch = if (globalPatchFile.exists()) {
-            createPatch("00__global__00", globalPatchFile.readText())
-        } else null
-
         val replacementPatch: String? = createReplacePatch(replacements)
 
-        if (globalPatch == null && patches.isEmpty() && replacementPatch == null)
+        if (patches.isEmpty() && replacementPatch == null)
             return
 
         val content = patches
             .asSequence()
             .sortedBy { it.key }
             .map { (name, body) -> createPatch(name, body) }
-            .let { if (globalPatch != null) it + globalPatch else it }
             .let { if (replacementPatch != null) it + replacementPatch else it }
             .joinToString("\n\n")
 
@@ -130,9 +124,9 @@ private fun createReplacePatch(replacements: Map<String, String>): String? {
         "{ search: '$oldValue', replace: '$newValue' },"
     }.joinToString("\n                ")
 
-    // language=JavaScript
     return createPatch(
-        name = "string replacements",
+        name = "string-replacements",
+        // language=JavaScript
         body = """
         config.module.rules.push(
           {
