@@ -1,6 +1,5 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import groovy.lang.Tuple2
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
@@ -19,7 +18,7 @@ open class PatchWebpackConfig : DefaultTask() {
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:Input
-    val replacements: MutableMap<String, Tuple2<String, Boolean>> = mutableMapOf()
+    val replacements: MutableMap<String, Pair<String, Boolean>> = mutableMapOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -84,7 +83,7 @@ open class PatchWebpackConfig : DefaultTask() {
         newValue: String,
         strict: Boolean = false,
     ) {
-        replacements[oldValue] = Tuple2(newValue, strict)
+        replacements[oldValue] = Pair(newValue, strict)
     }
 
     @TaskAction
@@ -124,7 +123,7 @@ open class PatchWebpackConfig : DefaultTask() {
 }
 
 @Suppress("JSUnnecessarySemicolon")
-private fun createReplacePatch(replacements: Map<String, Tuple2<String, Boolean>>): String? {
+private fun createReplacePatch(replacements: Map<String, Pair<String, Boolean>>): String? {
     if (replacements.isEmpty())
         return null
 
