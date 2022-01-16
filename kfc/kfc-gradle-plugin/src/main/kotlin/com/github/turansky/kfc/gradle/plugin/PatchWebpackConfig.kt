@@ -136,7 +136,7 @@ private fun createReplacePatch(replacements: Map<String, String>): String? {
         body = """
         config.module.rules.push(
           {
-            test: /\.js$/,
+            test: /\.js${'$'}/,
             loader: 'string-replace-loader',
             options: {
               multiple: [
