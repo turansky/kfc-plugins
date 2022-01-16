@@ -18,7 +18,7 @@ open class PatchWebpackConfig : DefaultTask() {
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:Input
-    val replacements: MutableMap<String, Pair<String, Boolean>> = mutableMapOf()
+    val replacements: MutableMap<String, String> = mutableMapOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -81,9 +81,8 @@ open class PatchWebpackConfig : DefaultTask() {
     fun replace(
         oldValue: String,
         newValue: String,
-        strict: Boolean = false,
     ) {
-        replacements[oldValue] = Pair(newValue, strict)
+        replacements[oldValue] = newValue
     }
 
     @TaskAction
@@ -123,13 +122,12 @@ open class PatchWebpackConfig : DefaultTask() {
 }
 
 @Suppress("JSUnnecessarySemicolon")
-private fun createReplacePatch(replacements: Map<String, Pair<String, Boolean>>): String? {
+private fun createReplacePatch(replacements: Map<String, String>): String? {
     if (replacements.isEmpty())
         return null
 
-    val replacementOptions = replacements.map { (oldValue, entry) ->
-        val (newValue, strict) = entry
-        "{ search: '$oldValue', replace: '$newValue', strict: $strict },"
+    val replacementOptions = replacements.map { (oldValue, newValue) ->
+        "{ search: '$oldValue', replace: '$newValue' },"
     }.joinToString("\n                ")
 
     // language=JavaScript
