@@ -17,6 +17,9 @@ open class PatchWebpackConfig : DefaultTask() {
     @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()
 
+    @get:Input
+    val replacements: MutableMap<String, String> = mutableMapOf()
+
     @get:OutputDirectory
     val configDirectory: File
         get() = project.projectDir.resolve("webpack.config.d")
@@ -36,14 +39,14 @@ open class PatchWebpackConfig : DefaultTask() {
 
     fun entry(
         name: String,
-        file: File
+        file: File,
     ) {
         patch("config.entry['$name'] = '${file.absolutePath}'")
     }
 
     fun entry(
         name: String,
-        moduleName: String = name
+        moduleName: String = name,
     ) {
         if (project.jsIrCompiler)
             TODO("Support in IR?")
@@ -52,7 +55,7 @@ open class PatchWebpackConfig : DefaultTask() {
     }
 
     fun entry(
-        project: Project
+        project: Project,
     ) {
         if (project.jsIrCompiler) {
             // TODO: use task for path calculation
@@ -75,6 +78,13 @@ open class PatchWebpackConfig : DefaultTask() {
         )
     }
 
+    fun replace(
+        oldValue: String,
+        newValue: String,
+    ) {
+        replacements[oldValue] = newValue
+    }
+
     @TaskAction
     private fun generatePatches() {
         val globalPatchFile: File = project.rootDir.resolve("webpack.patch.js")
@@ -82,7 +92,9 @@ open class PatchWebpackConfig : DefaultTask() {
             createPatch("00__global__00", globalPatchFile.readText())
         } else null
 
-        if (globalPatch == null && patches.isEmpty())
+        val replacementPatch: String? = createReplacePatch(replacements)
+
+        if (globalPatch == null && patches.isEmpty() && replacementPatch == null)
             return
 
         val content = patches
@@ -90,6 +102,7 @@ open class PatchWebpackConfig : DefaultTask() {
             .sortedBy { it.key }
             .map { (name, body) -> createPatch(name, body) }
             .let { if (globalPatch != null) it + globalPatch else it }
+            .let { if (replacementPatch != null) it + replacementPatch else it }
             .joinToString("\n\n")
 
         configDirectory
@@ -109,9 +122,38 @@ open class PatchWebpackConfig : DefaultTask() {
 }
 
 @Suppress("JSUnnecessarySemicolon")
+private fun createReplacePatch(replacements: Map<String, String>): String? {
+    if (replacements.isEmpty())
+        return null
+
+    val replacementOptions = replacements.map { (oldValue, newValue) ->
+        "{ search: '$oldValue', replace: '$newValue' },"
+    }.joinToString("\n                ")
+
+    // language=JavaScript
+    return createPatch(
+        name = "string replacements",
+        body = """
+        config.module.rules.push(
+          {
+            test: /\.js${'$'}/,
+            loader: 'string-replace-loader',
+            options: {
+              multiple: [
+                $replacementOptions
+              ],
+              flags: 'g',
+            }
+          },
+        )
+        """.trimIndent()
+    )
+}
+
+@Suppress("JSUnnecessarySemicolon")
 private fun createPatch(
     name: String,
-    body: String
+    body: String,
 ): String =
     // language=JavaScript
     """

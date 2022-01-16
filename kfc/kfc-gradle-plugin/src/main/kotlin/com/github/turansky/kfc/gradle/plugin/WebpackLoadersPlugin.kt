@@ -34,15 +34,6 @@ private val RULES: String = """
         test: /\.svg${'$'}/,
         loader: '$SVG_INLINE_LOADER',
       },
-      {
-        test: /\.js${'$'}/,
-        loader: '$STRING_REPLACE_LOADER',
-        options: {
-          search: '__dynamic_import__',
-          replace: 'import',
-          flags: 'g',
-        }
-      },
     )
 """.trimIndent()
 
@@ -94,6 +85,7 @@ class WebpackLoadersPlugin : Plugin<Project> {
 
         tasks.configureEach<PatchWebpackConfig> {
             patch("rules", RULES)
+            replace("__dynamic_import__", "import")
 
             patch("font-rules", fontRules())
 
