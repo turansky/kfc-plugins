@@ -5,7 +5,12 @@ import kotlin.test.assertEquals
 
 class ReplaceTest {
     @Test
-    fun valueIsReplaced() {
-        assertEquals(BUILD_NUMBER, "||27||")
+    fun stringIsReplaced() {
+        assertEquals(BUILD_NAME, "Frodo")
+    }
+
+    @Test
+    fun numberIsReplaced() {
+        assertEquals(BUILD_NUMBER, 42)
     }
 }
