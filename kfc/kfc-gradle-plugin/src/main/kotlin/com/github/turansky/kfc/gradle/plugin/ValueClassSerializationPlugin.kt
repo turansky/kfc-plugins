@@ -35,7 +35,7 @@ internal class ValueClassSerializationPlugin : Plugin<Project> {
 }
 
 private fun applySerializationFixes(
-    source: String
+    source: String,
 ): String {
     val classNames = VALUE_CLASS_RETURN.findAll(source)
         .map { it.groupValues[1] }
@@ -63,7 +63,7 @@ private fun applySerializationFixes(
 private fun String.replaceMethodBody(
     className: String,
     methodName: String,
-    transform: (String) -> String
+    transform: (String) -> String,
 ): String {
     val start = "\n  $className${'$'}${'$'}serializer.prototype.${methodName}_"
     val startIndex = indexOf(start)
@@ -76,7 +76,7 @@ private fun String.replaceMethodBody(
 }
 
 private enum class ValueType(
-    encodeHash: String
+    encodeHash: String,
 ) {
     STRING("61zpoe\$"),
     INT("za3lpa\$"),

@@ -9,7 +9,7 @@ private val DELIMITER = "."
 
 internal fun parseVersion(
     source: String,
-    fixed: Boolean = false
+    fixed: Boolean = false,
 ): Version {
     val version = source.removeSuffix(SNAPSHOT_SUFFIX)
     val snapshot = version != source
@@ -64,7 +64,7 @@ private data class StandardVersion(
     override val major: Int,
     override val minor: Int,
     override val patch: Int,
-    override val snapshot: Boolean
+    override val snapshot: Boolean,
 ) : Version() {
     override fun toRelease(): Version =
         copy(snapshot = false)
@@ -83,7 +83,7 @@ private data class FixedVersion(
     override val major: Int,
     override val minor: Int,
     override val patch: Int,
-    private val date: Int?
+    private val date: Int?,
 ) : Version() {
     override val snapshot: Boolean = date == null
 

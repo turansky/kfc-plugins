@@ -38,7 +38,7 @@ open class GenerateExportAlias : DefaultTask() {
 // language=JavaScript
 private fun alias(
     moduleName: String,
-    export: String
+    export: String,
 ): String = """
         |const source = require('$moduleName')
         |

@@ -7,7 +7,7 @@ private val GRADLE_PROPERTIES = "gradle.properties"
 
 internal fun setGradleProperty(
     property: GradleProperty,
-    value: String
+    value: String,
 ) {
     val properties = OrderedPropertiesBuilder()
         .withSuppressDateInComment(true)

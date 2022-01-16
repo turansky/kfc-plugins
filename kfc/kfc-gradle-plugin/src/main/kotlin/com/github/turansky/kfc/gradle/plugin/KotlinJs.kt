@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
 internal fun Project.applyKotlinJsPlugin(
     binaries: Boolean = false,
     distribution: Boolean = false,
-    run: Boolean = false
+    run: Boolean = false,
 ) {
     applyKotlinDefaults(!binaries && !distribution && !run)
 

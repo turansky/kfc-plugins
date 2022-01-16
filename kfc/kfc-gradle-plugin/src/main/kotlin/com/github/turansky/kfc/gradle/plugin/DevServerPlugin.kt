@@ -94,7 +94,7 @@ class DevServerPlugin : Plugin<Project> {
 }
 
 internal fun Task.eachApplicationDependency(
-    action: (Project) -> Unit
+    action: (Project) -> Unit,
 ) {
     project.relatedRuntimeProjects()
         .filter { it.plugins.hasPlugin(ApplicationPlugin::class) }

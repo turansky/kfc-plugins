@@ -5,12 +5,12 @@ import org.gradle.api.Project
 internal sealed class Property<T : Any>(val name: String)
 
 internal class StringProperty(
-    name: String
+    name: String,
 ) : Property<String>(name)
 
 internal class BooleanProperty(
-    name: String, val
-    default: Boolean = false
+    name: String,
+    val default: Boolean = false,
 ) : Property<Boolean>(name)
 
 private fun Project.propertyOrNull(propertyName: String): String? =

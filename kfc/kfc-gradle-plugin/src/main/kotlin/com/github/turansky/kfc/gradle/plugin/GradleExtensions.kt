@@ -6,7 +6,7 @@ import org.gradle.kotlin.dsl.withType
 
 // https://github.com/gradle/gradle/issues/9832
 internal inline fun <reified S : Any> DomainObjectCollection<in S>.configureEach(
-    noinline action: S.() -> Unit
+    noinline action: S.() -> Unit,
 ) {
     withType().configureEach(action)
 }
@@ -18,7 +18,7 @@ internal inline fun <reified S : Task> DomainObjectCollection<in S>.disable() {
 }
 
 internal inline fun <reified S : Task> DomainObjectCollection<in S>.disable(
-    noinline predicate: S.() -> Boolean
+    noinline predicate: S.() -> Boolean,
 ) {
     configureEach<S> {
         if (predicate()) {

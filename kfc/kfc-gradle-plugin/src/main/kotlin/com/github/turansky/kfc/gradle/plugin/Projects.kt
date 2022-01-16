@@ -36,13 +36,13 @@ private val Project.jsOutputPath: String?
     get() = propertyOrNull(OUTPUT_PATH)
 
 internal fun Project.outputPath(
-    path: String
+    path: String,
 ): String =
     outputPath("", path)
 
 internal fun Project.outputPath(
     prefix: String,
-    suffix: String
+    suffix: String,
 ): String {
     val basePath = jsOutputPath
         ?.let { "$it/" }
@@ -87,14 +87,14 @@ internal fun Project.relatedProjects(): Set<Project> {
 
 internal fun Project.ext(
     propertyName: String,
-    value: Boolean
+    value: Boolean,
 ) {
     ext(propertyName, value.toString())
 }
 
 internal fun Project.ext(
     propertyName: String,
-    value: String
+    value: String,
 ) {
     extensions.extraProperties[propertyName] = value
 }

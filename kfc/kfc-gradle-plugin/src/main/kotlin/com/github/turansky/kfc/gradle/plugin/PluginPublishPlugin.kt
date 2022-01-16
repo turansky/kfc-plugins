@@ -78,7 +78,7 @@ private fun Project.changeGroup(addPrefix: Boolean) {
 
 private fun Project.changeVersion(
     change: (Version) -> Version,
-    versionFiles: Set<File>
+    versionFiles: Set<File>,
 ) {
     val oldVersion = currentVersion.toString()
     val newVersion = change(currentVersion).toString()

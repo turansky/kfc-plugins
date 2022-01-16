@@ -66,7 +66,7 @@ private fun Project.disableTestsWithoutSources() {
 
 private enum class SourceSet(
     val names: Set<String>,
-    val taskPrefixes: Set<String>
+    val taskPrefixes: Set<String>,
 ) {
     MULTIPLATFORM(
         names = setOf("jsTest", "commonTest"),

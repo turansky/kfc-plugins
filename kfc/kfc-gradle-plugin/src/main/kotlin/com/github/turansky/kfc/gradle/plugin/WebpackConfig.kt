@@ -4,7 +4,7 @@ import java.io.File
 
 internal fun entryConfiguration(
     output: Output? = null,
-    entry: File
+    entry: File,
 ): String {
     val entryId = output?.id ?: "main"
 

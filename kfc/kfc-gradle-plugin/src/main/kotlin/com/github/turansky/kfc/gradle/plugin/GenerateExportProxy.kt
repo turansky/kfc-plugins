@@ -45,7 +45,7 @@ internal fun List<GenerateExportProxy>.entryConfiguration() =
 
 private fun proxy(
     moduleName: String,
-    components: List<String>
+    components: List<String>,
 ): String =
     "import * as source from '$moduleName'\n\n" +
             components.joinToString("\n") {

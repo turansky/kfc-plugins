@@ -10,7 +10,7 @@ interface NpmvDependencyExtension {
 }
 
 internal open class NpmvDependencyExtensionImpl(
-    private val project: Project
+    private val project: Project,
 ) : NpmvDependencyExtension {
     override fun invoke(name: String): NpmDependency {
         val npm = project.dependencies.the<NpmDependencyExtension>()

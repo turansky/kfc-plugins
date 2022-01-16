@@ -48,11 +48,11 @@ private fun Project.getOutputDirectory(name: String): File {
 
     val directoryName = when (name) {
         "processDceKotlinJs",
-        "processDceJsKotlinJs"
+        "processDceJsKotlinJs",
         -> "kotlin-dce"
 
         "processDceDevKotlinJs",
-        "processDceDevJsKotlinJs"
+        "processDceDevJsKotlinJs",
         -> "kotlin-dce-dev"
 
         else -> TODO()

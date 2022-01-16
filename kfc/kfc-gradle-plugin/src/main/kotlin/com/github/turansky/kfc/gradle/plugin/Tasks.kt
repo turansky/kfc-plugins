@@ -35,7 +35,7 @@ internal fun TaskContainerScope.useModularJsTarget() {
 }
 
 internal fun Task.eachRuntimeProjectDependency(
-    action: (Project) -> Unit
+    action: (Project) -> Unit,
 ) {
     project.relatedRuntimeProjects()
         .forEach(action)
