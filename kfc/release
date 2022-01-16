@@ -7,6 +7,6 @@ set -o pipefail
 ./gradlew build
 
 ./gradlew preparePublish
-# ./gradlew publishAllPublicationsToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+./gradlew publishAllPublicationsToSonatypeRepository closeAndReleaseSonatypeStagingRepository
 ./gradlew kfc-gradle-plugin:publishPlugins
 ./gradlew prepareDevelopment
