@@ -24,17 +24,35 @@ open class PatchWebpackConfig : DefaultTask() {
     val configDirectory: File
         get() = project.projectDir.resolve("webpack.config.d")
 
-    fun patch(body: String) {
+    fun patch(
+        body: String,
+    ) {
         val index = patches.size + 1
         patch("generated_$index", body)
     }
 
-    fun patch(name: String, body: String) {
+    fun patch(
+        source: File,
+    ) {
+        patch(source.readText())
+    }
+
+    fun patch(
+        name: String,
+        body: String,
+    ) {
         if (patches.containsKey(name)) {
             patch(name + "_", body)
         } else {
             patches[name] = body
         }
+    }
+
+    fun patch(
+        name: String,
+        source: File,
+    ) {
+        patch(name, source.readText())
     }
 
     fun entry(
