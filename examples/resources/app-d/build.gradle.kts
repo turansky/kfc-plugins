@@ -1,5 +1,5 @@
 plugins {
-    id("com.github.turansky.kfc.component")
+    id("io.github.turansky.kfc.component")
 }
 
 component {

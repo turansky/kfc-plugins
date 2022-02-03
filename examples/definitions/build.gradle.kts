@@ -1,6 +1,6 @@
 plugins {
     kotlin("js")
-    id("com.github.turansky.kfc.definitions")
+    id("io.github.turansky.kfc.definitions")
 }
 
 kotlin.js {

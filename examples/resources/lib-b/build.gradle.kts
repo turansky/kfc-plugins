@@ -1,3 +1,3 @@
 plugins {
-    id("com.github.turansky.kfc.library")
+    id("io.github.turansky.kfc.library")
 }
