@@ -63,8 +63,8 @@ enum class KfcPlugin(className: String) {
 
     val pluginName: String = name.toLowerCase().replace("_", "-")
 
-    val id: String = "com.github.turansky.kfc.$pluginName"
-    val implementationClass: String = "com.github.turansky.kfc.gradle.plugin.$className"
+    val id: String = "io.github.turansky.kfc.$pluginName"
+    val implementationClass: String = "io.github.turansky.kfc.gradle.plugin.$className"
 }
 
 gradlePlugin {
