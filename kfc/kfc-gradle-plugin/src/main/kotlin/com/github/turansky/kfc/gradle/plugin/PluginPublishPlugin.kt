@@ -1,6 +1,5 @@
 package com.github.turansky.kfc.gradle.plugin
 
-import com.github.turansky.kfc.gradle.plugin.GradleProperty.GROUP
 import com.github.turansky.kfc.gradle.plugin.GradleProperty.VERSION
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -10,9 +9,6 @@ import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.named
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import java.io.File
-
-private const val GRADLE_PLUGIN_PREFIX = "gradle.plugin."
-private val USE_GRADLE_PLUGIN_PREFIX = BooleanProperty("kfc.gradle.plugin.prefix")
 
 class PluginPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -36,24 +32,16 @@ class PluginPublishPlugin : Plugin<Project> {
 
 private class RootPluginPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        val useGradlePluginPrefix = property(USE_GRADLE_PLUGIN_PREFIX)
-
         tasks {
             register("preparePublish") {
                 doLast {
                     changeVersion(Version::toRelease, project.versionFiles())
-                    if (useGradlePluginPrefix) {
-                        changeGroup(addPrefix = false)
-                    }
                 }
             }
 
             register("prepareDevelopment") {
                 doLast {
                     changeVersion(Version::toNextSnapshot, project.versionFiles())
-                    if (useGradlePluginPrefix) {
-                        changeGroup(addPrefix = true)
-                    }
                 }
             }
         }
@@ -64,17 +52,6 @@ private fun Project.versionFiles(): Set<File> =
     fileTree(projectDir)
         .matching { include("**/src/main/kotlin/**/KotlinPluginArtifact.kt") }
         .files
-
-private fun Project.changeGroup(addPrefix: Boolean) {
-    var group = group.toString()
-    group = if (addPrefix) {
-        "$GRADLE_PLUGIN_PREFIX$group"
-    } else {
-        group.removePrefix(GRADLE_PLUGIN_PREFIX)
-    }
-
-    setGradleProperty(GROUP, group)
-}
 
 private fun Project.changeVersion(
     change: (Version) -> Version,
