@@ -21,7 +21,6 @@ tasks.compileKotlin {
 }
 
 val REPO_URL = "https://github.com/turansky/kfc-plugins"
-val PROJECT_VERSION = project.version.toString()
 
 fun tags(vararg pluginTags: String): List<String> =
     listOf(
@@ -83,7 +82,6 @@ fun PluginBundleExtension.plugin(
     action: PluginConfig.() -> Unit
 ) {
     plugins.getByName(kfcPlugin.pluginName) {
-        version = PROJECT_VERSION
         action()
     }
 }
@@ -201,5 +199,11 @@ pluginBundle {
         displayName = "react-dates plugin"
         description = "React 17+ compatibility fix for react-dates"
         tags = tags("react", "react-dates")
+    }
+
+    mavenCoordinates {
+        groupId = project.group.toString()
+        artifactId = project.name
+        version = project.version.toString()
     }
 }
