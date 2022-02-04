@@ -1,7 +1,7 @@
 [![CI Status](https://github.com/turansky/kfc-plugins/workflows/CI/badge.svg)](https://github.com/turansky/kfc-plugins/actions)
 [![CI Status](https://github.com/turansky/kfc-plugins/workflows/gradle%20plugin/badge.svg)](https://github.com/turansky/kfc-plugins/actions)
-[![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/github/turansky/kfc/root/com.github.turansky.kfc.root.gradle.plugin/maven-metadata.xml.svg?label=plugin&logo=gradle)](https://plugins.gradle.org/plugin/com.github.turansky.kfc.root)
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.turansky.kfc/kfc-react?logo=apache-maven)](https://mvnrepository.com/artifact/com.github.turansky.kfc/kfc-react)
+[![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/io/github/turansky/kfc/root/io.github.turansky.kfc.root.gradle.plugin/maven-metadata.xml.svg?label=plugin&logo=gradle)](https://plugins.gradle.org/plugin/io.github.turansky.kfc.root)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.turansky.kfc/kfc-react?logo=apache-maven)](https://mvnrepository.com/artifact/io.github.turansky.kfc/kfc-react)
 [![Kotlin](https://img.shields.io/badge/kotlin-1.6.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 # Kotlin/JS Fast Configuration
@@ -23,7 +23,7 @@
 ```kotlin
 plugins {
     kotlin("js") version "1.6.10"
-    id("com.github.turansky.kfc.webpack") version "4.88.0"
+    id("io.github.turansky.kfc.webpack") version "5.0.1"
 }
 
 kotlin.js {
@@ -73,6 +73,6 @@ Apply [`webpack`](#webpack) plugin by default
 ```kotlin
 plugins {
     kotlin("js") version "1.6.10"
-    id("com.github.turansky.kfc.library") version "4.88.0"
+    id("io.github.turansky.kfc.library") version "5.0.1"
 }
 ```
