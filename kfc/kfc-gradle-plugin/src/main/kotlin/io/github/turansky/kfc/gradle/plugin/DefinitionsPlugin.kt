@@ -11,6 +11,9 @@ private val REDUNDANT_PACKAGES = listOf(
     "org.w3c.dom"
 )
 
+// https://youtrack.jetbrains.com/issue/KT-51205
+private val KT_51205 = Regex(""": any/\* ([^*/]*) \*/""")
+
 internal class DefinitionsPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.configureEach<Kotlin2JsCompile> {
@@ -21,14 +24,11 @@ internal class DefinitionsPlugin : Plugin<Project> {
 
                 if (definitionFile.exists()) {
                     val content = definitionFile.readText()
-                    // https://youtrack.jetbrains.com/issue/KT-51205
-                    val fixKT51205 = """: any\/\* ([^\*\/]*) \*\/""".toRegex()
                     val newContent = REDUNDANT_PACKAGES
                         .fold(content) { acc, p ->
                             acc.replace("$p.", "")
-                        }.replace(fixKT51205) {
-                            ": ${it.groups[1]!!.value}"
                         }
+                        .replace(KT_51205, ": $1")
 
                     if (newContent != content) {
                         definitionFile.writeText(newContent)
