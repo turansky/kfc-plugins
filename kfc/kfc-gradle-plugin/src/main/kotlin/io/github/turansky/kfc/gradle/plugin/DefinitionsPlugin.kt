@@ -21,9 +21,13 @@ internal class DefinitionsPlugin : Plugin<Project> {
 
                 if (definitionFile.exists()) {
                     val content = definitionFile.readText()
+                    // https://youtrack.jetbrains.com/issue/KT-51205
+                    val fixKT51205 = """: any\/\* ([^\*\/]*) \*\/""".toRegex()
                     val newContent = REDUNDANT_PACKAGES
                         .fold(content) { acc, p ->
                             acc.replace("$p.", "")
+                        }.replace(fixKT51205) {
+                            ": ${it.groups[1]!!.value}"
                         }
 
                     if (newContent != content) {
