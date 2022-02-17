@@ -12,7 +12,7 @@ private val REDUNDANT_PACKAGES = listOf(
 )
 
 // https://youtrack.jetbrains.com/issue/KT-51205
-private val KT_51205 = Regex(""": any/\* ([^*/]*) \*/""")
+private val KT_51205 = Regex(""" any/\* ([^*/]*) \*/""")
 
 internal class DefinitionsPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -28,7 +28,7 @@ internal class DefinitionsPlugin : Plugin<Project> {
                         .fold(content) { acc, p ->
                             acc.replace("$p.", "")
                         }
-                        .replace(KT_51205, ": $1")
+                        .replace(KT_51205, " $1")
 
                     if (newContent != content) {
                         definitionFile.writeText(newContent)
