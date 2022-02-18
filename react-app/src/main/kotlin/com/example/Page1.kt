@@ -2,7 +2,7 @@ package com.example
 
 import csstype.Color
 import kfc.react.import
-import kotlinext.js.jso
+import kotlinx.js.jso
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
