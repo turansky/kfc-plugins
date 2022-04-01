@@ -46,6 +46,7 @@ include("examples:yfiles-optimizer")
 
 include("gradle-plugin-test")
 
-include("react-app")
+// TODO: restore
+// include("react-app")
 
 includeBuild("kfc")
