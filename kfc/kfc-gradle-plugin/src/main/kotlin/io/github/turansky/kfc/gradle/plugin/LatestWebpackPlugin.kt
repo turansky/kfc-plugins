@@ -6,6 +6,8 @@ import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 class LatestWebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -21,6 +23,12 @@ private fun Project.configureLatestWebpack() {
             webpackDevServer.version = "4.8.1"
 
             karma.version = "6.3.18"
+        }
+    }
+
+    plugins.withType<YarnPlugin> {
+        the<YarnRootExtension>().apply {
+            resolution("nanoid", "^3.3.2")
         }
     }
 }
