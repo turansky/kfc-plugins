@@ -28,7 +28,7 @@ private fun Project.configureLatestWebpack() {
 
     plugins.withType<YarnPlugin> {
         the<YarnRootExtension>().apply {
-            resolution("nanoid", "^3.3.2")
+            resolution("nanoid", "^3.3.3")
         }
     }
 }
