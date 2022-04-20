@@ -22,7 +22,7 @@ private fun Project.configureLatestWebpack() {
             webpackCli.version = "4.9.2"
             webpackDevServer.version = "4.8.1"
 
-            karma.version = "6.3.18"
+            karma.version = "6.3.19"
         }
     }
 
