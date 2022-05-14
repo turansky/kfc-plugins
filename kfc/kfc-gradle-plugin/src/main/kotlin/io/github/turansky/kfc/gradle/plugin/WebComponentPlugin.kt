@@ -2,8 +2,6 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.getByName
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
 
@@ -24,7 +22,7 @@ internal class WebComponentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.configureEach<KotlinJsDce> {
             doLast {
-                val outputDirectory = getOutputDirectory(name)
+                val outputDirectory = getOutputDirectory(this)
                 fileTree(outputDirectory).visit {
                     if (file.isCandidate(project.rootProject.name)) {
                         val content = file.readText()
@@ -37,29 +35,6 @@ internal class WebComponentPlugin : Plugin<Project> {
             }
         }
     }
-}
-
-// TODO: move to common
-internal fun Project.getOutputDirectory(name: String): File {
-    val packageDir = tasks.getByName<KotlinJsCompile>("compileKotlinJs")
-        .kotlinOptions.outputFile
-        .let { file(it!!) }
-        .parentFile
-        .parentFile
-
-    val directoryName = when (name) {
-        "processDceKotlinJs",
-        "processDceJsKotlinJs",
-        -> "kotlin-dce"
-
-        "processDceDevKotlinJs",
-        "processDceDevJsKotlinJs",
-        -> "kotlin-dce-dev"
-
-        else -> TODO()
-    }
-
-    return packageDir.resolve(directoryName)
 }
 
 private fun File.isCandidate(projectName: String): Boolean =

@@ -15,7 +15,7 @@ class ReactPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.configureEach<KotlinJsDce> {
             doLast {
-                val outputDirectory = getOutputDirectory(name)
+                val outputDirectory = getOutputDirectory(this)
                 fileTree(outputDirectory).visit {
                     if (file.isCandidate()) {
                         val content = file.readText()
