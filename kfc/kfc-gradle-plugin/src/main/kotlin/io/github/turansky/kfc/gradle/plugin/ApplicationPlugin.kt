@@ -21,7 +21,7 @@ class ApplicationPlugin : Plugin<Project> {
         )
 
         if (property(REACT_LAZY)) {
-            plugins.apply(ReactPlugin::class)
+            plugins.apply(LazyLoadingPlugin::class)
         }
 
         if (jsIrCompiler) {

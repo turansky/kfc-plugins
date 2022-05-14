@@ -7,7 +7,7 @@ import java.io.File
 
 private val REACT_COMPONENT_IMPORT = Regex("""__react_component_import__\((.+?)\)""")
 
-class ReactPlugin : Plugin<Project> {
+class LazyLoadingPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.configureEach<KotlinJsCompile> {
             doLast {
