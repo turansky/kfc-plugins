@@ -5,7 +5,7 @@ import react.Fragment
 import react.ReactNode
 import react.Suspense
 import react.create
-import react.dom.render
+import react.dom.client.createRoot
 
 fun main() {
     val container = document.createElement("div")
@@ -25,5 +25,6 @@ fun main() {
         }
     }
 
-    render(application, container)
+    createRoot(container)
+        .render(application)
 }

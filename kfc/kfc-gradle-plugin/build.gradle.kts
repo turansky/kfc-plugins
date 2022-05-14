@@ -45,10 +45,7 @@ enum class KfcPlugin(className: String) {
     WORKER("WorkerPlugin"),
     DEV_SERVER("DevServerPlugin"),
 
-    // TODO https://github.com/gradle/gradle/issues/19528
-    /*
     REACT("ReactPlugin"),
-    */
     DEFINITIONS("DefinitionsPlugin"),
 
     MAVEN_CENTRAL_PUBLISH("MavenCentralPublishPlugin"),
