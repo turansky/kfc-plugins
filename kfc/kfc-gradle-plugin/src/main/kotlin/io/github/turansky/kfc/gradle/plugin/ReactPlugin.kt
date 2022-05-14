@@ -14,6 +14,9 @@ private val DECLARATIONS = listOf(
 class ReactPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.configureEach<KotlinJsDce> {
+            if ("Dev" !in name)
+                return@configureEach
+
             doLast {
                 val outputDirectory = getOutputDirectory(this)
                 fileTree(outputDirectory).visit {
