@@ -1,17 +1,17 @@
 package io.github.turansky.kfc.gradle.plugin
 
-import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import java.io.File
 
-internal fun Project.getOutputDirectory(
+internal fun getOutputDirectory(
     task: Task,
 ): File {
-    val packageDir = tasks.getByName<KotlinJsCompile>("compileKotlinJs")
+    val project = task.project
+    val packageDir = project.tasks.getByName<KotlinJsCompile>("compileKotlinJs")
         .kotlinOptions.outputFile
-        .let { file(it!!) }
+        .let { project.file(it!!) }
         .parentFile
         .parentFile
 
