@@ -39,7 +39,8 @@ internal class WebComponentPlugin : Plugin<Project> {
     }
 }
 
-private fun Project.getOutputDirectory(name: String): File {
+// TODO: move to common
+internal fun Project.getOutputDirectory(name: String): File {
     val packageDir = tasks.getByName<KotlinJsCompile>("compileKotlinJs")
         .kotlinOptions.outputFile
         .let { file(it!!) }
