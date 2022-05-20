@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
-private const val YARN_VERSION = "1.22.18"
+private const val YARN_VERSION = "1.22.19"
 private const val NODE_VERSION = "16.15.0"
 
 class LatestNodePlugin : Plugin<Project> {
