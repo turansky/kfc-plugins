@@ -18,11 +18,11 @@ class LatestWebpackPlugin : Plugin<Project> {
 private fun Project.configureLatestWebpack() {
     plugins.withType<NodeJsRootPlugin> {
         the<NodeJsRootExtension>().versions.apply {
-            webpack.version = "5.72.1"
+            webpack.version = "5.73.0"
             webpackCli.version = "4.9.2"
-            webpackDevServer.version = "4.9.0"
+            webpackDevServer.version = "4.9.1"
 
-            karma.version = "6.3.19"
+            karma.version = "6.3.20"
         }
     }
 
