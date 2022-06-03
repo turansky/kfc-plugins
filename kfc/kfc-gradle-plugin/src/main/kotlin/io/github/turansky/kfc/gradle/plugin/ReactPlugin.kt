@@ -8,6 +8,7 @@ import java.io.File
 private val DECLARATIONS = listOf(
     Regex("""\n  var (\S+) = \${'$'}module\${'$'}kotlin_react\.react\.FC_4y0n3r\$;"""),
     Regex("""\n  var (\S+) = \${'$'}module\${'$'}kotlin_react\.react\.VFC_3ulnvg\$;"""),
+    Regex("""\n  var (\S+) = \${'$'}module\${'$'}kotlin_react\.react\.ForwardRef_kujimp\$;"""),
     Regex("""\n  var (\S+) = \${'$'}module\${'$'}react\.createContext;"""),
 )
 
