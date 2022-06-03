@@ -7,5 +7,6 @@ import org.gradle.kotlin.dsl.apply
 class ReactPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(DisplayNamePlugin::class)
+        plugins.apply(MemoPlugin::class)
     }
 }
