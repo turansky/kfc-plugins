@@ -12,7 +12,7 @@ private val DECLARATIONS = listOf(
     Regex("""\n  var (\S+) = \${'$'}module\${'$'}react\.createContext;"""),
 )
 
-class ReactPlugin : Plugin<Project> {
+class DisplayNamePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.configureEach<KotlinJsDce> {
             if ("Dev" !in name)
