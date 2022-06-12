@@ -52,7 +52,7 @@ class ApplicationPlugin : Plugin<Project> {
     private fun Project.applyLegacy() {
         val replaceWorker by tasks.registering(Copy::class) {
             eachRuntimeProjectDependency {
-                from(it.tasks.getByName(BPW))
+                from(it.tasks.named(BPW))
             }
 
             val processDceKotlinJs = tasks.named<KotlinJsDce>("processDceKotlinJs")
