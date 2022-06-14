@@ -19,16 +19,16 @@ private fun Project.configureLatestWebpack() {
     plugins.withType<NodeJsRootPlugin> {
         the<NodeJsRootExtension>().versions.apply {
             webpack.version = "5.73.0"
-            webpackCli.version = "4.9.2"
+            webpackCli.version = "4.10.0"
             webpackDevServer.version = "4.9.2"
 
-            karma.version = "6.3.20"
+            karma.version = "6.4.0"
         }
     }
 
     plugins.withType<YarnPlugin> {
         the<YarnRootExtension>().apply {
-            resolution("nanoid", "^3.3.4")
+            resolution("nanoid", "^4.0.0")
         }
     }
 }
