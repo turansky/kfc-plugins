@@ -10,15 +10,17 @@ private val SOURCE_MAPS = BooleanProperty("kfc.source.maps")
 internal class SourceMapsPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         if (!property(SOURCE_MAPS)) {
-            tasks.configureEach<KotlinJsCompile> {
-                kotlinOptions {
-                    sourceMap = false
-                    sourceMapEmbedSources = null
+            afterEvaluate {
+                tasks.configureEach<KotlinJsCompile> {
+                    kotlinOptions {
+                        sourceMap = false
+                        sourceMapEmbedSources = null
+                    }
                 }
-            }
 
-            tasks.configureEach<KotlinWebpack> {
-                sourceMaps = false
+                tasks.configureEach<KotlinWebpack> {
+                    sourceMaps = false
+                }
             }
         }
     }
