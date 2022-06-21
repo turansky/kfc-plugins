@@ -43,18 +43,27 @@ class MavenCentralPublishPlugin : Plugin<Project> {
             }
         } else null
 
-        configure<PublishingExtension> {
-            publications {
-                create<MavenPublication>("mavenKotlin") {
-                    from(components["kotlin"])
+        if (multiplatformMode) {
+            configure<PublishingExtension> {
+                publications {
+                    withType<MavenPublication>().configureEach {
+                        pom.configure(::pomProperty, releaseMode)
+                    }
+                }
+            }
+        } else {
+            configure<PublishingExtension> {
+                publications {
+                    create<MavenPublication>("mavenKotlin") {
+                        from(components["kotlin"])
 
-                    if (!multiplatformMode)
                         artifact(tasks.named("kotlinSourcesJar").get())
 
-                    if (javadocJar != null)
-                        artifact(javadocJar.get())
+                        if (javadocJar != null)
+                            artifact(javadocJar.get())
 
-                    pom.configure(::pomProperty, releaseMode)
+                        pom.configure(::pomProperty, releaseMode)
+                    }
                 }
             }
         }
