@@ -37,7 +37,7 @@ class MavenCentralPublishPlugin : Plugin<Project> {
         val multiplatformMode = plugins.hasPlugin(KotlinPlugin.MULTIPLATFORM)
         val jvmMode = plugins.hasPlugin(KotlinPlugin.JVM)
 
-        val javadocJar = if (jvmMode) {
+        val javadocJar = if (multiplatformMode || jvmMode) {
             tasks.register("emptyJavadocJar", Jar::class) {
                 archiveClassifier.set("javadoc")
             }
@@ -47,6 +47,9 @@ class MavenCentralPublishPlugin : Plugin<Project> {
             configure<PublishingExtension> {
                 publications {
                     withType<MavenPublication>().configureEach {
+                        if (name == "jvm")
+                            artifact(javadocJar!!.get())
+
                         pom.configure(::pomProperty, releaseMode)
                     }
                 }
