@@ -85,8 +85,6 @@ class WebpackLoadersPlugin : Plugin<Project> {
 
         tasks.configureEach<PatchWebpackConfig> {
             patch("rules", RULES)
-            replace("__dynamic_import__", "import")
-
             patch("font-rules", fontRules())
 
             if (!project.name.endsWith("-worker"))
