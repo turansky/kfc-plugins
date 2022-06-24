@@ -1,5 +1,5 @@
 package kfc.import
 
-external interface Module<T : Any> {
+external interface Module<out T : Any> {
     val default: T
 }
