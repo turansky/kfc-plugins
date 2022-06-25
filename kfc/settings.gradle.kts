@@ -22,7 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-include(":kfc-import")
 include(":kfc-react")
 
 include(":kfc-gradle-plugin")
