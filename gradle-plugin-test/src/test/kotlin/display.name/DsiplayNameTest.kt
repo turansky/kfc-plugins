@@ -1,5 +1,6 @@
 package display.name
 
+import react.displayName
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals

@@ -20,7 +20,7 @@ private fun Project.configureLatestWebpack() {
         the<NodeJsRootExtension>().versions.apply {
             webpack.version = "5.73.0"
             webpackCli.version = "4.10.0"
-            webpackDevServer.version = "4.9.2"
+            webpackDevServer.version = "4.9.3"
 
             karma.version = "6.4.0"
         }
