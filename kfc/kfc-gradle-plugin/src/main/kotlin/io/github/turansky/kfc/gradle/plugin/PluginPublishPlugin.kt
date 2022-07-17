@@ -7,7 +7,7 @@ import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.named
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.io.File
 
 class PluginPublishPlugin : Plugin<Project> {
@@ -74,4 +74,3 @@ private fun Project.changeVersion(
         file.writeText(newContent)
     }
 }
-
