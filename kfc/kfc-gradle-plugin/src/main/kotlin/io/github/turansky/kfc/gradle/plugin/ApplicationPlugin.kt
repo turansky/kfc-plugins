@@ -20,6 +20,8 @@ class ApplicationPlugin : Plugin<Project> {
             run = property(WEBPACK_RUN),
         )
 
+        plugins.apply(WebpackBundlePlugin::class)
+
         if (property(REACT_LAZY)) {
             plugins.apply(LazyLoadingPlugin::class)
         }
