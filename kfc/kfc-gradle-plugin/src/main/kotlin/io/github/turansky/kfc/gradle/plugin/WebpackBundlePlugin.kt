@@ -45,6 +45,6 @@ class WebpackBundlePlugin : Plugin<Project> {
     private fun DependencyHandlerScope.applyConfiguration(configurationName: String) {
         val devNpm = extensions.getByName<DevNpmDependencyExtension>("devNpm")
 
-        configurationName(devNpm("webpack-bundle-analyzer", "4.6.1"))
+        configurationName(devNpm("webpack-bundle-analyzer", "4.7.0"))
     }
 }
