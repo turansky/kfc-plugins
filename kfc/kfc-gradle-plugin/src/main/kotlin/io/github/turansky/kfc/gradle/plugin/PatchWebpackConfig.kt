@@ -9,8 +9,6 @@ import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
 
-typealias Replacement = Pair<String, Boolean>
-
 open class PatchWebpackConfig : DefaultTask() {
     init {
         group = DEFAULT_TASK_GROUP
@@ -20,7 +18,7 @@ open class PatchWebpackConfig : DefaultTask() {
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:Input
-    val replacements: MutableMap<String, Replacement> = mutableMapOf()
+    val replacements: MutableMap<String, String> = mutableMapOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -101,9 +99,8 @@ open class PatchWebpackConfig : DefaultTask() {
     fun replace(
         oldValue: String,
         newValue: String,
-        replaceAll: Boolean = false,
     ) {
-        replacements[oldValue] = Replacement(newValue, replaceAll)
+        replacements[oldValue] = newValue
     }
 
     @TaskAction
@@ -137,17 +134,12 @@ open class PatchWebpackConfig : DefaultTask() {
 }
 
 @Suppress("JSUnnecessarySemicolon")
-private fun createReplacePatch(replacements: Map<String, Replacement>): String? {
+private fun createReplacePatch(replacements: Map<String, String>): String? {
     if (replacements.isEmpty())
         return null
 
-    val replacementOptions = replacements.map { (oldValue, replacement) ->
-        val (newValue, replaceAll) = replacement
-        val flags = if (replaceAll) {
-            ", flags : 'g' "
-        } else ""
-
-        """{ search: "$oldValue", replace: "$newValue" $flags},"""
+    val replacementOptions = replacements.map { (oldValue, newValue) ->
+        """{ search: "$oldValue", replace: "$newValue", flags : 'g' },"""
     }.joinToString("\n                ")
 
     return createPatch(
