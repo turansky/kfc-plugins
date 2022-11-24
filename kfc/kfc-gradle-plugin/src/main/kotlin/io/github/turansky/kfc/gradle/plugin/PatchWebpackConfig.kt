@@ -9,6 +9,8 @@ import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
 
+typealias Replacement = Pair<String, Boolean>
+
 open class PatchWebpackConfig : DefaultTask() {
     init {
         group = DEFAULT_TASK_GROUP
@@ -18,7 +20,7 @@ open class PatchWebpackConfig : DefaultTask() {
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:Input
-    val replacements: MutableMap<String, String> = mutableMapOf()
+    val replacements: MutableMap<String, Replacement> = mutableMapOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -99,8 +101,9 @@ open class PatchWebpackConfig : DefaultTask() {
     fun replace(
         oldValue: String,
         newValue: String,
+        replaceAll: Boolean = false,
     ) {
-        replacements[oldValue] = newValue
+        replacements[oldValue] = Replacement(newValue, replaceAll)
     }
 
     @TaskAction
@@ -134,12 +137,17 @@ open class PatchWebpackConfig : DefaultTask() {
 }
 
 @Suppress("JSUnnecessarySemicolon")
-private fun createReplacePatch(replacements: Map<String, String>): String? {
+private fun createReplacePatch(replacements: Map<String, Replacement>): String? {
     if (replacements.isEmpty())
         return null
 
-    val replacementOptions = replacements.map { (oldValue, newValue) ->
-        """{ search: "$oldValue", replace: "$newValue" },"""
+    val replacementOptions = replacements.map { (oldValue, replacement) ->
+        val (newValue, replaceAll) = replacement
+        val flags = if (replaceAll) {
+            ", flags : 'g' "
+        } else ""
+
+        """{ search: "$oldValue", replace: "$newValue" $flags},"""
     }.joinToString("\n                ")
 
     return createPatch(
@@ -153,8 +161,7 @@ private fun createReplacePatch(replacements: Map<String, String>): String? {
             options: {
               multiple: [
                 $replacementOptions
-              ],
-              flags: 'g',
+              ]
             }
           },
         )
