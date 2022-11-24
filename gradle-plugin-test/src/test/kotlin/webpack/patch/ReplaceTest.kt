@@ -12,5 +12,6 @@ class ReplaceTest {
     @Test
     fun numberIsReplaced() {
         assertEquals(BUILD_NUMBER, 42)
+        assertEquals(ANOTHER_BUILD_NUMBER, 42)
     }
 }

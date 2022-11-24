@@ -6,7 +6,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @Ignore
-class DsiplayNameTest {
+class DisplayNameTest {
     @Test
     fun appName() {
         assertEquals(App.displayName, "App")

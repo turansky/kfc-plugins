@@ -139,7 +139,7 @@ private fun createReplacePatch(replacements: Map<String, String>): String? {
         return null
 
     val replacementOptions = replacements.map { (oldValue, newValue) ->
-        """{ search: "$oldValue", replace: "$newValue" },"""
+        """{ search: "$oldValue", replace: "$newValue", flags : 'g' },"""
     }.joinToString("\n                ")
 
     return createPatch(
@@ -153,8 +153,7 @@ private fun createReplacePatch(replacements: Map<String, String>): String? {
             options: {
               multiple: [
                 $replacementOptions
-              ],
-              flags: 'g',
+              ]
             }
           },
         )
