@@ -26,6 +26,8 @@ internal fun Project.applyKotlinJsPlugin(
     val moduleKeep = if (distribution && !jsIrCompiler) jsModuleKeep else null
     val fileName = jsOutputFileName
 
+    val buildBundle = binaries || distribution || run
+
     val kotlin = the<KotlinJsProjectExtension>()
     kotlin.js {
         moduleName = jsModuleName
@@ -49,7 +51,7 @@ internal fun Project.applyKotlinJsPlugin(
             }
         }
 
-        if (binaries || distribution || run) {
+        if (buildBundle) {
             this.binaries.executable()
         }
     }
@@ -60,5 +62,9 @@ internal fun Project.applyKotlinJsPlugin(
         if (binaries) {
             disable<KotlinJsDce>()
         }
+    }
+
+    if (buildBundle && !run) {
+        gradle.startParameter.excludedTaskNames.add("run")
     }
 }
