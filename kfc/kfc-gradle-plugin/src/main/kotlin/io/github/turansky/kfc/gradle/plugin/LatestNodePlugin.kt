@@ -6,6 +6,7 @@ import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
@@ -23,6 +24,7 @@ private fun Project.configureLatestNode() {
         the<YarnRootExtension>().apply {
             version = YARN_VERSION
             lockFileDirectory = projectDir
+            yarnLockMismatchReport = YarnLockMismatchReport.NONE
             ignoreScripts = false
         }
     }
