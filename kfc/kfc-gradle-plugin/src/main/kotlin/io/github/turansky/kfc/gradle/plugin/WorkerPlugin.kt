@@ -5,6 +5,9 @@ import org.gradle.api.Project
 
 class WorkerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        applyKotlinJsPlugin(distribution = true)
+        applyKotlinJsPlugin(
+            distribution = true,
+            singleFile = true,
+        )
     }
 }
