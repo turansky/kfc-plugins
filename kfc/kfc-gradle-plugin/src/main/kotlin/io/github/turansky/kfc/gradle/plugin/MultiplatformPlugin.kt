@@ -14,7 +14,9 @@ class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         rootProject.ext(NO_WARN, true)
 
-        applyKotlinDefaults(true)
+        applyKotlinDefaults(
+            both = true,
+        )
 
         plugins.apply(KotlinPlugin.MULTIPLATFORM)
         plugins.apply(LatestNodePlugin::class)

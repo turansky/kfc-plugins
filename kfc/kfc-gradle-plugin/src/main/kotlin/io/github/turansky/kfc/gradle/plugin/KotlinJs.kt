@@ -12,7 +12,9 @@ internal fun Project.applyKotlinJsPlugin(
     distribution: Boolean = false,
     run: Boolean = false,
 ) {
-    applyKotlinDefaults(!binaries && !distribution && !run)
+    applyKotlinDefaults(
+        both = !binaries && !distribution && !run,
+    )
 
     plugins.apply(KotlinPlugin.JS)
     if (!binaries) {
