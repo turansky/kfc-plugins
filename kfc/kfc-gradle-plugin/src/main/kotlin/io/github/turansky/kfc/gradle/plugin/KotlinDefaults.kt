@@ -18,7 +18,7 @@ internal val Project.jsIrCompiler: Boolean
 
 internal fun Project.applyKotlinDefaults(
     both: Boolean,
-    singleFile: Boolean,
+    singleFile: Boolean = false,
 ) {
     if (both && property(PROGRESSIVE_MODE)) {
         ext(JS_COMPILER, "both")
