@@ -88,6 +88,12 @@ enum class KfcPlugin(
         tags = listOf("dev server", "dev testing"),
     ),
 
+    WRAPPERS(
+        displayName = "Wrappers plugin",
+        description = "Kotlin Wrappers support for Kotlin/JS projects",
+        tags = listOf("wrappers", "react"),
+    ),
+
     REACT(
         displayName = "React plugin",
         description = "React support for Kotlin/JS projects",
