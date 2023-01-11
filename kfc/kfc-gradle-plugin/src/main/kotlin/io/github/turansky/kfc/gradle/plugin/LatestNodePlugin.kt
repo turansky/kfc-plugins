@@ -25,6 +25,7 @@ private fun Project.configureLatestNode() {
             version = YARN_VERSION
             lockFileDirectory = projectDir
             yarnLockMismatchReport = YarnLockMismatchReport.NONE
+            yarnLockAutoReplace = true
             ignoreScripts = false
         }
     }
