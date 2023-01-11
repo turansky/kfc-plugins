@@ -22,7 +22,7 @@
 ```kotlin
 plugins {
   kotlin("js") version "1.8.0"
-  id("io.github.turansky.kfc.webpack") version "5.92.0"
+  id("io.github.turansky.kfc.webpack") version "5.95.0"
 }
 
 kotlin.js {
@@ -72,6 +72,6 @@ Apply [`webpack`](#webpack) plugin by default
 ```kotlin
 plugins {
   kotlin("js") version "1.8.0"
-  id("io.github.turansky.kfc.library") version "5.92.0"
+  id("io.github.turansky.kfc.library") version "5.95.0"
 }
 ```
