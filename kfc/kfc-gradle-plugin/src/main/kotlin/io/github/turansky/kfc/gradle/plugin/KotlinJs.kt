@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
@@ -57,6 +58,19 @@ internal fun Project.applyKotlinJsPlugin(
 
         if (buildBundle) {
             this.binaries.executable()
+        }
+    }
+
+    // TODO: remove after migration on multiplatform plugin
+    kotlin.apply {
+        val mainDir = projectDir.resolve("src/jsMain/kotlin")
+        if (mainDir.exists()) {
+            sourceSets["main"].kotlin.srcDir(mainDir)
+        }
+
+        val testDir = projectDir.resolve("src/jsTest/kotlin")
+        if (testDir.exists()) {
+            sourceSets["test"].kotlin.srcDir(testDir)
         }
     }
 
