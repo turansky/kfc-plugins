@@ -65,7 +65,7 @@ private fun Project.disableTestsWithoutSources() {
                     sourceSet.names
                         .asSequence()
                         .map { kotlin.sourceSets.getByName(it) }
-                        .mapNotNull { it.kotlin.sourceDirectories.singleOrNull() }
+                        .flatMap { it.kotlin.sourceDirectories }
                         .any { it.exists() }
                 }
             }
