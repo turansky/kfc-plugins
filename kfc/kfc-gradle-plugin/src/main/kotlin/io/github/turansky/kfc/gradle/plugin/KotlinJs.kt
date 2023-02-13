@@ -46,9 +46,11 @@ internal fun Project.applyKotlinJsPlugin(
             })
             webpackTask(Action {
                 enabled = distribution
+                saveEvaluatedConfigFile = false
             })
             runTask(Action {
                 enabled = run
+                saveEvaluatedConfigFile = false
             })
             if (moduleKeep != null) {
                 @Suppress("EXPERIMENTAL_API_USAGE")
