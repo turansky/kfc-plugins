@@ -1,5 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.get
@@ -38,10 +39,11 @@ internal fun Project.applyKotlinJsPlugin(
         moduleName = jsModuleName
 
         browser {
-            commonWebpackConfig {
+            // TODO: remove redundant `Action` call after migration on Kotlin `1.8.20`
+            commonWebpackConfig(Action {
                 output?.library = null
                 outputFileName = fileName
-            }
+            })
             webpackTask {
                 enabled = distribution
                 saveEvaluatedConfigFile = false
