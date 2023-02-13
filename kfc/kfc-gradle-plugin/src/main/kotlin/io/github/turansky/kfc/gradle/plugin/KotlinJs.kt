@@ -38,23 +38,23 @@ internal fun Project.applyKotlinJsPlugin(
     kotlin.js {
         moduleName = jsModuleName
 
+        // TODO: remove redundant `Action` call after migration on Kotlin `1.8.20`
         browser {
-            // TODO: remove redundant `Action` call after migration on Kotlin `1.8.20`
             commonWebpackConfig(Action {
                 output?.library = null
                 outputFileName = fileName
             })
-            webpackTask {
+            webpackTask(Action {
                 enabled = distribution
                 saveEvaluatedConfigFile = false
-            }
-            runTask {
+            })
+            runTask(Action {
                 enabled = run
                 saveEvaluatedConfigFile = false
-            }
+            })
             if (moduleKeep != null) {
                 @Suppress("EXPERIMENTAL_API_USAGE")
-                dceTask { keep += moduleKeep }
+                dceTask(Action { keep += moduleKeep })
             }
         }
 
