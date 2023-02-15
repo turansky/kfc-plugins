@@ -37,11 +37,6 @@ include("examples:web-worker:worker-io")
 include("examples:web-worker:worker-wl")
 include("examples:web-worker:local-server")
 
-include("examples:webpack-plus-ktor:entity")
-include("examples:webpack-plus-ktor:ktor-server")
-include("examples:webpack-plus-ktor:view")
-include("examples:webpack-plus-ktor:webpack-server")
-
 include("examples:yfiles-optimizer")
 
 include("gradle-plugin-test")
