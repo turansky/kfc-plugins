@@ -25,7 +25,6 @@ internal fun Project.applyKotlinJsPlugin(
         plugins.apply(WebpackPlugin::class)
     }
     if (distribution || run) {
-        plugins.apply(WebComponentPlugin::class)
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
