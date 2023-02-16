@@ -30,7 +30,6 @@ internal fun Project.applyKotlinDefaults(
     }
 
     plugins.apply(SourceMapsPlugin::class)
-    plugins.apply(WorkaroundPlugin::class)
     plugins.apply(ValueClassSerializationPlugin::class)
 
     configureStrictMode()
