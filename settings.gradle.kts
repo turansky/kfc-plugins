@@ -16,8 +16,6 @@ dependencyResolutionManagement {
     }
 }
 
-include("examples:definitions")
-
 include("examples:resources:lib-a")
 include("examples:resources:lib-b")
 include("examples:resources:lib-c")
