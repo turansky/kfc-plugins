@@ -8,8 +8,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 private const val NO_WARN: String = "kotlin.mpp.stability.nowarn"
 
-private val JS_ONLY = BooleanProperty("kfc.js.only")
-
 class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         rootProject.ext(NO_WARN, true)
@@ -22,10 +20,6 @@ class MultiplatformPlugin : Plugin<Project> {
         plugins.apply(LatestNodePlugin::class)
 
         extensions.configure<KotlinMultiplatformExtension>("kotlin") {
-            if (!property(JS_ONLY)) {
-                jvm()
-            }
-
             js {
                 browser()
             }
