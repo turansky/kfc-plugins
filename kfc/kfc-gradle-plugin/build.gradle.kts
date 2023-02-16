@@ -22,12 +22,6 @@ enum class KfcPlugin(
     val description: String,
     tags: Collection<String>,
 ) {
-    ROOT(
-        displayName = "Root plugin",
-        description = "Configure Kotlin/JS plugin in root project",
-        tags = listOf("root"),
-    ),
-
     VERSION(
         displayName = "Version plugin",
         description = "Provide version tasks in root project",
