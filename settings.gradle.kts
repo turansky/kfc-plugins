@@ -24,11 +24,7 @@ include("examples:resources:app-d")
 include("examples:value-class")
 
 include("examples:web-worker:entity")
-include("examples:web-worker:view")
-include("examples:web-worker:view-io")
 include("examples:web-worker:view-wl")
-include("examples:web-worker:worker")
-include("examples:web-worker:worker-io")
 include("examples:web-worker:worker-wl")
 include("examples:web-worker:local-server")
 
