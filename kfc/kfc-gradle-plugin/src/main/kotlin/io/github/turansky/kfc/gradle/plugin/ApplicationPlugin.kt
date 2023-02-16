@@ -8,7 +8,6 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 private val WEBPACK_RUN = BooleanProperty("kfc.webpack.run")
-private val REACT_LAZY = BooleanProperty("kfc.react.lazy")
 
 private const val BPW: String = "browserProductionWebpack"
 private const val BDW: String = "browserDevelopmentWebpack"
@@ -21,10 +20,6 @@ class ApplicationPlugin : Plugin<Project> {
         )
 
         plugins.apply(WebpackBundlePlugin::class)
-
-        if (property(REACT_LAZY)) {
-            plugins.apply(LazyLoadingPlugin::class)
-        }
 
         if (jsIrCompiler) {
             applyIr()
