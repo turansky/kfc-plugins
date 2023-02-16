@@ -52,12 +52,6 @@ enum class KfcPlugin(
         tags = listOf("library"),
     ),
 
-    COMPONENT(
-        displayName = "Kotlin/JS component plugin",
-        description = "Kotlin/JS component configuration",
-        tags = listOf("component"),
-    ),
-
     APPLICATION(
         displayName = "Kotlin/JS application plugin",
         description = "Kotlin/JS application configuration",
