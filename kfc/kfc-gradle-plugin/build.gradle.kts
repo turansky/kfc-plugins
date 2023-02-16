@@ -28,12 +28,6 @@ enum class KfcPlugin(
         tags = listOf("version"),
     ),
 
-    NPM_BUILD(
-        displayName = "npm build plugin",
-        description = "Predefined npm tasks for Kotlin/JS",
-        tags = listOf("npm"),
-    ),
-
     MAVEN_PUBLISH(
         displayName = "Maven publish plugin",
         description = "Predefined maven publications for Kotlin",
