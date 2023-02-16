@@ -4,6 +4,10 @@ import AAA
 import BBB
 import CCC
 
+fun main() {
+    Api
+}
+
 object Api {
     fun App(): String = AAA() + BBB() + CCC()
 

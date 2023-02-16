@@ -1,9 +1,5 @@
 plugins {
-    id("io.github.turansky.kfc.component")
-}
-
-component {
-    export("com.test.view.Api")
+    id("io.github.turansky.kfc.application")
 }
 
 dependencies {
