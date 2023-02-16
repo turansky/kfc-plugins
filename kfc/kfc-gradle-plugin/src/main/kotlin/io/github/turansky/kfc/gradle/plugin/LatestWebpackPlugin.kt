@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
@@ -11,24 +12,26 @@ import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 class LatestWebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        rootProject.configureLatestWebpack()
+        rootProject.plugins.apply(RootLatestWebpackPlugin::class)
     }
 }
 
-private fun Project.configureLatestWebpack() {
-    plugins.withType<NodeJsRootPlugin> {
-        the<NodeJsRootExtension>().versions.apply {
-            webpack.version = "5.75.0"
-            webpackCli.version = "4.10.0"
-            webpackDevServer.version = "4.11.1"
+private class RootLatestWebpackPlugin : Plugin<Project> {
+    override fun apply(target: Project): Unit = with(target) {
+        plugins.withType<NodeJsRootPlugin> {
+            the<NodeJsRootExtension>().versions.apply {
+                webpack.version = "5.75.0"
+                webpackCli.version = "4.10.0"
+                webpackDevServer.version = "4.11.1"
 
-            karma.version = "6.4.1"
+                karma.version = "6.4.1"
+            }
         }
-    }
 
-    plugins.withType<YarnPlugin> {
-        the<YarnRootExtension>().apply {
-            resolution("nanoid", "^3.3.4")
+        plugins.withType<YarnPlugin> {
+            the<YarnRootExtension>().apply {
+                resolution("nanoid", "^3.3.4")
+            }
         }
     }
 }

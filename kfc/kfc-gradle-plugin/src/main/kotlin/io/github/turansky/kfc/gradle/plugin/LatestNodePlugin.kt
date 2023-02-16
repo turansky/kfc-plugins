@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
@@ -15,24 +16,26 @@ private const val NODE_VERSION = "18.14.0"
 
 class LatestNodePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        rootProject.configureLatestNode()
+        rootProject.plugins.apply(RootLatestNodePlugin::class)
     }
 }
 
-private fun Project.configureLatestNode() {
-    plugins.withType<YarnPlugin> {
-        the<YarnRootExtension>().apply {
-            version = YARN_VERSION
-            lockFileDirectory = projectDir
-            yarnLockMismatchReport = YarnLockMismatchReport.NONE
-            yarnLockAutoReplace = true
-            ignoreScripts = false
+private class RootLatestNodePlugin : Plugin<Project> {
+    override fun apply(target: Project): Unit = with(target) {
+        plugins.withType<YarnPlugin> {
+            the<YarnRootExtension>().apply {
+                version = YARN_VERSION
+                lockFileDirectory = projectDir
+                yarnLockMismatchReport = YarnLockMismatchReport.NONE
+                yarnLockAutoReplace = true
+                ignoreScripts = false
+            }
         }
-    }
 
-    plugins.withType<NodeJsRootPlugin> {
-        the<NodeJsRootExtension>().apply {
-            nodeVersion = NODE_VERSION
+        plugins.withType<NodeJsRootPlugin> {
+            the<NodeJsRootExtension>().apply {
+                nodeVersion = NODE_VERSION
+            }
         }
     }
 }
