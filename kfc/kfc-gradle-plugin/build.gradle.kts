@@ -100,12 +100,6 @@ enum class KfcPlugin(
         tags = listOf("react", "lazy", "display name"),
     ),
 
-    DEFINITIONS(
-        displayName = "Kotlin/JS definitions plugin",
-        description = "Kotlin/JS definitions configuration",
-        tags = listOf("definitions"),
-    ),
-
     MAVEN_CENTRAL_PUBLISH(
         displayName = "Maven central publish plugin",
         description = "Maven central publish configuration",
