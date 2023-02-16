@@ -18,7 +18,6 @@ dependencyResolutionManagement {
 
 include("examples:definitions")
 
-include("examples:web-component-extension")
 include("examples:yfiles-web-component")
 
 include("examples:resources:lib-a")
