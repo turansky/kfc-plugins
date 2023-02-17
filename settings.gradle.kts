@@ -28,8 +28,6 @@ include("examples:web-worker:view-wl")
 include("examples:web-worker:worker-wl")
 include("examples:web-worker:local-server")
 
-include("examples:yfiles-optimizer")
-
 include("gradle-plugin-test")
 
 includeBuild("kfc")
