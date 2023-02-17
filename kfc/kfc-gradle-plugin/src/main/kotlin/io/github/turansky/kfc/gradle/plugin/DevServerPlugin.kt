@@ -1,28 +1,16 @@
 package io.github.turansky.kfc.gradle.plugin
 
-import io.github.turansky.kfc.gradle.plugin.Output.DEV_SERVER
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.hasPlugin
 import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
-
-// language=JavaScript
-private const val PORT_PATCH: String = """
-  const devServer = config.devServer 
-  devServer.port = 9000
-"""
 
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinJsPlugin(run = true)
-
-        val extension = extensions.create<DevServerExtension>("devServer")
-        val generateExportAlias = tasks.register<GenerateExportAlias>("generateExportAlias")
 
         tasks {
             disable<KotlinJsDce> {
@@ -31,12 +19,6 @@ class DevServerPlugin : Plugin<Project> {
 
             disable<KotlinWebpack> {
                 name !in DEVELOPMENT_RUN_TASKS
-            }
-
-            configureEach<KotlinWebpack> {
-                outputFileName = DEV_SERVER.fileName
-
-                dependsOn(generateExportAlias)
             }
 
             if (jsIrCompiler) {
@@ -54,34 +36,15 @@ class DevServerPlugin : Plugin<Project> {
                     "00__init__00",
                     // language=JavaScript
                     """
-                        delete config.entry.main
+                        delete config.entry.main                        
 
                         config.output.filename = '$fileName'
                     """.trimIndent()
                 )
 
-                patch("dev-server-port", PORT_PATCH)
-
                 eachApplicationDependency {
                     entry(it)
                 }
-            }
-        }
-
-        afterEvaluate {
-            val devServerRoot = extension.root
-                ?: return@afterEvaluate
-
-            generateExportAlias {
-                export = devServerRoot
-            }
-
-            tasks.configureEach<PatchWebpackConfig> {
-                val entry = entryConfiguration(
-                    output = DEV_SERVER,
-                    entry = generateExportAlias.get().entry
-                )
-                patch("entry", entry)
             }
         }
     }
