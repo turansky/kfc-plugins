@@ -9,8 +9,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 private val WEBPACK_RUN = BooleanProperty("kfc.webpack.run")
 
-private const val BPW: String = "browserProductionWebpack"
-private const val BDW: String = "browserDevelopmentWebpack"
+private const val BPW: String = "jsBrowserProductionWebpack"
+private const val BDW: String = "jsBrowserDevelopmentWebpack"
 
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -52,7 +52,7 @@ class ApplicationPlugin : Plugin<Project> {
                 from(it.tasks.named(BPW))
             }
 
-            val processDceKotlinJs = tasks.named<KotlinJsDce>("processDceKotlinJs")
+            val processDceKotlinJs = tasks.named<KotlinJsDce>("processDceJsKotlinJs")
             into(processDceKotlinJs.get().destinationDirectory)
 
             dependsOn(processDceKotlinJs)

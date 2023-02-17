@@ -126,7 +126,7 @@ open class PatchWebpackConfig : DefaultTask() {
     @Suppress("UnstableApiUsage")
     private fun dceFile(name: String): File =
         project.tasks
-            .getByName<KotlinJsDce>("processDceDevKotlinJs")
+            .getByName<KotlinJsDce>("processDceDevJsKotlinJs")
             .destinationDirectory
             .file("$name.js")
             .get()

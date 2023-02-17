@@ -3,11 +3,10 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 internal fun Project.applyKotlinJsPlugin(
     binaries: Boolean = false,
@@ -20,7 +19,8 @@ internal fun Project.applyKotlinJsPlugin(
         singleFile = singleFile,
     )
 
-    plugins.apply(KotlinPlugin.JS)
+    plugins.apply(KotlinPlugin.MULTIPLATFORM)
+
     if (!binaries) {
         plugins.apply(WebpackPlugin::class)
     }
@@ -32,7 +32,7 @@ internal fun Project.applyKotlinJsPlugin(
 
     val buildBundle = binaries || distribution || run
 
-    val kotlin = the<KotlinJsProjectExtension>()
+    val kotlin = the<KotlinMultiplatformExtension>()
     kotlin.js {
         moduleName = jsModuleName
 
@@ -57,28 +57,11 @@ internal fun Project.applyKotlinJsPlugin(
         }
     }
 
-    // TODO: remove after migration on multiplatform plugin
-    kotlin.apply {
-        val mainDir = projectDir.resolve("src/jsMain/kotlin")
-        if (mainDir.exists()) {
-            sourceSets["main"].kotlin.srcDir(mainDir)
-        }
-
-        val testDir = projectDir.resolve("src/jsTest/kotlin")
-        if (testDir.exists()) {
-            sourceSets["test"].kotlin.srcDir(testDir)
-        }
-    }
-
     tasks {
         useModularJsTarget()
 
         if (binaries) {
             disable<KotlinJsDce>()
         }
-    }
-
-    if (buildBundle && !run) {
-        gradle.startParameter.excludedTaskNames.add("run")
     }
 }
