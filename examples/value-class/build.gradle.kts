@@ -1,5 +1,5 @@
 plugins {
-    id("io.github.turansky.kfc.multiplatform")
+    id("io.github.turansky.kfc.library")
     kotlin("plugin.serialization")
 }
 
