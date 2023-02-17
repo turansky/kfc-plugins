@@ -19,10 +19,6 @@ class MavenCentralPublishPlugin : Plugin<Project> {
         plugins.withId(KotlinPlugin.JVM) {
             configurePublication()
         }
-
-        plugins.withId(KotlinPlugin.JS) {
-            configurePublication()
-        }
     }
 
     private fun Project.configurePublication() {
@@ -35,20 +31,16 @@ class MavenCentralPublishPlugin : Plugin<Project> {
             property("kfc.pom.$name") as String
 
         val multiplatformMode = plugins.hasPlugin(KotlinPlugin.MULTIPLATFORM)
-        val jvmMode = plugins.hasPlugin(KotlinPlugin.JVM)
 
-        val javadocJar = if (multiplatformMode || jvmMode) {
-            tasks.register("emptyJavadocJar", Jar::class) {
-                archiveClassifier.set("javadoc")
-            }
-        } else null
-
+        val javadocJar = tasks.register("emptyJavadocJar", Jar::class) {
+            archiveClassifier.set("javadoc")
+        }
 
         configure<PublishingExtension> {
             if (multiplatformMode) {
                 publications.withType<MavenPublication>().configureEach {
                     if (name == "jvm")
-                        artifact(javadocJar!!.get())
+                        artifact(javadocJar.get())
 
                     pom.configure(::pomProperty, releaseMode)
                 }
@@ -57,9 +49,7 @@ class MavenCentralPublishPlugin : Plugin<Project> {
                     from(components["kotlin"])
 
                     artifact(tasks.getByName(KOTLIN_SOURCES_TASK))
-
-                    if (javadocJar != null)
-                        artifact(javadocJar.get())
+                    artifact(javadocJar.get())
 
                     pom.configure(::pomProperty, releaseMode)
                 }
