@@ -34,12 +34,6 @@ enum class KfcPlugin(
         tags = listOf("maven", "publish"),
     ),
 
-    MULTIPLATFORM(
-        displayName = "Kotlin multiplatform library plugin",
-        description = "Optimize Kotlin multiplatform library configuration",
-        tags = listOf("multiplatform", "library"),
-    ),
-
     WEBPACK(
         displayName = "Kotlin/JS webpack plugin",
         description = "Webpack configuration for Kotlin/JS",

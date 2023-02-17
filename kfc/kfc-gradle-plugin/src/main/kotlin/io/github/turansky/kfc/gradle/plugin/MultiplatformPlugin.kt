@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 private const val NO_WARN: String = "kotlin.mpp.stability.nowarn"
 
-class MultiplatformPlugin : Plugin<Project> {
+internal class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         rootProject.ext(NO_WARN, true)
 
