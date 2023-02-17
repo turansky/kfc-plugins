@@ -4,7 +4,6 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.kotlin.dsl.TaskContainerScope
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-import java.io.File
 
 internal const val DEFAULT_TASK_GROUP: String = "KFC"
 
@@ -19,12 +18,6 @@ internal val DEVELOPMENT_DCE_TASKS = setOf(
 internal const val COMPILE_PRODUCTION: String = "compileProductionExecutableKotlinJs"
 internal const val COMPILE_DEVELOPMENT: String = "compileDevelopmentExecutableKotlinJs"
 internal const val KOTLIN_SOURCES_TASK = "kotlinSourcesJar"
-
-internal val Task.jsModuleName: String
-    get() = project.jsModuleName
-
-internal fun Task.jsPackageDir(relative: String): File =
-    project.jsPackageDir(relative)
 
 internal fun TaskContainerScope.useModularJsTarget() {
     configureEach<KotlinJsCompile> {
