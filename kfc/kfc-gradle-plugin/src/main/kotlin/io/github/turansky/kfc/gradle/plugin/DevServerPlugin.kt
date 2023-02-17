@@ -62,12 +62,6 @@ class DevServerPlugin : Plugin<Project> {
 
                 patch("dev-server-port", PORT_PATCH)
 
-                relatedProjects()
-                    .mapNotNull { it.tasks.findGenerateExportProxy() }
-                    .onEach { dependsOn(it) }
-                    .takeIf { it.isNotEmpty() }
-                    ?.also { patch("entries", it.entryConfiguration()) }
-
                 eachApplicationDependency {
                     entry(it)
                 }
@@ -100,4 +94,3 @@ internal fun Task.eachApplicationDependency(
         .filter { it.plugins.hasPlugin(ApplicationPlugin::class) }
         .forEach(action)
 }
-
