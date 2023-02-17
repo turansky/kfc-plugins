@@ -28,12 +28,6 @@ enum class KfcPlugin(
         tags = listOf("version"),
     ),
 
-    MAVEN_PUBLISH(
-        displayName = "Maven publish plugin",
-        description = "Predefined maven publications for Kotlin",
-        tags = listOf("maven", "publish"),
-    ),
-
     WEBPACK(
         displayName = "Kotlin/JS webpack plugin",
         description = "Webpack configuration for Kotlin/JS",
