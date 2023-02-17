@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(npmv("style-loader"))
-    implementation(npmv("css-loader"))
+    jsMainImplementation(npmv("style-loader"))
+    jsMainImplementation(npmv("css-loader"))
 }

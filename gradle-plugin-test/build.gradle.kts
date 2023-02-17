@@ -6,10 +6,10 @@ plugins {
 val kotlinWrappersVersion = property("kotlin-wrappers.version") as String
 
 dependencies {
-    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:$kotlinWrappersVersion"))
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
+    jsMainImplementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:$kotlinWrappersVersion"))
+    jsMainImplementation("org.jetbrains.kotlin-wrappers:kotlin-react")
 
-    testImplementation(kotlin("test-js"))
+    jsTestImplementation(kotlin("test-js"))
 }
 
 tasks.patchWebpackConfig {
