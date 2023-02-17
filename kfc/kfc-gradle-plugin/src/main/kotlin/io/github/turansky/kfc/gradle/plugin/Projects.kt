@@ -5,7 +5,6 @@ import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
 import java.io.File
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
-private val MODULE_KEEP = StringProperty("kfc.module.keep")
 
 private val OUTPUT_PATH = StringProperty("kfc.output.path")
 private val OUTPUT_NAME = StringProperty("kfc.output.name")
@@ -27,10 +26,6 @@ internal fun Project.jsPackageDir(relative: String): File =
         .resolve("packages")
         .resolve(jsModuleName)
         .resolve(relative)
-
-internal val Project.jsModuleKeep: String?
-    get() = propertyOrNull(MODULE_KEEP)
-        ?.let { "$jsModuleName.$it" }
 
 private val Project.jsOutputPath: String?
     get() = propertyOrNull(OUTPUT_PATH)
@@ -98,5 +93,3 @@ internal fun Project.ext(
 ) {
     extensions.extraProperties[propertyName] = value
 }
-
-

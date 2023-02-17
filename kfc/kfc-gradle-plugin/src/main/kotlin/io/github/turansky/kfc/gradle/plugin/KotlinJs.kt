@@ -28,7 +28,6 @@ internal fun Project.applyKotlinJsPlugin(
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
-    val moduleKeep = if (distribution && !jsIrCompiler) jsModuleKeep else null
     val fileName = jsOutputFileName
 
     val buildBundle = binaries || distribution || run
@@ -51,10 +50,6 @@ internal fun Project.applyKotlinJsPlugin(
                 enabled = run
                 saveEvaluatedConfigFile = false
             })
-            if (moduleKeep != null) {
-                @Suppress("EXPERIMENTAL_API_USAGE")
-                dceTask(Action { keep += moduleKeep })
-            }
         }
 
         if (buildBundle) {
