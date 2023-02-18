@@ -84,18 +84,6 @@ open class PatchWebpackConfig : DefaultTask() {
         }
     }
 
-    fun proxy(target: String) {
-        // language=JavaScript
-        patch(
-            """
-              config.devServer.proxy = {
-                context: () => true,
-                target: '$target',
-              }
-            """.trimIndent()
-        )
-    }
-
     fun replace(
         oldValue: String,
         newValue: String,

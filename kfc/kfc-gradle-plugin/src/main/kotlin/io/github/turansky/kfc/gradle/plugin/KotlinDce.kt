@@ -16,11 +16,9 @@ internal fun getOutputDirectory(
         .parentFile
 
     val directoryName = when (task.name) {
-        "processDceKotlinJs",
         "processDceJsKotlinJs",
         -> "kotlin-dce"
 
-        "processDceDevKotlinJs",
         "processDceDevJsKotlinJs",
         -> "kotlin-dce-dev"
 
