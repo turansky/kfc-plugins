@@ -67,7 +67,6 @@ internal fun Project.relatedRuntimeProjects(): Set<Project> =
 // TODO: optimize calculation
 internal fun Project.relatedProjects(): Set<Project> {
     val configuration = configurations.findByName(JS_MAIN_IMPLEMENTATION)
-        ?: configurations.findByName(IMPLEMENTATION)
         ?: return emptySet()
 
     return configuration
