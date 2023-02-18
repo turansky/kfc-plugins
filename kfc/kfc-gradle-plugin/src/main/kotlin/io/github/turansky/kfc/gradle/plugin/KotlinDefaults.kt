@@ -6,6 +6,8 @@ import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
+private const val NO_WARN: String = "kotlin.mpp.stability.nowarn"
+
 private const val JS_COMPILER = "kotlin.js.compiler"
 private const val BUILD_DISTRIBUTION = "kotlin.js.generate.executable.default"
 private const val OUTPUT_GRANULARITY = "kotlin.js.ir.output.granularity"
@@ -20,6 +22,8 @@ internal fun Project.applyKotlinDefaults(
     both: Boolean,
     singleFile: Boolean = false,
 ) {
+    rootProject.ext(NO_WARN, true)
+
     if (both && property(PROGRESSIVE_MODE)) {
         ext(JS_COMPILER, "both")
     }
