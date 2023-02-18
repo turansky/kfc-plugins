@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 class DevServerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        applyKotlinJsPlugin(run = true)
+        applyKotlinMultiplatformPlugin(run = true)
 
         tasks {
             disable<KotlinJsDce> {

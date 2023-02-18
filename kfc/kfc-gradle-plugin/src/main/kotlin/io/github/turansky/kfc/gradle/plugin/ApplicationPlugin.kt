@@ -14,7 +14,7 @@ private const val BDW: String = "jsBrowserDevelopmentWebpack"
 
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        applyKotlinJsPlugin(
+        applyKotlinMultiplatformPlugin(
             distribution = true,
             run = property(WEBPACK_RUN),
         )

@@ -5,6 +5,6 @@ import org.gradle.api.Project
 
 class LibraryPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        applyKotlinJsPlugin()
+        applyKotlinMultiplatformPlugin()
     }
 }

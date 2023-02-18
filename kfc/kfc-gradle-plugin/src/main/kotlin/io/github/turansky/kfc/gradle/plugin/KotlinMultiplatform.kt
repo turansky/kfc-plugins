@@ -8,7 +8,7 @@ import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-internal fun Project.applyKotlinJsPlugin(
+internal fun Project.applyKotlinMultiplatformPlugin(
     binaries: Boolean = false,
     distribution: Boolean = false,
     run: Boolean = false,
