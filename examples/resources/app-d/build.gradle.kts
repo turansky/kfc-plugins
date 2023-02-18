@@ -3,9 +3,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":examples:resources:lib-a"))
-    implementation(project(":examples:resources:lib-b"))
-    implementation(project(":examples:resources:lib-c"))
+    jsMainImplementation(project(":examples:resources:lib-a"))
+    jsMainImplementation(project(":examples:resources:lib-b"))
+    jsMainImplementation(project(":examples:resources:lib-c"))
 
-    testImplementation(kotlin("test-js"))
+    jsTestImplementation(kotlin("test-js"))
 }

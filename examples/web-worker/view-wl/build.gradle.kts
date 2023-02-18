@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":examples:web-worker:entity"))
-    implementation(project(":examples:web-worker:worker-wl"))
+    jsMainImplementation(project(":examples:web-worker:entity"))
+    jsMainImplementation(project(":examples:web-worker:worker-wl"))
 }

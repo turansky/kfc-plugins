@@ -1,11 +1,7 @@
 plugins {
-    kotlin("multiplatform")
+    id("io.github.turansky.kfc.dev-server")
 }
 
-kotlin {
-    js {
-        browser()
-
-        binaries.executable()
-    }
+dependencies {
+    jsMainRuntimeOnly(project(":examples:web-worker:view-wl"))
 }
