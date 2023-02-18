@@ -97,12 +97,6 @@ class WebpackLoadersPlugin : Plugin<Project> {
                     applyConfiguration(JS_MAIN_IMPLEMENTATION)
                 }
             }
-
-            plugins.withId(KotlinPlugin.JS) {
-                dependencies {
-                    applyConfiguration(IMPLEMENTATION)
-                }
-            }
         }
     }
 

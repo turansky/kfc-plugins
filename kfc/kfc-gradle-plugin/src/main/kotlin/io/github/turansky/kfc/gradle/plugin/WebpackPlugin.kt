@@ -16,12 +16,6 @@ class WebpackPlugin : Plugin<Project> {
                 applyConfiguration()
             }
         }
-
-        plugins.withId(KotlinPlugin.JS) {
-            tasks {
-                applyConfiguration()
-            }
-        }
     }
 
     private fun TaskContainerScope.applyConfiguration() {

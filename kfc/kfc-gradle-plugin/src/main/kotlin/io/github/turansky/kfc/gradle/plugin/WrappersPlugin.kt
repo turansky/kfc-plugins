@@ -16,15 +16,6 @@ class WrappersPlugin : Plugin<Project> {
             }
         }
 
-        plugins.withId(KotlinPlugin.JS) {
-            dependencies {
-                applyConfiguration(
-                    configurationName = IMPLEMENTATION,
-                    wrappersVersion = wrappersVersion(),
-                )
-            }
-        }
-
         extensions.create(
             WrappersDependencyExtension::class.java,
             "wrappers",
