@@ -1,6 +1,5 @@
-// TODO: check, why it's required
 plugins {
-    kotlin("js") apply false
+    kotlin("multiplatform") apply false
 }
 
 tasks.wrapper {
