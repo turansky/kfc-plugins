@@ -4,6 +4,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 
@@ -85,7 +86,7 @@ private enum class ValueType(
     ;
 
     val id: String by lazy {
-        name.toLowerCase().capitalize()
+        name.lowercase().capitalized()
     }
 
     val encodeMethodName: String by lazy {
@@ -112,4 +113,3 @@ private fun String.decodeMethodName(): String {
 
     return type.decodeMethodName
 }
-

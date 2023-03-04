@@ -1,3 +1,5 @@
+import org.gradle.configurationcache.extensions.capitalized
+
 plugins {
     `kotlin-dsl`
 
@@ -102,14 +104,14 @@ enum class KfcPlugin(
 
     ;
 
-    val pluginName: String = name.toLowerCase().replace("_", "-")
+    val pluginName: String = name.lowercase().replace("_", "-")
 
     val id: String = "io.github.turansky.kfc.$pluginName"
     val implementationClass: String = run {
-        val className = name.toLowerCase().replace(
+        val className = name.lowercase().replace(
             regex = Regex("\\_(\\w)"),
             transform = { it.groupValues[1].toUpperCase() },
-        ).capitalize() + "Plugin"
+        ).capitalized() + "Plugin"
 
         "io.github.turansky.kfc.gradle.plugin.$className"
     }
