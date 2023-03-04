@@ -9,7 +9,7 @@ private val UNION = Regex("""\(/\*union\*/\{(\w.+?)}/\*union\*/\)\.([\w\d_]+)"""
 
 class LegacyUnionPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        if (jsIrCompiler)
+        if (!jsLegacyCompiler)
             return@with
 
         tasks.configureEach<Kotlin2JsCompile> {

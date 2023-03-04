@@ -18,6 +18,9 @@ private val PROGRESSIVE_MODE = BooleanProperty("kfc.progressive.mode", true)
 internal val Project.jsIrCompiler: Boolean
     get() = findProperty(JS_COMPILER) == "ir"
 
+internal val Project.jsLegacyCompiler: Boolean
+    get() = findProperty(JS_COMPILER) == "legacy"
+
 internal fun Project.applyKotlinDefaults(
     both: Boolean,
     singleFile: Boolean = false,
