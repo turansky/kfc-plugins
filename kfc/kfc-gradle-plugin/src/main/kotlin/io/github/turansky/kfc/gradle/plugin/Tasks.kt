@@ -7,14 +7,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 
 internal const val DEFAULT_TASK_GROUP: String = "KFC"
 
-internal val DEVELOPMENT_RUN_TASKS = setOf(
-    "browserDevelopmentRun"
-)
-
-internal val DEVELOPMENT_DCE_TASKS = setOf(
-    "processDceDevKotlinJs"
-)
-
 internal const val COMPILE_PRODUCTION: String = "compileProductionExecutableKotlinJs"
 internal const val COMPILE_DEVELOPMENT: String = "compileDevelopmentExecutableKotlinJs"
 internal const val KOTLIN_SOURCES_TASK = "kotlinSourcesJar"

@@ -49,12 +49,6 @@ enum class KfcPlugin(
         tags = listOf("worker"),
     ),
 
-    DEV_SERVER(
-        displayName = "Development server plugin",
-        description = "Testing server for Kotlin/JS",
-        tags = listOf("dev server", "dev testing"),
-    ),
-
     WRAPPERS(
         displayName = "Wrappers plugin",
         description = "Kotlin Wrappers support for Kotlin/JS projects",
