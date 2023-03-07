@@ -1,5 +1,5 @@
 plugins {
-    id("io.github.turansky.kfc.dev-server")
+    id("io.github.turansky.kfc.application")
 }
 
 dependencies {
