@@ -105,7 +105,7 @@ enum class KfcPlugin(
     val implementationClass: String = run {
         val className = name.lowercase().replace(
             regex = Regex("\\_(\\w)"),
-            transform = { it.groupValues[1].toUpperCase() },
+            transform = { it.groupValues[1].uppercase() },
         ).capitalized() + "Plugin"
 
         "io.github.turansky.kfc.gradle.plugin.$className"
