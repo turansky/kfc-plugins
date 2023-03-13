@@ -8,6 +8,7 @@ private val MODULE_NAME = StringProperty("kfc.module.name")
 
 private val OUTPUT_PATH = StringProperty("kfc.output.path")
 private val OUTPUT_NAME = StringProperty("kfc.output.name")
+private val OUTPUT_HASH = BooleanProperty("kfc.output.hash")
 
 internal val Project.jsModuleName: String
     get() {
@@ -51,7 +52,14 @@ internal val Project.jsOutputName: String
         ?: jsModuleName
 
 internal val Project.jsOutputFileName: String
-    get() = outputPath("$jsOutputName.js")
+    get() {
+        val hash = if (property(OUTPUT_HASH)) "[contenthash]" else null
+        val path = sequenceOf(jsOutputName, hash, "js")
+            .filterNotNull()
+            .joinToString(".")
+
+        return outputPath(path)
+    }
 
 internal val Project.jsChunkFileName: String
     get() = outputPath("[name].[contenthash].js")
