@@ -44,11 +44,9 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             })
             webpackTask(Action {
                 enabled = distribution
-                saveEvaluatedConfigFile = false
             })
             runTask(Action {
                 enabled = run
-                saveEvaluatedConfigFile = false
             })
         }
 
