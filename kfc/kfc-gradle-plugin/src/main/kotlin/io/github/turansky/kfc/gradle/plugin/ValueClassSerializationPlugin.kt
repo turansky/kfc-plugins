@@ -18,10 +18,11 @@ internal class ValueClassSerializationPlugin : Plugin<Project> {
         plugins.withId(KotlinPlugin.SERIALIZATION) {
             tasks.withType<Kotlin2JsCompile> {
                 doLast {
-                    val outputFile = outputFileProperty.get()
+                    val outputFile = getOutputFile()
 
                     // IR check (both)
-                    if (outputFile.isDirectory)
+                    val dirName = outputFile.parentFile.parentFile.name
+                    if (dirName == "jsIr")
                         return@doLast
 
                     val content = outputFile.readText()

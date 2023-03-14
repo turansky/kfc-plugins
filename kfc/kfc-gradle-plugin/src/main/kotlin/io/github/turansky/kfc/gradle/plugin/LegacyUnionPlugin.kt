@@ -14,7 +14,7 @@ class LegacyUnionPlugin : Plugin<Project> {
 
         tasks.configureEach<Kotlin2JsCompile> {
             doLast {
-                applyUnionPatch(outputFileProperty.get())
+                applyUnionPatch(getOutputFile())
             }
         }
     }

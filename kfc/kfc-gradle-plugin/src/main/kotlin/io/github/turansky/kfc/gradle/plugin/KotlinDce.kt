@@ -11,8 +11,8 @@ internal fun getOutputDirectory(
     val project = task.project
     val packageDir = project.tasks
         .getByName<Kotlin2JsCompile>("compileKotlinJs")
-        .outputFileProperty.get()
-        .parentFile
+        .destinationDirectory
+        .asFile.get()
         .parentFile
 
     val directoryName = when (task.name) {
