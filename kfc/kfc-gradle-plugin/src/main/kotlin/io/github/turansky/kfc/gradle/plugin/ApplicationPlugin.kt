@@ -8,9 +8,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 private val WEBPACK_RUN = BooleanProperty("kfc.webpack.run")
 
-private const val BPW: String = "jsBrowserProductionWebpack"
-private const val BDW: String = "jsBrowserDevelopmentWebpack"
-
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinMultiplatformPlugin(
@@ -46,7 +43,7 @@ class ApplicationPlugin : Plugin<Project> {
     private fun Project.applyLegacy() {
         val replaceWorker by tasks.registering(Copy::class) {
             eachRuntimeProjectDependency {
-                from(it.tasks.named(BPW))
+                from(it.tasks.named(Webpack.PRODUCTION_TASK))
             }
 
             val processDceKotlinJs = tasks.named<KotlinJsDce>("processDceJsKotlinJs")
@@ -55,7 +52,7 @@ class ApplicationPlugin : Plugin<Project> {
             dependsOn(processDceKotlinJs)
         }
 
-        tasks.named(BPW) {
+        tasks.named(Webpack.PRODUCTION_TASK) {
             dependsOn(replaceWorker)
         }
     }
