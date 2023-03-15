@@ -51,15 +51,21 @@ internal val Project.jsOutputName: String
     get() = propertyOrNull(OUTPUT_NAME)
         ?: jsModuleName
 
-internal val Project.jsOutputFileName: String
-    get() {
-        val hash = if (property(OUTPUT_HASH)) "[contenthash]" else null
-        val path = sequenceOf(jsOutputName, hash, "js")
-            .filterNotNull()
-            .joinToString(".")
-
-        return outputPath(path)
+internal fun Project.getJsOutputFileName(
+    production: Boolean,
+): String {
+    val hash = when {
+        !property(OUTPUT_HASH) -> null
+        production -> "[contenthash]"
+        else -> "development"
     }
+
+    val path = sequenceOf(jsOutputName, hash, "js")
+        .filterNotNull()
+        .joinToString(".")
+
+    return outputPath(path)
+}
 
 internal val Project.jsChunkFileName: String
     get() = outputPath("[name].[contenthash].js")
