@@ -7,7 +7,6 @@ import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.Mode
 
 internal fun Project.applyKotlinMultiplatformPlugin(
     binaries: Boolean = false,
@@ -29,8 +28,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
-    val productionFileName = getJsOutputFileName(production = true)
-    val developmentFileName = getJsOutputFileName(production = false)
+    val fileName = jsOutputFileName
 
     val buildBundle = binaries || distribution || run
 
@@ -42,13 +40,10 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         browser {
             commonWebpackConfig(Action {
                 output?.library = null
+                outputFileName = fileName
             })
             webpackTask(Action {
                 enabled = distribution
-                outputFileName = when (mode) {
-                    Mode.DEVELOPMENT -> developmentFileName
-                    Mode.PRODUCTION -> productionFileName
-                }
             })
             runTask(Action {
                 enabled = run
