@@ -23,10 +23,12 @@ class WebpackPlugin : Plugin<Project> {
             addResourceModules()
 
             patch(
-                "chunk-name",
+                "default-settings",
                 """
-                    if (!!config.output) 
-                      config.output.chunkFilename = '${project.jsChunkFileName}'
+                if (!!config.output) { 
+                  config.output.chunkFilename = '${project.jsChunkFileName}'
+                  config.output.clean = true
+                }
                 """.trimIndent()
             )
 
