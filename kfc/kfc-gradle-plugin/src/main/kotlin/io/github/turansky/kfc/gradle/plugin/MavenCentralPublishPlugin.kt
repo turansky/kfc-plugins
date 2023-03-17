@@ -26,10 +26,6 @@ class MavenCentralPublishPlugin : Plugin<Project> {
         plugins.apply(SigningPlugin::class)
 
         val releaseMode = hasProperty("signing.keyId")
-
-        fun pomProperty(name: String): String =
-            property("kfc.pom.$name") as String
-
         val multiplatformMode = plugins.hasPlugin(KotlinPlugin.MULTIPLATFORM)
 
         val javadocJar = tasks.register("emptyJavadocJar", Jar::class) {
@@ -42,7 +38,7 @@ class MavenCentralPublishPlugin : Plugin<Project> {
                     if (name == "jvm")
                         artifact(javadocJar.get())
 
-                    pom.configure(::pomProperty, releaseMode)
+                    pom.configure(project, releaseMode)
                 }
             } else {
                 publications.create<MavenPublication>("mavenKotlin") {
@@ -51,7 +47,7 @@ class MavenCentralPublishPlugin : Plugin<Project> {
                     artifact(tasks.getByName(KOTLIN_SOURCES_TASK))
                     artifact(javadocJar.get())
 
-                    pom.configure(::pomProperty, releaseMode)
+                    pom.configure(project, releaseMode)
                 }
             }
         }

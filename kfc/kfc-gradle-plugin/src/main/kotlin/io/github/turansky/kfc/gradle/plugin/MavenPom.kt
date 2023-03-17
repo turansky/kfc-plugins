@@ -1,11 +1,15 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import org.gradle.api.Project
 import org.gradle.api.publish.maven.MavenPom
 
 internal fun MavenPom.configure(
-    pomProperty: (name: String) -> String,
+    project: Project,
     releaseMode: Boolean,
 ) {
+    fun pomProperty(name: String): String =
+        project.property("kfc.pom.$name") as String
+
     val projectUrl = pomProperty("url")
     val connectionUrl = "scm:git:$projectUrl.git"
 
