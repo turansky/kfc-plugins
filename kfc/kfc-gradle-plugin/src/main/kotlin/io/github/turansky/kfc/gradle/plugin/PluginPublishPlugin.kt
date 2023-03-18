@@ -8,6 +8,7 @@ import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.*
+import org.gradle.plugins.signing.SigningExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.io.File
 
@@ -37,6 +38,14 @@ class PluginPublishPlugin : Plugin<Project> {
                 publications.withType<MavenPublication>().configureEach {
                     pom.configure(project, releaseMode)
                 }
+            }
+        }
+
+        if (releaseMode) {
+            val publishing = extensions.getByName<PublishingExtension>("publishing")
+
+            configure<SigningExtension> {
+                sign(publishing.publications)
             }
         }
     }
