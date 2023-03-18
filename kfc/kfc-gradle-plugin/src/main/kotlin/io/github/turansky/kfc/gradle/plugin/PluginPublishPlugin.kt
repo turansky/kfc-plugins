@@ -9,6 +9,7 @@ import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.*
 import org.gradle.plugins.signing.SigningExtension
+import org.gradle.plugins.signing.SigningPlugin
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.io.File
 
@@ -29,6 +30,8 @@ class PluginPublishPlugin : Plugin<Project> {
                 }
             }
         }
+
+        plugins.apply(SigningPlugin::class)
 
         // TODO: move to common
         val releaseMode = hasProperty("signing.keyId")
