@@ -22,7 +22,7 @@
 ```kotlin
 plugins {
   kotlin("multiplatform") version "1.8.20-RC"
-  id("io.github.turansky.kfc.webpack") version "6.8.1"
+  id("io.github.turansky.kfc.webpack") version "6.8.2"
 }
 
 kotlin.js {
@@ -72,6 +72,6 @@ Apply [`webpack`](#webpack) plugin by default
 ```kotlin
 plugins {
   kotlin("multiplatform") version "1.8.20-RC"
-  id("io.github.turansky.kfc.library") version "6.8.1"
+  id("io.github.turansky.kfc.library") version "6.8.2"
 }
 ```
