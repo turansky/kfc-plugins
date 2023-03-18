@@ -25,6 +25,7 @@ class MavenCentralPublishPlugin : Plugin<Project> {
         plugins.apply(StandardMavenPublishPlugin::class)
         plugins.apply(SigningPlugin::class)
 
+        // TODO: move to common
         val releaseMode = hasProperty("signing.keyId")
         val multiplatformMode = plugins.hasPlugin(KotlinPlugin.MULTIPLATFORM)
 
