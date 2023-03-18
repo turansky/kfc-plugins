@@ -42,13 +42,13 @@ class PluginPublishPlugin : Plugin<Project> {
                     pom.configure(project, releaseMode)
                 }
             }
-        }
 
-        if (releaseMode) {
-            val publishing = extensions.getByName<PublishingExtension>("publishing")
+            if (releaseMode) {
+                val publishing = extensions.getByName<PublishingExtension>("publishing")
 
-            configure<SigningExtension> {
-                sign(publishing.publications)
+                configure<SigningExtension> {
+                    sign(publishing.publications)
+                }
             }
         }
     }
