@@ -13,18 +13,24 @@ data class StringReplacement(
     private val oldValue: String,
     private val newValue: String,
 ) {
-    val search: String = escape(Regex.escape(oldValue))
-    val replace: String = escape(newValue)
+    val search: String = multiline(escape(oldValue))
+    val replace: String = multiline(newValue)
     val flags: String = listOfNotNull(
         "g",
         "m".takeIf { "\n" in oldValue },
     ).joinToString("")
 
     companion object {
-        private fun escape(
+        private fun multiline(
             source: String,
         ): String =
             source.replace("\n", "\\n")
+
+        private fun escape(
+            source: String,
+        ): String =
+            Regex.escape(source)
+                .removeSurrounding("\\Q", "\\E")
     }
 }
 
