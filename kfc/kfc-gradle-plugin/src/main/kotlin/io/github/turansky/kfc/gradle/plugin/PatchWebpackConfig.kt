@@ -9,6 +9,11 @@ import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
 
+data class StringReplacement(
+    val oldValue: String,
+    val newValue: String,
+)
+
 open class PatchWebpackConfig : DefaultTask() {
     init {
         group = DEFAULT_TASK_GROUP
@@ -18,7 +23,7 @@ open class PatchWebpackConfig : DefaultTask() {
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:Input
-    val replacements: MutableMap<String, String> = mutableMapOf()
+    val replacements: MutableList<StringReplacement> = mutableListOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -88,7 +93,12 @@ open class PatchWebpackConfig : DefaultTask() {
         oldValue: String,
         newValue: String,
     ) {
-        replacements[oldValue] = newValue
+        replacements.add(
+            StringReplacement(
+                oldValue = oldValue,
+                newValue = newValue,
+            )
+        )
     }
 
     @TaskAction
@@ -122,7 +132,7 @@ open class PatchWebpackConfig : DefaultTask() {
 }
 
 @Suppress("JSUnnecessarySemicolon")
-private fun createReplacePatch(replacements: Map<String, String>): String? {
+private fun createReplacePatch(replacements: List<StringReplacement>): String? {
     if (replacements.isEmpty())
         return null
 
