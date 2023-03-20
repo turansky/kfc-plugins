@@ -10,9 +10,23 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
 
 data class StringReplacement(
-    val oldValue: String,
-    val newValue: String,
-)
+    private val oldValue: String,
+    private val newValue: String,
+) {
+    val search: String = escape(Regex.escape(oldValue))
+    val replace: String = escape(newValue)
+    val flags: String = listOfNotNull(
+        "g",
+        "m".takeIf { "\n" in oldValue },
+    ).joinToString("")
+
+    companion object {
+        private fun escape(
+            source: String,
+        ): String =
+            source.replace("\n", "\\n")
+    }
+}
 
 open class PatchWebpackConfig : DefaultTask() {
     init {
@@ -136,8 +150,8 @@ private fun createReplacePatch(replacements: List<StringReplacement>): String? {
     if (replacements.isEmpty())
         return null
 
-    val replacementOptions = replacements.map { (oldValue, newValue) ->
-        """{ search: "$oldValue", replace: "$newValue", flags : 'g' },"""
+    val replacementOptions = replacements.map { r ->
+        """{ search: "${r.search}", replace: "${r.replace}", flags : "${r.flags}" },"""
     }.joinToString("\n                ")
 
     return createPatch(
