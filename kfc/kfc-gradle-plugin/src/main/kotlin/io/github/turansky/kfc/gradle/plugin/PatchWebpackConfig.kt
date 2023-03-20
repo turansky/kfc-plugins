@@ -24,7 +24,7 @@ data class StringReplacement(
         private fun multiline(
             source: String,
         ): String =
-            source.replace("\n", """\\n""")
+            source.replace("\n", """\n""")
 
         private const val SPECIAL_SYMBOLS = "(){}.,"
 
