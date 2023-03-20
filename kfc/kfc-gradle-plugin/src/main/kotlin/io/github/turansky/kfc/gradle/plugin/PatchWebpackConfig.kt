@@ -24,13 +24,15 @@ data class StringReplacement(
         private fun multiline(
             source: String,
         ): String =
-            source.replace("\n", "\\n")
+            source.replace("\n", """\\n""")
 
-        private fun escape(
-            source: String,
-        ): String =
-            Regex.escape(source)
-                .removeSurrounding("\\Q", "\\E")
+        private const val SPECIAL_SYMBOLS = "(){}.,"
+
+        private fun escape(source: String): String =
+            SPECIAL_SYMBOLS.asSequence()
+                .fold(source) { acc, char ->
+                    acc.replace(char.toString(), """\\$char""")
+                }
     }
 }
 
