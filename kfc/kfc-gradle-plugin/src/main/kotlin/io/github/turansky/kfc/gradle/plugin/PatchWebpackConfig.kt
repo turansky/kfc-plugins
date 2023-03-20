@@ -37,7 +37,7 @@ open class PatchWebpackConfig : DefaultTask() {
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:Input
-    val replacements: MutableList<StringReplacement> = mutableListOf()
+    val replacements: MutableList<Pair<String, String>> = mutableListOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -107,17 +107,19 @@ open class PatchWebpackConfig : DefaultTask() {
         oldValue: String,
         newValue: String,
     ) {
-        replacements.add(
-            StringReplacement(
-                oldValue = oldValue,
-                newValue = newValue,
-            )
-        )
+        replacements.add(oldValue to newValue)
     }
 
     @TaskAction
     private fun generatePatches() {
-        val replacementPatch: String? = createReplacePatch(replacements)
+        val replacementPatch: String? = createReplacePatch(
+            replacements.map { (oldValue, newValue) ->
+                StringReplacement(
+                    oldValue = oldValue,
+                    newValue = newValue,
+                )
+            },
+        )
 
         if (patches.isEmpty() && replacementPatch == null)
             return
