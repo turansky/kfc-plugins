@@ -5,6 +5,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.the
+import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
@@ -56,7 +57,11 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     }
 
     tasks {
-        useModularJsTarget()
+        configureEach<KotlinJsCompile> {
+            kotlinOptions {
+                moduleKind = "commonjs"
+            }
+        }
 
         if (binaries) {
             disable<KotlinJsDce>()
