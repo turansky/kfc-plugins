@@ -27,13 +27,13 @@ class ApplicationPlugin : Plugin<Project> {
 
     private fun Project.applyIr() {
         tasks.named(COMPILE_PRODUCTION) {
-            eachRuntimeProjectDependency {
+            eachModuleProjectDependency {
                 dependsOn(it.tasks.named(COMPILE_PRODUCTION))
             }
         }
 
         tasks.named(COMPILE_DEVELOPMENT) {
-            eachRuntimeProjectDependency {
+            eachModuleProjectDependency {
                 dependsOn(it.tasks.named(COMPILE_DEVELOPMENT))
             }
         }
@@ -43,7 +43,7 @@ class ApplicationPlugin : Plugin<Project> {
 
     private fun Project.applyLegacy() {
         val replaceWorker by tasks.registering(Copy::class) {
-            eachRuntimeProjectDependency {
+            eachModuleProjectDependency {
                 from(it.tasks.named(Webpack.PRODUCTION_TASK))
             }
 

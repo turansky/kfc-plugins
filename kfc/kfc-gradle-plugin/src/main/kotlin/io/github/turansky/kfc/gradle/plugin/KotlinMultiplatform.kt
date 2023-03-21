@@ -56,6 +56,8 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         }
     }
 
+    configurations.create(JS_MAIN_MODULE)
+
     tasks {
         configureEach<KotlinJsCompile> {
             kotlinOptions {

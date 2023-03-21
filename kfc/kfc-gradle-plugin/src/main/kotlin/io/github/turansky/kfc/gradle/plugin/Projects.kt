@@ -64,8 +64,8 @@ internal val Project.jsOutputFileName: String
 internal val Project.jsChunkFileName: String
     get() = outputPath("[name].[contenthash].js")
 
-internal fun Project.relatedRuntimeProjects(): Set<Project> =
-    configurations.getByName(JS_MAIN_RUNTIME_ONLY)
+internal fun Project.relatedModuleProjects(): Set<Project> =
+    configurations.getByName(JS_MAIN_MODULE)
         .allDependencies
         .asSequence()
         .filterIsInstance<DefaultProjectDependency>()
