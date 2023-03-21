@@ -60,6 +60,9 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         configureEach<KotlinJsCompile> {
             kotlinOptions {
                 moduleKind = "commonjs"
+                freeCompilerArgs += listOf(
+                    "-Xgenerate-polyfills=false",
+                )
             }
         }
 
