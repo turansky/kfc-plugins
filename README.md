@@ -1,7 +1,7 @@
 [![CI Status](https://github.com/turansky/kfc-plugins/workflows/CI/badge.svg)](https://github.com/turansky/kfc-plugins/actions)
 [![CI Status](https://github.com/turansky/kfc-plugins/workflows/gradle%20plugin/badge.svg)](https://github.com/turansky/kfc-plugins/actions)
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/io.github.turansky.kfc.library?logo=gradle)](https://plugins.gradle.org/plugin/io.github.turansky.kfc.library)
-[![Kotlin](https://img.shields.io/badge/kotlin-1.8.20-RC-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.8.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 # Kotlin/JS Fast Configuration
 
@@ -21,7 +21,7 @@
 
 ```kotlin
 plugins {
-  kotlin("multiplatform") version "1.8.20-RC"
+  kotlin("multiplatform") version "1.8.20-RC2"
   id("io.github.turansky.kfc.webpack") version "6.14.0"
 }
 
@@ -71,7 +71,7 @@ Apply [`webpack`](#webpack) plugin by default
 
 ```kotlin
 plugins {
-  kotlin("multiplatform") version "1.8.20-RC"
+  kotlin("multiplatform") version "1.8.20-RC2"
   id("io.github.turansky.kfc.library") version "6.14.0"
 }
 ```
