@@ -23,7 +23,6 @@ internal val Project.jsLegacyCompiler: Boolean
 
 internal fun Project.applyKotlinDefaults(
     both: Boolean,
-    singleFile: Boolean = false,
 ) {
     rootProject.ext(NO_WARN, true)
 
@@ -31,10 +30,7 @@ internal fun Project.applyKotlinDefaults(
         ext(JS_COMPILER, "both")
     }
     ext(BUILD_DISTRIBUTION, false)
-
-    if (singleFile) {
-        ext(OUTPUT_GRANULARITY, "whole-program")
-    }
+    ext(OUTPUT_GRANULARITY, "whole-program")
 
     plugins.apply(SourceMapsPlugin::class)
     plugins.apply(ValueClassSerializationPlugin::class)

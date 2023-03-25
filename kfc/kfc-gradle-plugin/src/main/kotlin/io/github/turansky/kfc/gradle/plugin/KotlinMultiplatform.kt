@@ -13,11 +13,9 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     binaries: Boolean = false,
     distribution: Boolean = false,
     run: Boolean = false,
-    singleFile: Boolean = false,
 ) {
     applyKotlinDefaults(
         both = !binaries && !distribution && !run,
-        singleFile = singleFile,
     )
 
     plugins.apply(KotlinPlugin.MULTIPLATFORM)

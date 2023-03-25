@@ -7,7 +7,6 @@ class WorkerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinMultiplatformPlugin(
             distribution = true,
-            singleFile = true,
         )
     }
 }
