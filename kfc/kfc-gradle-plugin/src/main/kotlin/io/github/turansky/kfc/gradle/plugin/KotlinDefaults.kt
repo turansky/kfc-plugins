@@ -13,9 +13,6 @@ private const val OUTPUT_GRANULARITY = "kotlin.js.ir.output.granularity"
 
 private val STRICT_MODE = BooleanProperty("kfc.strict.mode", true)
 
-internal val Project.jsIrCompiler: Boolean
-    get() = findProperty(JS_COMPILER) == "ir"
-
 internal fun Project.applyKotlinDefaults() {
     rootProject.ext(NO_WARN, true)
 
