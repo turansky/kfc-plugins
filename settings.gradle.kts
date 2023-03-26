@@ -4,7 +4,6 @@ pluginManagement {
     plugins {
         val kotlinVersion = extra["kotlin.version"] as String
         kotlin("multiplatform") version kotlinVersion
-        kotlin("plugin.serialization") version kotlinVersion
     }
 }
 
