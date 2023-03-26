@@ -1,12 +1,9 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
-import org.gradle.kotlin.dsl.getByName
-import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 import java.io.File
 
 data class StringReplacement(
@@ -89,28 +86,6 @@ open class PatchWebpackConfig : DefaultTask() {
         patch("config.entry['$name'] = '${file.absolutePath}'")
     }
 
-    fun entry(
-        name: String,
-        moduleName: String = name,
-    ) {
-        if (project.jsIrCompiler)
-            TODO("Support in IR?")
-
-        entry(name, dceFile(moduleName))
-    }
-
-    fun entry(
-        project: Project,
-    ) {
-        if (project.jsIrCompiler) {
-            // TODO: use task for path calculation
-            val fileName = "kotlin/${project.jsModuleName}.js"
-            entry(project.jsOutputName, project.jsPackageDir(fileName))
-        } else {
-            entry(project.jsOutputName, project.jsModuleName)
-        }
-    }
-
     fun replace(
         oldValue: String,
         newValue: String,
@@ -144,15 +119,6 @@ open class PatchWebpackConfig : DefaultTask() {
             .resolve("patch.js")
             .writeText(content)
     }
-
-    @Suppress("UnstableApiUsage")
-    private fun dceFile(name: String): File =
-        project.tasks
-            .getByName<KotlinJsDce>("processDceDevJsKotlinJs")
-            .destinationDirectory
-            .file("$name.js")
-            .get()
-            .asFile
 }
 
 @Suppress("JSUnnecessarySemicolon")
