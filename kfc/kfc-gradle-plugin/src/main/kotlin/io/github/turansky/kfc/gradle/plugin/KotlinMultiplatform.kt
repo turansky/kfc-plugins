@@ -6,7 +6,6 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsDce
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 internal fun Project.applyKotlinMultiplatformPlugin(
@@ -62,10 +61,6 @@ internal fun Project.applyKotlinMultiplatformPlugin(
                     "-Xgenerate-polyfills=false",
                 )
             }
-        }
-
-        if (binaries) {
-            disable<KotlinJsDce>()
         }
     }
 }
