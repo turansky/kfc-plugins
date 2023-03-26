@@ -2,7 +2,6 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
-import java.io.File
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
 
@@ -20,13 +19,6 @@ internal val Project.jsModuleName: String
             else -> "${rootProject.name}-$name"
         }
     }
-
-internal fun Project.jsPackageDir(relative: String): File =
-    rootProject.buildDir
-        .resolve("js")
-        .resolve("packages")
-        .resolve(jsModuleName)
-        .resolve(relative)
 
 private val Project.jsOutputPath: String?
     get() = propertyOrNull(OUTPUT_PATH)
