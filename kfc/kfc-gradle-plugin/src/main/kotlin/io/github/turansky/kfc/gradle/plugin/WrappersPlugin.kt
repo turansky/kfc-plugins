@@ -8,8 +8,6 @@ import org.gradle.kotlin.dsl.dependencies
 
 class WrappersPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        plugins.apply(LegacyUnionPlugin::class)
-
         plugins.withId(KotlinPlugin.MULTIPLATFORM) {
             dependencies {
                 applyConfiguration(

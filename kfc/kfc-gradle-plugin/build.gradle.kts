@@ -55,12 +55,6 @@ enum class KfcPlugin(
         tags = listOf("wrappers", "react"),
     ),
 
-    REACT(
-        displayName = "React plugin",
-        description = "React support for Kotlin/JS projects",
-        tags = listOf("react", "lazy", "display name"),
-    ),
-
     MAVEN_CENTRAL_PUBLISH(
         displayName = "Maven central publish plugin",
         description = "Maven central publish configuration",
@@ -76,12 +70,6 @@ enum class KfcPlugin(
     LATEST_WEBPACK(
         displayName = "Latest webpack plugin",
         description = "Configure latest/stable webpack for Kotlin/JS projects",
-        tags = listOf("webpack"),
-    ),
-
-    LEGACY_UNION(
-        displayName = "Legacy union plugin",
-        description = "Union compatibility plugin for Kotlin/JS legacy compiler",
         tags = listOf("webpack"),
     ),
 
