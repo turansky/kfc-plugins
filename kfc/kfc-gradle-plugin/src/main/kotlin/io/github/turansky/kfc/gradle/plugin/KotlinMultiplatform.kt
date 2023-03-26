@@ -14,9 +14,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     distribution: Boolean = false,
     run: Boolean = false,
 ) {
-    applyKotlinDefaults(
-        both = !binaries && !distribution && !run,
-    )
+    applyKotlinDefaults()
 
     plugins.apply(KotlinPlugin.MULTIPLATFORM)
 
