@@ -1,6 +1,5 @@
 package io.github.turansky.kfc.gradle.plugin
 
-import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.invoke
@@ -32,18 +31,19 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     kotlin.js {
         moduleName = jsModuleName
 
-        // TODO: remove redundant `Action` call after migration on Kotlin `1.8.20`
         browser {
-            commonWebpackConfig(Action {
+            commonWebpackConfig {
                 output?.library = null
                 outputFileName = fileName
-            })
-            webpackTask(Action {
+            }
+
+            webpackTask {
                 enabled = distribution
-            })
-            runTask(Action {
+            }
+
+            runTask {
                 enabled = run
-            })
+            }
         }
 
         if (buildBundle) {
