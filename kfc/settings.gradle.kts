@@ -9,7 +9,7 @@ pluginManagement {
         val kfcVersion = extra["kfc.version"] as String
         id("com.github.turansky.kfc.plugin-publish") version kfcVersion
 
-        id("com.gradle.plugin-publish") version "1.1.0"
+        id("com.gradle.plugin-publish") version "1.2.0"
     }
 }
 
