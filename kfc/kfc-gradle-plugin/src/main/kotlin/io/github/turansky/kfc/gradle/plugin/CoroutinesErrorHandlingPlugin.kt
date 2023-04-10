@@ -16,8 +16,6 @@ private const val OLD_COROUTINES_ERROR_HANDLING: String = """
 // language=JavaScript
 private const val NEW_COROUTINES_ERROR_HANDLING: String = """
   function handleCoroutineExceptionImpl(context, exception) {
-    if (exception instanceof CancellationException) return;
-    
     globalThis.dispatchEvent(new ErrorEvent('error', { error: exception }));
   }
 """
