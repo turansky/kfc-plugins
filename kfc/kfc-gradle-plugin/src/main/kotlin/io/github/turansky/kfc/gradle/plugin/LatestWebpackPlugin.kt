@@ -18,7 +18,7 @@ private class RootLatestWebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().versions.apply {
-                webpack.version = "5.78.0"
+                webpack.version = "5.79.0"
                 webpackCli.version = "5.0.1"
 
                 karma.version = "6.4.1"
