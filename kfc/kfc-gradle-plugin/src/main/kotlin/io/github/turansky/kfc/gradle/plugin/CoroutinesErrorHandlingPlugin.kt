@@ -24,6 +24,7 @@ class CoroutinesErrorHandlingPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.configureEach<PatchWebpackConfig> {
             replace(OLD_COROUTINES_ERROR_HANDLING, NEW_COROUTINES_ERROR_HANDLING)
+            replace(OLD_COROUTINES_ERROR_HANDLING.trimIndent(), NEW_COROUTINES_ERROR_HANDLING)
         }
     }
 }
