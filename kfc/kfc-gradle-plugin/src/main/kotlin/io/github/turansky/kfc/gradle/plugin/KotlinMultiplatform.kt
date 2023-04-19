@@ -55,7 +55,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     configurations.create(JS_MAIN_MODULE)
 
-    val esMode = project.property(ES_MODE)
+    val esMode = ES_MODE_SUPPORTED && project.property(ES_MODE)
 
     tasks {
         configureEach<KotlinJsCompile> {
@@ -64,7 +64,10 @@ internal fun Project.applyKotlinMultiplatformPlugin(
                 freeCompilerArgs += listOf(
                     "-Xgenerate-polyfills=false",
                 )
-                useEsClasses = esMode
+
+                if (esMode) {
+                    useEsClasses = true
+                }
             }
         }
     }
