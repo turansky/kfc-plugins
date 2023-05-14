@@ -24,6 +24,36 @@ open class GenerateAssets : DefaultTask() {
 
     @TaskAction
     private fun generateAssets() {
+        val assetsPackage = requireNotNull(pkg)
+        val resourcesDirectory = requireNotNull(resourcesDirectory)
 
+        val svgFiles = resourcesDirectory.walkTopDown()
+            .filter { it.isFile }
+            .filter { it.extension == "svg" }
+            .toList()
+
+        fun createFile(
+            path: String,
+            content: String,
+        ) {
+            val file = resourcesDirectory.resolve(path)
+            file.writeText("package $assetsPackage\n\n$content")
+        }
+
+        for (file in svgFiles) {
+            val path = file.toRelativeString(resourcesDirectory)
+            val name = path.substringBeforeLast(".")
+                .replace("/", "__")
+                .replace("-", "_")
+                .uppercase()
+
+            val content = XML.compressedContent(file.readText())
+            val declaration = "internal val $name = \"\"\"$content\"\"\""
+
+            createFile(
+                path = "${path}.kt",
+                content = declaration,
+            )
+        }
     }
 }
