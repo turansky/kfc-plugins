@@ -36,7 +36,8 @@ open class GenerateAssets : DefaultTask() {
             path: String,
             content: String,
         ) {
-            val file = resourcesDirectory.resolve(path)
+            val file = outputDirectory.resolve(path)
+            file.parentFile.mkdirs()
             file.writeText("package $assetsPackage\n\n$content")
         }
 
