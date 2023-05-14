@@ -49,8 +49,9 @@ open class GenerateAssets : DefaultTask() {
         val entries = mutableListOf<AssetEntry>()
 
         for (file in svgFiles) {
-            val path = file.toRelativeString(resourcesDirectory)
-            val name = path.substringBeforeLast(".")
+            val fullPath = file.toRelativeString(resourcesDirectory)
+            val path = fullPath.substringBeforeLast(".")
+            val name = path
                 .replace("/", "__")
                 .replace("-", "_")
                 .uppercase() + "_CONTENT"
