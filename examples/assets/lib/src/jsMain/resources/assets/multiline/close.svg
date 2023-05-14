@@ -1,5 +1,3 @@
-close-svg-start
-
-|
-
-close-svg-end
+<close>
+    <child/>
+</close>

@@ -1,5 +1,3 @@
-open-svg-start
-
-|
-
-open-svg-end
+<open>
+    <child/>
+</open>
