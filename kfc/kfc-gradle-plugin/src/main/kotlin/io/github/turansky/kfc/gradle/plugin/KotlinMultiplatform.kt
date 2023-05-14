@@ -15,6 +15,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     applyKotlinDefaults()
 
     plugins.apply(KotlinPlugin.MULTIPLATFORM)
+    plugins.apply(AssetsPlugin::class)
 
     if (!binaries) {
         plugins.apply(WebpackPlugin::class)
