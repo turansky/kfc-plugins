@@ -59,7 +59,7 @@ open class GenerateAssets : DefaultTask() {
                 .uppercase() + "_CONTENT"
 
             val content = XML.compressedContent(file.readText())
-            val declaration = "internal val $name = \"\"\"$content\"\"\""
+            val declaration = "internal const val $name = \"\"\"$content\"\"\""
 
             createFile(
                 path = "${path}.kt",
