@@ -13,6 +13,8 @@ dependencyResolutionManagement {
     }
 }
 
+include("examples:assets:lib")
+
 include("examples:resources:lib-a")
 include("examples:resources:lib-b")
 include("examples:resources:lib-c")
