@@ -7,6 +7,11 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
+private class AssetEntry(
+    val path: String,
+    val name: String,
+)
+
 open class GenerateAssets : DefaultTask() {
     init {
         group = DEFAULT_TASK_GROUP
@@ -41,12 +46,14 @@ open class GenerateAssets : DefaultTask() {
             file.writeText("package $assetsPackage\n\n$content")
         }
 
+        val entries = mutableListOf<AssetEntry>()
+
         for (file in svgFiles) {
             val path = file.toRelativeString(resourcesDirectory)
             val name = path.substringBeforeLast(".")
                 .replace("/", "__")
                 .replace("-", "_")
-                .uppercase()
+                .uppercase() + "_CONTENT"
 
             val content = XML.compressedContent(file.readText())
             val declaration = "internal val $name = \"\"\"$content\"\"\""
@@ -55,6 +62,40 @@ open class GenerateAssets : DefaultTask() {
                 path = "${path}.kt",
                 content = declaration,
             )
+
+            entries.add(
+                AssetEntry(
+                    path = path,
+                    name = name,
+                )
+            )
         }
+
+        createFile(
+            path = "AssetRegistry.kt",
+            content = assetRegistryContent(entries),
+        )
     }
+}
+
+// language=kotlin
+private val ASSET_REGISTRY_TEMPLATE = """
+object AssetRegistry {
+    private val map: Map<String, String> = mapOf(
+__ENTRIES__
+    )
+    
+    operator fun get(path: String): String = 
+        map.getValue(path)
+}
+""".trim()
+
+private fun assetRegistryContent(
+    entries: List<AssetEntry>,
+): String {
+    val mapEntries = entries.joinToString("\n") { entry ->
+        """        "${entry.path}" to ${entry.name},"""
+    }
+
+    return ASSET_REGISTRY_TEMPLATE.replace("__ENTRIES__", mapEntries)
 }
