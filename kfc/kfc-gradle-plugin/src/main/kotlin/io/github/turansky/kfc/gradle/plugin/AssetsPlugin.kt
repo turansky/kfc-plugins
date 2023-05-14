@@ -19,7 +19,7 @@ class AssetsPlugin : Plugin<Project> {
             }
 
             extensions.configure<KotlinMultiplatformExtension> {
-                sourceSets["jsMain"].kotlin.srcDir(generateAssets.get().outputDirectory)
+                sourceSets["jsMain"].kotlin.srcDir(generateAssets)
             }
         }
     }
