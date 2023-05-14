@@ -1,10 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import java.io.File
 
 private class AssetEntry(
@@ -19,6 +16,10 @@ open class GenerateAssets : DefaultTask() {
 
     @get:Input
     var pkg: String? = null
+
+    @Optional
+    @get:Input
+    var templateColor: String? = null
 
     @get:InputDirectory
     var resourcesDirectory: File? = null
@@ -58,7 +59,10 @@ open class GenerateAssets : DefaultTask() {
                 .replace("-", "_")
                 .uppercase() + "_CONTENT"
 
-            val content = XML.compressedContent(file.readText())
+            val content = SVG.content(
+                source = file.readText(),
+                templateColor = templateColor,
+            )
             val declaration = "internal const val $name = \"\"\"$content\"\"\""
 
             createFile(

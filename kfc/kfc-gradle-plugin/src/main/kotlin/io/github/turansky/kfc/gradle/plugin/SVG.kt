@@ -11,14 +11,15 @@ import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
 
-internal object XML {
-    fun compressedContent(
-        file: String,
+internal object SVG {
+    fun content(
+        source: String,
+        templateColor: String?,
     ): String {
         val document = DocumentBuilderFactory.newInstance()
             .also { it.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true) }
             .newDocumentBuilder()
-            .parse(file.byteInputStream())
+            .parse(source.byteInputStream())
 
         // optional, but recommended
         // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
@@ -32,8 +33,12 @@ internal object XML {
         transformer.setOutputProperty(OutputKeys.INDENT, "no")
         transformer.transform(DOMSource(document), result)
 
-        return result.writer.toString()
+        val content = result.writer.toString()
             .substringAfter("?>")
+
+        return if (templateColor != null) {
+            content.replace(templateColor, "currentColor")
+        } else content
     }
 }
 
