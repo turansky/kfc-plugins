@@ -19,7 +19,7 @@ internal object XML {
 
         // optional, but recommended
         // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-        document.getDocumentElement().normalize()
+        document.documentElement.normalize()
 
         val result = StreamResult(StringWriter())
         TransformerFactory.newInstance().newTransformer()
