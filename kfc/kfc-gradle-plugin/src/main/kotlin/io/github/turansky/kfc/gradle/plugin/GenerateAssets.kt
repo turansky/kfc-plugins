@@ -25,10 +25,12 @@ open class GenerateAssets : DefaultTask() {
 
     @get:OutputDirectory
     val outputDirectory: File
-        get() = temporaryDir
+        get() = temporaryDir.resolve("src")
 
     @TaskAction
     private fun generateAssets() {
+        outputDirectory.deleteRecursively()
+
         val assetsPackage = requireNotNull(pkg)
         val resourcesDirectory = requireNotNull(resourcesDirectory)
 
