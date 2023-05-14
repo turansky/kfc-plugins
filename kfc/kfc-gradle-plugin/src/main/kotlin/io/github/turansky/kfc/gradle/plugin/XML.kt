@@ -1,7 +1,12 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import java.io.StringWriter
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
+
 
 internal object XML {
     fun compressedContent(
@@ -16,6 +21,10 @@ internal object XML {
         // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
         document.getDocumentElement().normalize()
 
-        return document.toString()
+        val result = StreamResult(StringWriter())
+        TransformerFactory.newInstance().newTransformer()
+            .transform(DOMSource(document), result)
+
+        return result.writer.toString()
     }
 }
