@@ -11,7 +11,6 @@ import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
 
 private const val CSS_LOADER = "css-loader"
-private const val SVG_INLINE_LOADER = "svg-inline-loader"
 private const val FILE_LOADER = "file-loader"
 private const val WORKER_LOADER = "worker-loader"
 private const val STRING_REPLACE_LOADER = "string-replace-loader"
@@ -29,10 +28,6 @@ private val RULES: String = """
         options: {
           esModule: false,
         },
-      },
-      {
-        test: /\.svg${'$'}/,
-        loader: '$SVG_INLINE_LOADER',
       },
     )
 """.trimIndent()
@@ -104,7 +99,6 @@ class WebpackLoadersPlugin : Plugin<Project> {
         val devNpm = extensions.getByName<DevNpmDependencyExtension>("devNpm")
 
         configurationName(devNpm(CSS_LOADER, "6.7.3"))
-        configurationName(devNpm(SVG_INLINE_LOADER, "0.8.2"))
         configurationName(devNpm(FILE_LOADER, "6.2.0"))
         configurationName(devNpm(WORKER_LOADER, "3.0.8"))
         configurationName(devNpm(STRING_REPLACE_LOADER, "3.1.0"))
