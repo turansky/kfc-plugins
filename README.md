@@ -59,13 +59,11 @@ as Webpack `modules`.
 Apply [`webpack`](#webpack) plugin by default
 
 ### Goal
-* Fast build
 * Modularity
 
 ### Decision
-* Disable DCE
-* Disable Webpack build
-* Kotlin/JS target - `commonjs` 
+* Kotlin/JS target - `es`
+* ES classes - enabled
 
 #### `build.gradle.kts`
 
