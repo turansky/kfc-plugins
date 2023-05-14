@@ -15,7 +15,6 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     applyKotlinDefaults()
 
     plugins.apply(KotlinPlugin.MULTIPLATFORM)
-    plugins.apply(AssetsPlugin::class)
 
     if (!binaries) {
         plugins.apply(WebpackPlugin::class)
@@ -51,6 +50,9 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             this.binaries.executable()
         }
     }
+
+    // `jsMain` source set required
+    plugins.apply(AssetsPlugin::class)
 
     configurations.create(JS_MAIN_MODULE)
 
