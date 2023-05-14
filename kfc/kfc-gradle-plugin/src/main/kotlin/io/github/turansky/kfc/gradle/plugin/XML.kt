@@ -15,7 +15,7 @@ internal object XML {
         val document = DocumentBuilderFactory.newInstance()
             .also { it.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true) }
             .newDocumentBuilder()
-            .parse(file)
+            .parse(file.byteInputStream())
 
         // optional, but recommended
         // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
