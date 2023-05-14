@@ -12,7 +12,7 @@ import javax.xml.transform.stream.StreamResult
 
 
 internal object SVG {
-    fun content(
+    fun symbol(
         source: String,
         templateColor: String?,
     ): String {

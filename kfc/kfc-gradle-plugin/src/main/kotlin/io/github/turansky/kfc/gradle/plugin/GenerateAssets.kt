@@ -59,7 +59,7 @@ open class GenerateAssets : DefaultTask() {
                 .replace("-", "_")
                 .uppercase() + "_CONTENT"
 
-            val content = SVG.content(
+            val content = SVG.symbol(
                 source = file.readText(),
                 templateColor = templateColor,
             )
