@@ -13,6 +13,7 @@ import javax.xml.transform.stream.StreamResult
 
 internal object SVG {
     fun symbol(
+        id: String,
         source: String,
         templateColor: String?,
     ): String {
@@ -21,11 +22,30 @@ internal object SVG {
             .newDocumentBuilder()
             .parse(source.byteInputStream())
 
+        val documentElement = document.documentElement
+
         // optional, but recommended
         // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-        document.documentElement.normalize()
+        documentElement.normalize()
 
-        trimWhitespace(document.documentElement)
+        trimWhitespace(documentElement)
+
+        document.renameNode(
+            documentElement,
+            null,
+            "symbol"
+        )
+
+        val attributes = documentElement.attributes
+            ?: error("No attributes in SVG element!")
+
+        (0 until attributes.length)
+            .map { attributes.item(it).nodeName }
+            .filter { it != "viewBox" }
+            .forEach { attributes.removeNamedItem(it) }
+
+        documentElement.setAttribute("fill", "none")
+        documentElement.setAttribute("id", id)
 
         val result = StreamResult(StringWriter())
         val transformer = TransformerFactory.newInstance().newTransformer()
