@@ -4,11 +4,6 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*
 import java.io.File
 
-private class AssetEntry(
-    val path: String,
-    val name: String,
-)
-
 open class GenerateAssets : DefaultTask() {
     init {
         group = DEFAULT_TASK_GROUP
@@ -49,7 +44,7 @@ open class GenerateAssets : DefaultTask() {
             file.writeText("package $assetsPackage\n\n$content")
         }
 
-        val entries = mutableListOf<AssetEntry>()
+        val symbolConstants = mutableListOf<String>()
 
         for (file in svgFiles) {
             val fullPath = file.toRelativeString(resourcesDirectory)
@@ -59,7 +54,9 @@ open class GenerateAssets : DefaultTask() {
                 .replace("-", "_")
                 .uppercase() + "_CONTENT"
 
+            val symbolId = "kfc-gis__" + path.replace("/", "__")
             val content = SVG.symbol(
+                id = symbolId,
                 source = file.readText(),
                 templateColor = templateColor,
             )
@@ -70,17 +67,12 @@ open class GenerateAssets : DefaultTask() {
                 content = declaration,
             )
 
-            entries.add(
-                AssetEntry(
-                    path = path,
-                    name = name,
-                )
-            )
+            symbolConstants += name
         }
 
         createFile(
             path = "AssetRegistry.kt",
-            content = assetRegistryContent(entries),
+            content = assetRegistryContent(symbolConstants),
         )
     }
 }
@@ -88,21 +80,22 @@ open class GenerateAssets : DefaultTask() {
 // language=kotlin
 private val ASSET_REGISTRY_TEMPLATE = """
 object AssetRegistry {
-    private val map: Map<String, String> = mapOf(
-__ENTRIES__
-    )
+
+const val SYMBOLS_CONTENT: String = ${"\"\"\""}
+__SYMBOLS__
+${"\"\"\""}
     
-    operator fun get(path: String): String = 
-        map.getValue(path)
+    fun getSymbolId(path: String): String = 
+        "kfc-gis__" + path.replace("/", "__")
 }
-""".trim()
+"""
 
 private fun assetRegistryContent(
-    entries: List<AssetEntry>,
+    symbolNames: List<String>,
 ): String {
-    val mapEntries = entries.joinToString("\n") { entry ->
-        """        "${entry.path}" to ${entry.name},"""
+    val symbolsContent = symbolNames.joinToString("\n") { name ->
+        "${'$'}$name"
     }
 
-    return ASSET_REGISTRY_TEMPLATE.replace("__ENTRIES__", mapEntries)
+    return ASSET_REGISTRY_TEMPLATE.replace("__SYMBOLS__", symbolsContent)
 }
