@@ -24,10 +24,7 @@ private val RULES: String = """
     config.module.rules.push(
       {
         test: /\.css${'$'}/,
-        loader: '$CSS_LOADER',
-        options: {
-          esModule: false,
-        },
+        loader: '$CSS_LOADER'
       },
     )
 """.trimIndent()
@@ -45,8 +42,7 @@ private fun Project.fontRules(): String {
         options: {
           name: '[name].[contenthash].[ext]',
           publicPath: '$publicPath',
-          outputPath: '$outputPath',
-          esModule: false
+          outputPath: '$outputPath'
         },
       },
     )
@@ -66,8 +62,7 @@ private fun Project.workerRules(): String {
         loader: '$WORKER_LOADER',
         options: {
           filename: '$fileName',
-          inline: useFallback ? 'fallback' : undefined,  
-          esModule: false,
+          inline: useFallback ? 'fallback' : undefined
         }
       },
     )
