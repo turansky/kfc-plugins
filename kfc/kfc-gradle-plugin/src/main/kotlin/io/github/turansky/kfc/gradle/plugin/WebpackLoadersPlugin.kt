@@ -25,6 +25,9 @@ private val RULES: String = """
       {
         test: /\.css${'$'}/,
         loader: '$CSS_LOADER',
+        options: {
+          esModule: false,
+        },
       },
     )
 """.trimIndent()
@@ -64,6 +67,7 @@ private fun Project.workerRules(): String {
         options: {
           filename: '$fileName',
           inline: useFallback ? 'fallback' : undefined,  
+          esModule: false,
         }
       },
     )
