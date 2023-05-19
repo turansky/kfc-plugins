@@ -46,7 +46,7 @@ private fun Project.fontRules(): String {
           name: '[name].[contenthash].[ext]',
           publicPath: '$publicPath',
           outputPath: '$outputPath',
-          esModule: false
+          esModule: false,
         },
       },
     )
