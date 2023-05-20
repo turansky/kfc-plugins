@@ -6,32 +6,10 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-data class StringReplacement(
-    private val oldValue: String,
-    private val newValue: String,
-) {
-    val search: String = multiline(escape(oldValue))
-    val replace: String = multiline(newValue)
-    val flags: String = listOfNotNull(
-        "g",
-        "m".takeIf { "\n" in oldValue },
-    ).joinToString("")
-
-    companion object {
-        private fun multiline(
-            source: String,
-        ): String =
-            source.replace("\n", """\n""")
-
-        private const val SPECIAL_SYMBOLS = "(){}.,"
-
-        private fun escape(source: String): String =
-            SPECIAL_SYMBOLS.asSequence()
-                .fold(source) { acc, char ->
-                    acc.replace(char.toString(), """\\$char""")
-                }
-    }
-}
+class EnvVariable(
+    val name: String,
+    val value: String,
+)
 
 open class PatchWebpackConfig : DefaultTask() {
     init {
@@ -86,20 +64,20 @@ open class PatchWebpackConfig : DefaultTask() {
         patch("config.entry['$name'] = '${file.absolutePath}'")
     }
 
-    fun replace(
-        oldValue: String,
-        newValue: String,
+    fun env(
+        name: String,
+        value: String,
     ) {
-        replacements.add(oldValue to newValue)
+        replacements.add(name to value)
     }
 
     @TaskAction
     private fun generatePatches() {
         val replacementPatch: String? = createReplacePatch(
             replacements.map { (oldValue, newValue) ->
-                StringReplacement(
-                    oldValue = oldValue,
-                    newValue = newValue,
+                EnvVariable(
+                    name = oldValue,
+                    value = newValue,
                 )
             },
         )
@@ -122,28 +100,24 @@ open class PatchWebpackConfig : DefaultTask() {
 }
 
 @Suppress("JSUnnecessarySemicolon")
-private fun createReplacePatch(replacements: List<StringReplacement>): String? {
-    if (replacements.isEmpty())
+private fun createReplacePatch(variables: List<EnvVariable>): String? {
+    if (variables.isEmpty())
         return null
 
-    val replacementOptions = replacements.map { r ->
-        """{ search: "${r.search}", replace: "${r.replace}", flags : "${r.flags}" },"""
+    val variableDeclarations = variables.map { v ->
+        """'import.meta.env.${v.name}': JSON.stringify('${v.value}'),"""
     }.joinToString("\n                ")
 
     return createPatch(
-        name = "string-replacements",
+        name = "env-variables",
         // language=JavaScript
         body = """
-        config.module.rules.push(
-          {
-            test: /\.js${'$'}/,
-            loader: 'string-replace-loader',
-            options: {
-              multiple: [
-                $replacementOptions
-              ]
-            }
-          },
+        const DefinePlugin = require('webpack').DefinePlugin
+
+        config.plugins.push(
+           new DefinePlugin({
+               $variableDeclarations
+           })
         )
         """.trimIndent()
     )

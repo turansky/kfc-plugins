@@ -1,9 +1,14 @@
+@file:Suppress(
+    "NAME_CONTAINS_ILLEGAL_CHARS",
+)
+
 package webpack.patch
 
-@JsName("__BUILD_NAME__")
+@JsName("import.meta.env.BUILD_NAME")
 external val BUILD_NAME: String
 
-@JsName("__BUILD_NUMBER__")
-external val BUILD_NUMBER: Int
+@JsName("import.meta.env.BUILD_NUMBER")
+external val BUILD_NUMBER: String
 
-val ANOTHER_BUILD_NUMBER: Int = "__BUILD_NUMBER__".toInt()
+@JsName("import.meta.env.BUILD_NUMBER")
+external val ANOTHER_BUILD_NUMBER: String

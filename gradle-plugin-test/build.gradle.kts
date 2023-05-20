@@ -7,6 +7,6 @@ dependencies {
 }
 
 tasks.patchWebpackConfig {
-    replace("__BUILD_NAME__", "'Frodo'")
-    replace("__BUILD_NUMBER__", "42")
+    env("BUILD_NAME", "Frodo")
+    env("BUILD_NUMBER", "42")
 }

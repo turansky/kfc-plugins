@@ -13,7 +13,6 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
 private const val CSS_LOADER = "css-loader"
 private const val FILE_LOADER = "file-loader"
 private const val WORKER_LOADER = "worker-loader"
-private const val STRING_REPLACE_LOADER = "string-replace-loader"
 
 private const val JS_FILE_TEMPLATE = "[name].[contenthash].js"
 
@@ -101,6 +100,5 @@ class WebpackLoadersPlugin : Plugin<Project> {
         configurationName(devNpm(CSS_LOADER, "6.7.3"))
         configurationName(devNpm(FILE_LOADER, "6.2.0"))
         configurationName(devNpm(WORKER_LOADER, "3.0.8"))
-        configurationName(devNpm(STRING_REPLACE_LOADER, "3.1.0"))
     }
 }
