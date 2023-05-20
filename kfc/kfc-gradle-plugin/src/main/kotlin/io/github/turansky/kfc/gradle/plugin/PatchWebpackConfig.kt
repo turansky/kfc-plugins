@@ -105,7 +105,7 @@ private fun createReplacePatch(variables: List<EnvVariable>): String? {
         return null
 
     val variableDeclarations = variables.map { v ->
-        """'import.meta.env.${v.name}': JSON.stringify('${v.value}'),"""
+        """'import.meta.env.VITE_${v.name}': JSON.stringify('${v.value}'),"""
     }.joinToString("\n                ")
 
     return createPatch(
