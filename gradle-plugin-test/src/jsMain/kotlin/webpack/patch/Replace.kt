@@ -4,11 +4,11 @@
 
 package webpack.patch
 
-@JsName("import.meta.env.BUILD_NAME")
+@JsName("import.meta.env.VITE_BUILD_NAME")
 external val BUILD_NAME: String
 
-@JsName("import.meta.env.BUILD_NUMBER")
+@JsName("import.meta.env.VITE_BUILD_NUMBER")
 external val BUILD_NUMBER: String
 
-@JsName("import.meta.env.BUILD_NUMBER")
+@JsName("import.meta.env.VITE_BUILD_NUMBER")
 external val ANOTHER_BUILD_NUMBER: String
