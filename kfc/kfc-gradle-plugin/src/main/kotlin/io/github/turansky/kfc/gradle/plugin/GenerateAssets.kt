@@ -79,7 +79,7 @@ open class GenerateAssets : DefaultTask() {
 
 // language=kotlin
 private val ASSET_REGISTRY_TEMPLATE = """
-object AssetRegistry {
+internal object AssetRegistry {
 
 const val SYMBOLS_CONTENT: String = ${"\"\"\""}
 __SYMBOLS__
