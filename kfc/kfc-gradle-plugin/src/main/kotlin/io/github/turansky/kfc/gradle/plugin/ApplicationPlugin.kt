@@ -14,6 +14,7 @@ class ApplicationPlugin : Plugin<Project> {
         )
 
         plugins.apply(WebpackBundlePlugin::class)
+        plugins.apply(CoroutinesErrorHandlingPlugin::class)
 
         tasks.named(COMPILE_PRODUCTION) {
             eachModuleProjectDependency {
