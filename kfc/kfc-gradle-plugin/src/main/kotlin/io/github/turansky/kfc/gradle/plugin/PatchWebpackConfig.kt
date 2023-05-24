@@ -20,7 +20,7 @@ open class PatchWebpackConfig : DefaultTask() {
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:Input
-    val replacements: MutableList<Pair<String, String>> = mutableListOf()
+    val envVariables: MutableList<Pair<String, String>> = mutableListOf()
 
     @get:OutputDirectory
     val configDirectory: File
@@ -68,13 +68,13 @@ open class PatchWebpackConfig : DefaultTask() {
         name: String,
         value: String,
     ) {
-        replacements.add(name to value)
+        envVariables.add(name to value)
     }
 
     @TaskAction
     private fun generatePatches() {
-        val replacementPatch: String? = createReplacePatch(
-            replacements.map { (oldValue, newValue) ->
+        val envPatch: String? = createEnvPatch(
+            envVariables.map { (oldValue, newValue) ->
                 EnvVariable(
                     name = oldValue,
                     value = newValue,
@@ -82,14 +82,14 @@ open class PatchWebpackConfig : DefaultTask() {
             },
         )
 
-        if (patches.isEmpty() && replacementPatch == null)
+        if (patches.isEmpty() && envPatch == null)
             return
 
         val content = patches
             .asSequence()
             .sortedBy { it.key }
             .map { (name, body) -> createPatch(name, body) }
-            .let { if (replacementPatch != null) it + replacementPatch else it }
+            .let { if (envPatch != null) it + envPatch else it }
             .joinToString("\n\n")
 
         configDirectory
@@ -100,7 +100,9 @@ open class PatchWebpackConfig : DefaultTask() {
 }
 
 @Suppress("JSUnnecessarySemicolon")
-private fun createReplacePatch(variables: List<EnvVariable>): String? {
+private fun createEnvPatch(
+    variables: List<EnvVariable>,
+): String? {
     if (variables.isEmpty())
         return null
 
