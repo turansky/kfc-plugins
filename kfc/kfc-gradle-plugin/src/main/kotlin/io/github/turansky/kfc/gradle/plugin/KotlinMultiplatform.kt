@@ -1,5 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.invoke
@@ -34,18 +35,18 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         moduleName = jsModuleName
 
         browser {
-            commonWebpackConfig {
+            commonWebpackConfig(Action {
                 output?.library = null
                 outputFileName = fileName
-            }
+            })
 
-            webpackTask {
+            webpackTask(Action {
                 enabled = distribution
-            }
+            })
 
-            runTask {
+            runTask(Action {
                 enabled = run
-            }
+            })
         }
 
         if (buildBundle) {
