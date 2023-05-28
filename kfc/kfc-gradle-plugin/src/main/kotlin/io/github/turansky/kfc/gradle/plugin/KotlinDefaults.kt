@@ -47,8 +47,8 @@ private fun Project.disableTestsWithoutSources() {
 
         sourceSet.taskNames
             .mapNotNull(tasks::findByPath)
-            .forEach {
-                it.onlyIf {
+            .forEach { task ->
+                task.onlyIf {
                     val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
                     sourceSet.names
                         .asSequence()
