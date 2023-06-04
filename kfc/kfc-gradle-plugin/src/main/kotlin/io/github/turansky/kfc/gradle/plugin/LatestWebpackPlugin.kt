@@ -19,7 +19,7 @@ private class RootLatestWebpackPlugin : Plugin<Project> {
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().versions.apply {
                 webpack.version = "5.85.0"
-                webpackCli.version = "5.1.1"
+                webpackCli.version = "5.1.3"
 
                 karma.version = "6.4.2"
             }
