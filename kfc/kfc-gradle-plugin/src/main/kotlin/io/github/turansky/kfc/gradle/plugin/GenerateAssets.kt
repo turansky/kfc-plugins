@@ -12,6 +12,9 @@ open class GenerateAssets : DefaultTask() {
     @get:Input
     var pkg: String? = null
 
+    @get:Input
+    var factoryName: String? = null
+
     @Optional
     @get:Input
     var templateColor: String? = null
@@ -28,6 +31,7 @@ open class GenerateAssets : DefaultTask() {
         outputDirectory.deleteRecursively()
 
         val assetsPackage = requireNotNull(pkg)
+        val assetFactory = requireNotNull(factoryName)
         val resourcesDirectory = requireNotNull(resourcesDirectory)
 
         val svgFiles = resourcesDirectory.walkTopDown()
@@ -44,6 +48,7 @@ open class GenerateAssets : DefaultTask() {
             file.writeText("package $assetsPackage\n\n$content")
         }
 
+        val paths = mutableListOf<String>()
         val symbolConstants = mutableListOf<String>()
 
         for (file in svgFiles) {
@@ -67,14 +72,51 @@ open class GenerateAssets : DefaultTask() {
                 content = declaration,
             )
 
+            paths += path
             symbolConstants += name
         }
+
+        createFile(
+            path = "Icons.kt",
+            content = iconsContent(assetFactory, paths),
+        )
 
         createFile(
             path = "AssetRegistry.kt",
             content = assetRegistryContent(symbolConstants),
         )
     }
+}
+
+private fun iconsContent(
+    factoryName: String,
+    paths: List<String>,
+): String {
+    val content = paths.joinToString("\n") { path ->
+        val name = path.splitToSequence("/")
+            .map {
+                when (it) {
+                    "2d", "3d",
+                    -> it.uppercase()
+
+                    else -> it.splitToSequence("-")
+                        .joinToString("") {
+                            // TODO: use custom `capitalized`
+                            it.replaceFirstChar {
+                                it.uppercase()
+                            }
+                        }
+                }
+            }.joinToString("_")
+
+        val symbolId = "kfc-gis__" + path.replace("/", "__")
+
+        """val $name: $factoryName = $factoryName("$symbolId")"""
+    }
+
+    return "object Icons {\n" +
+            content +
+            "\n}\n"
 }
 
 // language=kotlin

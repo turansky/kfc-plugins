@@ -16,6 +16,7 @@ class AssetsPlugin : Plugin<Project> {
         plugins.withId(KotlinPlugin.MULTIPLATFORM) {
             val generateAssets by tasks.registering(GenerateAssets::class) {
                 pkg = assetsPackage
+                factoryName = "IconSource"
                 templateColor = propertyOrNull(ASSETS_TEMPLATE_COLOR)
                 resourcesDirectory = file("src/jsMain/resources/assets")
             }
