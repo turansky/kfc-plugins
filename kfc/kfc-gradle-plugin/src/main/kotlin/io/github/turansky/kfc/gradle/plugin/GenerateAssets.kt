@@ -53,8 +53,9 @@ open class GenerateAssets : DefaultTask() {
         fun createFile(
             path: String,
             content: String,
+            parentDirectory: File,
         ) {
-            val file = jsOutputDirectory.resolve(path)
+            val file = parentDirectory.resolve(path)
             file.parentFile.mkdirs()
             file.writeText("package $assetsPackage\n\n$content")
         }
@@ -81,6 +82,7 @@ open class GenerateAssets : DefaultTask() {
             createFile(
                 path = "${path}.kt",
                 content = declaration,
+                parentDirectory = jsOutputDirectory,
             )
 
             paths += path
@@ -90,11 +92,13 @@ open class GenerateAssets : DefaultTask() {
         createFile(
             path = "Icons.kt",
             content = iconsContent(assetFactory, paths),
+            parentDirectory = jsOutputDirectory,
         )
 
         createFile(
             path = "AssetRegistry.kt",
             content = assetRegistryContent(symbolConstants),
+            parentDirectory = jsOutputDirectory,
         )
     }
 }
