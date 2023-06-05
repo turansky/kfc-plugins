@@ -27,6 +27,7 @@ class AssetsPlugin : Plugin<Project> {
                 factoryName = propertyOrNull(ASSETS_FACTORY)
                 templateColor = propertyOrNull(ASSETS_TEMPLATE_COLOR)
                 resourcesDirectory = sequenceOf(clientCommonAssets, jsAssets).first { it.exists() }
+                mobileListFile = file("mobile.assets.list").takeIf { it.exists() }
             }
 
             val generateClientCommonAssets by tasks.registering {

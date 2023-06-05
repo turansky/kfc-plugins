@@ -25,6 +25,10 @@ open class GenerateAssets : DefaultTask() {
     @get:InputDirectory
     var resourcesDirectory: File? = null
 
+    @Optional
+    @get:InputFile
+    var mobileListFile: File? = null
+
     @get:OutputDirectory
     val clientCommonOutputDirectory: File
         get() = temporaryDir.resolve("src/clientCommon")
@@ -36,6 +40,25 @@ open class GenerateAssets : DefaultTask() {
     @get:OutputDirectory
     val jsOutputDirectory: File
         get() = temporaryDir.resolve("src/js")
+
+    private fun getCommonPredicate(): (path: String) -> Boolean {
+        if (!multiplatformMode)
+            return { false }
+
+        val listFile = mobileListFile
+            ?: return { false }
+
+        val items = listFile.readText()
+            .splitToSequence("\n")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .toSet()
+
+        if (items.isEmpty())
+            return { false }
+
+        return { it in items }
+    }
 
     @TaskAction
     private fun generateAssets() {
@@ -59,6 +82,8 @@ open class GenerateAssets : DefaultTask() {
             file.parentFile.mkdirs()
             file.writeText("package $assetsPackage\n\n$content")
         }
+
+        val isCommon = getCommonPredicate()
 
         val icons = mutableListOf<Icon>()
         val symbolConstants = mutableListOf<String>()
@@ -85,7 +110,7 @@ open class GenerateAssets : DefaultTask() {
                 parentDirectory = jsOutputDirectory,
             )
 
-            icons += Icon(path)
+            icons += Icon(path, common = isCommon(path))
             symbolConstants += name
         }
 
@@ -119,6 +144,7 @@ open class GenerateAssets : DefaultTask() {
 
 private class Icon(
     val path: String,
+    val common: Boolean,
 ) {
     val name: String = path.splitToSequence("/")
         .map { part ->
@@ -140,9 +166,11 @@ private fun commonIconsContent(
     factoryName: String,
     icons: List<Icon>,
 ): String {
-    val content = icons.joinToString("\n") { icon ->
-        "    val ${icon.name}: $factoryName"
-    }
+    val content = icons
+        .filter { it.common }
+        .joinToString("\n") { icon ->
+            "    val ${icon.name}: $factoryName"
+        }
 
     return "expect object Icons {\n" +
             content +
@@ -157,7 +185,7 @@ private fun jsIconsContent(
     val content = icons.joinToString("\n") { icon ->
         val symbolId = "kfc-gis__" + icon.path.replace("/", "__")
 
-        val modifier = if (actualMode) "actual" else ""
+        val modifier = if (actualMode && icon.common) "actual" else ""
         "    $modifier val ${icon.name}: $factoryName = $factoryName(\"$symbolId\")"
     }
 
@@ -171,13 +199,15 @@ private fun mobileIconsContent(
     factoryName: String,
     icons: List<Icon>,
 ): String {
-    val content = icons.joinToString("\n") { icon ->
-        val parameters = icon.path.splitToSequence("/")
-            .map { "\"$it\"" }
-            .joinToString(", ")
+    val content = icons
+        .filter { it.common }
+        .joinToString("\n") { icon ->
+            val parameters = icon.path.splitToSequence("/")
+                .map { "\"$it\"" }
+                .joinToString(", ")
 
-        "    actual val ${icon.name}: $factoryName = $factoryName($parameters)"
-    }
+            "    actual val ${icon.name}: $factoryName = $factoryName($parameters)"
+        }
 
     return "actual object Icons {\n" +
             content +
