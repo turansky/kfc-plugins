@@ -5,4 +5,6 @@ fun main() {
         category = "category",
         name = "name",
     )
+
+    println(Icons.System_Open)
 }

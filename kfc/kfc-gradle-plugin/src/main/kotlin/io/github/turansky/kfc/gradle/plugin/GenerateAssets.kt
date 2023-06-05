@@ -89,6 +89,14 @@ open class GenerateAssets : DefaultTask() {
             symbolConstants += name
         }
 
+        if (multiplatformMode) {
+            createFile(
+                path = "Icons.kt",
+                content = mobileIconsContent(assetFactory, icons),
+                parentDirectory = mobileCommonOutputDirectory,
+            )
+        }
+
         createFile(
             path = "Icons.kt",
             content = jsIconsContent(assetFactory, icons),
@@ -130,6 +138,23 @@ private fun jsIconsContent(
         val symbolId = "kfc-gis__" + icon.path.replace("/", "__")
 
         "    val ${icon.name}: $factoryName = $factoryName(\"$symbolId\")"
+    }
+
+    return "object Icons {\n" +
+            content +
+            "\n}\n"
+}
+
+private fun mobileIconsContent(
+    factoryName: String,
+    icons: List<Icon>,
+): String {
+    val content = icons.joinToString("\n") { icon ->
+        val parameters = icon.path.splitToSequence("/")
+            .map { "\"$it\"" }
+            .joinToString(", ")
+
+        "    val ${icon.name}: $factoryName = $factoryName($parameters)"
     }
 
     return "object Icons {\n" +
