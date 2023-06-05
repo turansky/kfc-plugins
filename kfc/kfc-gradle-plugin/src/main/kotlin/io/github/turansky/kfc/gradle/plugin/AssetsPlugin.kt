@@ -46,8 +46,10 @@ class AssetsPlugin : Plugin<Project> {
 
             extensions.configure<KotlinMultiplatformExtension> {
                 if (multiplatform) {
-                    sourceSets["clientCommonMain"].kotlin.srcDir(generateClientCommonAssets)
-                    sourceSets["mobileCommonMain"].kotlin.srcDir(generateMobileCommonAssets)
+                    afterEvaluate {
+                        sourceSets["clientCommonMain"].kotlin.srcDir(generateClientCommonAssets)
+                        sourceSets["mobileCommonMain"].kotlin.srcDir(generateMobileCommonAssets)
+                    }
                 }
 
                 sourceSets["jsMain"].kotlin.srcDir(generateJsAssets)
