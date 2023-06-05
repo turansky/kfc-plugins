@@ -15,14 +15,18 @@ class AssetsPlugin : Plugin<Project> {
             ?: return@with
 
         plugins.withId(KotlinPlugin.MULTIPLATFORM) {
+            val clientCommonAssets = file("src/clientCommonMain/resources/assets")
+            val jsAssets = file("src/jsMain/resources/assets")
+
+            val multiplatform = clientCommonAssets.exists()
+
             val generateAssets by tasks.registering(GenerateAssets::class) {
+                multiplatformMode = multiplatform
+
                 pkg = assetsPackage
                 factoryName = propertyOrNull(ASSETS_FACTORY)
                 templateColor = propertyOrNull(ASSETS_TEMPLATE_COLOR)
-                resourcesDirectory = sequenceOf(
-                    file("src/clientCommonMain/resources/assets"),
-                    file("src/jsMain/resources/assets"),
-                ).first { it.exists() }
+                resourcesDirectory = sequenceOf(clientCommonAssets, jsAssets).first { it.exists() }
             }
 
             extensions.configure<KotlinMultiplatformExtension> {

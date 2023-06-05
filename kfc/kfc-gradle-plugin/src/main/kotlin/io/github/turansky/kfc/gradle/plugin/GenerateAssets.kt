@@ -10,6 +10,9 @@ open class GenerateAssets : DefaultTask() {
     }
 
     @get:Input
+    var multiplatformMode: Boolean = false
+
+    @get:Input
     var pkg: String? = null
 
     @get:Input
