@@ -92,6 +92,12 @@ open class GenerateAssets : DefaultTask() {
         if (multiplatformMode) {
             createFile(
                 path = "Icons.kt",
+                content = commonIconsContent(assetFactory, icons),
+                parentDirectory = clientCommonOutputDirectory,
+            )
+
+            createFile(
+                path = "Icons.kt",
                 content = mobileIconsContent(assetFactory, icons),
                 parentDirectory = mobileCommonOutputDirectory,
             )
@@ -99,7 +105,7 @@ open class GenerateAssets : DefaultTask() {
 
         createFile(
             path = "Icons.kt",
-            content = jsIconsContent(assetFactory, icons),
+            content = jsIconsContent(assetFactory, icons, multiplatformMode),
             parentDirectory = jsOutputDirectory,
         )
 
@@ -130,17 +136,33 @@ private class Icon(
         }.joinToString("_")
 }
 
-private fun jsIconsContent(
+private fun commonIconsContent(
     factoryName: String,
     icons: List<Icon>,
 ): String {
     val content = icons.joinToString("\n") { icon ->
-        val symbolId = "kfc-gis__" + icon.path.replace("/", "__")
-
-        "    val ${icon.name}: $factoryName = $factoryName(\"$symbolId\")"
+        "    val ${icon.name}: $factoryName"
     }
 
-    return "object Icons {\n" +
+    return "expect object Icons {\n" +
+            content +
+            "\n}\n"
+}
+
+private fun jsIconsContent(
+    factoryName: String,
+    icons: List<Icon>,
+    actualMode: Boolean,
+): String {
+    val content = icons.joinToString("\n") { icon ->
+        val symbolId = "kfc-gis__" + icon.path.replace("/", "__")
+
+        val modifier = if (actualMode) "actual" else ""
+        "    $modifier val ${icon.name}: $factoryName = $factoryName(\"$symbolId\")"
+    }
+
+    val modifier = if (actualMode) "actual" else ""
+    return "$modifier object Icons {\n" +
             content +
             "\n}\n"
 }
@@ -154,10 +176,10 @@ private fun mobileIconsContent(
             .map { "\"$it\"" }
             .joinToString(", ")
 
-        "    val ${icon.name}: $factoryName = $factoryName($parameters)"
+        "    actual val ${icon.name}: $factoryName = $factoryName($parameters)"
     }
 
-    return "object Icons {\n" +
+    return "actual object Icons {\n" +
             content +
             "\n}\n"
 }
