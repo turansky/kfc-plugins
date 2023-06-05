@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 private val ASSETS_PACKAGE = StringProperty("kfc.assets.package")
 private val ASSETS_FACTORY = StringProperty("kfc.assets.factory")
+private val ASSETS_DIR = StringProperty("kfc.assets.dir")
 private val ASSETS_TEMPLATE_COLOR = StringProperty("kfc.assets.template.color")
 
 class AssetsPlugin : Plugin<Project> {
@@ -19,7 +20,7 @@ class AssetsPlugin : Plugin<Project> {
                 pkg = assetsPackage
                 factoryName = propertyOrNull(ASSETS_FACTORY)
                 templateColor = propertyOrNull(ASSETS_TEMPLATE_COLOR)
-                resourcesDirectory = file("src/jsMain/resources/assets")
+                resourcesDirectory = file(propertyOrNull(ASSETS_DIR) ?: "src/jsMain/resources/assets")
             }
 
             extensions.configure<KotlinMultiplatformExtension> {
