@@ -110,7 +110,7 @@ private fun iconsContent(
 
         val symbolId = "kfc-gis__" + path.replace("/", "__")
 
-        """val $name: $factoryName = $factoryName("$symbolId")"""
+        "    val $name: $factoryName = $factoryName(\"$symbolId\")"
     }
 
     return "object Icons {\n" +
