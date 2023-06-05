@@ -109,7 +109,8 @@ private fun iconsContent(
             }.joinToString("_")
 
         val symbolId = "kfc-gis__" + path.replace("/", "__")
-        "\tval $name: $factoryName = $factoryName(\"$symbolId\")"
+
+        "    val $name: $factoryName = $factoryName(\"$symbolId\")"
     }
 
     return "object Icons {\n" +
