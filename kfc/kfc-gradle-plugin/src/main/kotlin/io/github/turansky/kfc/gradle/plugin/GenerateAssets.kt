@@ -91,7 +91,7 @@ open class GenerateAssets : DefaultTask() {
 
         createFile(
             path = "Icons.kt",
-            content = iconsContent(assetFactory, icons),
+            content = jsIconsContent(assetFactory, icons),
             parentDirectory = jsOutputDirectory,
         )
 
@@ -122,7 +122,7 @@ private class Icon(
         }.joinToString("_")
 }
 
-private fun iconsContent(
+private fun jsIconsContent(
     factoryName: String,
     icons: List<Icon>,
 ): String {
