@@ -94,18 +94,17 @@ private fun iconsContent(
 ): String {
     val content = paths.joinToString("\n") { path ->
         val name = path.splitToSequence("/")
-            .map {
-                when (it) {
-                    "2d", "3d",
-                    -> it.uppercase()
+            .map { part ->
+                part.splitToSequence("-").joinToString("") {
+                    when (it) {
+                        "2d", "3d",
+                        -> it.uppercase()
 
-                    else -> it.splitToSequence("-")
-                        .joinToString("") {
-                            // TODO: use custom `capitalized`
-                            it.replaceFirstChar {
-                                it.uppercase()
-                            }
+                        // TODO: use custom `capitalized`
+                        else -> it.replaceFirstChar { char ->
+                            char.uppercase()
                         }
+                    }
                 }
             }.joinToString("_")
 
