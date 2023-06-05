@@ -60,7 +60,7 @@ open class GenerateAssets : DefaultTask() {
             file.writeText("package $assetsPackage\n\n$content")
         }
 
-        val paths = mutableListOf<String>()
+        val icons = mutableListOf<Icon>()
         val symbolConstants = mutableListOf<String>()
 
         for (file in svgFiles) {
@@ -85,13 +85,13 @@ open class GenerateAssets : DefaultTask() {
                 parentDirectory = jsOutputDirectory,
             )
 
-            paths += path
+            icons += Icon(path)
             symbolConstants += name
         }
 
         createFile(
             path = "Icons.kt",
-            content = iconsContent(assetFactory, paths),
+            content = iconsContent(assetFactory, icons),
             parentDirectory = jsOutputDirectory,
         )
 
@@ -103,29 +103,33 @@ open class GenerateAssets : DefaultTask() {
     }
 }
 
-private fun iconsContent(
-    factoryName: String,
-    paths: List<String>,
-): String {
-    val content = paths.joinToString("\n") { path ->
-        val name = path.splitToSequence("/")
-            .map { part ->
-                part.splitToSequence("-").joinToString("") {
-                    when (it) {
-                        "2d", "3d",
-                        -> it.uppercase()
+private class Icon(
+    val path: String,
+) {
+    val name: String = path.splitToSequence("/")
+        .map { part ->
+            part.splitToSequence("-").joinToString("") {
+                when (it) {
+                    "2d", "3d",
+                    -> it.uppercase()
 
-                        // TODO: use custom `capitalized`
-                        else -> it.replaceFirstChar { char ->
-                            char.uppercase()
-                        }
+                    // TODO: use custom `capitalized`
+                    else -> it.replaceFirstChar { char ->
+                        char.uppercase()
                     }
                 }
-            }.joinToString("_")
+            }
+        }.joinToString("_")
+}
 
-        val symbolId = "kfc-gis__" + path.replace("/", "__")
+private fun iconsContent(
+    factoryName: String,
+    icons: List<Icon>,
+): String {
+    val content = icons.joinToString("\n") { icon ->
+        val symbolId = "kfc-gis__" + icon.path.replace("/", "__")
 
-        "    val $name: $factoryName = $factoryName(\"$symbolId\")"
+        "    val ${icon.name}: $factoryName = $factoryName(\"$symbolId\")"
     }
 
     return "object Icons {\n" +
