@@ -26,12 +26,20 @@ open class GenerateAssets : DefaultTask() {
     var resourcesDirectory: File? = null
 
     @get:OutputDirectory
-    val outputDirectory: File
-        get() = temporaryDir.resolve("src")
+    val clientCommonOutputDirectory: File
+        get() = temporaryDir.resolve("src/clientCommon")
+
+    @get:OutputDirectory
+    val mobileCommonOutputDirectory: File
+        get() = temporaryDir.resolve("src/mobileCommon")
+
+    @get:OutputDirectory
+    val jsOutputDirectory: File
+        get() = temporaryDir.resolve("src/js")
 
     @TaskAction
     private fun generateAssets() {
-        outputDirectory.deleteRecursively()
+        jsOutputDirectory.deleteRecursively()
 
         val assetsPackage = requireNotNull(pkg)
         val assetFactory = requireNotNull(factoryName)
@@ -46,7 +54,7 @@ open class GenerateAssets : DefaultTask() {
             path: String,
             content: String,
         ) {
-            val file = outputDirectory.resolve(path)
+            val file = jsOutputDirectory.resolve(path)
             file.parentFile.mkdirs()
             file.writeText("package $assetsPackage\n\n$content")
         }
