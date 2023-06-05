@@ -29,8 +29,28 @@ class AssetsPlugin : Plugin<Project> {
                 resourcesDirectory = sequenceOf(clientCommonAssets, jsAssets).first { it.exists() }
             }
 
+            val generateClientCommonAssets by tasks.registering {
+                outputs.dir(generateAssets.get().clientCommonOutputDirectory)
+                dependsOn(generateAssets)
+            }
+
+            val generateMobileCommonAssets by tasks.registering {
+                outputs.dir(generateAssets.get().mobileCommonOutputDirectory)
+                dependsOn(generateAssets)
+            }
+
+            val generateJsAssets by tasks.registering {
+                outputs.dir(generateAssets.get().jsOutputDirectory)
+                dependsOn(generateAssets)
+            }
+
             extensions.configure<KotlinMultiplatformExtension> {
-                sourceSets["jsMain"].kotlin.srcDir(generateAssets)
+                if (multiplatform) {
+                    sourceSets["clientCommonMain"].kotlin.srcDir(generateClientCommonAssets)
+                    sourceSets["mobileCommonMain"].kotlin.srcDir(generateMobileCommonAssets)
+                }
+
+                sourceSets["jsMain"].kotlin.srcDir(generateJsAssets)
             }
         }
     }
