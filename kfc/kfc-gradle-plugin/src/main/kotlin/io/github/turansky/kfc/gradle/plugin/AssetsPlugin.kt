@@ -15,8 +15,8 @@ class AssetsPlugin : Plugin<Project> {
             ?: return@with
 
         plugins.withId(KotlinPlugin.MULTIPLATFORM) {
-            val clientCommonAssets = file("src/clientCommonMain/resources/assets")
-            val jsAssets = file("src/jsMain/resources/assets")
+            val clientCommonAssets = file("src/clientCommonMain/assets")
+            val jsAssets = file("src/jsMain/assets")
 
             val multiplatform = clientCommonAssets.exists()
 
