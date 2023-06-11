@@ -30,6 +30,8 @@ class MavenCentralPublishPlugin : Plugin<Project> {
         val multiplatformMode = plugins.hasPlugin(KotlinPlugin.MULTIPLATFORM)
 
         val javadocJar = tasks.register("emptyJavadocJar", Jar::class) {
+            group = DEFAULT_TASK_GROUP
+
             archiveClassifier.set("javadoc")
         }
 

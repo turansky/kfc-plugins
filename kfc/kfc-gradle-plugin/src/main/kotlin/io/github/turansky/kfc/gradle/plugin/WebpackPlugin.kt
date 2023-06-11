@@ -19,7 +19,7 @@ class WebpackPlugin : Plugin<Project> {
     }
 
     private fun TaskContainerScope.applyConfiguration() {
-        val patchWebpackConfig = register<PatchWebpackConfig>("patchWebpackConfig") {
+        val patchWebpackConfig by register<PatchWebpackConfig>("patchWebpackConfig") {
             addResourceModules()
 
             patch(

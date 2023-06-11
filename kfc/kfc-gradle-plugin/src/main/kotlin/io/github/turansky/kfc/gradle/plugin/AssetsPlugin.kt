@@ -31,16 +31,22 @@ class AssetsPlugin : Plugin<Project> {
             }
 
             val generateClientCommonAssets by tasks.registering {
+                group = DEFAULT_TASK_GROUP
+
                 outputs.dir(generateAssets.get().clientCommonOutputDirectory)
                 dependsOn(generateAssets)
             }
 
             val generateMobileCommonAssets by tasks.registering {
+                group = DEFAULT_TASK_GROUP
+
                 outputs.dir(generateAssets.get().mobileCommonOutputDirectory)
                 dependsOn(generateAssets)
             }
 
             val generateJsAssets by tasks.registering {
+                group = DEFAULT_TASK_GROUP
+
                 outputs.dir(generateAssets.get().jsOutputDirectory)
                 dependsOn(generateAssets)
             }

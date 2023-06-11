@@ -58,12 +58,16 @@ private class RootPluginPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks {
             register("preparePublish") {
+                group = DEFAULT_TASK_GROUP
+
                 doLast {
                     changeVersion(Version::toRelease, project.versionFiles())
                 }
             }
 
             register("prepareDevelopment") {
+                group = DEFAULT_TASK_GROUP
+
                 doLast {
                     changeVersion(Version::toNextSnapshot, project.versionFiles())
                 }
