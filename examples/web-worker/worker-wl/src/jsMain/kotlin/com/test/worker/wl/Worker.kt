@@ -6,7 +6,8 @@ import com.test.worker.addMessageHandler
 import com.test.worker.post
 import web.workers.Worker
 
-@JsModule("wl-worker")
+// Temp WA for build check
+// @JsModule("wl-worker")
 external class WLWorker : Worker
 
 private external val self: Worker
