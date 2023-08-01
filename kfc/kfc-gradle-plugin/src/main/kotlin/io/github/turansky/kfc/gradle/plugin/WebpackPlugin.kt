@@ -33,7 +33,8 @@ class WebpackPlugin : Plugin<Project> {
             )
 
             doFirst {
-                val momentjsInstalled = project.rootProject.buildDir
+                val momentjsInstalled = project.rootProject
+                    .layout.buildDirectory.asFile.get()
                     .resolve("js/node_modules/moment")
                     .exists()
 

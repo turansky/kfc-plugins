@@ -9,11 +9,11 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 class SingleWebpackCachePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.named<KotlinWebpack>(Webpack.PRODUCTION_TASK) {
-            destinationDirectory = buildDir.resolve("dist/production")
+            outputDirectory.set(project.layout.buildDirectory.dir("dist/production"))
         }
 
         tasks.named<KotlinWebpack>(Webpack.DEVELOPMENT_TASK) {
-            destinationDirectory = buildDir.resolve("dist/development")
+            outputDirectory.set(project.layout.buildDirectory.dir("dist/development"))
         }
 
         tasks.link(Webpack.PRODUCTION_TASK, Webpack.DEVELOPMENT_TASK)
@@ -27,7 +27,7 @@ class SingleWebpackCachePlugin : Plugin<Project> {
         named<KotlinWebpack>(taskName) {
             doFirst {
                 val relatedTask = named<KotlinWebpack>(relatedTaskName).get()
-                project.delete(relatedTask.destinationDirectory)
+                project.delete(relatedTask.outputDirectory)
             }
         }
     }
