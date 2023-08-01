@@ -1,9 +1,10 @@
 package com.test.worker
 
-import org.w3c.dom.Worker
-import org.w3c.dom.events.Event
-
-private const val MESSAGE_TYPE: String = "message"
+import web.events.Event
+import web.events.addEventHandler
+import web.messaging.MESSAGE
+import web.messaging.MessageEvent
+import web.workers.Worker
 
 fun Worker.addMessageHandler(
     handler: Message.() -> Unit
@@ -13,8 +14,7 @@ fun Worker.addMessageHandler(
         handler(message)
     }
 
-    addEventListener(MESSAGE_TYPE, listener)
-    return { removeEventListener(MESSAGE_TYPE, listener) }
+    return addEventHandler(MessageEvent.MESSAGE, listener)
 }
 
 fun Worker.post(message: Message) {
