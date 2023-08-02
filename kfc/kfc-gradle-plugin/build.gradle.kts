@@ -73,12 +73,6 @@ enum class KfcPlugin(
         tags = listOf("webpack"),
     ),
 
-    REACT_DATES(
-        displayName = "react-dates plugin",
-        description = "React 17+ compatibility fix for react-dates",
-        tags = listOf("react", "react-dates"),
-    ),
-
     ;
 
     val pluginName: String = name.lowercase().replace("_", "-")
