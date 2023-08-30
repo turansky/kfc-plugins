@@ -1,7 +1,6 @@
 package com.test.worker
 
-import web.events.Event
-import web.events.addEventHandler
+import web.events.EventHandler
 import web.messaging.MESSAGE
 import web.messaging.MessageEvent
 import web.workers.Worker
@@ -9,9 +8,8 @@ import web.workers.Worker
 fun Worker.addMessageHandler(
     handler: Message.() -> Unit
 ): () -> Unit {
-    val listener: (Event) -> Unit = {
-        val message = it.asDynamic().data
-        handler(message)
+    val listener: EventHandler<MessageEvent<*>> = {
+        handler(it.data.unsafeCast<Message>())
     }
 
     return addEventHandler(MessageEvent.MESSAGE, listener)

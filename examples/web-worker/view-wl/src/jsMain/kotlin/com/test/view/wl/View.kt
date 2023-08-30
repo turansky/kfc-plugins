@@ -6,9 +6,8 @@ import com.test.worker.post
 import com.test.worker.wl.WLWorker
 import web.dom.document
 import web.events.Event
-import web.events.addEventHandler
+import web.html.HTML.div
 import web.html.HTML.span
-import web.html.HTMLDivElement
 import web.html.HTMLElement
 import web.http.fetchAsync
 import web.notifications.CLICK
@@ -46,8 +45,7 @@ private fun main() {
 }
 
 fun View(): HTMLElement {
-    val container = document.createElement("div")
-        .unsafeCast<HTMLDivElement>()
+    val container = document.createElement(div)
 
     container.style.apply {
         width = "100%"
