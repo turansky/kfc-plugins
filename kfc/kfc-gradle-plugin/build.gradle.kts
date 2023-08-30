@@ -95,8 +95,8 @@ enum class KfcPlugin(
 }
 
 gradlePlugin {
-    website.set(REPO_URL)
-    vcsUrl.set(REPO_URL)
+    website = REPO_URL
+    vcsUrl = REPO_URL
 
     plugins {
         for (kfcPlugin in KfcPlugin.values()) {
@@ -105,7 +105,7 @@ gradlePlugin {
                 displayName = kfcPlugin.displayName
                 description = kfcPlugin.description
                 implementationClass = kfcPlugin.implementationClass
-                tags.set(kfcPlugin.tags)
+                tags = kfcPlugin.tags
             }
         }
     }
