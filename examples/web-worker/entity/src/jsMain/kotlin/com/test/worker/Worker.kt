@@ -1,7 +1,6 @@
 package com.test.worker
 
 import web.events.EventHandler
-import web.messaging.MESSAGE
 import web.messaging.MessageEvent
 import web.workers.Worker
 
