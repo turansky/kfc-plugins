@@ -15,6 +15,9 @@ internal class SourceMapsPlugin : Plugin<Project> {
                     kotlinOptions {
                         sourceMap = false
                         sourceMapEmbedSources = null
+
+                        // Temp WA
+                        options.sourceMapEmbedSources.convention(null)
                     }
                 }
 
