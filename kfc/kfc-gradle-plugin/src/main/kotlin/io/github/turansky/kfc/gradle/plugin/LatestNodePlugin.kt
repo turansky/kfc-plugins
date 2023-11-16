@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
-private const val YARN_VERSION = "1.22.19"
+private const val YARN_VERSION = "1.22.21"
 private const val NODE_VERSION = "20.9.0"
 
 class LatestNodePlugin : Plugin<Project> {
