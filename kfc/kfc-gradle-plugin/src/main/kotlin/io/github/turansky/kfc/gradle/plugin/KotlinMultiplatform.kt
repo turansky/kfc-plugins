@@ -64,7 +64,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     tasks.configureEach<KotlinJsCompile> {
         kotlinOptions {
             moduleKind = if (esMode) "es" else "commonjs"
-            useEsClasses = esMode
+            useEsClasses = true
             freeCompilerArgs += listOf(
                 "-Xgenerate-polyfills=false",
             )
