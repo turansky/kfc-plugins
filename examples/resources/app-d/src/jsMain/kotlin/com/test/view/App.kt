@@ -3,6 +3,8 @@ package com.test.view
 import AAA
 import BBB
 import CCC
+import js.import.import
+import js.promise.Promise
 
 fun main() {
     Api
@@ -11,7 +13,9 @@ fun main() {
 object Api {
     fun App(): String = AAA() + BBB() + CCC()
 
-    fun json(): String = require("app.json")
+    fun json(): Promise<AppData> = import("app.json")
 }
 
-external fun require(path: String): String
+external interface AppData {
+    val app: String
+}
