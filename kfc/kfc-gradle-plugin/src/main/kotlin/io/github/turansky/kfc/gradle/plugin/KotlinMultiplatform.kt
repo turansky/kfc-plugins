@@ -8,8 +8,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-private val ES_MODE = BooleanProperty("kfc.es.mode", true)
-
 internal fun Project.applyKotlinMultiplatformPlugin(
     binaries: Boolean = false,
     distribution: Boolean = false,
@@ -59,11 +57,9 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     configurations.create(JS_MAIN_MODULE)
 
-    val esMode = project.property(ES_MODE)
-
     tasks.configureEach<KotlinJsCompile> {
         kotlinOptions {
-            moduleKind = if (esMode) "es" else "commonjs"
+            moduleKind = "es"
             useEsClasses = true
             freeCompilerArgs += listOf(
                 "-Xgenerate-polyfills=false",
