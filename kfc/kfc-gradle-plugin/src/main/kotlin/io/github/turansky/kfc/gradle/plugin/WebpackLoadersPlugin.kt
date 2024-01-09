@@ -12,11 +12,6 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
 
 private const val CSS_LOADER = "css-loader"
 private const val FILE_LOADER = "file-loader"
-private const val WORKER_LOADER = "worker-loader"
-
-private const val JS_FILE_TEMPLATE = "[name].[contenthash].js"
-
-private val WORKER_FALLBACK = BooleanProperty("kfc.worker.fallback")
 
 // language=JavaScript
 private val RULES: String = """
@@ -52,27 +47,6 @@ private fun Project.fontRules(): String {
     """.trimIndent()
 }
 
-private fun Project.workerRules(): String {
-    val fileName = outputPath("/", JS_FILE_TEMPLATE)
-
-    // language=JavaScript
-    return """
-    const useFallback = !!config.devServer || ${property(WORKER_FALLBACK)}   
-
-    config.module.rules.push( 
-      {
-        test: /[\.|\-]worker\.js${'$'}/,
-        loader: '$WORKER_LOADER',
-        options: {
-          filename: '$fileName',
-          inline: useFallback ? 'fallback' : undefined,  
-          esModule: false,
-        }
-      },
-    )
-    """.trimIndent()
-}
-
 class WebpackLoadersPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(WebpackPlugin::class)
@@ -80,9 +54,6 @@ class WebpackLoadersPlugin : Plugin<Project> {
         tasks.configureEach<PatchWebpackConfig> {
             patch("rules", RULES)
             patch("font-rules", fontRules())
-
-            if (!project.name.endsWith("-worker"))
-                patch("worker-rules", workerRules())
         }
 
         afterEvaluate {
@@ -99,6 +70,5 @@ class WebpackLoadersPlugin : Plugin<Project> {
 
         configurationName(devNpm(CSS_LOADER, "6.8.1"))
         configurationName(devNpm(FILE_LOADER, "6.2.0"))
-        configurationName(devNpm(WORKER_LOADER, "3.0.8"))
     }
 }
