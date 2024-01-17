@@ -12,7 +12,7 @@ import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 private const val YARN_VERSION = "1.22.21"
-private const val NODE_VERSION = "20.10.0"
+private const val NODE_VERSION = "20.11.0"
 
 class LatestNodePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
