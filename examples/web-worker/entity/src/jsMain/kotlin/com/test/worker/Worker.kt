@@ -7,7 +7,7 @@ import web.workers.Worker
 fun Worker.addMessageHandler(
     handler: Message.() -> Unit
 ): () -> Unit {
-    val listener: EventHandler<MessageEvent<*>> = {
+    val listener: EventHandler<MessageEvent<*, *>> = {
         handler(it.data.unsafeCast<Message>())
     }
 
