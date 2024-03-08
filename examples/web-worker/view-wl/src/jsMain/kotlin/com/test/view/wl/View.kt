@@ -5,12 +5,12 @@ import com.test.worker.addMessageHandler
 import com.test.worker.post
 import com.test.worker.wl.WLWorker
 import web.dom.document
-import web.events.Event
+import web.events.addEventHandler
 import web.html.HTML.div
 import web.html.HTML.span
 import web.html.HTMLElement
 import web.http.fetchAsync
-import web.notifications.CLICK
+import web.uievents.MouseEvent
 
 private fun main() {
     val view = View()
@@ -37,7 +37,7 @@ private fun main() {
             }
     }
 
-    view.addEventHandler(Event.CLICK) {
+    view.addEventHandler(MouseEvent.click()) {
         testBytes()
     }
 
