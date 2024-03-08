@@ -7,12 +7,12 @@ import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
-import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
-import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
-import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.npm.LockFileMismatchReport
+import org.jetbrains.kotlin.gradle.targets.js.npm.NpmExtension
 
-private const val YARN_VERSION = "1.22.21"
 private const val NODE_VERSION = "20.11.1"
+
+private const val YARN = "kotlin.js.yarn"
 
 class LatestNodePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -22,19 +22,17 @@ class LatestNodePlugin : Plugin<Project> {
 
 private class RootLatestNodePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        plugins.withType<YarnPlugin> {
-            the<YarnRootExtension>().apply {
-                version = YARN_VERSION
-                lockFileDirectory = projectDir
-                yarnLockMismatchReport = YarnLockMismatchReport.NONE
-                yarnLockAutoReplace = true
-                ignoreScripts = false
-            }
-        }
+        ext(YARN, false)
 
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().apply {
                 nodeVersion = NODE_VERSION
+            }
+
+            the<NpmExtension>().apply {
+                lockFileDirectory.set(projectDir)
+                packageLockMismatchReport.set(LockFileMismatchReport.NONE)
+                packageLockAutoReplace.set(true)
             }
         }
     }
