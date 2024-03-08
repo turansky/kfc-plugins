@@ -19,7 +19,7 @@ class PluginPublishPlugin : Plugin<Project> {
 
         tasks {
             configureEach<KotlinJvmCompile> {
-                kotlinOptions {
+                compilerOptions {
                     allWarningsAsErrors = true
                 }
             }

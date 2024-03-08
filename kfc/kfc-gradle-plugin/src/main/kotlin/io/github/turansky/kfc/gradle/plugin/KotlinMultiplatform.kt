@@ -3,9 +3,10 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
-import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
+import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 internal fun Project.applyKotlinMultiplatformPlugin(
     binaries: Boolean = false,
@@ -56,19 +57,19 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     configurations.create(JS_MAIN_MODULE)
 
-    tasks.configureEach<KotlinJsCompile> {
-        kotlinOptions {
-            moduleKind = "es"
-            useEsClasses = true
-            freeCompilerArgs += listOf(
+    tasks.configureEach<Kotlin2JsCompile> {
+        compilerOptions {
+            moduleKind.set(JsModuleKind.MODULE_ES)
+            useEsClasses.set(true)
+            freeCompilerArgs.add(
                 "-Xgenerate-polyfills=false",
             )
         }
     }
 
-    tasks.configureEach<KotlinCompile<*>> {
-        kotlinOptions {
-            freeCompilerArgs += listOf(
+    tasks.configureEach<KotlinCompilationTask<*>> {
+        compilerOptions {
+            freeCompilerArgs.add(
                 "-Xexpect-actual-classes",
             )
         }
