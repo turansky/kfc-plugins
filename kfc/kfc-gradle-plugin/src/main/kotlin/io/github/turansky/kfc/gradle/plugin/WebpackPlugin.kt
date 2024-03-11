@@ -4,7 +4,8 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Delete
 import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
+import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -50,7 +51,11 @@ class WebpackPlugin : Plugin<Project> {
             delete(patchWebpackConfig)
         }
 
-        configureEach<KotlinJsCompile> {
+        configureEach<KotlinWebpack> {
+            dependsOn(patchWebpackConfig)
+        }
+
+        configureEach<KotlinJsTest> {
             dependsOn(patchWebpackConfig)
         }
     }
