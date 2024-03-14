@@ -61,15 +61,16 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         compilerOptions {
             moduleKind.set(JsModuleKind.MODULE_ES)
             useEsClasses.set(true)
-            freeCompilerArgs.add(
+            freeCompilerArgs.addAll(
                 "-Xgenerate-polyfills=false",
+                "-Xir-generate-inline-anonymous-functions",
             )
         }
     }
 
     tasks.configureEach<KotlinCompilationTask<*>> {
         compilerOptions {
-            freeCompilerArgs.add(
+            freeCompilerArgs.addAll(
                 "-Xexpect-actual-classes",
             )
         }
