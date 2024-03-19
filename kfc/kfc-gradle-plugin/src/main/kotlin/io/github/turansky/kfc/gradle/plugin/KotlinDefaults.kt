@@ -8,7 +8,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 private const val NO_WARN: String = "kotlin.mpp.stability.nowarn"
 
-private const val JS_COMPILER = "kotlin.js.compiler"
 private const val DOM_API_INCLUDED = "kotlin.js.stdlib.dom.api.included"
 private const val OUTPUT_GRANULARITY = "kotlin.js.ir.output.granularity"
 
@@ -17,7 +16,6 @@ private val STRICT_MODE = BooleanProperty("kfc.strict.mode", true)
 internal fun Project.applyKotlinDefaults() {
     rootProject.ext(NO_WARN, true)
 
-    ext(JS_COMPILER, "ir")
     ext(DOM_API_INCLUDED, false)
     ext(OUTPUT_GRANULARITY, "whole-program")
 
