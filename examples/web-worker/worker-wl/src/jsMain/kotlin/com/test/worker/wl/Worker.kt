@@ -4,11 +4,15 @@ import com.test.worker.Message
 import com.test.worker.MessageType
 import com.test.worker.addMessageHandler
 import com.test.worker.post
+import js.import.import
+import web.url.URL
 import web.workers.Worker
 
-// Temp WA for build check
-// @JsModule("wl-worker")
-external class WLWorker : Worker
+fun WLWorker(): Worker =
+    Worker(URL("wl-worker", import.meta.url))
+
+@JsModule("wl-worker")
+external class WebWorker : Worker
 
 private external val self: Worker
 
