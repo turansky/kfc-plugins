@@ -11,9 +11,6 @@ import web.workers.Worker
 fun WLWorker(): Worker =
     Worker(URL("wl-worker", import.meta.url))
 
-@JsModule("wl-worker")
-external class WebWorker : Worker
-
 private external val self: Worker
 
 private fun main() {
