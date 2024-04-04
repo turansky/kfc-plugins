@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    jsMainRuntimeOnly(project(":examples:web-worker:view-wl"))
+    jsMainImplementation(project(":examples:web-worker:view-wl"))
 }
