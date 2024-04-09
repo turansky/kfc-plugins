@@ -54,8 +54,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     // `jsMain` source set required
     plugins.apply(AssetsPlugin::class)
-
-    plugins.apply(PackageJsonMainFixPlugin::class)
+    plugins.apply(FixSymlinkPlugin::class)
 
     configurations.create(JS_MAIN_MODULE)
 
