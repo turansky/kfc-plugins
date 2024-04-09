@@ -10,12 +10,12 @@ class PackageJsonMainFixPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         val kotlin = the<KotlinMultiplatformExtension>()
 
-        // WA: For ESM bundles there's incorrect package.json "main" field defined
         kotlin.js().compilations.forEach {
             it.packageJson {
                 val mainField = main?.removeSuffix(".js")
+
                 if (!mainField.isNullOrEmpty() && !mainField.endsWith(".mjs")) {
-                    this.main = mainField + ".mjs"
+                    this.main = "$mainField.mjs"
                 }
             }
         }
