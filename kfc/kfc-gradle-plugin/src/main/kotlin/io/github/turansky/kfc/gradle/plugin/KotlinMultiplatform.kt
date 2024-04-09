@@ -2,7 +2,6 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -48,11 +47,6 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             }
         }
 
-        // WA: For ESM bundles there's incorrect package.json "main" field defined
-        compilations["main"].packageJson {
-            customField("main", main?.replace(".js", ".mjs"))
-        }
-
         if (buildBundle) {
             this.binaries.executable()
         }
@@ -60,6 +54,8 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     // `jsMain` source set required
     plugins.apply(AssetsPlugin::class)
+
+    plugins.apply(PackageJsonMainFixPlugin::class)
 
     configurations.create(JS_MAIN_MODULE)
 
