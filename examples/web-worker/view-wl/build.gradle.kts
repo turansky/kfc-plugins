@@ -6,5 +6,4 @@ plugins {
 dependencies {
     jsMainImplementation(wrappers("browser"))
     jsMainImplementation(project(":examples:web-worker:entity"))
-    jsMainImplementation(project(":examples:web-worker:worker-wl"))
 }

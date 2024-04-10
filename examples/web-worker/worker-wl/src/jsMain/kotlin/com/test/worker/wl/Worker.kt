@@ -4,12 +4,7 @@ import com.test.worker.Message
 import com.test.worker.MessageType
 import com.test.worker.addMessageHandler
 import com.test.worker.post
-import js.import.import
-import web.url.URL
 import web.workers.Worker
-
-fun WLWorker(): Worker =
-    Worker(URL("wl-worker", import.meta.url))
 
 private external val self: Worker
 
