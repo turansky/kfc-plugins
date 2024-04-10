@@ -3,7 +3,7 @@ package com.test.view.wl
 import com.test.worker.Message
 import com.test.worker.addMessageHandler
 import com.test.worker.post
-import com.test.worker.wl.WLWorker
+import js.import.import
 import web.dom.document
 import web.events.addEventHandler
 import web.html.HTML.div
@@ -11,6 +11,8 @@ import web.html.HTML.span
 import web.html.HTMLElement
 import web.http.fetchAsync
 import web.uievents.MouseEvent
+import web.url.URL
+import web.workers.Worker
 
 private fun main() {
     val view = View()
@@ -44,7 +46,7 @@ private fun main() {
     testBytes()
 }
 
-fun View(): HTMLElement {
+internal fun View(): HTMLElement {
     val container = document.createElement(div)
 
     container.style.apply {
@@ -58,3 +60,6 @@ fun View(): HTMLElement {
 
     return container
 }
+
+internal fun WLWorker(): Worker =
+    Worker(URL("wl-worker", import.meta.url))
