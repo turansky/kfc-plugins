@@ -23,7 +23,7 @@ class FixSymlinkPlugin : Plugin<Project> {
 private fun PackageJson.fixMainField() {
     val mainField = main ?: return
 
-    if (!mainField.endsWith(JS_EXTENSION)) {
+    if (mainField.endsWith(JS_EXTENSION)) {
         main = mainField.removeSuffix(JS_EXTENSION) + MJS_EXTENSION
     }
 }
