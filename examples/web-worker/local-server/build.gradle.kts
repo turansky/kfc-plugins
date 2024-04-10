@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(project(":examples:web-worker:view-wl"))
+    jsMainModule(project(":examples:web-worker:view-wl"))
 }

@@ -44,8 +44,6 @@ private fun main() {
     testBytes()
 }
 
-fun runViewMain() = main()
-
 fun View(): HTMLElement {
     val container = document.createElement(div)
 
