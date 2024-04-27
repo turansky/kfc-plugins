@@ -62,9 +62,11 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         compilerOptions {
             moduleKind.set(JsModuleKind.MODULE_ES)
             useEsClasses.set(true)
+
             freeCompilerArgs.addAll(
                 "-Xgenerate-polyfills=false",
-                // TODO: Enable after resolving https://youtrack.jetbrains.com/issue/KT-67355
+                // TODO: Enable after resolving
+                //  https://youtrack.jetbrains.com/issue/KT-67355
                 // "-Xir-generate-inline-anonymous-functions",
             )
         }
