@@ -26,7 +26,7 @@ private class RootLatestNodePlugin : Plugin<Project> {
 
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().apply {
-                nodeVersion = NODE_VERSION
+                version = NODE_VERSION
             }
 
             the<NpmExtension>().apply {
