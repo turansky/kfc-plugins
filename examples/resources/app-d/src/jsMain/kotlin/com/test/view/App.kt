@@ -4,7 +4,6 @@ import AAA
 import BBB
 import CCC
 import js.import.import
-import js.promise.Promise
 
 fun main() {
     Api
@@ -13,7 +12,7 @@ fun main() {
 object Api {
     fun App(): String = AAA() + BBB() + CCC()
 
-    fun json(): Promise<AppData> = import("app.json")
+    suspend fun json(): AppData = import("app.json")
 }
 
 external interface AppData {

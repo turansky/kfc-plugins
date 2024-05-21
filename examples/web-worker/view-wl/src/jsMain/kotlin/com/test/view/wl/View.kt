@@ -32,7 +32,7 @@ private fun main() {
 
     fun testBytes() {
         fetchAsync("https://httpbin.org/get")
-            .flatThen { it.text() }
+            .flatThen { it.textAsync() }
             .then { data ->
                 log("DATA", data)
                 worker.post(Message(data))
