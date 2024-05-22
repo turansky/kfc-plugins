@@ -3,7 +3,6 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
-import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
@@ -59,8 +58,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     tasks.configureEach<Kotlin2JsCompile> {
         compilerOptions {
-            moduleKind.set(JsModuleKind.MODULE_ES)
-            useEsClasses.set(true)
+            target.set("es2015")
 
             freeCompilerArgs.addAll(
                 "-Xdont-warn-on-error-suppression",
