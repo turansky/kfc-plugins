@@ -64,17 +64,12 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             useEsClasses.set(true)
 
             freeCompilerArgs.addAll(
+                "-Xdont-warn-on-error-suppression",
                 "-Xgenerate-polyfills=false",
                 // TODO: Enable after resolving
                 //  https://youtrack.jetbrains.com/issue/KT-67355
                 // "-Xir-generate-inline-anonymous-functions",
             )
-
-            if (k2mode) {
-                freeCompilerArgs.addAll(
-                    "-Xdont-warn-on-error-suppression",
-                )
-            }
         }
     }
 
