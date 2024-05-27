@@ -16,6 +16,8 @@ dependencyResolutionManagement {
 include("examples:assets:lib")
 include("examples:assets:lib-multiplatform")
 
+include("examples:js-plain-object")
+
 include("examples:resources:lib-a")
 include("examples:resources:lib-b")
 include("examples:resources:lib-c")
