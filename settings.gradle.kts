@@ -6,6 +6,12 @@ pluginManagement {
         kotlin("multiplatform") version kotlinVersion
         kotlin("plugin.js-plain-objects") version kotlinVersion
     }
+
+    includeBuild("kfc-k2-adapter")
+}
+
+plugins {
+    id("io.github.turansky.kfc.settings")
 }
 
 dependencyResolutionManagement {
