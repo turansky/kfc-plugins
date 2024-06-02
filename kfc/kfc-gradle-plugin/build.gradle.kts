@@ -19,6 +19,12 @@ enum class KfcPlugin(
     val description: String,
     tags: Collection<String>,
 ) {
+    SETTINGS(
+        displayName = "Settings plugin",
+        description = "Gradle settings configuration for Kotlin/JS",
+        tags = listOf("settings"),
+    ),
+
     VERSION(
         displayName = "Version plugin",
         description = "Provide version tasks in root project",
