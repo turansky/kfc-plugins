@@ -8,7 +8,7 @@ kotlin {
 
     sourceSets {
         val clientCommonMain by creating {
-            // do nothing
+            dependsOn(commonMain.get())
         }
 
         val mobileCommonMain by creating {
