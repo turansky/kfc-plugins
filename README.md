@@ -62,8 +62,8 @@ Apply [`webpack`](#webpack) plugin by default
 * Modularity
 
 ### Decision
-* Kotlin/JS target - `es`
-* ES classes - enabled
+
+* Kotlin/JS target - `es2015`
 
 #### `build.gradle.kts`
 
