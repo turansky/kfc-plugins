@@ -1,7 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
-import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
+import org.gradle.api.artifacts.ProjectDependency
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
 
@@ -60,7 +60,7 @@ internal fun Project.relatedModuleProjects(): Set<Project> =
     configurations.getByName(JS_MAIN_MODULE)
         .allDependencies
         .asSequence()
-        .filterIsInstance<DefaultProjectDependency>()
+        .filterIsInstance<ProjectDependency>()
         .map { it.dependencyProject }
         .toSet()
 
@@ -72,7 +72,7 @@ internal fun Project.relatedProjects(): Set<Project> {
     return configuration
         .allDependencies
         .asSequence()
-        .filterIsInstance<DefaultProjectDependency>()
+        .filterIsInstance<ProjectDependency>()
         .map { it.dependencyProject }
         .flatMap { sequenceOf(it) + it.relatedProjects() }
         .plus(this)
