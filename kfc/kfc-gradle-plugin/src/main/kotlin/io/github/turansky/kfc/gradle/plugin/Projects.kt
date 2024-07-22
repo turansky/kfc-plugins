@@ -56,28 +56,36 @@ internal val Project.jsOutputFileName: String
 internal val Project.jsChunkFileName: String
     get() = outputPath("[name].[contenthash].js")
 
+private val RELATED_MODULE_PROJECTS_CACHE: MutableMap<Project, Set<Project>> =
+    mutableMapOf()
+
 internal fun Project.relatedModuleProjects(): Set<Project> =
-    configurations.getByName(JS_MAIN_MODULE)
-        .allDependencies
-        .asSequence()
-        .filterIsInstance<ProjectDependency>()
-        .map { it.dependencyProject }
-        .toSet()
+    RELATED_MODULE_PROJECTS_CACHE.getOrPut(this) {
+        configurations.getByName(JS_MAIN_MODULE)
+            .allDependencies
+            .asSequence()
+            .filterIsInstance<ProjectDependency>()
+            .map { it.dependencyProject }
+            .toSet()
+    }
 
-// TODO: optimize calculation
-internal fun Project.relatedProjects(): Set<Project> {
-    val configuration = configurations.findByName(JS_MAIN_IMPLEMENTATION)
-        ?: return emptySet()
+private val RELATED_PROJECTS_CACHE: MutableMap<Project, Set<Project>> =
+    mutableMapOf()
 
-    return configuration
-        .allDependencies
-        .asSequence()
-        .filterIsInstance<ProjectDependency>()
-        .map { it.dependencyProject }
-        .flatMap { sequenceOf(it) + it.relatedProjects() }
-        .plus(this)
-        .toSet()
-}
+internal fun Project.relatedProjects(): Set<Project> =
+    RELATED_PROJECTS_CACHE.getOrPut(this) {
+        val configuration = configurations.findByName(JS_MAIN_IMPLEMENTATION)
+            ?: return@getOrPut emptySet()
+
+        configuration
+            .allDependencies
+            .asSequence()
+            .filterIsInstance<ProjectDependency>()
+            .map { it.dependencyProject }
+            .flatMap { sequenceOf(it) + it.relatedProjects() }
+            .plus(this)
+            .toSet()
+    }
 
 internal fun Project.ext(
     propertyName: String,
