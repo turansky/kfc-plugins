@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.npm.LockFileMismatchReport
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmExtension
 
-private const val NODE_VERSION = "20.15.1"
+private const val NODE_VERSION = "20.16.0"
 
 private const val YARN = "kotlin.js.yarn"
 
