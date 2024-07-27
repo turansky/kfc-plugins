@@ -15,7 +15,7 @@ internal fun parseVersion(
 
     check(parts.size == 3)
 
-    return StandardVersion(
+    return Version(
         major = parts[0],
         minor = parts[1],
         patch = parts[2],
@@ -23,14 +23,20 @@ internal fun parseVersion(
     )
 }
 
-internal sealed class Version {
-    protected abstract val major: Int
-    protected abstract val minor: Int
-    protected abstract val patch: Int
-    abstract val snapshot: Boolean
+internal data class Version(
+    val major: Int,
+    val minor: Int,
+    val patch: Int,
+    val snapshot: Boolean,
+) {
+    fun toRelease(): Version =
+        copy(snapshot = false)
 
-    abstract fun toRelease(): Version
-    abstract fun toNextSnapshot(): Version
+    fun toNextSnapshot(): Version =
+        copy(
+            patch = patch + 1,
+            snapshot = true
+        )
 
     override fun toString(): String {
         val version = sequenceOf(major, minor, patch)
@@ -42,23 +48,4 @@ internal sealed class Version {
             version
         }
     }
-}
-
-private data class StandardVersion(
-    override val major: Int,
-    override val minor: Int,
-    override val patch: Int,
-    override val snapshot: Boolean,
-) : Version() {
-    override fun toRelease(): Version =
-        copy(snapshot = false)
-
-    override fun toNextSnapshot(): Version =
-        copy(
-            patch = patch + 1,
-            snapshot = true
-        )
-
-    override fun toString(): String =
-        super.toString()
 }
