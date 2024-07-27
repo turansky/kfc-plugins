@@ -4,7 +4,7 @@ plugins {
     `kotlin-dsl`
 
     id("com.gradle.plugin-publish")
-    id("com.github.turansky.kfc.plugin-publish")
+    id("kfc-plugin-publish")
 }
 
 dependencies {
