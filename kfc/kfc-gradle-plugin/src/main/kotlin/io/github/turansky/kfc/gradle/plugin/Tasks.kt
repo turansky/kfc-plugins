@@ -10,8 +10,9 @@ internal const val COMPILE_DEVELOPMENT: String = "compileDevelopmentExecutableKo
 internal const val KOTLIN_SOURCES_TASK = "kotlinSourcesJar"
 
 internal fun Task.eachModuleProjectDependency(
+    cache: RelatedProjectsCache,
     action: (Project) -> Unit,
 ) {
-    project.relatedModuleProjects()
+    project.relatedModuleProjects(cache)
         .forEach(action)
 }

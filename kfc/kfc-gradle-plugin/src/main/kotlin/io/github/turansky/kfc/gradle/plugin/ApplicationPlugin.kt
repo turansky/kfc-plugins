@@ -7,6 +7,8 @@ import org.gradle.kotlin.dsl.apply
 private val WEBPACK_RUN = BooleanProperty("kfc.webpack.run")
 
 class ApplicationPlugin : Plugin<Project> {
+    private val cache = RelatedProjectsCache()
+
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinMultiplatformPlugin(
             distribution = true,
@@ -16,13 +18,13 @@ class ApplicationPlugin : Plugin<Project> {
         plugins.apply(WebpackBundlePlugin::class)
 
         tasks.named(COMPILE_PRODUCTION) {
-            eachModuleProjectDependency {
+            eachModuleProjectDependency(cache) {
                 dependsOn(it.tasks.named(COMPILE_PRODUCTION))
             }
         }
 
         tasks.named(COMPILE_DEVELOPMENT) {
-            eachModuleProjectDependency {
+            eachModuleProjectDependency(cache) {
                 dependsOn(it.tasks.named(COMPILE_DEVELOPMENT))
             }
         }

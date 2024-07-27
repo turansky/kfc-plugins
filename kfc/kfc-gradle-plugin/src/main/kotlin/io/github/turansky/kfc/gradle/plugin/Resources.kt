@@ -11,8 +11,10 @@ private val RESOURCES = listOf(
     "src/main/resources"
 )
 
-internal fun Project.relatedResources(): List<File> =
-    relatedProjects()
+internal fun Project.relatedResources(
+    cache: RelatedProjectsCache,
+): List<File> =
+    relatedProjects(cache)
         .asSequence()
         .map { it.projectDir }
         .flatMap { RESOURCES.asSequence().map(it::resolve) }

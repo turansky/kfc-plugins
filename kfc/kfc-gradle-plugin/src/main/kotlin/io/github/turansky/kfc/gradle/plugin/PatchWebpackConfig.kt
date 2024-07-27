@@ -16,6 +16,8 @@ open class PatchWebpackConfig : DefaultTask() {
         group = DEFAULT_TASK_GROUP
     }
 
+    private val cache = RelatedProjectsCache()
+
     @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()
 
@@ -69,6 +71,26 @@ open class PatchWebpackConfig : DefaultTask() {
         value: String,
     ) {
         envVariables.add(name to value)
+    }
+
+    internal fun addResourceModules() {
+        val resources = project.relatedResources(cache)
+        if (resources.isEmpty()) {
+            return
+        }
+
+        val paths = resources.joinToString(",\n") {
+            it.toPathString()
+        }
+
+        // language=JavaScript
+        val body = """
+            config.resolve.modules.unshift(
+                $paths
+            )
+        """.trimIndent()
+
+        patch("resources", body)
     }
 
     @TaskAction

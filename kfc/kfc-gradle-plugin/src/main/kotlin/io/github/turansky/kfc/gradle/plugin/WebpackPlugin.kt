@@ -60,23 +60,3 @@ class WebpackPlugin : Plugin<Project> {
         }
     }
 }
-
-private fun PatchWebpackConfig.addResourceModules() {
-    val resources = project.relatedResources()
-    if (resources.isEmpty()) {
-        return
-    }
-
-    val paths = resources.joinToString(",\n") {
-        it.toPathString()
-    }
-
-    // language=JavaScript
-    val body = """
-        config.resolve.modules.unshift(
-            $paths
-        )
-    """.trimIndent()
-
-    patch("resources", body)
-}
