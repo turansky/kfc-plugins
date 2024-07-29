@@ -25,7 +25,11 @@ class WebpackPlugin : Plugin<Project> {
         val resources by lazy { relatedResources.get().calculate() }
 
         val patchWebpackConfig by registering(PatchWebpackConfig::class) {
-            addResourceModules(resources)
+            doFirst {
+                addResourceModules(resources)
+            }
+
+            dependsOn(relatedResources)
 
             patch(
                 "default-settings",
@@ -48,7 +52,6 @@ class WebpackPlugin : Plugin<Project> {
                 }
             }
 
-            dependsOn(relatedResources)
             dependsOn(":kotlinNpmInstall")
         }
 
