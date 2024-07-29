@@ -22,7 +22,7 @@ internal open class RelatedResources : DefaultTask() {
         project.relatedResources()
 }
 
-fun Project.relatedResources(): List<File> =
+private fun Project.relatedResources(): List<File> =
     relatedProjects()
         .asSequence()
         .map { it.projectDir }
