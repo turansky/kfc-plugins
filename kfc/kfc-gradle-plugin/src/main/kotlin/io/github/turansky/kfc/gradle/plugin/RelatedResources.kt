@@ -19,10 +19,10 @@ private val RESOURCES = listOf(
 internal open class RelatedResources : DefaultTask() {
     @TaskAction
     fun calculate(): List<File> =
-        project.relatedResourcesFn()
+        project.relatedResources()
 }
 
-fun Project.relatedResourcesFn(): List<File> =
+fun Project.relatedResources(): List<File> =
     relatedProjects()
         .asSequence()
         .map { it.projectDir }
