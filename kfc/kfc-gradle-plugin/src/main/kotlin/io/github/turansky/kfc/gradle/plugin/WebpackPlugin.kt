@@ -6,6 +6,7 @@ import org.gradle.api.tasks.Delete
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
+import java.io.File
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -20,8 +21,11 @@ class WebpackPlugin : Plugin<Project> {
     }
 
     private fun TaskContainerScope.applyConfiguration() {
+        val relatedResources by registering(RelatedResources::class)
+        val resources by lazy { relatedResources.get().calculate() }
+
         val patchWebpackConfig by registering(PatchWebpackConfig::class) {
-            addResourceModules()
+            addResourceModules(resources)
 
             patch(
                 "default-settings",
@@ -44,6 +48,7 @@ class WebpackPlugin : Plugin<Project> {
                 }
             }
 
+            dependsOn(relatedResources)
             dependsOn(":kotlinNpmInstall")
         }
 
@@ -61,8 +66,9 @@ class WebpackPlugin : Plugin<Project> {
     }
 }
 
-private fun PatchWebpackConfig.addResourceModules() {
-    val resources = project.relatedResources()
+private fun PatchWebpackConfig.addResourceModules(
+    resources: List<File>,
+) {
     if (resources.isEmpty()) {
         return
     }

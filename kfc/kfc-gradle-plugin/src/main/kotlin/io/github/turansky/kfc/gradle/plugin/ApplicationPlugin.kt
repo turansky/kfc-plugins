@@ -3,6 +3,9 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.getValue
+import org.gradle.kotlin.dsl.provideDelegate
+import org.gradle.kotlin.dsl.registering
 
 private val WEBPACK_RUN = BooleanProperty("kfc.webpack.run")
 
@@ -15,16 +18,23 @@ class ApplicationPlugin : Plugin<Project> {
 
         plugins.apply(WebpackBundlePlugin::class)
 
+        val relatedModuleProjects by tasks.registering(RelatedModuleProjects::class)
+        val moduleProjects by lazy { relatedModuleProjects.get().calculate() }
+
         tasks.named(COMPILE_PRODUCTION) {
-            eachModuleProjectDependency {
+            moduleProjects.forEach {
                 dependsOn(it.tasks.named(COMPILE_PRODUCTION))
             }
+
+            dependsOn(relatedModuleProjects)
         }
 
         tasks.named(COMPILE_DEVELOPMENT) {
-            eachModuleProjectDependency {
+            moduleProjects.forEach {
                 dependsOn(it.tasks.named(COMPILE_DEVELOPMENT))
             }
+
+            dependsOn(relatedModuleProjects)
         }
 
         plugins.apply(SingleWebpackCachePlugin::class)

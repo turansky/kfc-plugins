@@ -1,7 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ProjectDependency
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
 
@@ -55,29 +54,6 @@ internal val Project.jsOutputFileName: String
 
 internal val Project.jsChunkFileName: String
     get() = outputPath("[name].[contenthash].js")
-
-internal fun Project.relatedModuleProjects(): Set<Project> =
-    configurations.getByName(JS_MAIN_MODULE)
-        .allDependencies
-        .asSequence()
-        .filterIsInstance<ProjectDependency>()
-        .map { it.dependencyProject }
-        .toSet()
-
-// TODO: optimize calculation
-internal fun Project.relatedProjects(): Set<Project> {
-    val configuration = configurations.findByName(JS_MAIN_IMPLEMENTATION)
-        ?: return emptySet()
-
-    return configuration
-        .allDependencies
-        .asSequence()
-        .filterIsInstance<ProjectDependency>()
-        .map { it.dependencyProject }
-        .flatMap { sequenceOf(it) + it.relatedProjects() }
-        .plus(this)
-        .toSet()
-}
 
 internal fun Project.ext(
     propertyName: String,
