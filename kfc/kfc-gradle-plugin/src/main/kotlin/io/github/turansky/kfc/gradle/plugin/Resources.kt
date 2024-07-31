@@ -12,10 +12,8 @@ private val RESOURCES = listOf(
 )
 
 internal fun Project.relatedResources(): List<File> =
-    relatedProjects()
-        .asSequence()
-        .map { it.projectDir }
-        .flatMap { RESOURCES.asSequence().map(it::resolve) }
+    RESOURCES.asSequence()
+        .map(projectDir::resolve)
         .filter { it.exists() }
         .filter { it.isDirectory }
         .toList()
