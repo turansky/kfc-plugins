@@ -51,7 +51,7 @@ class WebpackLoadersPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(WebpackPlugin::class)
 
-        tasks.configureEach<PatchWebpackConfig> {
+        tasks.configureEach<PatchBundlerConfig> {
             patch("rules", RULES)
             patch("font-rules", fontRules())
         }

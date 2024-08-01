@@ -11,7 +11,7 @@ class EnvVariable(
     val value: String,
 )
 
-open class PatchWebpackConfig : DefaultTask() {
+open class PatchBundlerConfig : DefaultTask() {
     init {
         group = DEFAULT_TASK_GROUP
     }

@@ -17,7 +17,7 @@
 * Non-static webpack configuration
 * Make Kotlin `resources` content available for Webpack
 
-### Task `patchWebpackConfig`
+### Task `patchBundlerConfig`
 
 ```kotlin
 plugins {
@@ -30,7 +30,7 @@ kotlin.js {
 }
 
 tasks {
-    patchWebpackConfig {
+  patchBundlerConfig {
         // language=JavaScript
         patch(
             """

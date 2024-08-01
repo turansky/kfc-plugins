@@ -23,7 +23,7 @@ class WebpackBundlePlugin : Plugin<Project> {
 
         plugins.apply(WebpackPlugin::class)
 
-        tasks.configureEach<PatchWebpackConfig> {
+        tasks.configureEach<PatchBundlerConfig> {
             patch("bundle-analyze", ANALYZE)
         }
 

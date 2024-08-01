@@ -20,7 +20,7 @@ class WebpackPlugin : Plugin<Project> {
     }
 
     private fun TaskContainerScope.applyConfiguration() {
-        val patchWebpackConfig by registering(PatchWebpackConfig::class) {
+        val patchBundlerConfig by registering(PatchBundlerConfig::class) {
             addResourceModules()
 
             patch(
@@ -48,20 +48,20 @@ class WebpackPlugin : Plugin<Project> {
         }
 
         named<Delete>("clean") {
-            delete(patchWebpackConfig)
+            delete(patchBundlerConfig)
         }
 
         configureEach<KotlinWebpack> {
-            dependsOn(patchWebpackConfig)
+            dependsOn(patchBundlerConfig)
         }
 
         configureEach<KotlinJsTest> {
-            dependsOn(patchWebpackConfig)
+            dependsOn(patchBundlerConfig)
         }
     }
 }
 
-private fun PatchWebpackConfig.addResourceModules() {
+private fun PatchBundlerConfig.addResourceModules() {
     val resources = project.relatedResources()
     if (resources.isEmpty()) {
         return
