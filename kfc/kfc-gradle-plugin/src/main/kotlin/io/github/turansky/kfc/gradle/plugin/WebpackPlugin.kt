@@ -32,19 +32,6 @@ class WebpackPlugin : Plugin<Project> {
                 }
                 """.trimIndent()
             )
-
-            doFirst {
-                val momentjsInstalled = project.rootProject
-                    .layout.buildDirectory.asFile.get()
-                    .resolve("js/node_modules/moment")
-                    .exists()
-
-                if (momentjsInstalled && !patches.containsKey(Momentjs.PATCH_NAME)) {
-                    patches[Momentjs.PATCH_NAME] = Momentjs.IGNORE_LOCALES_PATCH
-                }
-            }
-
-            dependsOn(":kotlinNpmInstall")
         }
 
         named<Delete>("clean") {
