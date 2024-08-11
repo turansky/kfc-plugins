@@ -5,9 +5,9 @@ plugins {
 dependencies {
     jsMainImplementation(libs.wrappers.js)
 
-    jsMainImplementation(project(":examples:resources:lib-a"))
-    jsMainImplementation(project(":examples:resources:lib-b"))
-    jsMainImplementation(project(":examples:resources:lib-c"))
+    jsMainImplementation(projects.examples.resources.libA)
+    jsMainImplementation(projects.examples.resources.libB)
+    jsMainImplementation(projects.examples.resources.libC)
 
     jsTestImplementation(libs.kotlin.test.js)
     jsTestImplementation(libs.coroutines.core)

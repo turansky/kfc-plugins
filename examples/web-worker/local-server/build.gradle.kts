@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    jsMainModule(project(":examples:web-worker:view-wl"))
+    jsMainModule(projects.examples.webWorker.viewWl)
     jsMainImplementation(libs.wrappers.js)
 }

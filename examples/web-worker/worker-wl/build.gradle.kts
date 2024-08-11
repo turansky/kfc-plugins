@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     jsMainImplementation(libs.wrappers.browser)
-    jsMainImplementation(project(":examples:web-worker:entity"))
+    jsMainImplementation(projects.examples.webWorker.entity)
 }
