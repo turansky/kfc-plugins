@@ -17,6 +17,11 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("libs") {
+            val kfcVersion = "--predefined--"
+            plugin("kfc-application", "io.github.turansky.kfc.application").version(kfcVersion)
+            plugin("kfc-library", "io.github.turansky.kfc.library").version(kfcVersion)
+            plugin("kfc-worker", "io.github.turansky.kfc.worker").version(kfcVersion)
+
             val kotlinVersion = extra["kotlin.version"] as String
             library("kotlin-test-js", "org.jetbrains.kotlin", "kotlin-test-js").version(kotlinVersion)
 

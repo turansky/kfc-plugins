@@ -1,5 +1,5 @@
 plugins {
-    id("io.github.turansky.kfc.worker")
+    alias(libs.plugins.kfc.worker)
 }
 
 dependencies {
