@@ -9,7 +9,7 @@ dependencies {
     jsMainImplementation(project(":examples:resources:lib-b"))
     jsMainImplementation(project(":examples:resources:lib-c"))
 
-    jsTestImplementation(kotlin("test-js"))
+    jsTestImplementation(libs.kotlin.test.js)
     jsTestImplementation(libs.coroutines.core)
     jsTestImplementation(libs.coroutines.test)
 }

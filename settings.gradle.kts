@@ -15,6 +15,9 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("libs") {
+            val kotlinVersion = extra["kotlin.version"] as String
+            library("kotlin-test-js", "org.jetbrains.kotlin", "kotlin-test-js").version(kotlinVersion)
+
             val wrappersVersion = extra["kotlin-wrappers.version"] as String
             from("org.jetbrains.kotlin-wrappers:kotlin-wrappers-catalog:$wrappersVersion")
 
