@@ -1,10 +1,9 @@
 plugins {
     id("io.github.turansky.kfc.application")
-    id("io.github.turansky.kfc.wrappers")
 }
 
 dependencies {
-    jsMainImplementation(wrappers("js"))
+    jsMainImplementation(libs.wrappers.js)
 
     jsMainImplementation(project(":examples:resources:lib-a"))
     jsMainImplementation(project(":examples:resources:lib-b"))
