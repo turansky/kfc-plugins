@@ -55,12 +55,6 @@ enum class KfcPlugin(
         tags = listOf("worker"),
     ),
 
-    WRAPPERS(
-        displayName = "Wrappers plugin",
-        description = "Kotlin Wrappers support for Kotlin/JS projects",
-        tags = listOf("wrappers", "react"),
-    ),
-
     MAVEN_CENTRAL_PUBLISH(
         displayName = "Maven central publish plugin",
         description = "Maven central publish configuration",
