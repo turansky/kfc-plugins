@@ -12,6 +12,14 @@ dependencyResolutionManagement {
     repositories {
         mavenCentral()
     }
+
+    versionCatalogs {
+        create("libs") {
+            val coroutinesVersion = extra["kotlinx-coroutines.version"] as String
+            library("coroutines-core", "org.jetbrains.kotlinx", "kotlinx-coroutines-core").version(coroutinesVersion)
+            library("coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").version(coroutinesVersion)
+        }
+    }
 }
 
 include("examples:assets:lib")
