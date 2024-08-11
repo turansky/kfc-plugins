@@ -2,14 +2,6 @@ rootProject.name = "kfc-plugins"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-pluginManagement {
-    plugins {
-        val kotlinVersion = extra["kotlin.version"] as String
-        kotlin("multiplatform") version kotlinVersion
-        kotlin("plugin.js-plain-objects") version kotlinVersion
-    }
-}
-
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
@@ -17,12 +9,15 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("libs") {
+            val kotlinVersion = extra["kotlin.version"] as String
+            plugin("kotlin-multiplatform", "org.jetbrains.kotlin.multiplatform").version(kotlinVersion)
+            plugin("kotlin-js-plain-objects", "org.jetbrains.kotlin.plugin.js-plain-objects").version(kotlinVersion)
+
             val kfcVersion = "--predefined--"
             plugin("kfc-application", "io.github.turansky.kfc.application").version(kfcVersion)
             plugin("kfc-library", "io.github.turansky.kfc.library").version(kfcVersion)
             plugin("kfc-worker", "io.github.turansky.kfc.worker").version(kfcVersion)
 
-            val kotlinVersion = extra["kotlin.version"] as String
             library("kotlin-test-js", "org.jetbrains.kotlin", "kotlin-test-js").version(kotlinVersion)
 
             val wrappersVersion = extra["kotlin-wrappers.version"] as String
