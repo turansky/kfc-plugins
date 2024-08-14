@@ -22,7 +22,7 @@ class ApplicationPlugin : Plugin<Project> {
     }
 }
 
-internal fun Project.linkWithModuleCompilation(
+private fun Project.linkWithModuleCompilation(
     bundleTask: String,
     compileTask: String,
 ) {
