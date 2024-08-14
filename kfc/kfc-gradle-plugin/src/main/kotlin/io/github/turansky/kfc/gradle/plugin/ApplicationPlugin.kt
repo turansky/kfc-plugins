@@ -15,18 +15,24 @@ class ApplicationPlugin : Plugin<Project> {
 
         plugins.apply(WebpackBundlePlugin::class)
 
-        tasks.named(COMPILE_PRODUCTION) {
-            eachModuleProjectDependency {
-                dependsOn(it.tasks.named(COMPILE_PRODUCTION))
-            }
-        }
-
-        tasks.named(COMPILE_DEVELOPMENT) {
-            eachModuleProjectDependency {
-                dependsOn(it.tasks.named(COMPILE_DEVELOPMENT))
-            }
-        }
+        linkWithModuleCompilation(Webpack.PRODUCTION_TASK, COMPILE_PRODUCTION)
+        linkWithModuleCompilation(Webpack.DEVELOPMENT_TASK, COMPILE_DEVELOPMENT)
 
         plugins.apply(SingleWebpackCachePlugin::class)
+    }
+}
+
+private fun Project.linkWithModuleCompilation(
+    bundleTask: String,
+    compileTask: String,
+) {
+    tasks.named(bundleTask) {
+        eachModuleProjectDependency {
+            val compile = it.tasks.getByName(compileTask)
+
+            dependsOn(compile)
+
+            inputs.files(compile.outputs.files)
+        }
     }
 }
