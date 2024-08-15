@@ -25,12 +25,6 @@ enum class KfcPlugin(
         tags = listOf("version"),
     ),
 
-    WEBPACK(
-        displayName = "Kotlin/JS webpack plugin",
-        description = "Webpack configuration for Kotlin/JS",
-        tags = listOf("webpack", "config"),
-    ),
-
     LIBRARY(
         displayName = "Kotlin library plugin",
         description = "Optimize Kotlin library configuration",
@@ -59,12 +53,6 @@ enum class KfcPlugin(
         displayName = "Plugin publish plugin",
         description = "Provide publish tasks for gradle plugin project",
         tags = listOf("publish"),
-    ),
-
-    LATEST_WEBPACK(
-        displayName = "Latest webpack plugin",
-        description = "Configure latest/stable webpack for Kotlin/JS projects",
-        tags = listOf("webpack"),
     ),
 
     ;
