@@ -15,15 +15,15 @@ private const val FILE_LOADER = "file-loader"
 
 // language=JavaScript
 private val RULES: String = """
-    config.module.rules.push(
-      {
-        test: /\.css${'$'}/,
-        loader: '$CSS_LOADER',
-        options: {
-          esModule: false,
-        },
-      },
-    )
+config.module.rules.push(
+  {
+    test: /\.css${'$'}/,
+    loader: '$CSS_LOADER',
+    options: {
+      esModule: false,
+    },
+  },
+)
 """.trimIndent()
 
 private fun Project.fontRules(): String {
