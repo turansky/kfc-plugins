@@ -14,7 +14,7 @@ private const val CSS_LOADER = "css-loader"
 private const val FILE_LOADER = "file-loader"
 
 // language=JavaScript
-private val RULES: String = """
+private val CSS_RULES: String = """
 config.module.rules.push(
   {
     test: /\.css${'$'}/,
@@ -52,7 +52,7 @@ class WebpackLoadersPlugin : Plugin<Project> {
         plugins.apply(WebpackPlugin::class)
 
         tasks.configureEach<PatchBundlerConfig> {
-            patch("rules", RULES)
+            patch("css-rules", CSS_RULES)
             patch("font-rules", fontRules())
         }
 
