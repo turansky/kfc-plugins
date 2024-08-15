@@ -27,15 +27,13 @@ config.module.rules.push({
 
 // language=JavaScript
 private val CSS_RULES: String = """
-config.module.rules.push(
-  {
-    test: /\.css${'$'}/,
-    loader: '$CSS_LOADER',
-    options: {
-      esModule: false,
-    },
+config.module.rules.push({
+  test: /\.css${'$'}/,
+  loader: '$CSS_LOADER',
+  options: {
+    esModule: false,
   },
-)
+})
 """.trimIndent()
 
 private fun Project.fontRules(): String {
@@ -44,18 +42,16 @@ private fun Project.fontRules(): String {
 
     // language=JavaScript
     return """
-    config.module.rules.push( 
-      { 
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?${'$'}/,
-        loader: '$FILE_LOADER',
-        options: {
-          name: '[name].[contenthash].[ext]',
-          publicPath: '$publicPath',
-          outputPath: '$outputPath',
-          esModule: false,
-        },
+    config.module.rules.push({ 
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?${'$'}/,
+      loader: '$FILE_LOADER',
+      options: {
+        name: '[name].[contenthash].[ext]',
+        publicPath: '$publicPath',
+        outputPath: '$outputPath',
+        esModule: false,
       },
-    )
+    })
     """.trimIndent()
 }
 
