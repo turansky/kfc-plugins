@@ -14,6 +14,18 @@ private const val CSS_LOADER = "css-loader"
 private const val FILE_LOADER = "file-loader"
 
 // language=JavaScript
+private val RESOLVE_RULES: String = """
+// WA for MUI
+// Details - TODO @porotkin
+config.module.rules.push({
+  test: /\.m?js${'$'}/i,
+  resolve: {
+    fullySpecified: false,
+  },
+})
+""".trimIndent()
+
+// language=JavaScript
 private val CSS_RULES: String = """
 config.module.rules.push(
   {
@@ -52,6 +64,7 @@ class WebpackLoadersPlugin : Plugin<Project> {
         plugins.apply(WebpackPlugin::class)
 
         tasks.configureEach<PatchBundlerConfig> {
+            patch("resolve-rules", RESOLVE_RULES)
             patch("css-rules", CSS_RULES)
             patch("font-rules", fontRules())
         }
