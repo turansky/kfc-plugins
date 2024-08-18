@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 internal fun Project.applyKotlinMultiplatformPlugin(
-    distribution: Boolean = false,
+    mode: BuildMode,
 ) {
     applyKotlinDefaults()
 
@@ -17,7 +17,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     plugins.apply(WebpackPlugin::class)
 
-    if (distribution) {
+    if (mode.distribution) {
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
@@ -34,7 +34,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             }
 
             webpackTask {
-                enabled = distribution
+                enabled = mode.bundler == Bundler.WEBPACK
             }
 
             runTask {
@@ -42,7 +42,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             }
         }
 
-        if (distribution) {
+        if (mode.distribution) {
             binaries.executable()
         }
     }

@@ -1,14 +1,13 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import io.github.turansky.kfc.gradle.plugin.BuildMode.APPLICATION_WEBPACK
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        applyKotlinMultiplatformPlugin(
-            distribution = true,
-        )
+        applyKotlinMultiplatformPlugin(APPLICATION_WEBPACK)
 
         plugins.apply(WebpackBundlePlugin::class)
 
