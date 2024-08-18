@@ -47,13 +47,6 @@ Add following `.gitignore` instruction to exclude directory from Git:
 webpack.config.d/
 ```
 
-### Resources
-By default `webpack` plugin add `src/main/resources` directory of: 
-* Current subproject
-* Dependency subprojects 
-
-as Webpack `modules`.
-
 ## `library`
 
 Apply [`webpack`](#webpack) plugin by default
