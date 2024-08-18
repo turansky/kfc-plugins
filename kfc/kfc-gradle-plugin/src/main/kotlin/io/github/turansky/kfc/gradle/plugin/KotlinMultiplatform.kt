@@ -9,7 +9,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 internal fun Project.applyKotlinMultiplatformPlugin(
     distribution: Boolean = false,
-    run: Boolean = false,
 ) {
     applyKotlinDefaults()
 
@@ -18,13 +17,11 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     plugins.apply(WebpackPlugin::class)
 
-    if (distribution || run) {
+    if (distribution) {
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
     val fileName = jsOutputFileName
-
-    val buildBundle = distribution || run
 
     val kotlin = the<KotlinMultiplatformExtension>()
     kotlin.js {
@@ -41,12 +38,12 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             }
 
             runTask {
-                enabled = run
+                enabled = false
             }
         }
 
-        if (buildBundle) {
-            this.binaries.executable()
+        if (distribution) {
+            binaries.executable()
         }
     }
 
