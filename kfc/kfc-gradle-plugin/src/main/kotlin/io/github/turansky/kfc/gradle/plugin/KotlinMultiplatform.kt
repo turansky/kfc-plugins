@@ -8,7 +8,6 @@ import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 internal fun Project.applyKotlinMultiplatformPlugin(
-    binaries: Boolean = false,
     distribution: Boolean = false,
     run: Boolean = false,
 ) {
@@ -17,16 +16,15 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     plugins.apply(KotlinPlugin.MULTIPLATFORM)
     plugins.apply(KotlinPlugin.JS_PLAIN_OBJECTS)
 
-    if (!binaries) {
-        plugins.apply(WebpackPlugin::class)
-    }
+    plugins.apply(WebpackPlugin::class)
+
     if (distribution || run) {
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
     val fileName = jsOutputFileName
 
-    val buildBundle = binaries || distribution || run
+    val buildBundle = distribution || run
 
     val kotlin = the<KotlinMultiplatformExtension>()
     kotlin.js {
