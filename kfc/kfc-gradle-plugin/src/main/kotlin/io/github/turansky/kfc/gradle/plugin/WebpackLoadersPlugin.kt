@@ -16,7 +16,7 @@ private const val FILE_LOADER = "file-loader"
 // language=JavaScript
 private val RESOLVE_RULES: String = """
 // WA for MUI
-// Details - TODO @porotkin
+// Details - https://github.com/mui/material-ui/issues/23290
 config.module.rules.push({
   test: /\.m?js${'$'}/i,
   resolve: {
