@@ -21,8 +21,6 @@ class WebpackPlugin : Plugin<Project> {
 
     private fun TaskContainerScope.applyConfiguration() {
         val patchBundlerConfig by registering(PatchBundlerConfig::class) {
-            addResourceModules()
-
             patch(
                 "default-settings",
                 """
@@ -46,24 +44,4 @@ class WebpackPlugin : Plugin<Project> {
             dependsOn(patchBundlerConfig)
         }
     }
-}
-
-private fun PatchBundlerConfig.addResourceModules() {
-    val resources = project.relatedResources()
-    if (resources.isEmpty()) {
-        return
-    }
-
-    val paths = resources.joinToString(",\n") {
-        it.toPathString()
-    }
-
-    // language=JavaScript
-    val body = """
-        config.resolve.modules.unshift(
-            $paths
-        )
-    """.trimIndent()
-
-    patch("resources", body)
 }
