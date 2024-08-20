@@ -17,7 +17,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     plugins.apply(WebpackPlugin::class)
 
-    if (mode.distribution) {
+    if (mode.bundler == Bundler.WEBPACK) {
         plugins.apply(WebpackLoadersPlugin::class)
     }
 
