@@ -9,8 +9,6 @@ class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         applyKotlinMultiplatformPlugin(APPLICATION_WEBPACK)
 
-        plugins.apply(WebpackBundlePlugin::class)
-
         linkWithModuleCompilation(Webpack.PRODUCTION_TASK, COMPILE_PRODUCTION)
         linkWithModuleCompilation(Webpack.DEVELOPMENT_TASK, COMPILE_DEVELOPMENT)
 
