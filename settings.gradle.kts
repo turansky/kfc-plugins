@@ -42,6 +42,8 @@ include("examples:resources:app-d")
 
 include("examples:value-class")
 
+include("examples:vite:simple-app")
+
 include("examples:web-worker:entity")
 include("examples:web-worker:view-wl")
 include("examples:web-worker:worker-wl")
