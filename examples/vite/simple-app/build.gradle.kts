@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.kfc.application)
+
+    `bundler-test`
 }
 
 dependencies {
