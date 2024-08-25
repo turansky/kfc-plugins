@@ -15,11 +15,11 @@ kotlin {
             dependsOn(clientCommonMain)
         }
 
-        val jsMain by getting {
+        jsMain {
             dependsOn(clientCommonMain)
         }
 
-        val iosX64Main by getting {
+        iosX64Main {
             dependsOn(mobileCommonMain)
         }
     }
