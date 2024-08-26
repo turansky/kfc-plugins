@@ -1,3 +1,7 @@
-plugins.apply {
-    // TODO: @porotkin
+plugins {
+    kotlin("multiplatform")
+}
+
+kotlin {
+    jvm()
 }
