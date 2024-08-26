@@ -40,6 +40,9 @@ include("examples:resources:lib-b")
 include("examples:resources:lib-c")
 include("examples:resources:app-d")
 
+include("examples:test-data:first")
+include("examples:test-data:second")
+
 include("examples:value-class")
 
 include("examples:vite:simple-app")
