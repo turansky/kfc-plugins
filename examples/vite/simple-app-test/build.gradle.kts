@@ -1,0 +1,3 @@
+plugins {
+    `bundle-test-conventions`
+}

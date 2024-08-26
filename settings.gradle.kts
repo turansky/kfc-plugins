@@ -43,6 +43,7 @@ include("examples:resources:app-d")
 include("examples:value-class")
 
 include("examples:vite:simple-app")
+include("examples:vite:simple-app-test")
 
 include("examples:web-worker:entity")
 include("examples:web-worker:view-wl")
