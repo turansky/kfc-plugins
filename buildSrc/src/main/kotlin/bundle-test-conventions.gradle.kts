@@ -50,6 +50,8 @@ val unpackBundle by tasks.registering(Copy::class) {
     into(temporaryDir)
 }
 
-tasks.named("jvmTest") {
+tasks.named<Test>("jvmTest") {
     dependsOn(unpackBundle)
+
+    environment("TEST_BUNDLE", unpackBundle.get().destinationDir)
 }
