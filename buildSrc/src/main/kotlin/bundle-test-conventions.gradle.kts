@@ -21,12 +21,10 @@ kotlin {
     }
 }
 
-val JS_TEST_BUNDLE = "jsTestBundle"
+val jsTestBundle = configurations.create("jsTestBundle")
 
-configurations.create(JS_TEST_BUNDLE)
-
-val bundlesProvider = providers.provider {
-    configurations.getByName(JS_TEST_BUNDLE)
+val bundleProjects = providers.provider {
+    jsTestBundle
         .allDependencies
         .asSequence()
         .filterIsInstance<ProjectDependency>()
@@ -35,16 +33,12 @@ val bundlesProvider = providers.provider {
 }
 
 val unpackBundle by tasks.registering(Copy::class) {
-    val bundles = bundlesProvider.get()
-
     delete(temporaryDir)
 
     from(
-        bundles.map { bundle ->
-            bundle.tasks.named<Jar>("jsBundleProduction").map { it ->
-                zipTree(it.archiveFile)
-            }
-        }
+        bundleProjects.get()
+            .map { it.tasks.named<Jar>("jsBundleProduction") }
+            .map { it.map { task -> zipTree(task.archiveFile) } }
     )
 
     into(temporaryDir)
