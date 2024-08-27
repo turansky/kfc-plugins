@@ -6,11 +6,16 @@ kotlin {
     jvm()
 
     sourceSets {
-        val jvmTest by getting {
+        commonTest {
             dependencies {
-                implementation(kotlin("test-junit"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+            }
+        }
+
+        jvmTest {
+            dependencies {
+                implementation(kotlin("test-junit"))
             }
         }
     }
