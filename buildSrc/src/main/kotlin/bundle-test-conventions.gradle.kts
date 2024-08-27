@@ -32,9 +32,7 @@ val bundleProjects = providers.provider {
         .toSet()
 }
 
-val unpackBundle by tasks.registering(Copy::class) {
-    delete(temporaryDir)
-
+val unpackBundle by tasks.registering(Sync::class) {
     from(
         bundleProjects.get()
             .map { it.tasks.named<Jar>("jsBundleProduction") }
