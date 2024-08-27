@@ -14,6 +14,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     plugins.apply(KotlinPlugin.MULTIPLATFORM)
     plugins.apply(KotlinPlugin.JS_PLAIN_OBJECTS)
+    plugins.apply(LatestNodePlugin::class)
 
     plugins.apply(WebpackPlugin::class)
 
