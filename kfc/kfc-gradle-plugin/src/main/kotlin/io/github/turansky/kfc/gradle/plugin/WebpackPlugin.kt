@@ -20,17 +20,7 @@ class WebpackPlugin : Plugin<Project> {
     }
 
     private fun TaskContainerScope.applyConfiguration() {
-        val patchBundlerConfig by registering(PatchBundlerConfig::class) {
-            patch(
-                "default-settings",
-                """
-                if (!!config.output) { 
-                  config.output.chunkFilename = '${project.jsChunkFileName}'
-                  config.output.clean = true
-                }
-                """.trimIndent()
-            )
-        }
+        val patchBundlerConfig by registering(PatchBundlerConfig::class)
 
         named<Delete>("clean") {
             delete(patchBundlerConfig)

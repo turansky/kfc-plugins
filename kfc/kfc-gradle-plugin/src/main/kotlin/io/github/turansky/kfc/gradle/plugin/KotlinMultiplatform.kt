@@ -18,7 +18,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     plugins.apply(WebpackPlugin::class)
 
     if (mode.bundler == Bundler.WEBPACK) {
-        plugins.apply(WebpackLoadersPlugin::class)
+        plugins.apply(WebpackApplicationPlugin::class)
     }
 
     val fileName = jsOutputFileName

@@ -14,6 +14,14 @@ private const val CSS_LOADER = "css-loader"
 private const val FILE_LOADER = "file-loader"
 
 // language=JavaScript
+private fun Project.defaultSettings(): String = """
+if (!!config.output) { 
+  config.output.chunkFilename = '$jsChunkFileName'
+  config.output.clean = true
+}
+""".trimIndent()
+
+// language=JavaScript
 private val RESOLVE_RULES: String = """
 // WA for MUI
 // Details - https://github.com/mui/material-ui/issues/23290
@@ -55,11 +63,12 @@ private fun Project.fontRules(): String {
     """.trimIndent()
 }
 
-class WebpackLoadersPlugin : Plugin<Project> {
+class WebpackApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(WebpackPlugin::class)
 
         tasks.configureEach<PatchBundlerConfig> {
+            patch("default-settings", defaultSettings())
             patch("resolve-rules", RESOLVE_RULES)
             patch("css-rules", CSS_RULES)
             patch("font-rules", fontRules())
