@@ -25,19 +25,29 @@ val JS_TEST_BUNDLE = "jsTestBundle"
 
 configurations.create(JS_TEST_BUNDLE)
 
-val unpackBundle by tasks.creating {
-    doFirst {
-        val bundles = configurations.getByName(JS_TEST_BUNDLE)
-            .allDependencies
-            .asSequence()
-            .filterIsInstance<ProjectDependency>()
-            .map { it.dependencyProject }
-            .toSet()
+val bundlesProvider = providers.provider {
+    configurations.getByName(JS_TEST_BUNDLE)
+        .allDependencies
+        .asSequence()
+        .filterIsInstance<ProjectDependency>()
+        .map { it.dependencyProject }
+        .toSet()
+}
 
-        bundles.forEach { bundle ->
-            println("Unpacking bundle ${bundle.name}")
+val unpackBundle by tasks.registering(Copy::class) {
+    val bundles = bundlesProvider.get()
+
+    delete(temporaryDir)
+
+    from(
+        bundles.map { bundle ->
+            bundle.tasks.named<Jar>("jsBundleProduction").map { it ->
+                zipTree(it.archiveFile)
+            }
         }
-    }
+    )
+
+    into(temporaryDir)
 }
 
 tasks.named("jvmTest") {
