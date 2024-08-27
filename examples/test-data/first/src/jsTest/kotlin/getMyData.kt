@@ -1,3 +1,3 @@
-@file:JsModule("@test/resources/my-data.mjs")
+@file:JsModule("./my-data.mjs")
 
 external fun getMyData(): String
