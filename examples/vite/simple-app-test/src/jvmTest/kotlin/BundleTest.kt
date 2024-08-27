@@ -6,10 +6,10 @@ import kotlin.test.assertNotNull
 class BundleTest {
     @Test
     fun `check bundle contents`() {
-        val bundle = System.getenv("TEST_BUNDLE")
-        assertNotNull(bundle)
+        val path = System.getenv("BUNDLE_PATH")
+        assertNotNull(path)
 
-        val file = File("$bundle/simple-app.js")
+        val file = File("$path/simple-app.js")
         assertContains(file.readText(), "Simple Vite App")
     }
 }
