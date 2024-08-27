@@ -2,8 +2,13 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.getByName
+import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
+import org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsTargetDsl
+import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
@@ -74,4 +79,10 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             )
         }
     }
+}
+
+internal fun Project.kotlinJsMainCompilation(): KotlinJsIrCompilation {
+    val kotlin = extensions.getByType<KotlinMultiplatformExtension>()
+    val target = kotlin.targets.getByName("js", KotlinJsTargetDsl::class)
+    return target.compilations.getByName(KotlinCompilation.MAIN_COMPILATION_NAME)
 }
