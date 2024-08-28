@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(libs.wrappers.browser)
+    jsMainImplementation(projects.examples.vite.simpleLibrary)
 }
