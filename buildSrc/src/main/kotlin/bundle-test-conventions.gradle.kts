@@ -23,17 +23,13 @@ kotlin {
 
 val jsTestBundle = configurations.create("jsTestBundle")
 
-val bundleProjects = providers.provider {
+val unpackBundle by tasks.registering(Sync::class) {
     jsTestBundle
         .allDependencies
         .asSequence()
         .filterIsInstance<ProjectDependency>()
         .map { it.dependencyProject }
         .toSet()
-}
-
-val unpackBundle by tasks.registering(Sync::class) {
-    bundleProjects.get()
         .map {
             val tasks = it.tasks.named<Jar>("jsBundleProduction")
 
