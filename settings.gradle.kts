@@ -47,6 +47,7 @@ include("examples:value-class")
 
 include("examples:vite:simple-app-test")
 include("examples:vite:simple-library")
+include("examples:vite:simple-vite-app")
 include("examples:vite:simple-webpack-app")
 
 include("examples:web-worker:entity")

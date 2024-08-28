@@ -14,4 +14,15 @@ class BundleTest {
         val file = File("$path/$projectName/$projectName.js")
         assertContains(file.readText(), "Simple Webpack App")
     }
+
+    @Test
+    fun `check vite bundle`() {
+        val path = System.getenv("BUNDLE_PATH")
+        assertNotNull(path)
+
+        val projectName = "simple-vite-app"
+
+        val file = File("$path/$projectName/$projectName.js")
+        assertContains(file.readText(), "Simple Vite App")
+    }
 }
