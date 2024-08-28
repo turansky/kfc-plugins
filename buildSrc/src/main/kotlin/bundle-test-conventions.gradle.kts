@@ -33,11 +33,14 @@ val bundleProjects = providers.provider {
 }
 
 val unpackBundle by tasks.registering(Sync::class) {
-    from(
-        bundleProjects.get()
-            .map { it.tasks.named<Jar>("jsBundleProduction") }
-            .map { it.map { task -> zipTree(task.archiveFile) } }
-    )
+    bundleProjects.get()
+        .map {
+            val tasks = it.tasks.named<Jar>("jsBundleProduction")
+
+            from(tasks.map { jar -> zipTree(jar.archiveFile) }) {
+                into(it.name)
+            }
+        }
 
     into(temporaryDir)
 }

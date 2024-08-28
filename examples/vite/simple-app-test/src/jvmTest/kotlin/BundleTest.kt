@@ -9,7 +9,9 @@ class BundleTest {
         val path = System.getenv("BUNDLE_PATH")
         assertNotNull(path)
 
-        val file = File("$path/simple-webpack-app.js")
-        assertContains(file.readText(), "Simple Vite App")
+        val projectName = "simple-webpack-app"
+
+        val file = File("$path/$projectName/$projectName.js")
+        assertContains(file.readText(), "Simple Webpack App")
     }
 }
