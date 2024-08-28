@@ -5,11 +5,11 @@ import kotlin.test.assertNotNull
 
 class BundleTest {
     @Test
-    fun `check bundle contents`() {
+    fun `check webpack bundle`() {
         val path = System.getenv("BUNDLE_PATH")
         assertNotNull(path)
 
-        val file = File("$path/simple-app.js")
+        val file = File("$path/simple-webpack-app.js")
         assertContains(file.readText(), "Simple Vite App")
     }
 }

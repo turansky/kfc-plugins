@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    jsTestBundle(projects.examples.vite.simpleApp)
+    jsTestBundle(projects.examples.vite.simpleWebpackApp)
 }
