@@ -1,3 +1,3 @@
 private fun main() {
-    createView("Simple Vite Application")
+    createView("Vite")
 }

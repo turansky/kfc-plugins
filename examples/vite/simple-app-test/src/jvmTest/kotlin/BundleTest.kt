@@ -13,18 +13,18 @@ class BundleTest {
     }
 
     @Test
-    fun `check webpack bundle`() {
-        val projectName = "simple-webpack-app"
-
-        val file = File("$path/$projectName/$projectName.js")
-        assertContains(file.readText(), "Simple Webpack App")
-    }
-
-    @Test
     fun `check vite bundle`() {
         val projectName = "simple-vite-app"
 
         val file = File("$path/$projectName/$projectName.js")
-        assertContains(file.readText(), "Simple Vite App")
+        assertContains(file.readText(), "Vite")
+    }
+
+    @Test
+    fun `check webpack bundle`() {
+        val projectName = "simple-webpack-app"
+
+        val file = File("$path/$projectName/$projectName.js")
+        assertContains(file.readText(), "Webpack")
     }
 }
