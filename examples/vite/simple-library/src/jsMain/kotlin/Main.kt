@@ -1,7 +1,7 @@
 import web.dom.document
 import web.html.HTML.div
 
-fun createView(value: String) {
+fun createView() {
     val container = document.createElement(div)
 
     container.style.apply {
@@ -10,7 +10,7 @@ fun createView(value: String) {
         backgroundColor = "blue"
     }
 
-    container.textContent = value
+    container.textContent = "Simple App"
 
     document.body.appendChild(container)
 }
