@@ -1,10 +1,9 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
@@ -23,6 +22,10 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
     @get:OutputFile
     open val configFile: Provider<File> =
         compilation.npmProject.dir.map { it.file("vite.config.js").asFile }
+
+    @get:OutputDirectory
+    @get:Optional
+    abstract val outputDirectory: DirectoryProperty
 
     @get:Internal
     override val requiredNpmDependencies =
