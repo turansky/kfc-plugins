@@ -1,7 +1,5 @@
 package io.github.turansky.kfc.gradle.plugin
 
-import io.github.turansky.kfc.gradle.plugin.Bundler.Vite
-import io.github.turansky.kfc.gradle.plugin.Bundler.Webpack
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 
