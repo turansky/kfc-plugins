@@ -11,7 +11,7 @@ class ViteApplicationPlugin : Plugin<Project> {
         }
 
         tasks.create<KotlinViteTask>(Vite.developmentTask) {
-            outputDirectory.convention(getProductionDistDirectory())
+            outputDirectory.convention(getDevelopmentDistDirectory())
         }
     }
 }
