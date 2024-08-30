@@ -23,10 +23,6 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     plugins.apply(WebpackPlugin::class)
 
-    if (mode.bundler == Bundler.WEBPACK) {
-        plugins.apply(WebpackApplicationPlugin::class)
-    }
-
     val fileName = jsOutputFileName
 
     val kotlin = the<KotlinMultiplatformExtension>()
@@ -51,6 +47,10 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         if (mode.distribution) {
             binaries.executable()
         }
+    }
+
+    if (mode.bundler == Bundler.WEBPACK) {
+        plugins.apply(WebpackApplicationPlugin::class)
     }
 
     // `jsMain` source set required

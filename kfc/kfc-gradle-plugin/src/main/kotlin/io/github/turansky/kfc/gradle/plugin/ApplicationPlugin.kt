@@ -12,8 +12,6 @@ class ApplicationPlugin : Plugin<Project> {
         linkWithModuleCompilation(Webpack.PRODUCTION_TASK, COMPILE_PRODUCTION)
         linkWithModuleCompilation(Webpack.DEVELOPMENT_TASK, COMPILE_DEVELOPMENT)
 
-        plugins.apply(SingleWebpackCachePlugin::class)
-
         plugins.apply(BundlePlugin::class)
     }
 }
