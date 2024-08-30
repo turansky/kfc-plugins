@@ -17,6 +17,7 @@ export default defineConfig({
     build: {
         root: 'kotlin',
         outDir: '${outputDirectory.asFile.absolutePath}',
+        emptyOutDir: true,
         rollupOptions: {
             input: {
                 'main': resolve(__dirname, 'kotlin/${project.jsModuleName}.mjs'),
