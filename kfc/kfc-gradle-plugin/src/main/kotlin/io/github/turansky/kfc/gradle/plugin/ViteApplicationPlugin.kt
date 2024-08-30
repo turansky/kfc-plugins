@@ -7,9 +7,13 @@ import org.gradle.kotlin.dsl.create
 
 class ViteApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks.create<Sync>(Bundler.VITE.developmentTask)
+        tasks.create(Bundler.VITE.developmentTask)
+
         tasks.create<Sync>(Bundler.VITE.productionTask) {
-            from(tasks.named(COMPILE_PRODUCTION))
+            from(tasks.named(COMPILE_PRODUCTION)) {
+                rename("(.+).mjs", "$1.js")
+            }
+
             into(temporaryDir)
         }
     }
