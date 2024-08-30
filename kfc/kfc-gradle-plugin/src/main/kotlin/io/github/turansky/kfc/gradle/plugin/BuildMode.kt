@@ -6,6 +6,5 @@ sealed class BuildMode(
 ) {
     object LIBRARY : BuildMode(distribution = false)
     object WORKER : BuildMode()
-    object APPLICATION_WEBPACK : BuildMode(bundler = Bundler.WEBPACK)
-    object APPLICATION_VITE : BuildMode(bundler = Bundler.VITE)
+    class APPLICATION(bundler: Bundler) : BuildMode(bundler = bundler)
 }
