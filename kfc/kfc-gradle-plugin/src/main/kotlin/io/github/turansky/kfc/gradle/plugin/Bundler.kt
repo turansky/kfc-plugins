@@ -1,16 +1,16 @@
 package io.github.turansky.kfc.gradle.plugin
 
 sealed class Bundler(
-    val developmentTask: String,
     val productionTask: String,
+    val developmentTask: String,
 )
 
 object Vite : Bundler(
-    developmentTask = "jsBrowserDevelopmentVite",
     productionTask = "jsBrowserProductionVite",
+    developmentTask = "jsBrowserDevelopmentVite",
 )
 
 object Webpack : Bundler(
-    developmentTask = "jsBrowserDevelopmentWebpack",
     productionTask = "jsBrowserProductionWebpack",
+    developmentTask = "jsBrowserDevelopmentWebpack",
 )

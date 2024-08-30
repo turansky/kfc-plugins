@@ -10,20 +10,20 @@ class BundlePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         val bundler = getBundler()
 
-        val jsBundleDevelopment by tasks.creating(Jar::class) {
-            group = DEFAULT_TASK_GROUP
-
-            archiveClassifier.set("js-bundle-development")
-
-            from(tasks.named(bundler.developmentTask))
-        }
-
         val jsBundleProduction by tasks.creating(Jar::class) {
             group = DEFAULT_TASK_GROUP
 
             archiveClassifier.set("js-bundle-production")
 
             from(tasks.named(bundler.productionTask))
+        }
+
+        val jsBundleDevelopment by tasks.creating(Jar::class) {
+            group = DEFAULT_TASK_GROUP
+
+            archiveClassifier.set("js-bundle-development")
+
+            from(tasks.named(bundler.developmentTask))
         }
     }
 }
