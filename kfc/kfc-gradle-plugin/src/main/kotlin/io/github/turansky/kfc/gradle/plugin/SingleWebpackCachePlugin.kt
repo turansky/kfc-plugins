@@ -9,11 +9,11 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 class SingleWebpackCachePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.named<KotlinWebpack>(Webpack.productionTask) {
-            outputDirectory.set(project.layout.buildDirectory.dir("dist/production"))
+            outputDirectory.set(layout.buildDirectory.dir("dist/production"))
         }
 
         tasks.named<KotlinWebpack>(Webpack.developmentTask) {
-            outputDirectory.set(project.layout.buildDirectory.dir("dist/development"))
+            outputDirectory.set(layout.buildDirectory.dir("dist/development"))
         }
 
         tasks.link(Webpack.productionTask, Webpack.developmentTask)
