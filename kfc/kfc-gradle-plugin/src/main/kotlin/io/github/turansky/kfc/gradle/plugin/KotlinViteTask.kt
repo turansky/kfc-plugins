@@ -1,6 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
@@ -20,14 +21,18 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
     override val requiredNpmDependencies =
         setOf(VITE)
 
+    @Input
+    var bin: String = "vite/bin/vite.js"
+
     @TaskAction
     private fun build() {
         project.exec {
             compilation.npmProject.useTool(
                 this,
-                "vite",
+                bin,
                 args = listOf(
                     "build",
+                    "kotlin"
                 )
             )
         }
