@@ -1,13 +1,11 @@
 package io.github.turansky.kfc.gradle.plugin
 
-enum class BuildMode(
+sealed class BuildMode(
     val distribution: Boolean = true,
     val bundler: Bundler? = null,
 ) {
-    LIBRARY(distribution = false),
-    WORKER,
-    APPLICATION_WEBPACK(bundler = Bundler.WEBPACK),
-    APPLICATION_VITE(bundler = Bundler.VITE),
-
-    ;
+    object LIBRARY : BuildMode(distribution = false)
+    object WORKER : BuildMode()
+    object APPLICATION_WEBPACK : BuildMode(bundler = Bundler.WEBPACK)
+    object APPLICATION_VITE : BuildMode(bundler = Bundler.VITE)
 }
