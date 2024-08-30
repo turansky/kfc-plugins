@@ -45,6 +45,8 @@ include("examples:test-data:second")
 
 include("examples:value-class")
 
+include("examples:vite:task-check")
+
 include("examples:vite:simple-app-test")
 include("examples:vite:simple-library")
 include("examples:vite:simple-vite-app")
