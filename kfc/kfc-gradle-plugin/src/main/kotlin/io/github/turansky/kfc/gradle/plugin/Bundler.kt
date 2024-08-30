@@ -1,16 +1,16 @@
 package io.github.turansky.kfc.gradle.plugin
 
 enum class Bundler(
-    val productionTask: String,
     val developmentTask: String,
+    val productionTask: String,
 ) {
     VITE(
-        productionTask = "jsBrowserProductionVite",
         developmentTask = "jsBrowserDevelopmentVite",
+        productionTask = "jsBrowserProductionVite",
     ),
     WEBPACK(
-        productionTask = Webpack.PRODUCTION_TASK,
         developmentTask = Webpack.DEVELOPMENT_TASK,
+        productionTask = Webpack.PRODUCTION_TASK,
     ),
 
     ;
