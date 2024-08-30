@@ -2,7 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 enum class BuildMode(
     val distribution: Boolean = true,
-    val bundler: Bundler = Bundler.NONE,
+    val bundler: Bundler? = null,
 ) {
     LIBRARY(distribution = false),
     WORKER,

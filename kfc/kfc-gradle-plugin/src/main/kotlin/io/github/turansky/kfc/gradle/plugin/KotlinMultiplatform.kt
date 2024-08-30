@@ -56,7 +56,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         Bundler.VITE,
             -> plugins.apply(ViteApplicationPlugin::class)
 
-        Bundler.NONE -> {
+        null -> {
             // do nothing
         }
     }
