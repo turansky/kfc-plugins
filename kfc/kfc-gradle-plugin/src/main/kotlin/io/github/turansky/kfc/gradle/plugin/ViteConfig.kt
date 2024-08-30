@@ -17,7 +17,7 @@ export default defineConfig({
         outDir: 'my-special-dist',
         rollupOptions: {
             input: {
-                'main': resolve(__dirname, '${project.jsModuleName}.mjs'),
+                'main': resolve(__dirname, 'kotlin/${project.jsModuleName}.mjs'),
             },
             output: {
                 entryFileNames: '${project.jsOutputFileName}',

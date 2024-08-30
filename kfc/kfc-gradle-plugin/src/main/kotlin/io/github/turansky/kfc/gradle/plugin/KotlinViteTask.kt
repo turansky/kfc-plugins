@@ -23,14 +23,15 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
 
     @TaskAction
     private fun build() {
+        compilation.npmProject.dir.get()
+            .file("vite.config.js").asFile
+            .writeText(getViteConfig(project))
+
         project.exec {
             compilation.npmProject.useTool(
                 exec = this,
                 tool = VITE_BIN,
-                args = listOf(
-                    "build",
-                    "kotlin"
-                )
+                args = listOf("build"),
             )
         }
     }
