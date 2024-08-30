@@ -9,11 +9,9 @@ dependencies {
 }
 
 val viteBuild by tasks.creating(KotlinViteTask::class) {
-    dependsOn(tasks.compileProductionExecutableKotlinJs)
+    outputDirectory = layout.buildDirectory.dir("my-vite-distribution")
 
-    doLast {
-        println("Building with Vite...")
-    }
+    dependsOn(tasks.compileProductionExecutableKotlinJs)
 }
 
 tasks.build {
