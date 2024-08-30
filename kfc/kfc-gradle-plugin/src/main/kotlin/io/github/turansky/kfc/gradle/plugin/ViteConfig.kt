@@ -8,12 +8,14 @@ import org.gradle.api.file.Directory
 // language=javascript
 fun getViteConfig(
     project: Project,
+    mode: ViteMode,
     outputDirectory: Directory,
 ): String = """
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+    mode: '$mode',
     build: {
         root: 'kotlin',
         outDir: '${outputDirectory.asFile.absolutePath}',

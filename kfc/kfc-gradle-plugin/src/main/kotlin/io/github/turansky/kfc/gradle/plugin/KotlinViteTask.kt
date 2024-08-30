@@ -19,6 +19,9 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
     final override val compilation: KotlinJsIrCompilation =
         project.kotlinJsMainCompilation()
 
+    @Input
+    var mode: ViteMode = ViteMode.DEVELOPMENT
+
     @get:OutputFile
     open val configFile: Provider<File> =
         compilation.npmProject.dir.map { it.file("vite.config.js").asFile }
@@ -33,7 +36,7 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
 
     @TaskAction
     private fun build() {
-        val viteConfig = getViteConfig(project, outputDirectory.get())
+        val viteConfig = getViteConfig(project, mode, outputDirectory.get())
         configFile.get().writeText(viteConfig)
 
         project.exec {
