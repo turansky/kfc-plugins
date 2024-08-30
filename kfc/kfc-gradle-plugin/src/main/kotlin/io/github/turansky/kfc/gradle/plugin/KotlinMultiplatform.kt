@@ -49,8 +49,16 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         }
     }
 
-    if (mode.bundler == Bundler.WEBPACK) {
-        plugins.apply(WebpackApplicationPlugin::class)
+    when (mode.bundler) {
+        Bundler.WEBPACK,
+            -> plugins.apply(WebpackApplicationPlugin::class)
+
+        Bundler.VITE,
+            -> plugins.apply(ViteApplicationPlugin::class)
+
+        Bundler.NONE -> {
+            // do nothing
+        }
     }
 
     // `jsMain` source set required
