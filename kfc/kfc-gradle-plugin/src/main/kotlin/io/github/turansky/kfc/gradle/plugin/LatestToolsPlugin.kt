@@ -14,19 +14,25 @@ private const val NODE_VERSION = "22.7.0"
 
 private const val YARN = "kotlin.js.yarn"
 
-class LatestNodePlugin : Plugin<Project> {
+class LatestToolsPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        rootProject.plugins.apply(RootLatestNodePlugin::class)
+        rootProject.plugins.apply(RootLatestToolsPlugin::class)
     }
 }
 
-private class RootLatestNodePlugin : Plugin<Project> {
+private class RootLatestToolsPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         ext(YARN, false)
 
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().apply {
                 version = NODE_VERSION
+
+                versions.apply {
+                    webpack.version = "5.94.0"
+                    webpackCli.version = "5.1.4"
+                    karma.version = "6.4.4"
+                }
             }
 
             the<NpmExtension>().apply {
