@@ -1,8 +1,8 @@
 package io.github.turansky.kfc.gradle.plugin
 
 enum class Bundler(
-    productionTask: String,
-    developmentTask: String,
+    val productionTask: String,
+    val developmentTask: String,
 ) {
     VITE(
         productionTask = "jsBrowserProductionVite",

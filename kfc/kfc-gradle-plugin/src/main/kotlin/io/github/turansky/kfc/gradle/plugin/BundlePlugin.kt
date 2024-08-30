@@ -8,12 +8,14 @@ import org.gradle.kotlin.dsl.getValue
 
 class BundlePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        val bundler = getBundler()
+
         val jsBundleDevelopment by tasks.creating(Jar::class) {
             group = DEFAULT_TASK_GROUP
 
             archiveClassifier.set("js-bundle-development")
 
-            from(tasks.named(Webpack.DEVELOPMENT_TASK))
+            from(tasks.named(bundler.developmentTask))
         }
 
         val jsBundleProduction by tasks.creating(Jar::class) {
@@ -21,7 +23,7 @@ class BundlePlugin : Plugin<Project> {
 
             archiveClassifier.set("js-bundle-production")
 
-            from(tasks.named(Webpack.PRODUCTION_TASK))
+            from(tasks.named(bundler.productionTask))
         }
     }
 }
