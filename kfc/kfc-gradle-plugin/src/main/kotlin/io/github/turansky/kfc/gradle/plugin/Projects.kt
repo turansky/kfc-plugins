@@ -5,6 +5,8 @@ import org.gradle.api.artifacts.ProjectDependency
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
 
+private val BUNDLER = StringProperty("kfc.bundler")
+
 private val OUTPUT_PATH = StringProperty("kfc.output.path")
 private val OUTPUT_NAME = StringProperty("kfc.output.name")
 private val OUTPUT_HASH = BooleanProperty("kfc.output.hash")
@@ -19,6 +21,17 @@ internal val Project.jsModuleName: String
             else -> "${rootProject.name}-$name"
         }
     }
+
+internal fun Project.getBundler(): Bundler {
+    val value = propertyOrNull(BUNDLER)
+        ?: return Bundler.WEBPACK
+
+    return when (value) {
+        "webpack" -> Bundler.WEBPACK
+        "vite" -> Bundler.VITE
+        else -> error("Unexpected bundler: $value")
+    }
+}
 
 private val Project.jsOutputPath: String?
     get() = propertyOrNull(OUTPUT_PATH)
