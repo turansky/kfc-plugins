@@ -1,7 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
@@ -10,6 +9,7 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 
 private val VITE = NpmPackageVersion("vite", "5.4.2")
+private const val VITE_BIN = "vite/bin/vite.js"
 
 abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
 
@@ -21,15 +21,12 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
     override val requiredNpmDependencies =
         setOf(VITE)
 
-    @Input
-    var bin: String = "vite/bin/vite.js"
-
     @TaskAction
     private fun build() {
         project.exec {
             compilation.npmProject.useTool(
-                this,
-                bin,
+                exec = this,
+                tool = VITE_BIN,
                 args = listOf(
                     "build",
                     "kotlin"
