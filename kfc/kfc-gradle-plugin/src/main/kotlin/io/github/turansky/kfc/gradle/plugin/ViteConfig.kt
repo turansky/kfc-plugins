@@ -3,10 +3,12 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
+import org.gradle.api.file.Directory
 
 // language=javascript
 fun getViteConfig(
     project: Project,
+    outputDirectory: Directory,
 ): String = """
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
@@ -14,7 +16,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
     build: {
         root: 'kotlin',
-        outDir: 'my-special-dist',
+        outDir: '${outputDirectory.asFile.absolutePath}',
         rollupOptions: {
             input: {
                 'main': resolve(__dirname, 'kotlin/${project.jsModuleName}.mjs'),

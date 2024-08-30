@@ -33,7 +33,7 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
 
     @TaskAction
     private fun build() {
-        configFile.get().writeText(getViteConfig(project))
+        configFile.get().writeText(getViteConfig(project, outputDirectory.get()))
 
         project.exec {
             compilation.npmProject.useTool(
