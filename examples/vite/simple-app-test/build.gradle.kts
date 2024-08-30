@@ -1,4 +1,5 @@
 plugins {
+    `kotlin-jvm-conventions`
     `bundle-test-conventions`
 }
 
