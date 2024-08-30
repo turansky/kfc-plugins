@@ -1,5 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import io.github.turansky.kfc.gradle.plugin.Bundler.Vite
+import io.github.turansky.kfc.gradle.plugin.Bundler.Webpack
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 
@@ -24,11 +26,11 @@ internal val Project.jsModuleName: String
 
 internal fun Project.getBundler(): Bundler {
     val value = propertyOrNull(BUNDLER)
-        ?: return Bundler.WEBPACK
+        ?: return Webpack
 
     return when (value) {
-        "webpack" -> Bundler.WEBPACK
-        "vite" -> Bundler.VITE
+        "webpack" -> Webpack
+        "vite" -> Vite
         else -> error("Unexpected bundler: $value")
     }
 }

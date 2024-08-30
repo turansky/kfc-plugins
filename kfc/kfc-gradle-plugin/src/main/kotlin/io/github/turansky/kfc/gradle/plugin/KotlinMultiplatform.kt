@@ -1,5 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import io.github.turansky.kfc.gradle.plugin.Bundler.Vite
+import io.github.turansky.kfc.gradle.plugin.Bundler.Webpack
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getByName
@@ -36,7 +38,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             }
 
             webpackTask {
-                enabled = mode.bundler == Bundler.WEBPACK
+                enabled = mode.bundler == Webpack
             }
 
             runTask {
@@ -50,10 +52,10 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     }
 
     when (mode.bundler) {
-        Bundler.WEBPACK,
+        Webpack,
             -> plugins.apply(WebpackApplicationPlugin::class)
 
-        Bundler.VITE,
+        Vite,
             -> plugins.apply(ViteApplicationPlugin::class)
 
         null -> {

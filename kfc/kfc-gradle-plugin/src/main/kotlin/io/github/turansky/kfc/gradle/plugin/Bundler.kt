@@ -4,13 +4,13 @@ enum class Bundler(
     val developmentTask: String,
     val productionTask: String,
 ) {
-    VITE(
+    Vite(
         developmentTask = "jsBrowserDevelopmentVite",
         productionTask = "jsBrowserProductionVite",
     ),
-    WEBPACK(
-        developmentTask = Webpack.DEVELOPMENT_TASK,
-        productionTask = Webpack.PRODUCTION_TASK,
+    Webpack(
+        developmentTask = "jsBrowserDevelopmentWebpack",
+        productionTask = "jsBrowserProductionWebpack",
     ),
 
     ;
