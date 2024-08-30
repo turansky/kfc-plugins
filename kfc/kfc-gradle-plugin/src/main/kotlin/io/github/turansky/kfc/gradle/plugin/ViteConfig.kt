@@ -23,6 +23,7 @@ export default defineConfig({
             },
             output: {
                 entryFileNames: '${project.jsOutputFileName}',
+                sourcemap: ${project.property(SOURCE_MAPS)},
             },
         },
     },
