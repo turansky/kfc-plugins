@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "devDependencies": {
+    "vite": "file:../../../build/js/node_modules/vite"
+  }
+}
