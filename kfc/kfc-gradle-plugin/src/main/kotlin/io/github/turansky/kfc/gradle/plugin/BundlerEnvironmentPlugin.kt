@@ -9,7 +9,7 @@ class BundlerEnvironmentPlugin : Plugin<Project> {
             BundlerEnvironmentExtension::class.java,
             BUNDLER_ENVIRONMENT,
             BundlerEnvironmentExtensionImpl::class.java,
-            project,
+            objects,
         )
     }
 }
