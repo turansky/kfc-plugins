@@ -4,6 +4,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.*
+import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
@@ -25,6 +26,9 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
     private val configFile: Provider<File> =
         compilation.npmProject.dir.map { it.file(Vite.configFile).asFile }
 
+    private val envFile: Provider<File> =
+        compilation.npmProject.dir.map { it.file(".env").asFile }
+
     @get:OutputDirectory
     @get:Optional
     abstract val outputDirectory: DirectoryProperty
@@ -37,6 +41,10 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
     private fun build() {
         val viteConfig = getViteConfig(project, mode, outputDirectory.get())
         configFile.get().writeText(viteConfig)
+
+        val bundlerEnvironment = project.extensions.getByName<BundlerEnvironmentExtension>(BUNDLER_ENVIRONMENT)
+        val viteEnv = getViteEnv(bundlerEnvironment.variables.get())
+        envFile.get().writeText(viteEnv)
 
         project.exec {
             compilation.npmProject.useTool(
