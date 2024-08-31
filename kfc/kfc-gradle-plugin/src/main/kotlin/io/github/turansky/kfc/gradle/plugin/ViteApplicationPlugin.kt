@@ -23,5 +23,9 @@ class ViteApplicationPlugin : Plugin<Project> {
 
             dependsOn(COMPILE_DEVELOPMENT)
         }
+
+        tasks.named("build") {
+            dependsOn(Vite.productionTask)
+        }
     }
 }
