@@ -54,13 +54,6 @@ abstract class PatchBundlerConfig : DefaultTask() {
         patch(name, source.readText())
     }
 
-    fun entry(
-        name: String,
-        file: File,
-    ) {
-        patch("config.entry['$name'] = '${file.absolutePath}'")
-    }
-
     fun env(
         name: String,
         value: String,
