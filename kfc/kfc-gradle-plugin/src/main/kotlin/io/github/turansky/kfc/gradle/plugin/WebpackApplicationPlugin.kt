@@ -65,7 +65,6 @@ private fun Project.fontRules(): String {
 
 class WebpackApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        plugins.apply(WebpackPlugin::class)
         plugins.apply(SingleWebpackCachePlugin::class)
 
         tasks.configureEach<PatchWebpackConfig> {
