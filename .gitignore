@@ -8,7 +8,7 @@ build/
 *.iml
 
 **/node_modules/
-**/package-lock.json
+examples/**/package-lock.json
 
 webpack.config.d/
 karma.config.d/
