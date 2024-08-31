@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
@@ -20,12 +21,7 @@ internal fun Project.applyKotlinDefaults() {
     configureStrictMode()
     disableTestsWithoutSources()
 
-    extensions.create(
-        NpmvDependencyExtension::class.java,
-        "npmv",
-        NpmvDependencyExtensionImpl::class.java,
-        project
-    )
+    extensions.create<NpmvDependencyExtension>("npmv")
 }
 
 private fun Project.configureStrictMode() {
