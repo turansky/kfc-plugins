@@ -23,7 +23,7 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
     var mode: ViteMode = ViteMode.DEVELOPMENT
 
     private val configFile: Provider<File> =
-        compilation.npmProject.dir.map { it.file("vite.config.js").asFile }
+        compilation.npmProject.dir.map { it.file(Vite.configFile).asFile }
 
     @get:OutputDirectory
     @get:Optional
