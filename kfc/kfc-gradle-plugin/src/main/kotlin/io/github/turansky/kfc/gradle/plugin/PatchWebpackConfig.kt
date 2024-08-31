@@ -6,11 +6,6 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-class EnvVariable(
-    val name: String,
-    val value: String,
-)
-
 abstract class PatchWebpackConfig : DefaultTask() {
 
     @get:Input
