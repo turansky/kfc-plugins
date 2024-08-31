@@ -9,28 +9,26 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        val bundlerEnvironment = extensions.getByName<BundlerEnvironmentExtensionImpl>(BUNDLER_ENVIRONMENT)
+
         plugins.withId(KotlinPlugin.MULTIPLATFORM) {
-            tasks {
-                applyConfiguration()
+            val patchWebpackConfig by tasks.registering(PatchWebpackConfig::class) {
+                group = DEFAULT_TASK_GROUP
+
+                envVariables.convention(bundlerEnvironment.variables)
             }
-        }
-    }
 
-    private fun TaskContainerScope.applyConfiguration() {
-        val patchWebpackConfig by registering(PatchWebpackConfig::class) {
-            group = DEFAULT_TASK_GROUP
-        }
+            tasks.named<Delete>("clean") {
+                delete(patchWebpackConfig)
+            }
 
-        named<Delete>("clean") {
-            delete(patchWebpackConfig)
-        }
+            tasks.configureEach<KotlinWebpack> {
+                dependsOn(patchWebpackConfig)
+            }
 
-        configureEach<KotlinWebpack> {
-            dependsOn(patchWebpackConfig)
-        }
-
-        configureEach<KotlinJsTest> {
-            dependsOn(patchWebpackConfig)
+            tasks.configureEach<KotlinJsTest> {
+                dependsOn(patchWebpackConfig)
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ class BundlerEnvironmentPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         extensions.create(
             BundlerEnvironmentExtension::class.java,
-            "bundlerEnvironment",
+            BUNDLER_ENVIRONMENT,
             BundlerEnvironmentExtensionImpl::class.java,
             project,
         )

@@ -1,6 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
@@ -12,7 +13,7 @@ abstract class PatchWebpackConfig : DefaultTask() {
     val patches: MutableMap<String, String> = mutableMapOf()
 
     @get:Input
-    val envVariables: MutableList<Pair<String, String>> = mutableListOf()
+    internal abstract val envVariables: ListProperty<EnvVariable>
 
     @get:OutputDirectory
     val configDirectory: File
@@ -49,23 +50,9 @@ abstract class PatchWebpackConfig : DefaultTask() {
         patch(name, source.readText())
     }
 
-    fun env(
-        name: String,
-        value: String,
-    ) {
-        envVariables.add(name to value)
-    }
-
     @TaskAction
     private fun generatePatches() {
-        val envPatch: String? = createEnvPatch(
-            envVariables.map { (oldValue, newValue) ->
-                EnvVariable(
-                    name = oldValue,
-                    value = newValue,
-                )
-            },
-        )
+        val envPatch: String? = createEnvPatch(envVariables.get())
 
         if (patches.isEmpty() && envPatch == null)
             return
@@ -91,8 +78,8 @@ private fun createEnvPatch(
     if (variables.isEmpty())
         return null
 
-    val variableDeclarations = variables.map { v ->
-        """'import.meta.env.VITE_${v.name}': JSON.stringify('${v.value}'),"""
+    val variableDeclarations = variables.map { (varName, varValue) ->
+        """'import.meta.env.VITE_${varName}': JSON.stringify('${varValue}'),"""
     }.joinToString("\n                ")
 
     return createPatch(

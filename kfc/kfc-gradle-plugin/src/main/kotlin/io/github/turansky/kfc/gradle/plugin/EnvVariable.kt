@@ -1,6 +1,3 @@
 package io.github.turansky.kfc.gradle.plugin
 
-class EnvVariable(
-    val name: String,
-    val value: String,
-)
+typealias EnvVariable = Pair<String, String>
