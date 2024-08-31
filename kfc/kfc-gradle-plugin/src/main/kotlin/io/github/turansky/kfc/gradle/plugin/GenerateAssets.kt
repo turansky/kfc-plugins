@@ -4,7 +4,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*
 import java.io.File
 
-open class GenerateAssets : DefaultTask() {
+abstract class GenerateAssets : DefaultTask() {
     init {
         group = DEFAULT_TASK_GROUP
     }
