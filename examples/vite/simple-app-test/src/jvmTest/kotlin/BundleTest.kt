@@ -24,7 +24,7 @@ class BundleTest {
         val content = file.readText()
 
         assertContains(content, "Simple App")
-        assertContains(content, "!!--Frodo--!!")
+        assertContains(content, "Frodo Baggins")
         assertContains(content, "212374918234198245123451234")
     }
 }
