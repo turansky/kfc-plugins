@@ -7,6 +7,8 @@ import org.gradle.kotlin.dsl.create
 class ViteApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.create<KotlinViteTask>(Vite.productionTask) {
+            group = DEFAULT_TASK_GROUP
+
             mode = ViteMode.PRODUCTION
             outputDirectory.convention(getProductionDistDirectory())
 
@@ -14,6 +16,8 @@ class ViteApplicationPlugin : Plugin<Project> {
         }
 
         tasks.create<KotlinViteTask>(Vite.developmentTask) {
+            group = DEFAULT_TASK_GROUP
+
             mode = ViteMode.DEVELOPMENT
             outputDirectory.convention(getDevelopmentDistDirectory())
 
