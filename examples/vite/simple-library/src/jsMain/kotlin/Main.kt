@@ -17,7 +17,7 @@ fun createView() {
     buildName.textContent = BUILD_NAME
 
     val buildNumber = document.createElement(span)
-    buildNumber.textContent = BUILD_NAME
+    buildNumber.textContent = BUILD_NUMBER
 
     container.appendChild(buildName)
     container.appendChild(buildNumber)
