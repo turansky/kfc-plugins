@@ -11,10 +11,7 @@ class EnvVariable(
     val value: String,
 )
 
-open class PatchBundlerConfig : DefaultTask() {
-    init {
-        group = DEFAULT_TASK_GROUP
-    }
+abstract class PatchBundlerConfig : DefaultTask() {
 
     @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()

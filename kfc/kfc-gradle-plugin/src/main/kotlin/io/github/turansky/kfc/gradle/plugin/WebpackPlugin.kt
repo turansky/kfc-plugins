@@ -17,7 +17,9 @@ class WebpackPlugin : Plugin<Project> {
     }
 
     private fun TaskContainerScope.applyConfiguration() {
-        val patchBundlerConfig by registering(PatchBundlerConfig::class)
+        val patchBundlerConfig by registering(PatchBundlerConfig::class) {
+            group = DEFAULT_TASK_GROUP
+        }
 
         named<Delete>("clean") {
             delete(patchBundlerConfig)
