@@ -11,7 +11,7 @@ export default defineConfig({
                 'main': resolve(__dirname, '%MAIN%'),
             },
             output: {
-                entryFileNames: '[name]-[hash].js',
+                entryFileNames: '[name].[hash].js',
                 sourcemap: '%SOURCE_MAP%',
             },
         },
