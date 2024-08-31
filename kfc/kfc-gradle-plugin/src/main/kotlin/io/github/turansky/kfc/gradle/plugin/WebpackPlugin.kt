@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 class WebpackPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        val bundlerEnvironment = extensions.getByName<BundlerEnvironmentExtensionImpl>(BUNDLER_ENVIRONMENT)
+        val bundlerEnvironment = extensions.getByName<BundlerEnvironmentExtension>(BUNDLER_ENVIRONMENT)
 
         plugins.withId(KotlinPlugin.MULTIPLATFORM) {
             val patchWebpackConfig by tasks.registering(PatchWebpackConfig::class) {
