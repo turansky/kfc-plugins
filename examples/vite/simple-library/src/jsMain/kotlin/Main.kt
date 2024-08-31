@@ -1,5 +1,6 @@
 import web.dom.document
 import web.html.HTML.div
+import web.html.HTML.span
 
 fun createView() {
     val container = document.createElement(div)
@@ -11,6 +12,15 @@ fun createView() {
     }
 
     container.textContent = "Simple App"
+
+    val buildName = document.createElement(span)
+    buildName.textContent = BUILD_NAME
+
+    val buildNumber = document.createElement(span)
+    buildNumber.textContent = BUILD_NAME
+
+    container.appendChild(buildName)
+    container.appendChild(buildNumber)
 
     document.body.appendChild(container)
 }
