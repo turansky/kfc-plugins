@@ -17,20 +17,20 @@ class WebpackPlugin : Plugin<Project> {
     }
 
     private fun TaskContainerScope.applyConfiguration() {
-        val patchBundlerConfig by registering(PatchBundlerConfig::class) {
+        val patchWebpackConfig by registering(PatchWebpackConfig::class) {
             group = DEFAULT_TASK_GROUP
         }
 
         named<Delete>("clean") {
-            delete(patchBundlerConfig)
+            delete(patchWebpackConfig)
         }
 
         configureEach<KotlinWebpack> {
-            dependsOn(patchBundlerConfig)
+            dependsOn(patchWebpackConfig)
         }
 
         configureEach<KotlinJsTest> {
-            dependsOn(patchBundlerConfig)
+            dependsOn(patchWebpackConfig)
         }
     }
 }

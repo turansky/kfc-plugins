@@ -11,7 +11,7 @@ class EnvVariable(
     val value: String,
 )
 
-abstract class PatchBundlerConfig : DefaultTask() {
+abstract class PatchWebpackConfig : DefaultTask() {
 
     @get:Input
     val patches: MutableMap<String, String> = mutableMapOf()

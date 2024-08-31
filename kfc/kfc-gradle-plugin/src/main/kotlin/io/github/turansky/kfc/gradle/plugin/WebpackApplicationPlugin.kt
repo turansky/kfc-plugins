@@ -68,7 +68,7 @@ class WebpackApplicationPlugin : Plugin<Project> {
         plugins.apply(WebpackPlugin::class)
         plugins.apply(SingleWebpackCachePlugin::class)
 
-        tasks.configureEach<PatchBundlerConfig> {
+        tasks.configureEach<PatchWebpackConfig> {
             patch("default-settings", defaultSettings())
             patch("resolve-rules", RESOLVE_RULES)
             patch("css-rules", CSS_RULES)

@@ -6,7 +6,7 @@ dependencies {
     jsTestImplementation(libs.kotlin.test.js)
 }
 
-tasks.patchBundlerConfig {
+tasks.patchWebpackConfig {
     env("BUILD_NAME", "Frodo")
     env("BUILD_NUMBER", "42")
 }
