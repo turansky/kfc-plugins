@@ -49,7 +49,6 @@ import { defineConfig } from 'vite'
 export default defineConfig({
     mode: '$mode',
     build: {
-        root: 'kotlin',
         outDir: '${outDir}',
         emptyOutDir: true,
         rollupOptions: {
