@@ -1,19 +1,22 @@
 val jsTestBundle = configurations.create("jsTestBundle")
 
 val unpackBundle by tasks.registering(Sync::class) {
-    jsTestBundle
+    val bundleProjects = jsTestBundle
         .allDependencies
-        .asSequence()
-        .filterIsInstance<ProjectDependency>()
+        .map { it as ProjectDependency }
         .map { it.dependencyProject }
-        .toSet()
-        .map {
-            val tasks = it.tasks.named<Jar>("jsBundleProduction")
 
-            from(tasks.map { jar -> zipTree(jar.archiveFile) }) {
-                into(it.name)
-            }
+    for (bundleProject in bundleProjects) {
+        val bundleTask = bundleProject.tasks.named<Jar>("jsBundleProduction")
+        val bundle = bundleTask.map { task ->
+            zipTree(task.archiveFile)
+                .matching { exclude("META-INF/") }
         }
+
+        from(bundle) {
+            into(bundleProject.name)
+        }
+    }
 
     into(temporaryDir)
 }
