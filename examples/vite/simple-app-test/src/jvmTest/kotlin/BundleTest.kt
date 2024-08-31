@@ -21,6 +21,10 @@ class BundleTest {
         assertNotNull(path)
 
         val file = File("$path/$projectName/$projectName.js")
-        assertContains(file.readText(), "Simple App")
+        val content = file.readText()
+
+        assertContains(content, "Simple App")
+        assertContains(content, "!!--Frodo--!!")
+        assertContains(content, "212374918234198245123451234")
     }
 }

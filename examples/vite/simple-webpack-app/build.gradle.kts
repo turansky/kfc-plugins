@@ -3,7 +3,7 @@ plugins {
 }
 
 bundlerEnvironment {
-    set("BUILD_NAME", "<--Frodo-->")
+    set("BUILD_NAME", "!!--Frodo--!!")
     set("BUILD_NUMBER", "212374918234198245123451234")
 }
 
