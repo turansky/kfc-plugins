@@ -5,9 +5,6 @@ import org.gradle.api.tasks.*
 import java.io.File
 
 abstract class GenerateAssets : DefaultTask() {
-    init {
-        group = DEFAULT_TASK_GROUP
-    }
 
     @get:Input
     var multiplatformMode: Boolean = false

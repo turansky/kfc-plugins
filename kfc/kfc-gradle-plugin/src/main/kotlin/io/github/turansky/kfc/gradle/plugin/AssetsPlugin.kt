@@ -21,6 +21,8 @@ class AssetsPlugin : Plugin<Project> {
             val multiplatform = clientCommonAssets.exists()
 
             val generateAssets by tasks.registering(GenerateAssets::class) {
+                group = DEFAULT_TASK_GROUP
+
                 multiplatformMode = multiplatform
 
                 pkg = assetsPackage
