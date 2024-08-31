@@ -21,6 +21,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     plugins.apply(KotlinPlugin.JS_PLAIN_OBJECTS)
     plugins.apply(LatestToolsPlugin::class)
 
+    plugins.apply(BundlerEnvironmentPlugin::class)
     plugins.apply(WebpackPlugin::class)
 
     val fileName = jsOutputFileName
