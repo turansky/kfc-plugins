@@ -2,7 +2,9 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 
-internal sealed class AbstractProperty<T : Any>(val name: String)
+internal sealed class AbstractProperty<T : Any>(
+    val name: String,
+)
 
 internal class StringProperty(
     name: String,
