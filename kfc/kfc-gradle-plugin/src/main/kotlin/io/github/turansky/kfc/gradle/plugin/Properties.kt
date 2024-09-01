@@ -2,28 +2,34 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 
-internal sealed class Property<T : Any>(val name: String)
+internal sealed class AbstractProperty<T : Any>(val name: String)
 
 internal class StringProperty(
     name: String,
-) : Property<String>(name)
+) : AbstractProperty<String>(name)
 
 internal class BooleanProperty(
     name: String,
     val default: Boolean = false,
-) : Property<Boolean>(name)
+) : AbstractProperty<Boolean>(name)
 
-private fun Project.propertyOrNull(propertyName: String): String? =
+private fun Project.propertyOrNull(
+    propertyName: String,
+): String? =
     if (hasProperty(propertyName)) {
         property(propertyName) as String
     } else {
         null
     }
 
-internal fun Project.propertyOrNull(p: StringProperty): String? =
-    propertyOrNull(p.name)
+internal fun Project.propertyOrNull(
+    property: StringProperty,
+): String? =
+    propertyOrNull(property.name)
 
-internal fun Project.property(p: BooleanProperty): Boolean =
-    propertyOrNull(p.name)
+internal fun Project.property(
+    property: BooleanProperty,
+): Boolean =
+    propertyOrNull(property.name)
         ?.toBoolean()
-        ?: p.default
+        ?: property.default
