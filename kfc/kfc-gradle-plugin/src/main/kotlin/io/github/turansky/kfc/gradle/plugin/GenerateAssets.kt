@@ -154,7 +154,7 @@ private class Icon(
             part.splitToSequence("-").joinToString("") {
                 when (it) {
                     "2d", "3d",
-                    -> it.uppercase()
+                        -> it.uppercase()
 
                     // TODO: use custom `capitalized`
                     else -> it.replaceFirstChar { char ->
