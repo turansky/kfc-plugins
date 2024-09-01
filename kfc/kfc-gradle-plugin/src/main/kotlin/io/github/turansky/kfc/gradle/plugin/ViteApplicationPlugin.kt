@@ -9,7 +9,7 @@ class ViteApplicationPlugin : Plugin<Project> {
         tasks.create<KotlinViteTask>(Vite.productionTask) {
             group = DEFAULT_TASK_GROUP
 
-            mode = ViteMode.PRODUCTION
+            mode.set(ViteMode.PRODUCTION)
             outputDirectory.convention(getProductionDistDirectory())
 
             dependsOn(COMPILE_PRODUCTION)
@@ -18,7 +18,7 @@ class ViteApplicationPlugin : Plugin<Project> {
         tasks.create<KotlinViteTask>(Vite.developmentTask) {
             group = DEFAULT_TASK_GROUP
 
-            mode = ViteMode.DEVELOPMENT
+            mode.set(ViteMode.DEVELOPMENT)
             outputDirectory.convention(getDevelopmentDistDirectory())
 
             dependsOn(COMPILE_DEVELOPMENT)

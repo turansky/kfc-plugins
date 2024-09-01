@@ -2,9 +2,11 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.getByName
+import org.gradle.kotlin.dsl.property
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
@@ -21,7 +23,9 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
         project.kotlinJsMainCompilation()
 
     @Input
-    var mode: ViteMode = ViteMode.DEVELOPMENT
+    val mode: Property<ViteMode> =
+        project.objects.property<ViteMode>()
+            .convention(ViteMode.PRODUCTION)
 
     private val configFile: Provider<File> =
         compilation.npmProject.dir.map { it.file(Vite.configFile).asFile }
