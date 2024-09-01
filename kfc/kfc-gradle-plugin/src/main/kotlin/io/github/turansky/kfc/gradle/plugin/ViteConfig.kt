@@ -18,7 +18,7 @@ fun getViteConfig(
 
     if (configFileTemplate.exists()) {
         return configFileTemplate.readText()
-            .replace("%MAIN_PATH%", entryPath)
+            .replace("%ENTRY_PATH%", entryPath)
     }
 
     return getDefaultViteConfig(

@@ -4,7 +4,7 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                'main': '%MAIN_PATH%',
+                'main': '%ENTRY_PATH%',
             },
             output: {
                 entryFileNames: '[name].[hash].js',
