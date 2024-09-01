@@ -46,11 +46,11 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
         val entryFile = compilation.npmProject.dir.get()
             .file("kotlin/${project.jsModuleName}.mjs")
 
-        val viteConfig = getViteConfig(project, entryFile)
+        val viteConfig = getViteConfig(project)
         configFile.get().writeText(viteConfig)
 
         val bundlerEnvironment = project.extensions.getByName<BundlerEnvironmentExtension>(BUNDLER_ENVIRONMENT)
-        val viteEnv = getViteEnv(bundlerEnvironment.variables.get())
+        val viteEnv = getViteEnv(bundlerEnvironment.variables.get(), entryFile)
         envFile.get().writeText(viteEnv)
 
         val viteArgs = listOf(

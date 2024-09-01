@@ -3,44 +3,38 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
-import org.gradle.api.file.RegularFile
+
+internal const val ENTRY_PATH: String = "ENTRY_PATH"
+
+// language=javascript
+private val DEFAULT_VITE_CONFIG: String = """
+import {defineConfig, loadEnv} from 'vite'
+
+export default defineConfig(({mode}) => {
+    const env = loadEnv(mode, process.cwd(), '')
+    return {
+        build: {
+            rollupOptions: {
+                input: [
+                    env.$ENTRY_PATH,
+                ],
+                output: {
+                    entryFileNames: '[name].js',
+                },
+            },
+        },
+    }
+})
+""".trimIndent()
 
 fun getViteConfig(
     project: Project,
-    entryFile: RegularFile,
 ): String {
-    val entryPath = entryFile.asFile.absolutePath
-
     val configFileTemplate = project.layout.projectDirectory
         .file(Vite.configFile)
         .asFile
 
-    if (configFileTemplate.exists()) {
-        return configFileTemplate.readText()
-            .replace("%ENTRY_PATH%", entryPath)
-    }
-
-    return getDefaultViteConfig(
-        entryPath = entryPath,
-    )
+    return if (configFileTemplate.exists()) {
+        configFileTemplate.readText()
+    } else DEFAULT_VITE_CONFIG
 }
-
-// language=javascript
-private fun getDefaultViteConfig(
-    entryPath: String,
-): String = """
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-    build: {
-        rollupOptions: {
-            input: [
-                '$entryPath',
-            ],
-            output: {
-                entryFileNames: '[name].js',
-            },
-        },
-    },
-})
-""".trimIndent()
