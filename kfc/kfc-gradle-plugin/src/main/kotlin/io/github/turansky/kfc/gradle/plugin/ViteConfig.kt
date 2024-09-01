@@ -27,7 +27,6 @@ fun getViteConfig(
     }
 
     return getDefaultViteConfig(
-        project = project,
         mode = mode,
         outDir = outDir,
         mainPath = mainPath,
@@ -37,7 +36,6 @@ fun getViteConfig(
 
 // language=javascript
 private fun getDefaultViteConfig(
-    project: Project,
     mode: ViteMode,
     outDir: String,
     mainPath: String,
@@ -56,7 +54,6 @@ export default defineConfig({
                 'main': resolve(__dirname, '$mainPath'),
             },
             output: {
-                entryFileNames: '${project.jsOutputFileName}',
                 sourcemap: ${sourceMaps},
             },
         },
