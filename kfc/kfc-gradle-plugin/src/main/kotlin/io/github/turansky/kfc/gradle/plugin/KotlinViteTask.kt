@@ -39,18 +39,29 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
 
     @TaskAction
     private fun build() {
-        val viteConfig = getViteConfig(project, mode, outputDirectory.get())
+        val entryFile = compilation.npmProject.dir.get()
+            .file("kotlin/${project.jsModuleName}.mjs")
+
+        val viteConfig = getViteConfig(project, entryFile)
         configFile.get().writeText(viteConfig)
 
         val bundlerEnvironment = project.extensions.getByName<BundlerEnvironmentExtension>(BUNDLER_ENVIRONMENT)
         val viteEnv = getViteEnv(bundlerEnvironment.variables.get())
         envFile.get().writeText(viteEnv)
 
+        val viteArgs = listOf(
+            "build",
+            "--mode", mode.toString(),
+            "--outDir", outputDirectory.get().asFile.absolutePath,
+            "--emptyOutDir", "true",
+            "--sourcemap", project.property(SOURCE_MAPS).toString()
+        )
+
         project.exec {
             compilation.npmProject.useTool(
                 exec = this,
                 tool = VITE_BIN,
-                args = listOf("build"),
+                args = viteArgs,
             )
         }
     }

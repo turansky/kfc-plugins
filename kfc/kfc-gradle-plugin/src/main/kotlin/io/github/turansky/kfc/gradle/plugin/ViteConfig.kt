@@ -3,16 +3,14 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
-import org.gradle.api.file.Directory
+import org.gradle.api.file.RegularFile
 
 fun getViteConfig(
     project: Project,
-    mode: ViteMode,
-    outputDirectory: Directory,
+    entryFile: RegularFile,
 ): String {
-    val outDir = outputDirectory.asFile.absolutePath
-    val mainPath = "kotlin/${project.jsModuleName}.mjs"
-    val sourceMaps = project.property(SOURCE_MAPS)
+    val entryName = entryFile.asFile.nameWithoutExtension
+    val entryPath = entryFile.asFile.absolutePath
 
     val configFileTemplate = project.layout.projectDirectory
         .file(Vite.configFile)
@@ -20,41 +18,30 @@ fun getViteConfig(
 
     if (configFileTemplate.exists()) {
         return configFileTemplate.readText()
-            .replace("%MODE%", mode.toString())
-            .replace("%OUT_DIR%", outDir)
-            .replace("%MAIN%", mainPath)
-            .replace("'%SOURCE_MAP%'", sourceMaps.toString())
+            .replace("%MAIN_PATH%", entryPath)
     }
 
     return getDefaultViteConfig(
-        mode = mode,
-        outDir = outDir,
-        mainPath = mainPath,
-        sourceMaps = sourceMaps,
+        entryName = entryName,
+        entryPath = entryPath,
     )
 }
 
 // language=javascript
 private fun getDefaultViteConfig(
-    mode: ViteMode,
-    outDir: String,
-    mainPath: String,
-    sourceMaps: Boolean,
+    entryName: String,
+    entryPath: String,
 ): String = """
-import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-    mode: '$mode',
     build: {
-        outDir: '${outDir}',
-        emptyOutDir: true,
         rollupOptions: {
             input: {
-                'main': resolve(__dirname, '$mainPath'),
+                '$entryName': '$entryPath',
             },
             output: {
-                sourcemap: ${sourceMaps},
+                entryFileNames: '[name].js',
             },
         },
     },
