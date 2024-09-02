@@ -29,12 +29,12 @@ class ViteApplicationPlugin : Plugin<Project> {
             dependsOn(Vite.productionTask)
         }
     }
+}
 
-    private fun Task.dependOnCompile(
-        taskName: String,
-    ) {
-        val compile = project.tasks.named(taskName).get()
-        inputs.files(compile.outputs.files)
-        dependsOn(compile)
-    }
+private fun Task.dependOnCompile(
+    taskName: String,
+) {
+    val compile = project.tasks.named(taskName).get()
+    inputs.files(compile.outputs.files)
+    dependsOn(compile)
 }
