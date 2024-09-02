@@ -22,6 +22,6 @@ fun getViteEnv(
     properties.setProperty(ENTRY_PATH, entryFile.asFile.absolutePath)
 
     val writer = StringWriter()
-    properties.list(PrintWriter(writer))
+    properties.store(PrintWriter(writer), null)
     return writer.buffer.toString()
 }
