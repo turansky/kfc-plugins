@@ -3,6 +3,5 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(npmv("style-loader"))
-    jsMainImplementation(npmv("css-loader"))
+    jsMainImplementation(npmv("@preact/signals-core"))
 }
