@@ -18,6 +18,6 @@
 
 ```kotlin
 plugins {
-    id("io.github.turansky.kfc.library") version "8.60.0"
+    id("io.github.turansky.kfc.library") version "8.64.0"
 }
 ```
