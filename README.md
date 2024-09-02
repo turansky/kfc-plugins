@@ -5,19 +5,15 @@
 
 # Kotlin/JS Fast Configuration
 
-## `library`
-
-### Goal
-* Modularity
-
-### Decision
+## `application`
 
 * Kotlin/JS target - `es2015`
+* Bundler - [Vite](https://vitejs.dev/)
 
 #### `build.gradle.kts`
 
 ```kotlin
 plugins {
-    id("io.github.turansky.kfc.library") version "8.64.0"
+    id("io.github.turansky.kfc.application") version "10.0.0"
 }
 ```
