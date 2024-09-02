@@ -11,11 +11,8 @@ class ApplicationPlugin : Plugin<Project> {
 
         applyKotlinMultiplatformPlugin(APPLICATION(bundler))
 
-        val productionTask = if (bundler == Webpack) Webpack.productionTask else Vite.productionTask
-        val developmentTask = if (bundler == Webpack) Webpack.developmentTask else Vite.developmentTask
-
-        linkWithModuleCompilation(productionTask, COMPILE_PRODUCTION)
-        linkWithModuleCompilation(developmentTask, COMPILE_DEVELOPMENT)
+        linkWithModuleCompilation(bundler.productionTask, COMPILE_PRODUCTION)
+        linkWithModuleCompilation(bundler.developmentTask, COMPILE_DEVELOPMENT)
 
         plugins.apply(BundlePlugin::class)
     }
