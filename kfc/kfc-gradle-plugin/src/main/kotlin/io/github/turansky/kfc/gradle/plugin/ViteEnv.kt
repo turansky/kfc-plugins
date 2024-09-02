@@ -4,8 +4,6 @@ package io.github.turansky.kfc.gradle.plugin
 
 import nu.studer.java.util.OrderedProperties.OrderedPropertiesBuilder
 import org.gradle.api.file.RegularFile
-import java.io.PrintWriter
-import java.io.StringWriter
 
 fun getViteEnv(
     variables: List<EnvVariable>,
@@ -21,7 +19,6 @@ fun getViteEnv(
 
     properties.setProperty(ENTRY_PATH, entryFile.asFile.absolutePath)
 
-    val writer = StringWriter()
-    properties.store(PrintWriter(writer), null)
-    return writer.buffer.toString()
+    return properties.entrySet()
+        .joinToString("\n") { (k, v) -> "$k=$v" }
 }
