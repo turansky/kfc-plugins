@@ -24,11 +24,12 @@ internal val Project.jsModuleName: String
 
 internal fun Project.getBundler(): Bundler {
     val value = propertyOrNull(BUNDLER)
-        ?: return Webpack
+        ?: return Vite
 
     return when (value) {
-        "webpack" -> Webpack
         "vite" -> Vite
+        "webpack" -> Webpack
+
         else -> error("Unexpected bundler: $value")
     }
 }
