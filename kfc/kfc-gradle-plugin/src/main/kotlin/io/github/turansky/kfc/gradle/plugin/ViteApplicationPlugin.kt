@@ -3,6 +3,7 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.create
 
 class ViteApplicationPlugin : Plugin<Project> {
@@ -28,6 +29,8 @@ class ViteApplicationPlugin : Plugin<Project> {
         tasks.named("build") {
             dependsOn(Vite.productionTask)
         }
+
+        plugins.apply(SingleViteCachePlugin::class)
     }
 }
 
