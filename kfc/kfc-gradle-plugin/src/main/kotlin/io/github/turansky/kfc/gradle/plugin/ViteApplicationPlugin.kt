@@ -26,11 +26,11 @@ class ViteApplicationPlugin : Plugin<Project> {
             dependOnCompile(COMPILE_DEVELOPMENT)
         }
 
+        plugins.apply(SingleViteCachePlugin::class)
+
         tasks.named("build") {
             dependsOn(Vite.productionTask)
         }
-
-        plugins.apply(SingleViteCachePlugin::class)
     }
 }
 
