@@ -60,12 +60,7 @@ private enum class SourceSet(
 ) {
     MULTIPLATFORM(
         names = setOf("jsTest", "commonTest"),
-        taskPrefixes = setOf("jsTest", "jsIrTest", "jsLegacyTest")
-    ),
-
-    JS(
-        names = setOf("test"),
-        taskPrefixes = setOf("test", "irTest", "legacyTest")
+        taskPrefixes = setOf("jsTest")
     ),
 
     ;
