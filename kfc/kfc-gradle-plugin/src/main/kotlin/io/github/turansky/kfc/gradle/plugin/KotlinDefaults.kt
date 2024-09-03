@@ -3,8 +3,6 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.getByName
-import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 private const val DOM_API_INCLUDED = "kotlin.js.stdlib.dom.api.included"
@@ -19,7 +17,6 @@ internal fun Project.applyKotlinDefaults() {
     plugins.apply(SourceMapsPlugin::class)
 
     configureStrictMode()
-    disableTestsWithoutSources()
 
     extensions.create<NpmvDependencyExtension>("npmv")
 }
@@ -32,43 +29,4 @@ private fun Project.configureStrictMode() {
             }
         }
     }
-}
-
-private fun Project.disableTestsWithoutSources() {
-    afterEvaluate {
-        val sourceSet = SourceSet.values()
-            .single { it.taskNames.mapNotNull(tasks::findByPath).isNotEmpty() }
-
-        sourceSet.taskNames
-            .mapNotNull(tasks::findByPath)
-            .forEach { task ->
-                task.onlyIf {
-                    val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
-                    sourceSet.names
-                        .asSequence()
-                        .map { kotlin.sourceSets.getByName(it) }
-                        .flatMap { it.kotlin.sourceDirectories }
-                        .any { it.exists() }
-                }
-            }
-    }
-}
-
-private enum class SourceSet(
-    val names: Set<String>,
-    val taskPrefixes: Set<String>,
-) {
-    MULTIPLATFORM(
-        names = setOf("jsTest", "commonTest"),
-        taskPrefixes = setOf("jsTest", "jsIrTest", "jsLegacyTest")
-    ),
-
-    JS(
-        names = setOf("test"),
-        taskPrefixes = setOf("test", "irTest", "legacyTest")
-    ),
-
-    ;
-
-    val taskNames = taskPrefixes.map { "${it}PackageJson" }
 }
