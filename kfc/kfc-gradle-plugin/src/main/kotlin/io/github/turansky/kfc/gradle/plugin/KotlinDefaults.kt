@@ -35,35 +35,13 @@ private fun Project.configureStrictMode() {
 }
 
 private fun Project.disableTestsWithoutSources() {
-    afterEvaluate {
-        val sourceSet = SourceSet.values()
-            .single { it.taskNames.mapNotNull(tasks::findByPath).isNotEmpty() }
-
-        sourceSet.taskNames
-            .mapNotNull(tasks::findByPath)
-            .forEach { task ->
-                task.onlyIf {
-                    val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
-                    sourceSet.names
-                        .asSequence()
-                        .map { kotlin.sourceSets.getByName(it) }
-                        .flatMap { it.kotlin.sourceDirectories }
-                        .any { it.exists() }
-                }
-            }
+    tasks.named("jsTestPackageJson") {
+        onlyIf {
+            val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
+            sequenceOf("jsTest", "commonTest")
+                .map { kotlin.sourceSets.getByName(it) }
+                .flatMap { it.kotlin.sourceDirectories }
+                .any { it.exists() }
+        }
     }
-}
-
-private enum class SourceSet(
-    val names: Set<String>,
-    val taskPrefixes: Set<String>,
-) {
-    MULTIPLATFORM(
-        names = setOf("jsTest", "commonTest"),
-        taskPrefixes = setOf("jsTest")
-    ),
-
-    ;
-
-    val taskNames = taskPrefixes.map { "${it}PackageJson" }
 }
