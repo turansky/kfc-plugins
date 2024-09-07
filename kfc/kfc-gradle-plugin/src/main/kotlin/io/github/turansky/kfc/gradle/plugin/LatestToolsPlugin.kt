@@ -10,8 +10,6 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.npm.LockFileMismatchReport
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmExtension
 
-private const val NODE_VERSION = "22.7.0"
-
 private const val YARN = "kotlin.js.yarn"
 
 class LatestToolsPlugin : Plugin<Project> {
@@ -26,7 +24,7 @@ private class RootLatestToolsPlugin : Plugin<Project> {
 
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().apply {
-                version = NODE_VERSION
+                version = "22.8.0"
 
                 versions.apply {
                     webpack.version = "5.94.0"
