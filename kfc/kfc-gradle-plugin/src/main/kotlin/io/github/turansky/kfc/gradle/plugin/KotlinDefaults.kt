@@ -37,7 +37,7 @@ private fun Project.configureStrictMode() {
 }
 
 private fun Project.disableTestsWithoutSources() {
-    tasks.findByPath("jsTestPackageJson")?.configure<Task> {
+    tasks.findByName("jsTestPackageJson")?.configure<Task> {
         onlyIf {
             val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
             sequenceOf("jsTest", "commonTest")
