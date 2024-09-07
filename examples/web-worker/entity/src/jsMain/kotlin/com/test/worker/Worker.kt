@@ -1,14 +1,14 @@
 package com.test.worker
 
-import web.events.addEventHandler
-import web.messaging.MessageEvent
+import web.events.addHandler
 import web.workers.Worker
+import web.workers.messageEvent
 
 fun Worker.addMessageHandler(
     handler: Message.() -> Unit,
 ): () -> Unit {
-    return addEventHandler(MessageEvent.message<Message>()) {
-        handler(it.data)
+    return messageEvent.addHandler {
+        handler(it.data.unsafeCast<Message>())
     }
 }
 

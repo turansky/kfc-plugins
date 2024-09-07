@@ -4,13 +4,13 @@ import com.test.worker.Message
 import com.test.worker.addMessageHandler
 import com.test.worker.post
 import js.import.import
+import web.dom.clickEvent
 import web.dom.document
-import web.events.addEventHandler
+import web.events.addHandler
 import web.html.HTML.div
 import web.html.HTML.span
 import web.html.HTMLElement
 import web.http.fetchAsync
-import web.uievents.MouseEvent
 import web.url.URL
 import web.workers.Worker
 
@@ -39,7 +39,7 @@ private fun main() {
             }
     }
 
-    view.addEventHandler(MouseEvent.click()) {
+    view.clickEvent.addHandler {
         testBytes()
     }
 
