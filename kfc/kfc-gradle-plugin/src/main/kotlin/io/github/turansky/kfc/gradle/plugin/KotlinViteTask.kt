@@ -3,9 +3,11 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.*
+import org.gradle.kotlin.dsl.listProperty
 import org.gradle.kotlin.dsl.property
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
@@ -42,6 +44,10 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
                 .orElse(defaultConfigFile)
         )
 
+    private val envVariables: ListProperty<EnvVariable> =
+        project.objects.listProperty<EnvVariable>()
+            .convention(project.bundlerEnvironment.variables)
+
     private val envFile: Provider<File> =
         compilation.npmProject.dir.map { it.file(".env").asFile }
 
@@ -63,8 +69,7 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
             into(compilation.npmProject.dir)
         }
 
-        val bundlerEnvironment = project.bundlerEnvironment
-        val viteEnv = getViteEnv(bundlerEnvironment.variables.get(), entryFile)
+        val viteEnv = getViteEnv(envVariables.get(), entryFile)
         envFile.get().writeText(viteEnv)
 
         val viteArgs = listOf(
