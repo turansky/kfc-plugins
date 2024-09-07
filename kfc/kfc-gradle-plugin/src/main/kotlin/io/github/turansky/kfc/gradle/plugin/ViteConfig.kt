@@ -2,7 +2,7 @@
 
 package io.github.turansky.kfc.gradle.plugin
 
-import org.gradle.api.Project
+import java.io.File
 
 internal const val ENTRY_PATH: String = "ENTRY_PATH"
 
@@ -29,13 +29,7 @@ export default defineConfig(({mode}) => {
 """.trimIndent()
 
 fun getViteConfig(
-    project: Project,
+    configFile: File?,
 ): String {
-    val configFileTemplate = project.layout.projectDirectory
-        .file(Vite.configFile)
-        .asFile
-
-    return if (configFileTemplate.exists()) {
-        configFileTemplate.readText()
-    } else DEFAULT_VITE_CONFIG
+    return configFile?.readText() ?: DEFAULT_VITE_CONFIG
 }

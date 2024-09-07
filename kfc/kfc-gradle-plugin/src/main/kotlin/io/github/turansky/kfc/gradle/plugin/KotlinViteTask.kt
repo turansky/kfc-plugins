@@ -33,6 +33,12 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
     private val envFile: Provider<File> =
         compilation.npmProject.dir.map { it.file(".env").asFile }
 
+    @get:InputFile
+    @get:Optional
+    val configFileTemplate: File?
+        get() = project.layout.projectDirectory.file(Vite.configFile).asFile
+            .takeIf { it.exists() }
+
     @get:OutputDirectory
     @get:Optional
     abstract val outputDirectory: DirectoryProperty
@@ -46,7 +52,7 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
         val entryFile = compilation.npmProject.dir.get()
             .file("kotlin/${project.jsModuleName}.mjs")
 
-        val viteConfig = getViteConfig(project)
+        val viteConfig = getViteConfig(configFileTemplate)
         configFile.get().writeText(viteConfig)
 
         val bundlerEnvironment = project.extensions.getByName<BundlerEnvironmentExtension>(BUNDLER_ENVIRONMENT)
