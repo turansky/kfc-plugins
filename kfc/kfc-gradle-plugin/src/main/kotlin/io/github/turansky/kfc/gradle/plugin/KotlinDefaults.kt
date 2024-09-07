@@ -1,9 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
@@ -37,13 +35,15 @@ private fun Project.configureStrictMode() {
 }
 
 private fun Project.disableTestsWithoutSources() {
-    tasks.findByName("jsTestPackageJson")?.configure<Task> {
-        onlyIf {
-            val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
-            sequenceOf("jsTest", "commonTest")
-                .map { kotlin.sourceSets.getByName(it) }
-                .flatMap { it.kotlin.sourceDirectories }
-                .any { it.exists() }
+    afterEvaluate {
+        tasks.named("jsTestPackageJson") {
+            onlyIf {
+                val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
+                sequenceOf("jsTest", "commonTest")
+                    .map { kotlin.sourceSets.getByName(it) }
+                    .flatMap { it.kotlin.sourceDirectories }
+                    .any { it.exists() }
+            }
         }
     }
 }
