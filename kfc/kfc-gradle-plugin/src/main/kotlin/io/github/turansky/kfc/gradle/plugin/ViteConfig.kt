@@ -2,6 +2,7 @@
 
 package io.github.turansky.kfc.gradle.plugin
 
+import org.gradle.api.Task
 import java.io.File
 
 internal const val ENTRY_PATH: String = "ENTRY_PATH"
@@ -28,8 +29,8 @@ export default defineConfig(({mode}) => {
 })
 """.trimIndent()
 
-fun getViteConfig(
-    configFile: File?,
-): String {
-    return configFile?.readText() ?: DEFAULT_VITE_CONFIG
+fun Task.defaultViteConfig(): File {
+    val file = temporaryDir.resolve(Vite.configFile)
+    file.writeText(DEFAULT_VITE_CONFIG)
+    return file
 }

@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.*
@@ -27,17 +28,23 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
         project.objects.property<ViteMode>()
             .convention(ViteMode.PRODUCTION)
 
-    private val configFile: Provider<File> =
-        compilation.npmProject.dir.map { it.file(Vite.configFile).asFile }
+    private val defaultConfigFile: RegularFileProperty =
+        project.objects.fileProperty()
+            .convention(::defaultViteConfig)
+
+    private val customConfigFile: RegularFileProperty =
+        project.objects.fileProperty()
+            .convention(project.layout.projectDirectory.file(Vite.configFile))
+
+    private val configFile: RegularFileProperty =
+        project.objects.fileProperty().convention(
+            customConfigFile
+                .filter { it.asFile.exists() }
+                .orElse(defaultConfigFile)
+        )
 
     private val envFile: Provider<File> =
         compilation.npmProject.dir.map { it.file(".env").asFile }
-
-    @get:InputFile
-    @get:Optional
-    val configFileTemplate: File?
-        get() = project.layout.projectDirectory.file(Vite.configFile).asFile
-            .takeIf { it.exists() }
 
     @get:OutputDirectory
     @get:Optional
@@ -52,8 +59,10 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
         val entryFile = compilation.npmProject.dir.get()
             .file("kotlin/${project.jsModuleName}.mjs")
 
-        val viteConfig = getViteConfig(configFileTemplate)
-        configFile.get().writeText(viteConfig)
+        project.copy {
+            from(configFile)
+            into(compilation.npmProject.dir)
+        }
 
         val bundlerEnvironment = project.extensions.getByName<BundlerEnvironmentExtension>(BUNDLER_ENVIRONMENT)
         val viteEnv = getViteEnv(bundlerEnvironment.variables.get(), entryFile)
