@@ -26,5 +26,5 @@ kotlin {
 }
 
 dependencies {
-    jsTestImplementation(libs.kotlin.test.js)
+    jsTestImplementation(libs.kotlin.testJs)
 }
