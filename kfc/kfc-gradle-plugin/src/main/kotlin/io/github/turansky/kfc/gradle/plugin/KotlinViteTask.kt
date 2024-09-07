@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
@@ -13,7 +14,6 @@ import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
-import java.io.File
 
 private val VITE = NpmPackageVersion("vite", "5.4.3")
 private const val VITE_BIN = "vite/bin/vite.js"
@@ -44,12 +44,17 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
                 .orElse(defaultConfigFile)
         )
 
+    private val entryFile: Provider<RegularFile> =
+        compilation.npmProject.dir
+            .map { it.file("kotlin/${project.jsModuleName}.mjs") }
+
     private val envVariables: ListProperty<EnvVariable> =
         project.objects.listProperty<EnvVariable>()
             .convention(project.bundlerEnvironment.variables)
 
-    private val envFile: Provider<File> =
-        compilation.npmProject.dir.map { it.file(".env").asFile }
+    private val envFile: RegularFileProperty =
+        project.objects.fileProperty()
+            .convention { viteEnv(envVariables.get(), entryFile.get()) }
 
     @get:OutputDirectory
     @get:Optional
@@ -61,16 +66,12 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
 
     @TaskAction
     private fun build() {
-        val entryFile = compilation.npmProject.dir.get()
-            .file("kotlin/${project.jsModuleName}.mjs")
-
         project.copy {
             from(configFile)
+            from(envFile)
+
             into(compilation.npmProject.dir)
         }
-
-        val viteEnv = getViteEnv(envVariables.get(), entryFile)
-        envFile.get().writeText(viteEnv)
 
         val viteArgs = listOf(
             "build",

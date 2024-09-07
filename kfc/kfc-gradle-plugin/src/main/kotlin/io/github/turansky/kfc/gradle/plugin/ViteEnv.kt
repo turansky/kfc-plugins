@@ -3,9 +3,22 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import nu.studer.java.util.OrderedProperties.OrderedPropertiesBuilder
+import org.gradle.api.Task
 import org.gradle.api.file.RegularFile
+import java.io.File
 
-fun getViteEnv(
+private const val DOT_ENV = ".env"
+
+internal fun Task.viteEnv(
+    variables: List<EnvVariable>,
+    entryFile: RegularFile,
+): File {
+    val file = temporaryDir.resolve(DOT_ENV)
+    file.writeText(getViteEnv(variables, entryFile))
+    return file
+}
+
+private fun getViteEnv(
     variables: List<EnvVariable>,
     entryFile: RegularFile,
 ): String {
