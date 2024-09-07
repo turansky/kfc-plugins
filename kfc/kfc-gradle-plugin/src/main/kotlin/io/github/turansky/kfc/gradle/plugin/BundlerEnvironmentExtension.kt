@@ -5,8 +5,6 @@ import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.listProperty
 import javax.inject.Inject
 
-internal const val BUNDLER_ENVIRONMENT = "bundlerEnvironment"
-
 abstract class BundlerEnvironmentExtension
 @Inject
 constructor(

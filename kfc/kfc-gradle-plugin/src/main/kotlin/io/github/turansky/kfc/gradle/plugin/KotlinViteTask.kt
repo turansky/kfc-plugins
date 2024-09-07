@@ -6,7 +6,6 @@ import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.*
-import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.property
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
@@ -64,7 +63,7 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
             into(compilation.npmProject.dir)
         }
 
-        val bundlerEnvironment = project.extensions.getByName<BundlerEnvironmentExtension>(BUNDLER_ENVIRONMENT)
+        val bundlerEnvironment = project.bundlerEnvironment
         val viteEnv = getViteEnv(bundlerEnvironment.variables.get(), entryFile)
         envFile.get().writeText(viteEnv)
 
