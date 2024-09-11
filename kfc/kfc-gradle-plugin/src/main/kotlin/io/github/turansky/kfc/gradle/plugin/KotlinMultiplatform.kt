@@ -41,7 +41,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             }
 
             runTask {
-                enabled = false
+                enabled = mode.run
             }
         }
 
