@@ -15,7 +15,7 @@ import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 
-private val VITE = NpmPackageVersion("vite", "5.4.3")
+private val VITE = NpmPackageVersion("vite", "5.4.4")
 private const val VITE_BIN = "vite/bin/vite.js"
 
 abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
