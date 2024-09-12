@@ -1,3 +1,3 @@
 plugins {
-    alias(libs.plugins.kfc.library)
+    alias(kfc.plugins.library)
 }

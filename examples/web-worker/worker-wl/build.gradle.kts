@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.kfc.worker)
+    alias(kfc.plugins.worker)
 }
 
 dependencies {
