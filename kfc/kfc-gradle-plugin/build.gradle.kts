@@ -1,4 +1,4 @@
-import org.gradle.configurationcache.extensions.capitalized
+import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 
 plugins {
     `kotlin-dsl`
@@ -64,7 +64,7 @@ enum class KfcPlugin(
         val className = name.lowercase().replace(
             regex = Regex("\\_(\\w)"),
             transform = { it.groupValues[1].uppercase() },
-        ).capitalized() + "Plugin"
+        ).uppercaseFirstChar() + "Plugin"
 
         "io.github.turansky.kfc.gradle.plugin.$className"
     }
