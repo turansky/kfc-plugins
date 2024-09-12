@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     jsMainModule(projects.examples.webWorker.viewWl)
-    jsMainImplementation(libs.wrappers.js)
+    jsMainImplementation(kotlinWrappers.js)
 }

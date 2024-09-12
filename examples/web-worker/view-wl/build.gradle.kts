@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(libs.wrappers.browser)
+    jsMainImplementation(kotlinWrappers.browser)
     jsMainImplementation(projects.examples.webWorker.entity)
     jsMainModule(projects.examples.webWorker.workerWl)
 }

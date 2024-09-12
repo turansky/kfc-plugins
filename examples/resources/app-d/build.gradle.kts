@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(libs.wrappers.js)
+    jsMainImplementation(kotlinWrappers.js)
 
     jsMainImplementation(projects.examples.resources.libA)
     jsMainImplementation(projects.examples.resources.libB)
