@@ -1,3 +1,3 @@
-@file:JsModule("./my-data.mjs")
+@file:JsModule("/kotlin/my-data.mjs")
 
 external fun getMyData(): String
