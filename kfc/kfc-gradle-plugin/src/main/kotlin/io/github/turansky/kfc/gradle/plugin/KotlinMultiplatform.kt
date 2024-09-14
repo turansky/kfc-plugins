@@ -68,9 +68,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             freeCompilerArgs.addAll(
                 "-Xdont-warn-on-error-suppression",
                 "-Xgenerate-polyfills=false",
-                // TODO: Enable after resolving
-                //  https://youtrack.jetbrains.com/issue/KT-67355
-                // "-Xir-generate-inline-anonymous-functions",
+                "-Xir-generate-inline-anonymous-functions",
             )
         }
     }
