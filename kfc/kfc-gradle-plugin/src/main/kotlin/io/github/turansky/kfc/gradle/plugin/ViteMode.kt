@@ -6,6 +6,6 @@ enum class ViteMode {
 
     ;
 
-    override fun toString(): String =
-        name.lowercase()
+    val value: String
+        get() = name.lowercase()
 }
