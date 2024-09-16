@@ -75,7 +75,7 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
 
         val viteArgs = listOf(
             "build",
-            "--mode", mode.toString(),
+            "--mode", mode.get().toString(),
             "--outDir", outputDirectory.get().asFile.absolutePath,
             "--emptyOutDir", "true",
             "--sourcemap", project.property(SOURCE_MAPS).toString()
