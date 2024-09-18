@@ -8,7 +8,8 @@
 ## `application`
 
 * Kotlin/JS target - `es2015`
-* Bundler - [Vite](https://vitejs.dev/)
+* Kotlin/JS compilation - `per-file`
+* Usage
 
 #### `build.gradle.kts`
 
@@ -18,17 +19,9 @@ plugins {
 }
 ```
 
-## Vite
+* Bundler - [Vite](https://vitejs.dev/)
 
-You can build your project with a fast and reliable bundler - Vite!
-
-It is enabled by default. To opt-out for the default Webpack build, you can add the following property:
-
-```properties
-kfc.bundler=webpack
-```
-
-### Configuration
+#### Configuration
 
 You can add your custom `vite.config.js`. For example:
 
@@ -52,10 +45,18 @@ export default defineConfig(({ mode }) => {
 })
 ```
 
-### Source Maps
+#### Source Maps
 
-You can enable source maps generation setting the following property:
+Enable source maps generation:
 
 ```properties
 kfc.source.maps=true
+```
+
+#### Legacy build with `Webpack`
+
+Opt-out to a Webpack build:
+
+```properties
+kfc.bundler=webpack
 ```
