@@ -24,7 +24,7 @@ private class RootLatestToolsPlugin : Plugin<Project> {
 
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().apply {
-                version = "22.8.0"
+                version = "22.9.0"
 
                 versions.apply {
                     webpack.version = "5.94.0"
