@@ -15,7 +15,7 @@ private val LEGACY = BooleanProperty("kfc.legacy")
 
 internal fun Project.applyKotlinDefaults() {
     ext(DOM_API_INCLUDED, false)
-    ext(OUTPUT_GRANULARITY, if (property(LEGACY)) "per-file" else "whole-program")
+    ext(OUTPUT_GRANULARITY, if (property(LEGACY)) "whole-program" else "per-file")
 
     plugins.apply(SourceMapsPlugin::class)
 
