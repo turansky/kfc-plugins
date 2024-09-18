@@ -11,10 +11,11 @@ private const val DOM_API_INCLUDED = "kotlin.js.stdlib.dom.api.included"
 private const val OUTPUT_GRANULARITY = "kotlin.js.ir.output.granularity"
 
 private val STRICT_MODE = BooleanProperty("kfc.strict.mode", true)
+private val LEGACY = BooleanProperty("kfc.legacy")
 
 internal fun Project.applyKotlinDefaults() {
     ext(DOM_API_INCLUDED, false)
-    ext(OUTPUT_GRANULARITY, "per-file")
+    ext(OUTPUT_GRANULARITY, if (property(LEGACY)) "per-file" else "whole-program")
 
     plugins.apply(SourceMapsPlugin::class)
 
