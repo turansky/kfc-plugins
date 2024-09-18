@@ -55,6 +55,8 @@ include("examples:vite:simple-library")
 include("examples:vite:simple-vite-app")
 include("examples:vite:simple-webpack-app")
 
+include("examples:webpack-per-file-issue")
+
 include("examples:web-worker:entity")
 include("examples:web-worker:view-wl")
 include("examples:web-worker:worker-wl")
