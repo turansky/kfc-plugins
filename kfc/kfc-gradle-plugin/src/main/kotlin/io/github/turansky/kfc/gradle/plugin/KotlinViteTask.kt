@@ -15,7 +15,7 @@ import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 
-private val VITE = NpmPackageVersion("vite", "5.4.6")
+private val VITE = NpmPackageVersion("vite", "5.4.7")
 private const val VITE_BIN = "vite/bin/vite.js"
 
 @CacheableTask
