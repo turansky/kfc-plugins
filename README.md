@@ -9,7 +9,7 @@
 
 * Kotlin/JS
   * Target `es2015`
-  * Compilation `per-file`
+  * Granularity `per-file`
 * Bundler - [Vite](https://vitejs.dev/)
 
 ### Usage
@@ -24,7 +24,7 @@ plugins {
 
 ### Configuration
 
-You can add your custom [`vite.config.js` file](examples/vite/custom-config/vite.config.js)
+You can add your custom `vite.config.js` ([example](examples/vite/custom-config/vite.config.js))
 
 ### Source Maps
 
