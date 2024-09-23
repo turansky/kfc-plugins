@@ -7,8 +7,9 @@
 
 ## `application`
 
-* Kotlin/JS target - `es2015`
-* Kotlin/JS compilation - `per-file`
+* Kotlin/JS
+  * Target `es2015`
+  * Compilation `per-file`
 * Usage
 
 #### `build.gradle.kts`
