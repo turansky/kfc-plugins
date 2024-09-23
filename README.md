@@ -7,11 +7,6 @@
 
 ## `application`
 
-* Kotlin/JS
-  * Target `es2015`
-  * Granularity `per-file`
-* Bundler - [Vite](https://vitejs.dev/)
-
 ### Usage
 
 #### `build.gradle.kts`
@@ -22,19 +17,21 @@ plugins {
 }
 ```
 
-### Configuration
+### Requirements
+
+* Kotlin/JS
+  * Target `es2015`
+  * Granularity `per-file`
+
+### Bundler
+
+We use [Vite](https://vitejs.dev/)
+
+#### Configuration
 
 You can add your custom `vite.config.js` ([example](examples/vite/custom-config/vite.config.js))
 
-### Source Maps
-
-Enable source maps generation:
-
-```properties
-kfc.source.maps=true
-```
-
-### Legacy build with `Webpack`
+##### Legacy build with `Webpack`
 
 Opt-out to a Webpack build:
 
@@ -42,8 +39,10 @@ Opt-out to a Webpack build:
 kfc.bundler=webpack
 ```
 
-Output granularity `whole-program`:
+### Source Maps
+
+Enable source maps generation:
 
 ```properties
-kfc.legacy=true
+kfc.source.maps=true
 ```
