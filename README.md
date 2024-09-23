@@ -23,27 +23,7 @@ plugins {
 
 #### Configuration
 
-You can add your custom `vite.config.js`. For example:
-
-```javascript
-import { defineConfig, loadEnv } from 'vite'
-
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')
-
-  return {
-    build: {
-      rollupOptions: {
-        input: {
-          // `ENTRY_PATH` is predefined in KFC
-          // Default: `build/js/packages/<your-project-name>/kotlin/<your-executable>`
-          'myApp': env.ENTRY_PATH,
-        },
-      },
-    },
-  }
-})
-```
+You can add your custom [`vite.config.js` file](examples/vite/custom-config/vite.config.js)
 
 #### Source Maps
 
