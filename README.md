@@ -41,3 +41,9 @@ Opt-out to a Webpack build:
 ```properties
 kfc.bundler=webpack
 ```
+
+Output granularity `whole-program`:
+
+```properties
+kfc.legacy=true
+```
