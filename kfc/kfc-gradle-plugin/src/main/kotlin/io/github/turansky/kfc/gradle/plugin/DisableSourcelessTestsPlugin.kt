@@ -7,15 +7,18 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
 class DisableSourcelessTestsPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        val shouldRunTests = project.provider {
+            val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
+
+            sequenceOf("jsTest", "commonTest")
+                .map { kotlin.sourceSets.getByName(it) }
+                .flatMap { it.kotlin.sourceDirectories }
+                .any { it.exists() }
+        }
+
         afterEvaluate {
             tasks.named("jsTestPackageJson") {
-                onlyIf {
-                    val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
-                    sequenceOf("jsTest", "commonTest")
-                        .map { kotlin.sourceSets.getByName(it) }
-                        .flatMap { it.kotlin.sourceDirectories }
-                        .any { it.exists() }
-                }
+                onlyIf { shouldRunTests.get() }
             }
         }
     }
