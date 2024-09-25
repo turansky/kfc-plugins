@@ -3,8 +3,6 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.getByName
-import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 private const val DOM_API_INCLUDED = "kotlin.js.stdlib.dom.api.included"
@@ -18,9 +16,9 @@ internal fun Project.applyKotlinDefaults() {
     ext(OUTPUT_GRANULARITY, if (property(LEGACY)) "whole-program" else "per-file")
 
     plugins.apply(SourceMapsPlugin::class)
+    plugins.apply(DisableSourcelessTestsPlugin::class)
 
     configureStrictMode()
-    disableTestsWithoutSources()
 
     extensions.create<NpmvDependencyExtension>("npmv")
 }
@@ -30,20 +28,6 @@ private fun Project.configureStrictMode() {
         tasks.configureEach<KotlinCompilationTask<*>> {
             compilerOptions {
                 allWarningsAsErrors.set(true)
-            }
-        }
-    }
-}
-
-private fun Project.disableTestsWithoutSources() {
-    afterEvaluate {
-        tasks.named("jsTestPackageJson") {
-            onlyIf {
-                val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
-                sequenceOf("jsTest", "commonTest")
-                    .map { kotlin.sourceSets.getByName(it) }
-                    .flatMap { it.kotlin.sourceDirectories }
-                    .any { it.exists() }
             }
         }
     }
