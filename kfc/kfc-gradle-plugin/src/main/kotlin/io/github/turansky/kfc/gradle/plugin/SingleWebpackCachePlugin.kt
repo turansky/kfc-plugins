@@ -2,11 +2,16 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.kotlin.dsl.named
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
+import javax.inject.Inject
 
-class SingleWebpackCachePlugin : Plugin<Project> {
+class SingleWebpackCachePlugin
+@Inject constructor(
+    private val fs: FileSystemOperations,
+) : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.named<KotlinWebpack>(Webpack.productionTask) {
             outputDirectory.set(getProductionDistDirectory())
@@ -24,10 +29,11 @@ class SingleWebpackCachePlugin : Plugin<Project> {
         taskName: String,
         relatedTaskName: String,
     ) {
+        val relatedTaskOutputDirectory = named<KotlinWebpack>(relatedTaskName).get().outputDirectory
+
         named<KotlinWebpack>(taskName) {
             doFirst {
-                val relatedTask = named<KotlinWebpack>(relatedTaskName).get()
-                project.delete(relatedTask.outputDirectory)
+                fs.delete { delete(relatedTaskOutputDirectory) }
             }
         }
     }
