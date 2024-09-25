@@ -2,10 +2,15 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.kotlin.dsl.named
+import javax.inject.Inject
 
-class SingleViteCachePlugin : Plugin<Project> {
+class SingleViteCachePlugin
+@Inject constructor(
+    private val fs: FileSystemOperations,
+) : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.link(Vite.productionTask, Vite.developmentTask)
         tasks.link(Vite.developmentTask, Vite.productionTask)
@@ -19,7 +24,7 @@ class SingleViteCachePlugin : Plugin<Project> {
 
         named<KotlinViteTask>(taskName) {
             doFirst {
-                project.delete(relatedTaskOutputDirectory)
+                fs.delete { delete(relatedTaskOutputDirectory) }
             }
         }
     }
