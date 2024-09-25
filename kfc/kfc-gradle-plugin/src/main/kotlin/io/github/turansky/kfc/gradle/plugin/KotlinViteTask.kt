@@ -5,6 +5,7 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
@@ -24,32 +25,39 @@ private const val VITE_BIN = "vite/bin/vite.js"
 @CacheableTask
 abstract class KotlinViteTask
 @Inject constructor(
+    objects: ObjectFactory,
     private val execOperations: ExecOperations,
     private val fs: FileSystemOperations,
 ) : DefaultTask(), RequiresNpmDependencies {
 
-    @get:Internal
+    @Internal
+    @Transient
     final override val compilation: KotlinJsIrCompilation =
         project.kotlinJsMainCompilation()
 
-    private val sourceMapsProperty: Property<Boolean> = project.objects.property<Boolean>()
+    private val npmProject = compilation.npmProject
+
+    private val buildDirectory =
+        compilation.npmProject.dir
+
+    private val sourceMapsProperty: Property<Boolean> = objects.property<Boolean>()
         .convention(project.property(SOURCE_MAPS))
 
     @Input
     val mode: Property<ViteMode> =
-        project.objects.property<ViteMode>()
+        objects.property<ViteMode>()
             .convention(ViteMode.PRODUCTION)
 
     private val defaultConfigFile: RegularFileProperty =
-        project.objects.fileProperty()
+        objects.fileProperty()
             .convention(::defaultViteConfig)
 
     private val customConfigFile: RegularFileProperty =
-        project.objects.fileProperty()
+        objects.fileProperty()
             .convention(project.layout.projectDirectory.file(Vite.configFile))
 
     private val configFile: RegularFileProperty =
-        project.objects.fileProperty().convention(
+        objects.fileProperty().convention(
             customConfigFile
                 .filter { it.asFile.exists() }
                 .orElse(defaultConfigFile)
@@ -60,11 +68,11 @@ abstract class KotlinViteTask
             .map { it.file("kotlin/${project.jsModuleName}.mjs") }
 
     private val envVariables: ListProperty<EnvVariable> =
-        project.objects.listProperty<EnvVariable>()
+        objects.listProperty<EnvVariable>()
             .convention(project.bundlerEnvironment.variables)
 
     private val envFile: RegularFileProperty =
-        project.objects.fileProperty()
+        objects.fileProperty()
             .convention { viteEnv(envVariables.get(), entryFile.get()) }
 
     @get:OutputDirectory
@@ -77,7 +85,6 @@ abstract class KotlinViteTask
 
     @TaskAction
     private fun build() {
-        val buildDirectory = compilation.npmProject.dir
         fs.copy {
             from(configFile)
             from(envFile)
@@ -94,7 +101,7 @@ abstract class KotlinViteTask
         )
 
         execOperations.exec {
-            compilation.npmProject.useTool(
+            npmProject.useTool(
                 exec = this,
                 tool = VITE_BIN,
                 args = viteArgs,
