@@ -15,10 +15,11 @@ class SingleViteCachePlugin : Plugin<Project> {
         taskName: String,
         relatedTaskName: String,
     ) {
+        val relatedTaskOutputDirectory = named<KotlinViteTask>(relatedTaskName).get().outputDirectory
+
         named<KotlinViteTask>(taskName) {
             doFirst {
-                val relatedTask = named<KotlinViteTask>(relatedTaskName).get()
-                project.delete(relatedTask.outputDirectory)
+                project.delete(relatedTaskOutputDirectory)
             }
         }
     }
