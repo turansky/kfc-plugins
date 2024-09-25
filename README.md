@@ -13,7 +13,7 @@
 
 ```kotlin
 plugins {
-    id("io.github.turansky.kfc.application") version "11.5.0"
+    id("io.github.turansky.kfc.application") version "11.6.0"
 }
 ```
 
