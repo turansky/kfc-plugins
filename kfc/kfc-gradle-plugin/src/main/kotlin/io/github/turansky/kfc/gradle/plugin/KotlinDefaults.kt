@@ -38,13 +38,13 @@ private fun Project.configureStrictMode() {
 private fun Project.disableTestsWithoutSources() {
     afterEvaluate {
         tasks.named("jsTestPackageJson") {
-            val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
-            val shouldRun = sequenceOf("jsTest", "commonTest")
-                .map { kotlin.sourceSets.getByName(it) }
-                .flatMap { it.kotlin.sourceDirectories }
-                .any { it.exists() }
-
-            onlyIf { shouldRun }
+            onlyIf {
+                val kotlin = project.extensions.getByName<KotlinProjectExtension>("kotlin")
+                sequenceOf("jsTest", "commonTest")
+                    .map { kotlin.sourceSets.getByName(it) }
+                    .flatMap { it.kotlin.sourceDirectories }
+                    .any { it.exists() }
+            }
         }
     }
 }
