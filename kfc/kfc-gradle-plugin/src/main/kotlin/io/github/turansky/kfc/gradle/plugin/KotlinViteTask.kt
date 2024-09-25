@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
@@ -10,20 +11,29 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.listProperty
 import org.gradle.kotlin.dsl.property
+import org.gradle.process.ExecOperations
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
+import javax.inject.Inject
 
 private val VITE = NpmPackageVersion("vite", "5.4.7")
 private const val VITE_BIN = "vite/bin/vite.js"
 
 @CacheableTask
-abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
+abstract class KotlinViteTask
+@Inject constructor(
+    private val execOperations: ExecOperations,
+    private val fs: FileSystemOperations,
+) : DefaultTask(), RequiresNpmDependencies {
 
     @get:Internal
     final override val compilation: KotlinJsIrCompilation =
         project.kotlinJsMainCompilation()
+
+    private val sourceMapsProperty: Property<Boolean> = project.objects.property<Boolean>()
+        .convention(project.property(SOURCE_MAPS))
 
     @Input
     val mode: Property<ViteMode> =
@@ -67,11 +77,12 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
 
     @TaskAction
     private fun build() {
-        project.copy {
+        val buildDirectory = compilation.npmProject.dir
+        fs.copy {
             from(configFile)
             from(envFile)
 
-            into(compilation.npmProject.dir)
+            into(buildDirectory)
         }
 
         val viteArgs = listOf(
@@ -79,10 +90,10 @@ abstract class KotlinViteTask : DefaultTask(), RequiresNpmDependencies {
             "--mode", mode.get().value,
             "--outDir", outputDirectory.get().asFile.absolutePath,
             "--emptyOutDir", "true",
-            "--sourcemap", project.property(SOURCE_MAPS).toString()
+            "--sourcemap", sourceMapsProperty.get().toString()
         )
 
-        project.exec {
+        execOperations.exec {
             compilation.npmProject.useTool(
                 exec = this,
                 tool = VITE_BIN,
