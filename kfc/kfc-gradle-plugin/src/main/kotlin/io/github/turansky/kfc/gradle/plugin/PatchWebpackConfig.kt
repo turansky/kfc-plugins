@@ -1,6 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
@@ -16,8 +17,8 @@ abstract class PatchWebpackConfig : DefaultTask() {
     internal abstract val envVariables: ListProperty<EnvVariable>
 
     @get:OutputDirectory
-    val configDirectory: File
-        get() = project.projectDir.resolve("webpack.config.d")
+    val configDirectory: DirectoryProperty = project.objects.directoryProperty()
+        .convention(project.layout.projectDirectory.dir("webpack.config.d"))
 
     fun patch(
         body: String,
@@ -64,7 +65,7 @@ abstract class PatchWebpackConfig : DefaultTask() {
             .let { if (envPatch != null) it + envPatch else it }
             .joinToString("\n\n")
 
-        configDirectory
+        configDirectory.get().asFile
             .also { it.mkdirs() }
             .resolve("patch.js")
             .writeText(content)
