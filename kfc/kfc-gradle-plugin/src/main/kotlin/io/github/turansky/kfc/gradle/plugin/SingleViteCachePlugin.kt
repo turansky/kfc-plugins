@@ -2,15 +2,12 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.file.FileSystemOperations
+import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.kotlin.dsl.named
-import javax.inject.Inject
+import org.gradle.kotlin.dsl.register
 
-class SingleViteCachePlugin
-@Inject constructor(
-    private val fs: FileSystemOperations,
-) : Plugin<Project> {
+class SingleViteCachePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.link(Vite.productionTask, Vite.developmentTask)
         tasks.link(Vite.developmentTask, Vite.productionTask)
@@ -20,12 +17,15 @@ class SingleViteCachePlugin
         taskName: String,
         relatedTaskName: String,
     ) {
-        val relatedTaskOutputDirectory = named<KotlinViteTask>(relatedTaskName).get().outputDirectory
+        val relatedTaskOutputDirectory = named<KotlinViteTask>(relatedTaskName).get().outputDirectory.get()
+
+        val singleCacheTask = "${taskName}SingleCache"
+        register<Delete>(singleCacheTask) {
+            delete(relatedTaskOutputDirectory)
+        }
 
         named<KotlinViteTask>(taskName) {
-            doFirst {
-                fs.delete { delete(relatedTaskOutputDirectory) }
-            }
+            dependsOn(singleCacheTask)
         }
     }
 }
