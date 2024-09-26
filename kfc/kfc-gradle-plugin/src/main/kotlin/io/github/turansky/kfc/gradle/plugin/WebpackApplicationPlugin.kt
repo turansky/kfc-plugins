@@ -4,7 +4,10 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByName
+import org.gradle.kotlin.dsl.named
 import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
@@ -70,8 +73,6 @@ class WebpackApplicationPlugin : Plugin<Project> {
         tasks.named<KotlinWebpack>(Webpack.developmentTask) {
             outputDirectory.set(getDevelopmentDistDirectory())
         }
-
-        plugins.apply(SingleWebpackCachePlugin::class)
 
         tasks.configureEach<PatchWebpackConfig> {
             patch("default-settings", defaultSettings())
