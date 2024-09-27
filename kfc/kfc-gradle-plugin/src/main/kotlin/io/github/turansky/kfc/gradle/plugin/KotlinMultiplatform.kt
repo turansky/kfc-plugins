@@ -56,6 +56,10 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         null -> Unit
     }
 
+    if (mode.bundler != null) {
+        plugins.apply(SingleCacheBundlerPlugin::class)
+    }
+
     // `jsMain` source set required
     plugins.apply(AssetsPlugin::class)
 
