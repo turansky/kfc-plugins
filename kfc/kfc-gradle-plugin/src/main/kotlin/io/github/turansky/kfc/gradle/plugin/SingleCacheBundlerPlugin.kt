@@ -24,7 +24,7 @@ class SingleCacheBundlerPlugin : Plugin<Project> {
             .outputDirectory()
             .get()
 
-        val singleCacheTask = "${taskName}SingleCache"
+        val singleCacheTask = "${taskName}Clean"
         register<Delete>(singleCacheTask) {
             delete(relatedTaskOutputDirectory)
         }
