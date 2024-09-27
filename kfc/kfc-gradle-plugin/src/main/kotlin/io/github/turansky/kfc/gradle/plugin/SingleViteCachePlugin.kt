@@ -6,14 +6,13 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.internal.extensions.stdlib.uncheckedCast
+import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.register
 
-class SingleCachePlugin : Plugin<Project> {
+class SingleViteCachePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        val bundler = getBundler()
-
-        tasks.link(bundler.productionTask, bundler.developmentTask)
-        tasks.link(bundler.developmentTask, bundler.productionTask)
+        tasks.link(Vite.productionTask, Vite.developmentTask)
+        tasks.link(Vite.developmentTask, Vite.productionTask)
     }
 
     private fun TaskContainer.link(
@@ -30,7 +29,7 @@ class SingleCachePlugin : Plugin<Project> {
             delete(relatedTaskOutputDirectory)
         }
 
-        named(taskName) {
+        named<KotlinViteTask>(taskName) {
             dependsOn(singleCacheTask)
         }
     }
