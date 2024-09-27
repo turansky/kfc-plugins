@@ -8,7 +8,7 @@ import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.kotlin.dsl.register
 
-class SingleCachePlugin : Plugin<Project> {
+class SingleCacheBundlerPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         val bundler = getBundler()
 

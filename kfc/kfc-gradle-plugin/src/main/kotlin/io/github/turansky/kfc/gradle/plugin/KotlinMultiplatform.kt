@@ -57,7 +57,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     }
 
     if (mode.bundler != null) {
-        plugins.apply(SingleCachePlugin::class)
+        plugins.apply(SingleCacheBundlerPlugin::class)
     }
 
     // `jsMain` source set required
