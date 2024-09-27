@@ -18,10 +18,10 @@ class SingleWebpackCachePlugin : Plugin<Project> {
         taskName: String,
         relatedTaskName: String,
     ) {
-        val relatedDir = named<KotlinWebpack>(relatedTaskName).get().outputDirectory
-
         val singleCacheTask = "${taskName}Clean"
+
         register<Delete>(singleCacheTask) {
+            val relatedDir = named<KotlinWebpack>(relatedTaskName).get().outputDirectory
             delete(relatedDir)
         }
 
