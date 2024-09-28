@@ -34,6 +34,10 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             commonWebpackConfig {
                 output?.library = null
                 outputFileName = fileName
+
+                cssSupport {
+                    enabled.set(mode.bundler == Webpack)
+                }
             }
 
             webpackTask {

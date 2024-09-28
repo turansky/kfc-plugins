@@ -8,7 +8,6 @@ import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
-private const val CSS_LOADER = "css-loader"
 private const val FILE_LOADER = "file-loader"
 
 // language=JavaScript
@@ -27,17 +26,6 @@ config.module.rules.push({
   test: /\.m?js${'$'}/i,
   resolve: {
     fullySpecified: false,
-  },
-})
-""".trimIndent()
-
-// language=JavaScript
-private val CSS_RULES: String = """
-config.module.rules.push({
-  test: /\.css${'$'}/,
-  loader: '$CSS_LOADER',
-  options: {
-    esModule: false,
   },
 })
 """.trimIndent()
@@ -76,7 +64,6 @@ class WebpackApplicationPlugin : Plugin<Project> {
         tasks.configureEach<PatchWebpackConfig> {
             patch("default-settings", defaultSettings())
             patch("resolve-rules", RESOLVE_RULES)
-            patch("css-rules", CSS_RULES)
             patch("font-rules", fontRules())
         }
 
@@ -92,7 +79,10 @@ class WebpackApplicationPlugin : Plugin<Project> {
     private fun DependencyHandlerScope.applyConfiguration(configurationName: String) {
         val devNpm = extensions.getByName<DevNpmDependencyExtension>("devNpm")
 
-        configurationName(devNpm(CSS_LOADER, "7.1.2"))
         configurationName(devNpm(FILE_LOADER, "6.2.0"))
+
+        // required for Kotlin/JS CSS support
+        configurationName(devNpm("css-loader", "7.1.2"))
+        configurationName(devNpm("style-loader", "4.0.0"))
     }
 }
