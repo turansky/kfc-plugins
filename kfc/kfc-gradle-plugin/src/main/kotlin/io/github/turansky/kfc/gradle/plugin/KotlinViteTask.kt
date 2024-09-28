@@ -1,12 +1,16 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.*
+import org.gradle.api.file.Directory
+import org.gradle.api.file.FileSystemOperations
+import org.gradle.api.file.RegularFile
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import org.gradle.kotlin.dsl.listProperty
 import org.gradle.kotlin.dsl.property
 import org.gradle.process.ExecOperations
@@ -20,7 +24,6 @@ import javax.inject.Inject
 private val VITE = NpmPackageVersion("vite", "5.4.8")
 private const val VITE_BIN = "vite/bin/vite.js"
 
-@CacheableTask
 abstract class KotlinViteTask :
     DefaultTask(),
     RequiresNpmDependencies {
@@ -44,10 +47,6 @@ abstract class KotlinViteTask :
 
     private val workingDirectory: Provider<Directory> =
         npmProject.dir
-
-    private val sourceMaps: Property<Boolean> =
-        objectFactory.property<Boolean>()
-            .convention(project.property(SOURCE_MAPS))
 
     @Input
     val mode: Property<ViteMode> =
@@ -80,16 +79,13 @@ abstract class KotlinViteTask :
         objectFactory.fileProperty()
             .convention { viteEnv(envVariables.get(), entryFile.get()) }
 
-    @get:OutputDirectory
-    @get:Optional
-    abstract val outputDirectory: DirectoryProperty
-
     @get:Internal
     override val requiredNpmDependencies =
         setOf(VITE)
 
-    @TaskAction
-    private fun build() {
+    protected fun vite(
+        vararg args: String,
+    ) {
         fileSystemOperations.copy {
             from(configFile)
             from(envFile)
@@ -97,19 +93,11 @@ abstract class KotlinViteTask :
             into(workingDirectory)
         }
 
-        val viteArgs = listOf(
-            "build",
-            "--mode", mode.get().value,
-            "--outDir", outputDirectory.get().asFile.absolutePath,
-            "--emptyOutDir", "true",
-            "--sourcemap", sourceMaps.get().toString()
-        )
-
         execOperations.exec {
             npmProject.useTool(
                 exec = this,
                 tool = VITE_BIN,
-                args = viteArgs,
+                args = args.toList(),
             )
         }
     }

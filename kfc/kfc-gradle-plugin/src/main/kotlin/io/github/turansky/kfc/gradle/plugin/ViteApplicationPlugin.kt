@@ -7,7 +7,7 @@ import org.gradle.kotlin.dsl.create
 
 class ViteApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks.create<KotlinViteTask>(Vite.productionTask) {
+        tasks.create<KotlinViteBuildTask>(Vite.productionTask) {
             group = DEFAULT_TASK_GROUP
 
             mode.set(ViteMode.PRODUCTION)
@@ -16,7 +16,7 @@ class ViteApplicationPlugin : Plugin<Project> {
             dependOnCompile(COMPILE_PRODUCTION)
         }
 
-        tasks.create<KotlinViteTask>(Vite.developmentTask) {
+        tasks.create<KotlinViteBuildTask>(Vite.developmentTask) {
             group = DEFAULT_TASK_GROUP
 
             mode.set(ViteMode.DEVELOPMENT)
