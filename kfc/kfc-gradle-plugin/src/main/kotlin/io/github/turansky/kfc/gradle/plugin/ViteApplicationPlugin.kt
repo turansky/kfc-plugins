@@ -28,6 +28,12 @@ class ViteApplicationPlugin : Plugin<Project> {
         tasks.named("build") {
             dependsOn(Vite.productionTask)
         }
+
+        tasks.create<KotlinViteDevTask>(Vite.runTask) {
+            group = DEFAULT_TASK_GROUP
+
+            mode.set(ViteMode.DEVELOPMENT)
+        }
     }
 }
 

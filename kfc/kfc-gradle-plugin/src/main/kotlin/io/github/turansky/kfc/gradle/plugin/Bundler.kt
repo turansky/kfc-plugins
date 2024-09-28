@@ -4,7 +4,10 @@ sealed class Bundler(
     val productionTask: String,
     val developmentTask: String,
     val configFile: String,
-)
+) {
+    // TODO: fix conflict
+    val runTask: String = "jsBrowserRun2"
+}
 
 object Vite : Bundler(
     productionTask = "jsBrowserProductionVite",
