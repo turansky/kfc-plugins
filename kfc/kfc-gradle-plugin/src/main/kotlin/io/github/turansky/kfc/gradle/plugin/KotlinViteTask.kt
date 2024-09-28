@@ -28,13 +28,13 @@ abstract class KotlinViteTask :
     RequiresNpmDependencies {
 
     @get:Inject
-    protected abstract val objects: ObjectFactory
+    protected abstract val objectFactory: ObjectFactory
 
     @get:Inject
     protected abstract val execOperations: ExecOperations
 
     @get:Inject
-    protected abstract val fs: FileSystemOperations
+    protected abstract val fileSystemOperations: FileSystemOperations
 
     @Internal
     @Transient
@@ -47,24 +47,24 @@ abstract class KotlinViteTask :
         compilation.npmProject.dir
 
     private val sourceMapsProperty: Property<Boolean> =
-        objects.property<Boolean>()
+        objectFactory.property<Boolean>()
             .convention(project.property(SOURCE_MAPS))
 
     @Input
     val mode: Property<ViteMode> =
-        objects.property<ViteMode>()
+        objectFactory.property<ViteMode>()
             .convention(ViteMode.PRODUCTION)
 
     private val defaultConfigFile: RegularFileProperty =
-        objects.fileProperty()
+        objectFactory.fileProperty()
             .convention(::defaultViteConfig)
 
     private val customConfigFile: RegularFileProperty =
-        objects.fileProperty()
+        objectFactory.fileProperty()
             .convention(project.layout.projectDirectory.file(Vite.configFile))
 
     private val configFile: RegularFileProperty =
-        objects.fileProperty().convention(
+        objectFactory.fileProperty().convention(
             customConfigFile
                 .filter { it.asFile.exists() }
                 .orElse(defaultConfigFile)
@@ -75,11 +75,11 @@ abstract class KotlinViteTask :
             .map { it.file("kotlin/${project.jsModuleName}.mjs") }
 
     private val envVariables: ListProperty<EnvVariable> =
-        objects.listProperty<EnvVariable>()
+        objectFactory.listProperty<EnvVariable>()
             .convention(project.bundlerEnvironment.variables)
 
     private val envFile: RegularFileProperty =
-        objects.fileProperty()
+        objectFactory.fileProperty()
             .convention { viteEnv(envVariables.get(), entryFile.get()) }
 
     @get:OutputDirectory
@@ -92,7 +92,7 @@ abstract class KotlinViteTask :
 
     @TaskAction
     private fun build() {
-        fs.copy {
+        fileSystemOperations.copy {
             from(configFile)
             from(envFile)
 
