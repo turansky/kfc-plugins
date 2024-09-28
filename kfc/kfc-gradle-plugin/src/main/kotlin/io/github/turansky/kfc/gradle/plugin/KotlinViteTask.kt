@@ -23,12 +23,18 @@ private val VITE = NpmPackageVersion("vite", "5.4.8")
 private const val VITE_BIN = "vite/bin/vite.js"
 
 @CacheableTask
-abstract class KotlinViteTask
-@Inject constructor(
-    objects: ObjectFactory,
-    private val execOperations: ExecOperations,
-    private val fs: FileSystemOperations,
-) : DefaultTask(), RequiresNpmDependencies {
+abstract class KotlinViteTask :
+    DefaultTask(),
+    RequiresNpmDependencies {
+
+    @get:Inject
+    protected abstract val objects: ObjectFactory
+
+    @get:Inject
+    protected abstract val execOperations: ExecOperations
+
+    @get:Inject
+    protected abstract val fs: FileSystemOperations
 
     @Internal
     @Transient
@@ -40,8 +46,9 @@ abstract class KotlinViteTask
     private val buildDirectory =
         compilation.npmProject.dir
 
-    private val sourceMapsProperty: Property<Boolean> = objects.property<Boolean>()
-        .convention(project.property(SOURCE_MAPS))
+    private val sourceMapsProperty: Property<Boolean> =
+        objects.property<Boolean>()
+            .convention(project.property(SOURCE_MAPS))
 
     @Input
     val mode: Property<ViteMode> =
