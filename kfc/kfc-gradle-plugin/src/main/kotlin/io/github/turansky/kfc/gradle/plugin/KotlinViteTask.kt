@@ -45,7 +45,7 @@ abstract class KotlinViteTask :
     private val workingDirectory: Provider<Directory> =
         npmProject.dir
 
-    private val sourceMapsProperty: Property<Boolean> =
+    private val sourceMaps: Property<Boolean> =
         objectFactory.property<Boolean>()
             .convention(project.property(SOURCE_MAPS))
 
@@ -102,7 +102,7 @@ abstract class KotlinViteTask :
             "--mode", mode.get().value,
             "--outDir", outputDirectory.get().asFile.absolutePath,
             "--emptyOutDir", "true",
-            "--sourcemap", sourceMapsProperty.get().toString()
+            "--sourcemap", sourceMaps.get().toString()
         )
 
         execOperations.exec {
