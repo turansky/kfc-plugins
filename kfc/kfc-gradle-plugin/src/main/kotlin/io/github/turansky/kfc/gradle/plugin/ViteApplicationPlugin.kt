@@ -33,6 +33,8 @@ class ViteApplicationPlugin : Plugin<Project> {
             group = DEFAULT_TASK_GROUP
 
             mode.set(ViteMode.DEVELOPMENT)
+
+            dependOnCompile(COMPILE_DEVELOPMENT)
         }
     }
 }
