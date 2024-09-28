@@ -1,10 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.FileSystemOperations
-import org.gradle.api.file.RegularFile
-import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.file.*
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
@@ -15,6 +12,7 @@ import org.gradle.kotlin.dsl.property
 import org.gradle.process.ExecOperations
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
+import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
@@ -41,10 +39,11 @@ abstract class KotlinViteTask :
     final override val compilation: KotlinJsIrCompilation =
         project.kotlinJsMainCompilation()
 
-    private val npmProject = compilation.npmProject
+    private val npmProject: NpmProject =
+        compilation.npmProject
 
-    private val buildDirectory =
-        compilation.npmProject.dir
+    private val workingDirectory: Provider<Directory> =
+        npmProject.dir
 
     private val sourceMapsProperty: Property<Boolean> =
         objectFactory.property<Boolean>()
@@ -71,8 +70,7 @@ abstract class KotlinViteTask :
         )
 
     private val entryFile: Provider<RegularFile> =
-        compilation.npmProject.dir
-            .map { it.file("kotlin/${project.jsModuleName}.mjs") }
+        workingDirectory.map { it.file("kotlin/${project.jsModuleName}.mjs") }
 
     private val envVariables: ListProperty<EnvVariable> =
         objectFactory.listProperty<EnvVariable>()
@@ -96,7 +94,7 @@ abstract class KotlinViteTask :
             from(configFile)
             from(envFile)
 
-            into(buildDirectory)
+            into(workingDirectory)
         }
 
         val viteArgs = listOf(
