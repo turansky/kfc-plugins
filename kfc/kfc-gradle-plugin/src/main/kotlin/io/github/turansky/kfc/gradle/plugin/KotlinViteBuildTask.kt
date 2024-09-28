@@ -3,7 +3,6 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.property
@@ -17,7 +16,6 @@ abstract class KotlinViteBuildTask :
             .convention(project.property(SOURCE_MAPS))
 
     @get:OutputDirectory
-    @get:Optional
     abstract val outputDirectory: DirectoryProperty
 
     @TaskAction
