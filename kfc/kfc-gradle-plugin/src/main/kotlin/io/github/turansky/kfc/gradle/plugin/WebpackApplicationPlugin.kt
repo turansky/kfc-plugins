@@ -53,16 +53,16 @@ private fun cssRules(): String {
     // language=JavaScript
     return """
     config.module.rules = config.module.rules
-      .filter(({use}) => !!use)
-      .map(rule => ({
-        ...rule,
-        use: rule.use.map(entry => ({
-          ...entry,
-          options: {
-            esModule: false,
-          },
+        .filter(({use}) => !!use)
+        .map(rule => ({
+          ...rule,
+          use: rule.use.map(entry => ({
+            ...entry,
+            options: {
+                esModule: false,
+            },
+          }))
         }))
-      }))
     """.trimIndent()
 }
 
