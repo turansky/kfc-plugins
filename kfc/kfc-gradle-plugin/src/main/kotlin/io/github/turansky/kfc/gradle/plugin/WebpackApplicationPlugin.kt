@@ -52,17 +52,21 @@ private fun Project.fontRules(): String {
 private fun cssRules(): String {
     // language=JavaScript
     return """
-    config.module.rules = config.module.rules
-        .filter(({use}) => !!use)
-        .map(rule => ({
-          ...rule,
-          use: rule.use.map(entry => ({
-            ...entry,
-            options: {
-                esModule: false,
-            },
-          }))
-        }))
+    const options = {
+        esModule: false,
+    }        
+
+    const rules = config.module.rules
+    .filter(({use}) => !!use)
+    .map(rule => ({
+      ...rule,
+      use: rule.use.map(entry => ({
+        ...entry,
+        options: options,
+      }))
+    }))
+    
+    config.module.rules = rules
     """.trimIndent()
 }
 
