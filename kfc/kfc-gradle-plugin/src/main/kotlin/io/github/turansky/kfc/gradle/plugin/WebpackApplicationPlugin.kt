@@ -49,6 +49,27 @@ private fun Project.fontRules(): String {
     """.trimIndent()
 }
 
+private fun cssRules(): String {
+    // language=JavaScript
+    return """
+    const options = {
+        esModule: false,
+    }        
+
+    const rules = config.module.rules
+    .filter(({use}) => !!use)
+    .map(rule => ({
+      ...rule,
+      use: rule.use.map(entry => ({
+        ...entry,
+        options: options,
+      }))
+    }))
+    
+    config.module.rules = rules
+    """.trimIndent()
+}
+
 class WebpackApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.named<KotlinWebpack>(Webpack.productionTask) {
@@ -65,6 +86,7 @@ class WebpackApplicationPlugin : Plugin<Project> {
             patch("default-settings", defaultSettings())
             patch("resolve-rules", RESOLVE_RULES)
             patch("font-rules", fontRules())
+            patch("css-rules", cssRules())
         }
 
         afterEvaluate {
