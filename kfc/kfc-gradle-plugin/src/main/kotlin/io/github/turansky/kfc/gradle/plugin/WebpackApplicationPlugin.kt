@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 private const val CSS_LOADER = "css-loader"
 private const val FILE_LOADER = "file-loader"
+private const val STYLE_LOADER = "style-loader"
 
 // language=JavaScript
 private fun Project.defaultSettings(): String = """
@@ -33,12 +34,16 @@ config.module.rules.push({
 
 // language=JavaScript
 private val CSS_RULES: String = """
+const options = {
+  esModule: false,
+}
+
 config.module.rules.push({
   test: /\.css${'$'}/,
-  loader: '$CSS_LOADER',
-  options: {
-    esModule: false,
-  },
+  use: [
+    {loader: '$STYLE_LOADER', options: options},
+    {loader: '$CSS_LOADER', options: options}
+  ],
 })
 """.trimIndent()
 
@@ -94,5 +99,6 @@ class WebpackApplicationPlugin : Plugin<Project> {
 
         configurationName(devNpm(CSS_LOADER, "7.1.2"))
         configurationName(devNpm(FILE_LOADER, "6.2.0"))
+        configurationName(devNpm(STYLE_LOADER, "4.0.0"))
     }
 }
