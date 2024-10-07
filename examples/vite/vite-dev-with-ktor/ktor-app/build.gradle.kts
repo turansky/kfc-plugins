@@ -1,9 +1,10 @@
 plugins {
+    kotlin("jvm")
     alias(libs.plugins.ktor)
 }
 
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass.set("io.github.turansky.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")

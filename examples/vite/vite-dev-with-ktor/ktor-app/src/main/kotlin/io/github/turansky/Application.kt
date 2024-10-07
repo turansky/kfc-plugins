@@ -1,6 +1,6 @@
-package com.example
+package io.github.turansky
 
-import com.example.plugins.*
+import io.github.turansky.plugins.configureRouting
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*

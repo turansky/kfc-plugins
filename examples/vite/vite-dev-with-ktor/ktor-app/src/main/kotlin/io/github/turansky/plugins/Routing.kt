@@ -1,4 +1,4 @@
-package com.example.plugins
+package io.github.turansky.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.response.*
