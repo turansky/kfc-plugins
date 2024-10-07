@@ -6,6 +6,9 @@ import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
     routing {
+        get("/api/data") {
+            call.respondText("Valuable data response!")
+        }
         get("/") {
             call.respondText("Hello World!")
         }
