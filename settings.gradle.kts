@@ -19,6 +19,14 @@ dependencyResolutionManagement {
             val coroutinesVersion = extra["kotlinx-coroutines.version"] as String
             library("coroutines-core", "org.jetbrains.kotlinx", "kotlinx-coroutines-core").version(coroutinesVersion)
             library("coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").version(coroutinesVersion)
+
+            val ktorVersion = extra["ktor.version"] as String
+            plugin("ktor", "io.ktor.plugin").version(ktorVersion)
+            library("server-core", "io.ktor", "ktor-server-core-jvm").version(ktorVersion)
+            library("server-netty", "io.ktor", "ktor-server-netty-jvm").version(ktorVersion)
+
+            val logbackVersion = extra["logback.version"] as String
+            library("logback", "ch.qos.logback", "logback-classic").version(logbackVersion)
         }
 
         create("kfc") {
