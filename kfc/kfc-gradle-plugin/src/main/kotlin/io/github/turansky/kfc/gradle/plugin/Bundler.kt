@@ -5,8 +5,7 @@ sealed class Bundler(
     val developmentTask: String,
     val configFile: String,
 ) {
-    // TODO: fix conflict
-    val runTask: String = "jsBrowserRun2"
+    val runTask: String = "jsViteDev"
 }
 
 object Vite : Bundler(
