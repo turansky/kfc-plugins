@@ -32,6 +32,11 @@ fun Application.configureRouting() {
 
                 body {
                     script {
+                        src = "/@vite/client"
+                        type = "module"
+                    }
+
+                    script {
                         src = "./vite-dev-app.mjs"
                         async = true
                         type = "module"

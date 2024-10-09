@@ -24,7 +24,7 @@ export default defineConfig(({mode}) => {
         },
         server: {
             proxy: {
-                '^(?!/.+.mjs)': {
+                '^(?!/.+.mjs)(?!/@vite/client)': {
                     target: 'http://localhost:8080',
                     changeOrigin: true,
                     secure: false,
