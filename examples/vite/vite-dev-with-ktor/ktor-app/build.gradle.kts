@@ -13,5 +13,6 @@ application {
 dependencies {
     implementation(libs.server.core)
     implementation(libs.server.netty)
+    implementation(libs.server.html.builder)
     implementation(libs.logback)
 }
