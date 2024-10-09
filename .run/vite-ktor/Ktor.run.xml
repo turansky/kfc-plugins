@@ -1,16 +1,17 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="Vite Dev" type="GradleRunConfiguration" factoryName="Gradle">
+    <configuration default="false" name="Ktor" type="GradleRunConfiguration" factoryName="Gradle"
+                   folderName="Vite + Ktor">
         <ExternalSystemSettings>
             <option name="executionName"/>
-            <option name="externalProjectPath" value="$PROJECT_DIR$/examples/vite/vite-dev-with-ktor/vite-dev-app"/>
+            <option name="externalProjectPath" value="$PROJECT_DIR$/examples/vite/vite-dev-with-ktor/ktor-app"/>
             <option name="externalSystemIdString" value="GRADLE"/>
-            <option name="scriptParameters" value="--continuous"/>
+            <option name="scriptParameters" value=""/>
             <option name="taskDescriptions">
                 <list/>
             </option>
             <option name="taskNames">
                 <list>
-                    <option value="jsViteDev"/>
+                    <option value="run"/>
                 </list>
             </option>
             <option name="vmOptions"/>
