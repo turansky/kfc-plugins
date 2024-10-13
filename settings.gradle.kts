@@ -64,6 +64,7 @@ include("examples:vite:simple-app-test")
 include("examples:vite:simple-library")
 include("examples:vite:simple-vite-app")
 include("examples:vite:simple-webpack-app")
+include("examples:vite:vite-dev-app")
 
 include("examples:vite:vite-dev-with-ktor:ktor-app")
 include("examples:vite:vite-dev-with-ktor:vite-dev-app")
