@@ -95,7 +95,7 @@ abstract class KotlinViteTask :
             execHandleFactory = execHandleFactory,
         )
 
-    private fun startNonBlockingViteRunner(args: Array<out String>) {
+    private fun startNonBlockingViteRunner(runner: BundlerRunner) {
         val deploymentRegistry = services.get(DeploymentRegistry::class.java)
         val deploymentHandle = deploymentRegistry.get(VITE.name, BundlerHandle::class.java)
         if (deploymentHandle == null) {
@@ -103,7 +103,7 @@ abstract class KotlinViteTask :
                 VITE.name,
                 DeploymentRegistry.ChangeBehavior.BLOCK,
                 BundlerHandle::class.java,
-                createViteRunner(args = args)
+                runner,
             )
         }
     }
@@ -121,7 +121,7 @@ abstract class KotlinViteTask :
         val runner = createViteRunner(args = args)
 
         if (isContinuous) {
-            startNonBlockingViteRunner(args)
+            startNonBlockingViteRunner(runner)
         } else {
             runner.start().waitForFinish()
         }
