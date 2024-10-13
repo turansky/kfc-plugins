@@ -83,6 +83,7 @@ abstract class KotlinViteTask :
     override val requiredNpmDependencies =
         setOf(VITE)
 
+    @get:Internal
     abstract val isContinuous: Boolean
 
     protected fun createViteRunner(
