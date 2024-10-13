@@ -7,6 +7,9 @@ import org.gradle.api.tasks.TaskAction
 abstract class KotlinViteDevTask :
     KotlinViteTask() {
 
+    override val isContinuous =
+        project.gradle.startParameter.isContinuous
+
     @TaskAction
     private fun dev() {
         vite(

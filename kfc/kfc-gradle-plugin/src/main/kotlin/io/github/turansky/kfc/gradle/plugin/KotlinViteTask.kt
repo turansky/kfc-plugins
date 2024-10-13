@@ -11,9 +11,10 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
+import org.gradle.deployment.internal.DeploymentRegistry
 import org.gradle.kotlin.dsl.listProperty
 import org.gradle.kotlin.dsl.property
-import org.gradle.process.ExecOperations
+import org.gradle.process.internal.ExecHandleFactory
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
@@ -22,7 +23,6 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
 
 private val VITE = NpmPackageVersion("vite", "5.4.8")
-private const val VITE_BIN = "vite/bin/vite.js"
 
 abstract class KotlinViteTask :
     DefaultTask(),
@@ -32,10 +32,10 @@ abstract class KotlinViteTask :
     protected abstract val objectFactory: ObjectFactory
 
     @get:Inject
-    protected abstract val execOperations: ExecOperations
+    protected abstract val fileSystemOperations: FileSystemOperations
 
     @get:Inject
-    protected abstract val fileSystemOperations: FileSystemOperations
+    protected abstract val execHandleFactory: ExecHandleFactory
 
     @Internal
     @Transient
@@ -83,6 +83,30 @@ abstract class KotlinViteTask :
     override val requiredNpmDependencies =
         setOf(VITE)
 
+    abstract val isContinuous: Boolean
+
+    protected fun createViteRunner(
+        vararg args: String,
+    ): BundlerRunner =
+        KotlinViteRunner(
+            npmProject = npmProject,
+            args = args.toList(),
+            execHandleFactory = execHandleFactory,
+        )
+
+    private fun startNonBlockingViteRunner(args: Array<out String>) {
+        val deploymentRegistry = services.get(DeploymentRegistry::class.java)
+        val deploymentHandle = deploymentRegistry.get(VITE.name, BundlerHandle::class.java)
+        if (deploymentHandle == null) {
+            deploymentRegistry.start(
+                VITE.name,
+                DeploymentRegistry.ChangeBehavior.BLOCK,
+                BundlerHandle::class.java,
+                createViteRunner(args = args)
+            )
+        }
+    }
+
     protected fun vite(
         vararg args: String,
     ) {
@@ -93,12 +117,12 @@ abstract class KotlinViteTask :
             into(workingDirectory)
         }
 
-        execOperations.exec {
-            npmProject.useTool(
-                exec = this,
-                tool = VITE_BIN,
-                args = args.toList(),
-            )
+        val runner = createViteRunner(args = args)
+
+        if (isContinuous) {
+            startNonBlockingViteRunner(args)
+        } else {
+            runner.start()
         }
     }
 }
