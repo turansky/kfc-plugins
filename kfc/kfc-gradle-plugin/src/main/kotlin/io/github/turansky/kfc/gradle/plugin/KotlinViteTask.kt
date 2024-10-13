@@ -123,7 +123,7 @@ abstract class KotlinViteTask :
         if (isContinuous) {
             startNonBlockingViteRunner(args)
         } else {
-            runner.start()
+            runner.start().waitForFinish()
         }
     }
 }
