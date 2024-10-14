@@ -108,15 +108,23 @@ abstract class KotlinViteTask :
         }
     }
 
+    private fun RegularFileProperty.copyIfChanged() {
+        val original = get().asFile
+        val copy = workingDirectory.get().file(original.name).asFile
+
+        if (!copy.exists() || copy.readText() != original.readText()) {
+            fileSystemOperations.copy {
+                from(original)
+                into(workingDirectory)
+            }
+        }
+    }
+
     protected fun vite(
         vararg args: String,
     ) {
-        fileSystemOperations.copy {
-            from(configFile)
-            from(envFile)
-
-            into(workingDirectory)
-        }
+        configFile.copyIfChanged()
+        envFile.copyIfChanged()
 
         val runner = createViteRunner(args = args)
 
