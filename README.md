@@ -31,6 +31,10 @@ We use [Vite](https://vitejs.dev/)
 
 You can add your custom `vite.config.js` ([example](examples/vite/custom-config/vite.config.js))
 
+#### Dev Server
+
+To start a dev server, run `jsViteRun` task ([example](examples/vite/vite-dev))
+
 ##### Legacy build with `Webpack`
 
 Opt-out to a Webpack build:
