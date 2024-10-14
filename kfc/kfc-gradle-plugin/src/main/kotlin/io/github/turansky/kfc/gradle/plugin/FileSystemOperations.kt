@@ -5,17 +5,18 @@ import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Provider
 
-fun RegularFileProperty.copyIfChanged(
-    workingDirectory: Provider<Directory>,
-    fileSystemOperations: FileSystemOperations,
+// WA for https://github.com/gradle/gradle/issues/1643
+fun FileSystemOperations.copyIfChanged(
+    file: RegularFileProperty,
+    destination: Provider<Directory>,
 ) {
-    val original = get().asFile
-    val copy = workingDirectory.get().file(original.name).asFile
+    val original = file.get().asFile
+    val copy = destination.get().file(original.name).asFile
 
     if (!copy.exists() || copy.readText() != original.readText()) {
-        fileSystemOperations.copy {
+        copy {
             from(original)
-            into(workingDirectory)
+            into(destination)
         }
     }
 }

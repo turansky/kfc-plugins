@@ -32,7 +32,7 @@ abstract class KotlinViteTask :
     protected abstract val objectFactory: ObjectFactory
 
     @get:Inject
-    protected abstract val fileSystemOperations: FileSystemOperations
+    protected abstract val fs: FileSystemOperations
 
     @get:Inject
     protected abstract val execHandleFactory: ExecHandleFactory
@@ -111,8 +111,8 @@ abstract class KotlinViteTask :
     protected fun vite(
         vararg args: String,
     ) {
-        configFile.copyIfChanged(workingDirectory, fileSystemOperations)
-        envFile.copyIfChanged(workingDirectory, fileSystemOperations)
+        fs.copyIfChanged(configFile, workingDirectory)
+        fs.copyIfChanged(envFile, workingDirectory)
 
         val runner = createViteRunner(args = args)
 
