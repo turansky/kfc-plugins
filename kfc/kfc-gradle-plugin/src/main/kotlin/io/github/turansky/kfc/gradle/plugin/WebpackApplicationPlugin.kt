@@ -4,8 +4,8 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.targets.js.npm.DevNpmDependencyExtension
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.named
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 private const val CSS_LOADER = "css-loader"
@@ -85,20 +85,19 @@ class WebpackApplicationPlugin : Plugin<Project> {
             patch("font-rules", fontRules())
         }
 
-        afterEvaluate {
-            plugins.withId(KotlinPlugin.MULTIPLATFORM) {
-                dependencies {
-                    applyConfiguration(JS_MAIN_IMPLEMENTATION)
-                }
-            }
-        }
-    }
-
-    private fun DependencyHandlerScope.applyConfiguration(configurationName: String) {
-        val devNpm = extensions.getByName<DevNpmDependencyExtension>("devNpm")
-
-        configurationName(devNpm(CSS_LOADER, "7.1.2"))
-        configurationName(devNpm(FILE_LOADER, "6.2.0"))
-        configurationName(devNpm(STYLE_LOADER, "4.0.0"))
+        setBundlerDevDependencies(
+            BundlerDependency(
+                name = CSS_LOADER,
+                version = "7.1.2",
+            ),
+            BundlerDependency(
+                name = FILE_LOADER,
+                version = "6.2.0",
+            ),
+            BundlerDependency(
+                name = STYLE_LOADER,
+                version = "4.0.0",
+            ),
+        )
     }
 }
