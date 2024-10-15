@@ -5,6 +5,8 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.kotlin.dsl.create
 
+private const val ROLLUP_PLUGIN_SOURCEMAPS = "rollup-plugin-sourcemaps"
+
 class ViteApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         tasks.create<KotlinViteBuildTask>(Vite.productionTask) {
@@ -36,6 +38,13 @@ class ViteApplicationPlugin : Plugin<Project> {
 
             dependOnCompile(COMPILE_DEVELOPMENT)
         }
+
+        setBundlerDevDependencies(
+            BundlerDependency(
+                name = ROLLUP_PLUGIN_SOURCEMAPS,
+                version = "0.6.3",
+            ),
+        )
     }
 }
 
