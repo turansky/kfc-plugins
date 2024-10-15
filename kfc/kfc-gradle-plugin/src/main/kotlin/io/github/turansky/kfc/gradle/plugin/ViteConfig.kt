@@ -11,10 +11,12 @@ internal const val ENTRY_PATH: String = "ENTRY_PATH"
 private val DEFAULT_VITE_CONFIG: String = """
 import * as process from "node:process";
 import {defineConfig, loadEnv} from 'vite'
+import sourcemaps from 'rollup-plugin-sourcemaps'
 
 export default defineConfig(({mode}) => {
     const env = loadEnv(mode, process.cwd(), '')
     return {
+        plugins: [sourcemaps()],
         build: {
             rollupOptions: {
                 input: [
@@ -22,6 +24,10 @@ export default defineConfig(({mode}) => {
                 ],
                 output: {
                     entryFileNames: '[name].js',
+                    sourcemapIgnoreList: (relativeSourcePath) => {
+                        // will ignore-list all files with node_modules in their paths
+                        return relativeSourcePath.includes('node_modules')
+                    },
                 },
             },
         },
