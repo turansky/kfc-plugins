@@ -77,7 +77,7 @@ abstract class KotlinViteTask :
 
     private val envFile: RegularFileProperty =
         objectFactory.fileProperty()
-            .convention { viteEnv(envVariables.get(), entryFile.get(), project.property(SOURCE_MAPS)) }
+            .convention { viteEnv(envVariables.get(), entryFile.get()) }
 
     @get:Internal
     override val requiredNpmDependencies =

@@ -12,17 +12,15 @@ private const val DOT_ENV = ".env"
 internal fun Task.viteEnv(
     variables: List<EnvVariable>,
     entryFile: RegularFile,
-    useSourceMaps: Boolean,
 ): File {
     val file = temporaryDir.resolve(DOT_ENV)
-    file.writeText(getViteEnv(variables, entryFile, useSourceMaps))
+    file.writeText(getViteEnv(variables, entryFile))
     return file
 }
 
 private fun getViteEnv(
     variables: List<EnvVariable>,
     entryFile: RegularFile,
-    useSourceMaps: Boolean,
 ): String {
     val properties = OrderedPropertiesBuilder()
         .withSuppressDateInComment(true)
@@ -33,7 +31,6 @@ private fun getViteEnv(
     }
 
     properties.setProperty(ENTRY_PATH, entryFile.asFile.absolutePath)
-    properties.setProperty(USE_SOURCE_MAPS, useSourceMaps.toString())
 
     return properties.entrySet()
         .joinToString("\n") { (k, v) -> "$k=$v" }

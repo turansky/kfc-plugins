@@ -6,7 +6,6 @@ import org.gradle.api.Task
 import java.io.File
 
 internal const val ENTRY_PATH: String = "ENTRY_PATH"
-internal const val USE_SOURCE_MAPS: String = "USE_SOURCE_MAPS"
 
 // language=javascript
 private val DEFAULT_VITE_CONFIG: String = """
@@ -17,7 +16,7 @@ import sourcemaps from 'rollup-plugin-sourcemaps'
 export default defineConfig(({mode}) => {
     const env = loadEnv(mode, process.cwd(), '')
     return {
-        plugins: !!env.$USE_SOURCE_MAPS ? [sourcemaps()] : undefined,
+        plugins: [sourcemaps()],
         build: {
             rollupOptions: {
                 input: [
