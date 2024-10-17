@@ -35,14 +35,6 @@ You can add your custom `vite.config.js` ([example](examples/vite/custom-config/
 
 To start a dev server, run `jsViteRun` task ([example](examples/vite/vite-dev))
 
-##### Legacy build with `Webpack`
-
-Opt-out to a Webpack build:
-
-```properties
-kfc.bundler=webpack
-```
-
 ### Source Maps
 
 Enable source maps generation:
