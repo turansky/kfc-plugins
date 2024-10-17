@@ -17,7 +17,7 @@ plugins {
 }
 ```
 
-### Requirements
+### Defaults
 
 * Kotlin/JS
   * Target `es2015`
