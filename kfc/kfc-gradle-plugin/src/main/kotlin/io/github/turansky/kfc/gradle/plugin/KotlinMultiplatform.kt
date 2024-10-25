@@ -58,7 +58,6 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     // `jsMain` source set required
     plugins.apply(AssetsPlugin::class)
-    plugins.apply(FixModuleTypePlugin::class)
 
     configurations.create(JS_MAIN_MODULE)
 
