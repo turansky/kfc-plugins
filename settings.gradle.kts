@@ -69,8 +69,6 @@ include("examples:vite:vite-dev")
 include("examples:vite:vite-dev-with-ktor:ktor-app")
 include("examples:vite:vite-dev-with-ktor:vite-dev-app")
 
-include("examples:webpack-per-file-issue")
-
 include("examples:web-worker:entity")
 include("examples:web-worker:view-wl")
 include("examples:web-worker:worker-wl")
