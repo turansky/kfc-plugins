@@ -11,7 +11,7 @@ sealed class Bundler(
 object Vite : Bundler(
     productionTask = "jsBrowserProductionVite",
     developmentTask = "jsBrowserDevelopmentVite",
-    configFile = "vite.config.js",
+    configFile = "vite.config.mjs",
 )
 
 object Webpack : Bundler(

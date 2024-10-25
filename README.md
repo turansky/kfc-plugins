@@ -29,7 +29,7 @@ We use [Vite](https://vitejs.dev/)
 
 #### Configuration
 
-You can add your custom `vite.config.js` ([example](examples/vite/custom-config/vite.config.js))
+You can add your custom `vite.config.mjs` ([example](examples/vite/custom-config/vite.config.mjs))
 
 #### Dev Server
 
