@@ -4,7 +4,6 @@ import com.test.worker.Message
 import com.test.worker.addMessageHandler
 import com.test.worker.post
 import js.import.import
-import web.dom.clickEvent
 import web.dom.document
 import web.events.addHandler
 import web.html.HTML.div
