@@ -1,20 +1,17 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.Directory
-import org.gradle.api.file.FileSystemOperations
-import org.gradle.api.file.RegularFile
-import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.file.*
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.*
 import org.gradle.deployment.internal.DeploymentRegistry
 import org.gradle.kotlin.dsl.listProperty
 import org.gradle.kotlin.dsl.property
 import org.gradle.process.internal.ExecHandleFactory
+import org.gradle.work.NormalizeLineEndings
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
@@ -33,6 +30,9 @@ abstract class KotlinViteTask :
 
     @get:Inject
     protected abstract val fs: FileSystemOperations
+
+    @get:Inject
+    protected abstract val layout: ProjectLayout
 
     @get:Inject
     protected abstract val execHandleFactory: ExecHandleFactory
@@ -57,9 +57,12 @@ abstract class KotlinViteTask :
         objectFactory.fileProperty()
             .convention(::defaultViteConfig)
 
-    private val customConfigFile: RegularFileProperty =
-        objectFactory.fileProperty()
-            .convention(project.layout.projectDirectory.file(Vite.configFile))
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    @get:NormalizeLineEndings
+    private val customConfigFile: RegularFileProperty
+        get() = objectFactory.fileProperty()
+            .fileValue(layout.projectDirectory.file(Vite.configFile).asFile)
 
     private val configFile: RegularFileProperty =
         objectFactory.fileProperty().convention(
@@ -111,8 +114,14 @@ abstract class KotlinViteTask :
     protected fun vite(
         vararg args: String,
     ) {
-        fs.copyIfChanged(configFile, workingDirectory)
-        fs.copyIfChanged(envFile, workingDirectory)
+        fs.copy {
+            from(
+                configFile,
+                envFile,
+            )
+
+            into(workingDirectory)
+        }
 
         val runner = createViteRunner(args = args)
 
