@@ -10,6 +10,7 @@ import org.gradle.api.tasks.*
 import org.gradle.deployment.internal.DeploymentRegistry
 import org.gradle.kotlin.dsl.listProperty
 import org.gradle.kotlin.dsl.property
+import org.gradle.process.ExecOperations
 import org.gradle.process.internal.ExecHandleFactory
 import org.gradle.work.NormalizeLineEndings
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
@@ -36,6 +37,9 @@ abstract class KotlinViteTask :
 
     @get:Inject
     protected abstract val execHandleFactory: ExecHandleFactory
+
+    @get:Inject
+    protected abstract val execOperations: ExecOperations
 
     @Internal
     @Transient
@@ -96,6 +100,7 @@ abstract class KotlinViteTask :
             npmProject = npmProject,
             args = args.toList(),
             execHandleFactory = execHandleFactory,
+            execOperations = execOperations,
         )
 
     private fun startNonBlockingViteRunner(runner: BundlerRunner) {
@@ -128,7 +133,7 @@ abstract class KotlinViteTask :
         if (isContinuous) {
             startNonBlockingViteRunner(runner)
         } else {
-            runner.start().waitForFinish()
+            runner.execute()
         }
     }
 }
