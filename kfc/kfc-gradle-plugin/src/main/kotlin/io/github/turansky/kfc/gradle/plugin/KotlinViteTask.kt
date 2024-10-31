@@ -68,7 +68,7 @@ abstract class KotlinViteTask :
     @get:InputFile
     @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:NormalizeLineEndings
-    private val configFile: RegularFileProperty
+    protected val configFile: RegularFileProperty
         get() = objectFactory.fileProperty()
             .convention(
                 customConfigFile
