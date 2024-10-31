@@ -61,19 +61,20 @@ abstract class KotlinViteTask :
         objectFactory.fileProperty()
             .convention(::defaultViteConfig)
 
+    private val customConfigFile: RegularFileProperty =
+        objectFactory.fileProperty()
+            .convention(layout.projectDirectory.file(Vite.configFile))
+
     @get:InputFile
     @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:NormalizeLineEndings
-    private val customConfigFile: RegularFileProperty
+    private val configFile: RegularFileProperty
         get() = objectFactory.fileProperty()
-            .fileValue(layout.projectDirectory.file(Vite.configFile).asFile)
-
-    private val configFile: RegularFileProperty =
-        objectFactory.fileProperty().convention(
-            customConfigFile
-                .filter { it.asFile.exists() }
-                .orElse(defaultConfigFile)
-        )
+            .convention(
+                customConfigFile
+                    .filter { it.asFile.exists() }
+                    .orElse(defaultConfigFile)
+            )
 
     private val entryFile: Provider<RegularFile> =
         workingDirectory.map { it.file("kotlin/${project.jsModuleName}.mjs") }
