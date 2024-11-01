@@ -3,17 +3,21 @@ package com.test.view.wl
 import com.test.worker.Message
 import com.test.worker.addMessageHandler
 import com.test.worker.post
-import js.import.import
+import com.test.worker.wl.WLWorker
 import web.dom.document
 import web.events.addHandler
 import web.html.HTML.div
 import web.html.HTML.span
 import web.html.HTMLElement
 import web.http.fetchAsync
-import web.url.URL
-import web.workers.Worker
 
+// TODO: Remove when the issue is fixed
+//  Link: https://youtrack.jetbrains.com/issue/KT-71217/KJS-Per-file-Module-not-found-Error-Cant-resolve-void.mjs
 private fun main() {
+    println("Entrypoint for View WL")
+}
+
+fun createView() {
     val view = View()
     document.body.appendChild(view)
 
@@ -30,12 +34,10 @@ private fun main() {
     worker.post(Message("START WL!"))
 
     fun testBytes() {
-        fetchAsync("https://httpbin.org/get")
-            .flatThen { it.textAsync() }
-            .then { data ->
-                log("DATA", data)
-                worker.post(Message(data))
-            }
+        fetchAsync("https://httpbin.org/get").flatThen { it.textAsync() }.then { data ->
+            log("DATA", data)
+            worker.post(Message(data))
+        }
     }
 
     view.clickEvent.addHandler {
@@ -59,6 +61,3 @@ internal fun View(): HTMLElement {
 
     return container
 }
-
-internal fun WLWorker(): Worker =
-    Worker(URL("wl-worker", import.meta.url))

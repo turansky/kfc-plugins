@@ -1,10 +1,9 @@
 package com.test.local
 
-import js.import.Module
-import js.import.import
+import com.test.view.wl.createView
 
 // For dev server only
-private suspend fun main() {
+private fun main() {
     println("Local!")
-    import<Module<*>>("ww-view-wl")
+    createView()
 }

@@ -1,8 +1,9 @@
 plugins {
     alias(kfc.plugins.application)
+    alias(libs.plugins.seskar)
 }
 
 dependencies {
-    jsMainModule(projects.examples.webWorker.viewWl)
+    jsMainImplementation(projects.examples.webWorker.viewWl)
     jsMainImplementation(kotlinWrappers.js)
 }
