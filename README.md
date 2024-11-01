@@ -33,7 +33,12 @@ You can add your custom `vite.config.mjs` ([example](examples/vite/custom-config
 
 #### Dev Server
 
-To start a dev server, run `jsViteRun` task ([example](examples/vite/vite-dev))
+1. Add `index.html` file with module script to JS
+   entrypoint ([example](examples/vite/vite-dev/src/jsMain/resources/index.html))
+
+2. Specify custom config file with `root` to `kotlin` ([example](examples/vite/vite-dev/vite.config.mjs))
+
+3. Start a dev server, run `jsViteRun` task ([example](examples/vite/vite-dev))
 
 ### Source Maps
 
