@@ -28,6 +28,9 @@ dependencyResolutionManagement {
 
             val logbackVersion = extra["logback.version"] as String
             library("logback", "ch.qos.logback", "logback-classic").version(logbackVersion)
+
+            val seskarVersion = extra["seskar.version"] as String
+            plugin("seskar", "io.github.turansky.seskar").version(seskarVersion)
         }
 
         create("kfc") {
