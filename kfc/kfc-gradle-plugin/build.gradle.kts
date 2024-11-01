@@ -37,12 +37,6 @@ enum class KfcPlugin(
         tags = listOf("application"),
     ),
 
-    WORKER(
-        displayName = "Kotlin/JS worker plugin",
-        description = "Kotlin/JS worker configuration",
-        tags = listOf("worker"),
-    ),
-
     MAVEN_CENTRAL_PUBLISH(
         displayName = "Maven central publish plugin",
         description = "Maven central publish configuration",
