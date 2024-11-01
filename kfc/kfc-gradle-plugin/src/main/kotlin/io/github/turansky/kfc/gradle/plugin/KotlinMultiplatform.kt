@@ -22,7 +22,6 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     plugins.apply(LatestToolsPlugin::class)
 
     plugins.apply(BundlerEnvironmentPlugin::class)
-    plugins.apply(WebpackPlugin::class)
 
     val fileName = jsOutputFileName
 
@@ -30,6 +29,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     kotlin.js {
         moduleName = jsModuleName
 
+        // TODO: Remove
         browser {
             commonWebpackConfig {
                 output?.library = null
@@ -37,11 +37,11 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             }
 
             webpackTask {
-                enabled = mode.bundler == Webpack
+                enabled = false
             }
 
             runTask {
-                enabled = mode.run
+                enabled = false
             }
         }
 
@@ -51,7 +51,6 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     }
 
     when (mode.bundler) {
-        Webpack -> plugins.apply(WebpackApplicationPlugin::class)
         Vite -> plugins.apply(ViteApplicationPlugin::class)
         null -> Unit
     }

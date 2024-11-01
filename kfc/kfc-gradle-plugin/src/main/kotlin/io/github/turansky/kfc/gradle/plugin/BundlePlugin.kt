@@ -15,9 +15,7 @@ class BundlePlugin : Plugin<Project> {
 
             archiveClassifier.set("js-bundle-production")
 
-            from(tasks.named(bundler.productionTask)) {
-                exclude(Webpack.configFile)
-            }
+            from(tasks.named(bundler.productionTask))
         }
 
         val jsBundleDevelopment by tasks.creating(Jar::class) {
@@ -25,9 +23,7 @@ class BundlePlugin : Plugin<Project> {
 
             archiveClassifier.set("js-bundle-development")
 
-            from(tasks.named(bundler.developmentTask)) {
-                exclude(Webpack.configFile)
-            }
+            from(tasks.named(bundler.developmentTask))
         }
     }
 }

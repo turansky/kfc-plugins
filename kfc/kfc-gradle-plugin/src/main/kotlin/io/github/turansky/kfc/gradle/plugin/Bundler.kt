@@ -16,9 +16,3 @@ object Vite : Bundler(
     //   Ticket: https://youtrack.jetbrains.com/issue/KT-72680/KJS.-Specify-type-module-in-generated-package.json
     configFile = "vite.config.mjs",
 )
-
-object Webpack : Bundler(
-    productionTask = "jsBrowserProductionWebpack",
-    developmentTask = "jsBrowserDevelopmentWebpack",
-    configFile = "webpack.config.js",
-)

@@ -27,7 +27,6 @@ internal fun Project.getBundler(): Bundler {
 
     return when (value) {
         "vite" -> Vite
-        "webpack" -> Webpack
 
         else -> error("Unexpected bundler: $value")
     }

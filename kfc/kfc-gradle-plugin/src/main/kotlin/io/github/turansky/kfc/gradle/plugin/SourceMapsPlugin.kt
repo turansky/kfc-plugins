@@ -2,7 +2,6 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 
 internal val SOURCE_MAPS = BooleanProperty("kfc.source.maps")
@@ -19,10 +18,6 @@ internal class SourceMapsPlugin : Plugin<Project> {
                         // Temp WA
                         sourceMapEmbedSources.convention(null)
                     }
-                }
-
-                tasks.configureEach<KotlinWebpack> {
-                    sourceMaps = false
                 }
             }
         }
