@@ -23,19 +23,12 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     plugins.apply(BundlerEnvironmentPlugin::class)
 
-    val fileName = jsOutputFileName
-
     val kotlin = the<KotlinMultiplatformExtension>()
     kotlin.js {
         moduleName = jsModuleName
 
         // TODO: Remove
         browser {
-            commonWebpackConfig {
-                output?.library = null
-                outputFileName = fileName
-            }
-
             webpackTask {
                 enabled = false
             }
