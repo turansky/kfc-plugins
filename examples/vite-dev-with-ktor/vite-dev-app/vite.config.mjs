@@ -1,5 +1,5 @@
 import * as process from 'node:process'
-import {defineConfig, loadEnv} from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 
 const getSubdir = (name) => name?.match(/\.woff2?/) ? 'fonts/' : ''
 const entryFileNames = 'static/[name].[hash].js'

@@ -62,14 +62,14 @@ include("examples:test-data:second")
 
 include("examples:value-class")
 
-include("examples:vite:custom-config")
-include("examples:vite:simple-app-test")
-include("examples:vite:simple-library")
-include("examples:vite:simple-vite-app")
-include("examples:vite:vite-dev")
+include("examples:vite-build:custom-config")
+include("examples:vite-build:simple-app-test")
+include("examples:vite-build:simple-library")
+include("examples:vite-build:simple-vite-app")
+include("examples:vite-dev")
 
-include("examples:vite:vite-dev-with-ktor:ktor-app")
-include("examples:vite:vite-dev-with-ktor:vite-dev-app")
+include("examples:vite-dev-with-ktor:ktor-app")
+include("examples:vite-dev-with-ktor:vite-dev-app")
 
 include("examples:web-worker:entity")
 include("examples:web-worker:view-wl")

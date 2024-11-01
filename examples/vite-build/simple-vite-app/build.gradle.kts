@@ -8,5 +8,5 @@ bundlerEnvironment {
 }
 
 dependencies {
-    jsMainImplementation(projects.examples.vite.simpleLibrary)
+    jsMainImplementation(projects.examples.viteBuild.simpleLibrary)
 }
