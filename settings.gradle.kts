@@ -28,9 +28,6 @@ dependencyResolutionManagement {
 
             val logbackVersion = extra["logback.version"] as String
             library("logback", "ch.qos.logback", "logback-classic").version(logbackVersion)
-
-            val seskarVersion = extra["seskar.version"] as String
-            plugin("seskar", "io.github.turansky.seskar").version(seskarVersion)
         }
 
         create("kfc") {
@@ -70,10 +67,5 @@ include("examples:vite-dev")
 
 include("examples:vite-dev-with-ktor:ktor-app")
 include("examples:vite-dev-with-ktor:vite-dev-app")
-
-include("examples:web-worker:entity")
-include("examples:web-worker:view-wl")
-include("examples:web-worker:worker-wl")
-include("examples:web-worker:local-server")
 
 includeBuild("kfc")
