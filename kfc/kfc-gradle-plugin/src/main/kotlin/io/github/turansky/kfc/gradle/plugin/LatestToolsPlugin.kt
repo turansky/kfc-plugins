@@ -30,6 +30,7 @@ private class RootLatestToolsPlugin : Plugin<Project> {
                     // TODO: Remove
                     //  Needed for Karma now
                     webpack.version = "5.96.1"
+                    webpackCli.version = "5.1.4"
                     karma.version = "6.4.4"
                 }
             }
