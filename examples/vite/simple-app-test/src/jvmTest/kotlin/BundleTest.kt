@@ -9,11 +9,6 @@ class BundleTest {
         checkBundle("simple-vite-app")
     }
 
-    @Test
-    fun `check webpack bundle`() {
-        checkBundle("simple-webpack-app")
-    }
-
     private fun checkBundle(
         projectName: String,
     ) {
