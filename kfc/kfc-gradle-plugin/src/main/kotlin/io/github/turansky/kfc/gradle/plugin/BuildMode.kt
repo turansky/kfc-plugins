@@ -6,7 +6,6 @@ sealed class BuildMode(
     val run: Boolean = false,
 ) {
     object LIBRARY : BuildMode(distribution = false)
-    object WORKER : BuildMode()
     class APPLICATION(
         bundler: Bundler,
         run: Boolean,
