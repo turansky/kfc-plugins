@@ -61,8 +61,6 @@ internal fun Project.applyKotlinMultiplatformPlugin(
                 "-Xdont-warn-on-error-suppression",
                 "-Xgenerate-polyfills=false",
                 "-Xir-generate-inline-anonymous-functions",
-                // TODO: remove after migration on Kotlin `2.1.0`
-                "-XXLanguage:+JsAllowInvalidCharsIdentifiersEscaping",
             )
         }
     }
