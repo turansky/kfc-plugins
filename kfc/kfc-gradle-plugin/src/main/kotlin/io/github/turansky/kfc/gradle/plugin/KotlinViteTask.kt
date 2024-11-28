@@ -1,18 +1,15 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.*
+import org.gradle.api.file.ProjectLayout
 import org.gradle.api.model.ObjectFactory
-import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import org.gradle.deployment.internal.DeploymentRegistry
-import org.gradle.kotlin.dsl.listProperty
 import org.gradle.kotlin.dsl.property
 import org.gradle.process.ExecOperations
 import org.gradle.process.internal.ExecHandleFactory
-import org.gradle.work.NormalizeLineEndings
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
@@ -28,9 +25,6 @@ abstract class KotlinViteTask :
 
     @get:Inject
     protected abstract val objectFactory: ObjectFactory
-
-    @get:Inject
-    protected abstract val fs: FileSystemOperations
 
     @get:Inject
     protected abstract val layout: ProjectLayout
@@ -49,43 +43,10 @@ abstract class KotlinViteTask :
     private val npmProject: NpmProject =
         compilation.npmProject
 
-    private val workingDirectory: Provider<Directory> =
-        npmProject.dir
-
     @Input
     val mode: Property<ViteMode> =
         objectFactory.property<ViteMode>()
             .convention(ViteMode.PRODUCTION)
-
-    private val defaultConfigFile: RegularFileProperty =
-        objectFactory.fileProperty()
-            .convention(::defaultViteConfig)
-
-    private val customConfigFile: RegularFileProperty =
-        objectFactory.fileProperty()
-            .convention(layout.projectDirectory.file(Vite.configFile))
-
-    @get:InputFile
-    @get:PathSensitive(PathSensitivity.RELATIVE)
-    @get:NormalizeLineEndings
-    protected val configFile: RegularFileProperty
-        get() = objectFactory.fileProperty()
-            .convention(
-                customConfigFile
-                    .filter { it.asFile.exists() }
-                    .orElse(defaultConfigFile)
-            )
-
-    private val entryFile: Provider<RegularFile> =
-        workingDirectory.map { it.file("kotlin/${project.jsModuleName}.mjs") }
-
-    private val envVariables: ListProperty<EnvVariable> =
-        objectFactory.listProperty<EnvVariable>()
-            .convention(project.bundlerEnvironment.variables)
-
-    private val envFile: RegularFileProperty =
-        objectFactory.fileProperty()
-            .convention { viteEnv(envVariables.get(), entryFile.get()) }
 
     @get:Internal
     override val requiredNpmDependencies =
@@ -120,15 +81,6 @@ abstract class KotlinViteTask :
     protected fun vite(
         vararg args: String,
     ) {
-        fs.copy {
-            from(
-                configFile,
-                envFile,
-            )
-
-            into(workingDirectory)
-        }
-
         val runner = createViteRunner(args = args)
 
         if (isContinuous) {
