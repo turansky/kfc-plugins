@@ -5,7 +5,6 @@ import org.gradle.api.file.*
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.listProperty
@@ -13,7 +12,6 @@ import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
-import javax.annotation.Nullable
 import javax.inject.Inject
 
 abstract class KotlinVitePreparationTask :
@@ -41,8 +39,6 @@ abstract class KotlinVitePreparationTask :
         objectFactory.fileProperty()
             .convention(::defaultViteConfig)
 
-    @InputFile
-    @Nullable
     private val customConfigFile: RegularFileProperty =
         objectFactory.fileProperty()
             .convention(layout.projectDirectory.file(Vite.configFile))
