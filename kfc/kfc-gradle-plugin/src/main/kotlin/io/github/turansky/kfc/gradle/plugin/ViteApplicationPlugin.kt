@@ -4,13 +4,27 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.register
 
 private const val ROLLUP_PLUGIN_SOURCEMAPS = "rollup-plugin-sourcemaps"
 
 class ViteApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        tasks.register<KotlinVitePreparationTask>(Vite.developmentPreparationTask) {
+            group = DEFAULT_TASK_GROUP
+
+            dependsOn("jsDevelopmentExecutableCompileSync")
+        }
+        tasks.register<KotlinVitePreparationTask>(Vite.productionPreparationTask) {
+            group = DEFAULT_TASK_GROUP
+
+            dependsOn("jsProductionExecutableCompileSync")
+        }
+
         tasks.create<KotlinViteBuildTask>(Vite.productionTask) {
             group = DEFAULT_TASK_GROUP
+
+            dependsOn(Vite.productionPreparationTask)
 
             mode.set(ViteMode.PRODUCTION)
             outputDirectory.convention(getProductionDistDirectory())
@@ -20,6 +34,8 @@ class ViteApplicationPlugin : Plugin<Project> {
 
         tasks.create<KotlinViteBuildTask>(Vite.developmentTask) {
             group = DEFAULT_TASK_GROUP
+
+            dependsOn(Vite.developmentPreparationTask)
 
             mode.set(ViteMode.DEVELOPMENT)
             outputDirectory.convention(getDevelopmentDistDirectory())
@@ -33,6 +49,8 @@ class ViteApplicationPlugin : Plugin<Project> {
 
         tasks.create<KotlinViteDevTask>(Vite.runTask) {
             group = DEFAULT_TASK_GROUP
+
+            dependsOn(Vite.developmentPreparationTask)
 
             mode.set(ViteMode.DEVELOPMENT)
 
