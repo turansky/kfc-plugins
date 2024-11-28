@@ -50,6 +50,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     // `jsMain` source set required
     plugins.apply(AssetsPlugin::class)
+    plugins.apply(FixViteHotReloadPlugin::class)
 
     configurations.create(JS_MAIN_MODULE)
 
