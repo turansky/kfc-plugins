@@ -68,13 +68,7 @@ abstract class KotlinVitePreparationTask :
 
     @TaskAction
     protected fun copy() {
-        fs.copy {
-            from(
-                configFile,
-                envFile,
-            )
-
-            into(workingDirectory)
-        }
+        fs.copyIfChanged(configFile, workingDirectory)
+        fs.copyIfChanged(envFile, workingDirectory)
     }
 }
