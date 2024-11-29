@@ -1,3 +1,7 @@
+@file:OptIn(
+    ExperimentalWasmDsl::class,
+)
+
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
@@ -5,6 +9,7 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.the
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsTargetDsl
@@ -40,6 +45,14 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
         if (mode.bundler != null) {
             binaries.executable()
+        }
+    }
+
+    if (wasmJsSupported && mode.bundler == null) {
+        kotlin.wasmJs {
+            moduleName = wasmJsModuleName
+
+            browser()
         }
     }
 
