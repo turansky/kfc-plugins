@@ -17,17 +17,6 @@ internal val Project.jsModuleName: String
         }
     }
 
-internal fun Project.getBundler(): Bundler {
-    val value = propertyOrNull(BUNDLER)
-        ?: return Vite
-
-    return when (value) {
-        "vite" -> Vite
-
-        else -> error("Unexpected bundler: $value")
-    }
-}
-
 internal fun Project.ext(
     propertyName: String,
     value: Boolean,

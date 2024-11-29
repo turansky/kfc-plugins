@@ -38,7 +38,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             }
         }
 
-        if (mode.distribution) {
+        if (mode.bundler != null) {
             binaries.executable()
         }
     }

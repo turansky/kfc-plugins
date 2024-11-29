@@ -7,12 +7,7 @@ import org.gradle.kotlin.dsl.apply
 
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        val bundler = getBundler()
-
-        val mode = APPLICATION(
-            bundler = bundler,
-        )
-        applyKotlinMultiplatformPlugin(mode)
+        applyKotlinMultiplatformPlugin(APPLICATION)
 
         plugins.apply(BundlePlugin::class)
     }
