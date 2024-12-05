@@ -17,7 +17,7 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
 
-private val VITE = NpmPackageVersion("vite", "6.0.2")
+private val VITE = NpmPackageVersion("vite", "6.0.3")
 
 abstract class KotlinViteTask :
     DefaultTask(),
