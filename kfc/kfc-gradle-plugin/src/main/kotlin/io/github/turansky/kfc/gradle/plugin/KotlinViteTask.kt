@@ -1,7 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.ProjectLayout
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
@@ -25,9 +24,6 @@ abstract class KotlinViteTask :
 
     @get:Inject
     protected abstract val objectFactory: ObjectFactory
-
-    @get:Inject
-    protected abstract val layout: ProjectLayout
 
     @get:Inject
     protected abstract val execHandleFactory: ExecHandleFactory
