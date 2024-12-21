@@ -3,7 +3,6 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.register
 
 private const val ROLLUP_PLUGIN_SOURCEMAPS = "rollup-plugin-sourcemaps"
@@ -21,7 +20,7 @@ class ViteApplicationPlugin : Plugin<Project> {
             dependsOn("jsProductionExecutableCompileSync")
         }
 
-        tasks.create<KotlinViteBuildTask>(Vite.productionTask) {
+        tasks.register<KotlinViteBuildTask>(Vite.productionTask) {
             group = DEFAULT_TASK_GROUP
 
             dependsOn(Vite.productionPreparationTask)
@@ -32,7 +31,7 @@ class ViteApplicationPlugin : Plugin<Project> {
             dependOnCompile(COMPILE_PRODUCTION)
         }
 
-        tasks.create<KotlinViteBuildTask>(Vite.developmentTask) {
+        tasks.register<KotlinViteBuildTask>(Vite.developmentTask) {
             group = DEFAULT_TASK_GROUP
 
             dependsOn(Vite.developmentPreparationTask)
@@ -47,7 +46,7 @@ class ViteApplicationPlugin : Plugin<Project> {
             dependsOn(Vite.productionTask)
         }
 
-        tasks.create<KotlinViteDevTask>(Vite.runTask) {
+        tasks.register<KotlinViteDevTask>(Vite.runTask) {
             group = DEFAULT_TASK_GROUP
 
             dependsOn(Vite.developmentPreparationTask)
