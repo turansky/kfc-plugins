@@ -21,7 +21,7 @@ abstract class KotlinViteBuildTask :
     abstract val outputDirectory: DirectoryProperty
 
     @TaskAction
-    private fun build() {
+    protected fun build() {
         vite(
             "build",
             "--mode", mode.get().value,

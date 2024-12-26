@@ -58,7 +58,7 @@ abstract class GenerateAssets : DefaultTask() {
     }
 
     @TaskAction
-    private fun generateAssets() {
+    protected fun generateAssets() {
         jsOutputDirectory.deleteRecursively()
 
         val assetsPackage = requireNotNull(pkg)

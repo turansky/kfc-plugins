@@ -11,7 +11,7 @@ abstract class KotlinViteDevTask :
         project.gradle.startParameter.isContinuous
 
     @TaskAction
-    private fun dev() {
+    protected fun dev() {
         vite(
             "dev",
             "--mode", mode.get().value,
