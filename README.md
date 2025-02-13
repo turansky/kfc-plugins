@@ -29,16 +29,16 @@ We use [Vite](https://vitejs.dev/)
 
 #### Configuration
 
-You can add your custom `vite.config.mjs` ([example](examples/vite/custom-config/vite.config.mjs))
+You can add your custom `vite.config.mjs` ([example](examples/vite-build/custom-config/vite.config.mjs))
 
 #### Dev Server
 
 1. Add `index.html` file with module script to JS
-   entrypoint ([example](examples/vite/vite-dev/src/jsMain/resources/index.html))
+   entrypoint ([example](examples/vite-dev/src/jsMain/resources/index.html))
 
-2. Specify custom config file with `root` to `kotlin` ([example](examples/vite/vite-dev/vite.config.mjs))
+2. Specify custom config file with `root` to `kotlin` ([example](examples/vite-dev/vite.config.mjs))
 
-3. Start a dev server, run `jsViteRun` task ([example](examples/vite/vite-dev))
+3. Start a dev server, run `jsViteRun` task ([example](examples/vite-dev))
 
 ### Source Maps
 
