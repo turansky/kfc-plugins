@@ -27,7 +27,7 @@ private class RootLatestToolsPlugin : Plugin<Project> {
                 version = "22.14.0"
 
                 versions.apply {
-                    webpack.version = "5.97.1"
+                    webpack.version = "5.98.0"
                     webpackCli.version = "6.0.1"
                     karma.version = "6.4.4"
                 }
