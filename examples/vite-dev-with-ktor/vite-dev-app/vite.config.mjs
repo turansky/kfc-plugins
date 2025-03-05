@@ -1,5 +1,6 @@
 import * as process from 'node:process'
-import { defineConfig, loadEnv } from 'vite'
+import {defineConfig, loadEnv} from 'vite'
+import react from '@vitejs/plugin-react'
 
 const getSubdir = (name) => name?.match(/\.woff2?/) ? 'fonts/' : ''
 const entryFileNames = 'static/[name].[hash].js'
@@ -9,6 +10,9 @@ const assetFileNames = ({name}) => `static/${getSubdir(name)}[name].[hash].[ext]
 export default defineConfig(({mode}) => {
     const env = loadEnv(mode, process.cwd(), '')
     return {
+        plugins: [
+            react({include: /\.(mjs|js)$/}),
+        ],
         root: 'kotlin',
         build: {
             rollupOptions: {
@@ -24,8 +28,8 @@ export default defineConfig(({mode}) => {
         },
         server: {
             proxy: {
-                '^(?!/.+.mjs)(?!/@vite/client)': {
-                    target: 'http://localhost:8080',
+                '^(?!.+\.m?js[\?*]?)(?!/@vite/client)(?!/@react-refresh)': {
+                    target: 'http://localhost:8081',
                     changeOrigin: true,
                     secure: false,
                     configure: (proxy, _options) => {

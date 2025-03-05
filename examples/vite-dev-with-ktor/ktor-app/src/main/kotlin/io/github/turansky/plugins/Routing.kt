@@ -5,10 +5,7 @@ import io.ktor.server.html.*
 import io.ktor.server.http.content.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.html.body
-import kotlinx.html.lang
-import kotlinx.html.script
-import kotlinx.html.title
+import kotlinx.html.*
 import java.io.File
 
 fun Application.configureRouting() {
@@ -28,21 +25,54 @@ fun Application.configureRouting() {
 
                 head {
                     title = "Ktor"
+
+                    reactRefreshSupport()
+                    viteClient()
+
+                    style {
+                        unsafe {
+                            +"""
+                                html, body {
+                                    height: 100%;
+                                    width: 100%;
+                                    margin: 0;
+                                }
+                            """.trimIndent()
+                        }
+                    }
                 }
 
                 body {
                     script {
-                        src = "/@vite/client"
-                        type = "module"
-                    }
-
-                    script {
                         src = "./vite-dev-app.mjs"
-                        async = true
                         type = "module"
                     }
                 }
             }
         }
+    }
+}
+
+private fun HEAD.reactRefreshSupport() {
+    script {
+        type = "module"
+
+        unsafe {
+            // language=JavaScript
+            +"""
+                import RefreshRuntime from '/@react-refresh'
+                RefreshRuntime.injectIntoGlobalHook(window)
+                window.${'$'}RefreshReg$ = () => {}
+                window.${'$'}RefreshSig$ = () => (type) => type
+                window.__vite_plugin_react_preamble_installed__ = true
+            """.trimIndent()
+        }
+    }
+}
+
+private fun HEAD.viteClient() {
+    script {
+        src = "/@vite/client"
+        type = "module"
     }
 }

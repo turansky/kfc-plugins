@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
+    jsMainImplementation(devNpm("@vitejs/plugin-react", "^4.3.4"))
     jsMainImplementation(kotlinWrappers.browser)
-    jsMainImplementation(projects.examples.viteBuild.simpleLibrary)
+    jsMainImplementation(kotlinWrappers.react)
+    jsMainImplementation(kotlinWrappers.reactDom)
 }

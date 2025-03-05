@@ -1,10 +1,18 @@
-import web.http.fetchAsync
-import web.prompts.alert
+import react.create
+import react.dom.client.createRoot
+import web.dom.document
+import web.html.HTML.div
 
-private suspend fun main() {
-    fetchAsync("/api/data").await().textAsync().then {
-        alert("Important data from server: $it")
+private fun main() {
+    val container = document.createElement(div)
+    container.style.apply {
+        width = "100%"
+        height = "100%"
+        backgroundColor = "lightgray"
     }
 
-    createView()
+    document.body.appendChild(container)
+
+    createRoot(container)
+        .render(Application.create())
 }
