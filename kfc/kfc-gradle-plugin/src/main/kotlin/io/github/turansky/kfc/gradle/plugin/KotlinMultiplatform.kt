@@ -30,7 +30,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     val kotlin = the<KotlinMultiplatformExtension>()
     kotlin.js {
-        moduleName = jsModuleName
+        outputModuleName.set(jsModuleName)
 
         // TODO: Remove
         browser {
@@ -50,7 +50,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     if (wasmJsSupported && mode.bundler == null) {
         kotlin.wasmJs {
-            moduleName = wasmJsModuleName
+            outputModuleName.set(wasmJsModuleName)
 
             browser()
         }
