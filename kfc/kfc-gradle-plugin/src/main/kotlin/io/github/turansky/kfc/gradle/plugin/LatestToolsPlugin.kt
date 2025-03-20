@@ -24,6 +24,8 @@ private class RootLatestToolsPlugin : Plugin<Project> {
 
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().apply {
+                // TODO: migrate
+                @Suppress("deprecation")
                 version = "22.14.0"
 
                 versions.apply {
