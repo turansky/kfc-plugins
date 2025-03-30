@@ -6,9 +6,9 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.getByType
-import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
@@ -28,31 +28,36 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     plugins.apply(BundlerEnvironmentPlugin::class)
 
-    val kotlin = the<KotlinMultiplatformExtension>()
-    kotlin.js {
-        outputModuleName.set(jsModuleName)
+    configure<KotlinMultiplatformExtension> {
+        compilerOptions {
+            optIn.add("kotlin.ExperimentalStdlibApi")
+        }
 
-        // TODO: Remove
-        browser {
-            webpackTask {
-                enabled = false
+        js {
+            outputModuleName.set(jsModuleName)
+
+            // TODO: Remove
+            browser {
+                webpackTask {
+                    enabled = false
+                }
+
+                runTask {
+                    enabled = false
+                }
             }
 
-            runTask {
-                enabled = false
+            if (mode.bundler != null) {
+                binaries.executable()
             }
         }
 
-        if (mode.bundler != null) {
-            binaries.executable()
-        }
-    }
+        if (wasmJsSupported && mode.bundler == null) {
+            wasmJs {
+                outputModuleName.set(wasmJsModuleName)
 
-    if (wasmJsSupported && mode.bundler == null) {
-        kotlin.wasmJs {
-            outputModuleName.set(wasmJsModuleName)
-
-            browser()
+                browser()
+            }
         }
     }
 
