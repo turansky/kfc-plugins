@@ -37,7 +37,7 @@ private class RootLatestToolsPlugin : Plugin<Project> {
 
         plugins.withType<NodeJsRootPlugin> {
             the<NodeJsRootExtension>().versions.apply {
-                webpack.version = "5.99.8"
+                webpack.version = "5.99.9"
                 webpackCli.version = "6.0.1"
                 karma.version = "6.4.4"
             }
