@@ -10,6 +10,7 @@ import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.*
 import org.gradle.plugins.signing.SigningExtension
 import org.gradle.plugins.signing.SigningPlugin
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.io.File
 
@@ -50,6 +51,11 @@ class PluginPublishPlugin : Plugin<Project> {
                     sign(publishing.publications)
                 }
             }
+        }
+
+        tasks.withType<KotlinJvmCompile> {
+            compilerOptions.apiVersion = KotlinVersion.KOTLIN_2_0
+            compilerOptions.languageVersion = KotlinVersion.KOTLIN_2_0
         }
     }
 }

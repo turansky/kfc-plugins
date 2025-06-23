@@ -79,7 +79,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
                 "-Xdont-warn-on-error-suppression",
                 "-Xgenerate-polyfills=false",
                 "-Xir-generate-inline-anonymous-functions",
-                "-Xsuppress-warning=NOTHING_TO_INLINE",
+                "-Xwarning-level=NOTHING_TO_INLINE:disabled",
             )
         }
     }
