@@ -24,7 +24,7 @@ class LatestToolsPlugin : Plugin<Project> {
 class LatestNodePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<NodeJsPlugin> {
-            the<NodeJsEnvSpec>().version.set("24.1.0")
+            the<NodeJsEnvSpec>().version.set("24.2.0")
         }
     }
 }
