@@ -5,12 +5,16 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.targets.js.NpmVersions
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.npm.LockFileMismatchReport
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmExtension
+import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.wasm.npm.WasmNpmExtension
 
 private const val YARN = "kotlin.js.yarn"
 
@@ -36,11 +40,7 @@ private class RootLatestToolsPlugin : Plugin<Project> {
         plugins.apply(LatestNodePlugin::class)
 
         plugins.withType<NodeJsRootPlugin> {
-            the<NodeJsRootExtension>().versions.apply {
-                webpack.version = "5.99.9"
-                webpackCli.version = "6.0.1"
-                karma.version = "6.4.4"
-            }
+            the<NodeJsRootExtension>().versions.configureVersions()
 
             the<NpmExtension>().apply {
                 lockFileDirectory.set(projectDir)
@@ -48,5 +48,28 @@ private class RootLatestToolsPlugin : Plugin<Project> {
                 packageLockAutoReplace.set(true)
             }
         }
+
+        plugins.withType<WasmNodeJsRootPlugin> {
+            the<WasmNodeJsRootExtension>().versions.configureVersions()
+
+            the<WasmNpmExtension>().apply {
+                lockFileDirectory.set(project.layout.buildDirectory.file("wasm-package-lock").get().asFile)
+                packageLockMismatchReport.set(LockFileMismatchReport.NONE)
+            }
+        }
     }
+}
+
+fun NpmVersions.configureVersions() {
+    // https://www.npmjs.com/package/webpack
+    webpack.version = "5.99.9"
+
+    // https://www.npmjs.com/package/webpack-cli
+    webpackCli.version = "6.0.1"
+
+    // https://www.npmjs.com/package/webpack-dev-server
+    webpackDevServer.version = "5.2.2"
+
+    // https://www.npmjs.com/package/karma
+    karma.version = "6.4.4"
 }
