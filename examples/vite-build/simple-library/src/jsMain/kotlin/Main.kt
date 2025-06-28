@@ -1,6 +1,6 @@
 import web.dom.document
-import web.html.HTML.div
-import web.html.HTML.span
+import web.html.HtmlTagName.div
+import web.html.HtmlTagName.span
 
 fun createView() {
     val container = document.createElement(div)

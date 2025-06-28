@@ -1,5 +1,5 @@
 import web.dom.document
-import web.html.HTML.div
+import web.html.HtmlTagName.div
 
 private fun main() {
     val root = document.createElement(div)
