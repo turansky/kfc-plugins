@@ -1,3 +1,6 @@
+// Copy-pasted from Kotlin repository
+//  https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/utils/processes/ExecAsyncHandle.kt
+
 package io.github.turansky.kfc.gradle.utils.processes
 
 import io.github.turansky.kfc.gradle.utils.processes.ExecAsyncHandle.Companion.execAsync
@@ -9,9 +12,6 @@ import org.gradle.process.ExecSpec
 import java.time.Duration
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.concurrent.thread
-
-// Copy-pasted from Kotlin repository
-//  https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/utils/processes/ExecAsyncHandle.kt
 
 /**
  * A handle to the process launched by [ExecOperations.execAsync].
