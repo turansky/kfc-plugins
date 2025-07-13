@@ -3,6 +3,7 @@ import react.Props
 import react.useEffectOnce
 import react.useState
 import web.http.fetch
+import web.http.text
 
 internal val Application: FC<Props> = FC {
     val (data, setData) = useState<String>()
