@@ -1,6 +1,6 @@
-package io.github.turansky.kfc.gradle.plugin.utils.processes
+package io.github.turansky.kfc.gradle.utils.processes
 
-import io.github.turansky.kfc.gradle.plugin.utils.processes.ExecAsyncHandle.Companion.execAsync
+import io.github.turansky.kfc.gradle.utils.processes.ExecAsyncHandle.Companion.execAsync
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.process.ExecOperations

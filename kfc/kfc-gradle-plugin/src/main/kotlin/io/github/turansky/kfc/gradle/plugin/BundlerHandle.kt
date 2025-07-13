@@ -1,6 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
-import io.github.turansky.kfc.gradle.plugin.utils.processes.ExecAsyncHandle
+import io.github.turansky.kfc.gradle.utils.processes.ExecAsyncHandle
 import org.gradle.deployment.internal.Deployment
 import org.gradle.deployment.internal.DeploymentHandle
 import javax.inject.Inject
