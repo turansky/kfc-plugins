@@ -1,8 +1,8 @@
 package io.github.turansky.kfc.gradle.plugin
 
-import org.gradle.process.internal.ExecHandle
+import io.github.turansky.kfc.gradle.plugin.utils.processes.ExecAsyncHandle
 
-interface BundlerRunner {
-    fun start(): ExecHandle
+internal interface BundlerRunner {
+    fun start(): ExecAsyncHandle
     fun execute()
 }

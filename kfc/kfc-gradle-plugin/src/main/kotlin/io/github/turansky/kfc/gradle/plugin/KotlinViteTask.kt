@@ -8,7 +8,6 @@ import org.gradle.api.tasks.Internal
 import org.gradle.deployment.internal.DeploymentRegistry
 import org.gradle.kotlin.dsl.property
 import org.gradle.process.ExecOperations
-import org.gradle.process.internal.ExecHandleFactory
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
@@ -24,9 +23,6 @@ abstract class KotlinViteTask :
 
     @get:Inject
     protected abstract val objectFactory: ObjectFactory
-
-    @get:Inject
-    protected abstract val execHandleFactory: ExecHandleFactory
 
     @get:Inject
     protected abstract val execOperations: ExecOperations
@@ -51,13 +47,12 @@ abstract class KotlinViteTask :
     @get:Internal
     abstract val isContinuous: Boolean
 
-    protected fun createViteRunner(
+    private fun createViteRunner(
         vararg args: String,
     ): BundlerRunner =
         KotlinViteRunner(
             npmProject = npmProject,
             args = args.toList(),
-            execHandleFactory = execHandleFactory,
             execOperations = execOperations,
         )
 

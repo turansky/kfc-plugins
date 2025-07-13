@@ -1,8 +1,8 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import io.github.turansky.kfc.gradle.plugin.utils.processes.ExecAsyncHandle
 import org.gradle.deployment.internal.Deployment
 import org.gradle.deployment.internal.DeploymentHandle
-import org.gradle.process.internal.ExecHandle
 import javax.inject.Inject
 
 internal open class BundlerHandle
@@ -10,10 +10,10 @@ internal open class BundlerHandle
     private val runner: BundlerRunner,
 ) : DeploymentHandle {
 
-    private var process: ExecHandle? = null
+    private var process: ExecAsyncHandle? = null
 
     override fun isRunning(): Boolean =
-        process != null
+        process?.isAlive() == true
 
     override fun start(deployment: Deployment) {
         process = runner.start()
