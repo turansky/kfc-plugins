@@ -52,7 +52,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             }
         }
 
-        if (wasmJsSupported && mode.bundler == null) {
+        if (kfcPlatform.wasmJs && mode.bundler == null) {
             wasmJs {
                 outputModuleName.set(wasmJsModuleName)
 

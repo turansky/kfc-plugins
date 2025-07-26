@@ -4,7 +4,7 @@ import org.gradle.api.Project
 
 private val MODULE_NAME = StringProperty("kfc.module.name")
 
-private val WASM_JS = BooleanProperty("kfc.wasmjs")
+private val PLATFORM = StringProperty("kfc.platform")
 
 internal val Project.jsModuleName: String
     get() {
@@ -17,8 +17,8 @@ internal val Project.jsModuleName: String
         }
     }
 
-internal val Project.wasmJsSupported: Boolean
-    get() = property(WASM_JS)
+internal val Project.kfcPlatform: KfcPlatform
+    get() = KfcPlatform.get(propertyOrNull(PLATFORM))
 
 internal val Project.wasmJsModuleName: String
     get() = "$jsModuleName-wasm"
