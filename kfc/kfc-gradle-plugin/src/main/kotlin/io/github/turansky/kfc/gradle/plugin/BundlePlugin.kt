@@ -9,8 +9,7 @@ import java.util.*
 
 class BundlePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        val bundler = APPLICATION.bundler
-            ?: return@with
+        val bundler = requireNotNull(APPLICATION.bundler)
 
         if (kfcPlatform.js) {
             addBundleTasks(bundler.js)

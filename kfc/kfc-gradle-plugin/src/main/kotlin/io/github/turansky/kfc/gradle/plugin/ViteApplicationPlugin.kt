@@ -1,5 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import io.github.turansky.kfc.gradle.plugin.BuildMode.APPLICATION
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -7,13 +8,26 @@ import org.gradle.kotlin.dsl.register
 
 class ViteApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        val configuration = Vite.js
+        val bundler = requireNotNull(APPLICATION.bundler)
 
+        if (kfcPlatform.js) {
+            addBundlerTasks(bundler.js)
+        }
+
+        if (kfcPlatform.wasmJs) {
+            addBundlerTasks(bundler.wasmJs)
+        }
+    }
+
+    private fun Project.addBundlerTasks(
+        configuration: BundlerConfiguration,
+    ) {
         tasks.register<KotlinVitePrepareTask>(configuration.development.prepareTask) {
             group = DEFAULT_TASK_GROUP
 
             dependsOn("jsDevelopmentExecutableCompileSync")
         }
+
         tasks.register<KotlinVitePrepareTask>(configuration.production.prepareTask) {
             group = DEFAULT_TASK_GROUP
 
