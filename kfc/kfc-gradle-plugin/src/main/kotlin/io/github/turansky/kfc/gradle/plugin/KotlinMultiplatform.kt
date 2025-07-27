@@ -33,30 +33,15 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             optIn.add("kotlin.ExperimentalStdlibApi")
         }
 
-        js {
-            outputModuleName.set(jsModuleName)
-
-            // TODO: Remove
-            browser {
-                webpackTask {
-                    enabled = false
-                }
-
-                runTask {
-                    enabled = false
-                }
-            }
-
-            if (mode.bundler != null) {
-                binaries.executable()
+        if (kfcPlatform.js) {
+            js {
+                configureJsTarget(mode, jsModuleName)
             }
         }
 
-        if (kfcPlatform.wasmJs && mode.bundler == null) {
+        if (kfcPlatform.wasmJs) {
             wasmJs {
-                outputModuleName.set(jsModuleName)
-
-                browser()
+                configureJsTarget(mode, jsModuleName)
             }
         }
     }
@@ -88,6 +73,28 @@ internal fun Project.applyKotlinMultiplatformPlugin(
                 "-Xexpect-actual-classes",
             )
         }
+    }
+}
+
+private fun KotlinJsTargetDsl.configureJsTarget(
+    mode: BuildMode,
+    moduleName: String,
+) {
+    outputModuleName.set(moduleName)
+
+    // TODO: Remove
+    browser {
+        webpackTask {
+            enabled = false
+        }
+
+        runTask {
+            enabled = false
+        }
+    }
+
+    if (mode.bundler != null) {
+        binaries.executable()
     }
 }
 
