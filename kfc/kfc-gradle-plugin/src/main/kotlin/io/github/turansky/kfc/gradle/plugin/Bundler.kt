@@ -1,22 +1,39 @@
 package io.github.turansky.kfc.gradle.plugin
 
 sealed class Bundler(
-    val productionPrepareTask: String,
-    val developmentPrepareTask: String,
-    val productionTask: String,
-    val developmentTask: String,
-    val configFile: String,
+    private val bundler: String,
 ) {
-    val runTask: String = "jsViteDev"
+    val js: BundlerConfiguration =
+        BundlerConfiguration(bundler = bundler, platform = "js")
+
+    val wasmJs: BundlerConfiguration =
+        BundlerConfiguration(bundler = bundler, platform = "wasmJs")
 }
 
-object Vite : Bundler(
-    productionPrepareTask = "jsBrowserProductionVitePrepare",
-    developmentPrepareTask = "jsBrowserDevelopmentVitePrepare",
-    productionTask = "jsBrowserProductionVite",
-    developmentTask = "jsBrowserDevelopmentVite",
+class BundlerConfiguration(
+    bundler: String,
+    platform: String,
+) {
+    val production: BundlerConfigurationTasks =
+        BundlerConfigurationTasks("${platform}BrowserProduction${bundler}")
+
+    val development: BundlerConfigurationTasks =
+        BundlerConfigurationTasks("${platform}BrowserDevelopment${bundler}")
+
+    val runTask: String = "${platform}${bundler}Dev"
+}
+
+class BundlerConfigurationTasks(
+    group: String,
+) {
+    val prepareTask = group + "Prepare"
+    val buildTask = group
+}
+
+object Vite : Bundler("vite") {
+
     // TODO: We need .mjs extension for now to enable connecting pure ESM plugins
     //  Until Kotlin isn't specifying `type: "module"` in generated `package.json`
     //   Ticket: https://youtrack.jetbrains.com/issue/KT-72680/KJS.-Specify-type-module-in-generated-package.json
-    configFile = "vite.config.mjs",
-)
+    val configFile: String = "vite.config.mjs"
+}

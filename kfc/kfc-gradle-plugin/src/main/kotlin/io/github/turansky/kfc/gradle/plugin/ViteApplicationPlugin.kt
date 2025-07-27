@@ -7,21 +7,23 @@ import org.gradle.kotlin.dsl.register
 
 class ViteApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks.register<KotlinVitePrepareTask>(Vite.developmentPrepareTask) {
+        val configuration = Vite.js
+
+        tasks.register<KotlinVitePrepareTask>(configuration.development.prepareTask) {
             group = DEFAULT_TASK_GROUP
 
             dependsOn("jsDevelopmentExecutableCompileSync")
         }
-        tasks.register<KotlinVitePrepareTask>(Vite.productionPrepareTask) {
+        tasks.register<KotlinVitePrepareTask>(configuration.production.prepareTask) {
             group = DEFAULT_TASK_GROUP
 
             dependsOn("jsProductionExecutableCompileSync")
         }
 
-        tasks.register<KotlinViteBuildTask>(Vite.productionTask) {
+        tasks.register<KotlinViteBuildTask>(configuration.production.buildTask) {
             group = DEFAULT_TASK_GROUP
 
-            dependsOn(Vite.productionPrepareTask)
+            dependsOn(configuration.production.prepareTask)
 
             mode.set(ViteMode.PRODUCTION)
             outputDirectory.convention(getProductionDistDirectory())
@@ -29,10 +31,10 @@ class ViteApplicationPlugin : Plugin<Project> {
             dependOnCompile(COMPILE_PRODUCTION)
         }
 
-        tasks.register<KotlinViteBuildTask>(Vite.developmentTask) {
+        tasks.register<KotlinViteBuildTask>(configuration.development.buildTask) {
             group = DEFAULT_TASK_GROUP
 
-            dependsOn(Vite.developmentPrepareTask)
+            dependsOn(configuration.development.prepareTask)
 
             mode.set(ViteMode.DEVELOPMENT)
             outputDirectory.convention(getDevelopmentDistDirectory())
@@ -41,13 +43,13 @@ class ViteApplicationPlugin : Plugin<Project> {
         }
 
         tasks.named("build") {
-            dependsOn(Vite.productionTask)
+            dependsOn(configuration.production.buildTask)
         }
 
-        tasks.register<KotlinViteDevTask>(Vite.runTask) {
+        tasks.register<KotlinViteDevTask>(configuration.runTask) {
             group = DEFAULT_TASK_GROUP
 
-            dependsOn(Vite.developmentPrepareTask)
+            dependsOn(configuration.development.prepareTask)
 
             mode.set(ViteMode.DEVELOPMENT)
 

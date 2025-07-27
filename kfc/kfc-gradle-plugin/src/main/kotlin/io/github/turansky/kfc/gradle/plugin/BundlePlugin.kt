@@ -9,20 +9,6 @@ import org.gradle.kotlin.dsl.registering
 
 class BundlePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        val jsBundleProduction by tasks.registering(Jar::class) {
-            group = DEFAULT_TASK_GROUP
-
-            archiveClassifier.set("js-bundle-production")
-
-            from(tasks.named(Vite.productionTask))
-        }
-
-        val jsBundleDevelopment by tasks.registering(Jar::class) {
-            group = DEFAULT_TASK_GROUP
-
-            archiveClassifier.set("js-bundle-development")
-
-            from(tasks.named(Vite.developmentTask))
-        }
+        val configuration = Vite.js
     }
 }
