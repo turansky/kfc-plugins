@@ -23,20 +23,19 @@ class BundlePlugin : Plugin<Project> {
         configuration: BundlerConfiguration,
     ) {
         val platform = configuration.platform
-        val platformId = configuration.platformId
 
-        tasks.register<Jar>("${platform}BundleProduction") {
+        tasks.register<Jar>("${platform.name}BundleProduction") {
             group = DEFAULT_TASK_GROUP
 
-            archiveClassifier.set("${platformId}-bundle-production")
+            archiveClassifier.set("${platform.id}-bundle-production")
 
             from(tasks.named(configuration.production.buildTask))
         }
 
-        tasks.register<Jar>("${platform}BundleDevelopment") {
+        tasks.register<Jar>("${platform.name}BundleDevelopment") {
             group = DEFAULT_TASK_GROUP
 
-            archiveClassifier.set("${platformId}-bundle-development")
+            archiveClassifier.set("${platform.id}-bundle-development")
 
             from(tasks.named(configuration.development.buildTask))
         }

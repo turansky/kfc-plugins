@@ -1,37 +1,32 @@
 package io.github.turansky.kfc.gradle.plugin
 
-import java.util.*
-
 sealed class Bundler(
-    private val name: String,
+    name: String,
 ) {
     val js: BundlerConfiguration =
-        BundlerConfiguration(bundler = name, platform = "js")
+        BundlerConfiguration(bundler = name, platform = JsPlatform.js)
 
     val wasmJs: BundlerConfiguration =
-        BundlerConfiguration(bundler = name, platform = "wasmJs")
+        BundlerConfiguration(bundler = name, platform = JsPlatform.wasmJs)
 }
 
 class BundlerConfiguration(
     bundler: String,
-    val platform: String,
+    val platform: JsPlatform,
 ) {
-    val platformId: String =
-        platform.lowercase(Locale.US)
-
     val production: BundlerConfigurationTasks =
         BundlerConfigurationTasks(
-            group = "${platform}BrowserProduction${bundler}",
-            compileSyncTask = "${platform}ProductionExecutableCompileSync",
+            group = "${platform.name}BrowserProduction${bundler}",
+            compileSyncTask = "${platform.name}ProductionExecutableCompileSync",
         )
 
     val development: BundlerConfigurationTasks =
         BundlerConfigurationTasks(
-            group = "${platform}BrowserDevelopment${bundler}",
-            compileSyncTask = "${platform}DevelopmentExecutableCompileSync",
+            group = "${platform.name}BrowserDevelopment${bundler}",
+            compileSyncTask = "${platform.name}DevelopmentExecutableCompileSync",
         )
 
-    val runTask: String = "${platform}${bundler}Dev"
+    val runTask: String = "${platform.name}${bundler}Dev"
 }
 
 class BundlerConfigurationTasks(
