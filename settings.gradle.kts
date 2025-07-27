@@ -57,8 +57,6 @@ include("examples:resources:app-d")
 include("examples:test-data:first")
 include("examples:test-data:second")
 
-include("examples:value-class")
-
 include("examples:vite-build:custom-config")
 include("examples:vite-build:simple-app-test")
 include("examples:vite-build:simple-library")
