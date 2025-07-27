@@ -1,13 +1,13 @@
 package io.github.turansky.kfc.gradle.plugin
 
 sealed class Bundler(
-    private val bundler: String,
+    private val name: String,
 ) {
     val js: BundlerConfiguration =
-        BundlerConfiguration(bundler = bundler, platform = "js")
+        BundlerConfiguration(bundler = name, platform = "js")
 
     val wasmJs: BundlerConfiguration =
-        BundlerConfiguration(bundler = bundler, platform = "wasmJs")
+        BundlerConfiguration(bundler = name, platform = "wasmJs")
 }
 
 class BundlerConfiguration(
@@ -30,7 +30,7 @@ class BundlerConfigurationTasks(
     val buildTask = group
 }
 
-object Vite : Bundler("vite") {
+object Vite : Bundler("Vite") {
 
     // TODO: We need .mjs extension for now to enable connecting pure ESM plugins
     //  Until Kotlin isn't specifying `type: "module"` in generated `package.json`
