@@ -15,7 +15,8 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
 
-private val VITE = NpmPackageVersion("vite", "^7.0.6")
+private val VITE = NpmPackageVersion(name = "vite", version = "^7.0.6")
+private val ROLLUP_PLUGIN_SOURCEMAPS = NpmPackageVersion(name = "rollup-plugin-sourcemaps", version = "^0.6.3")
 
 abstract class KotlinViteTask :
     DefaultTask(),
@@ -42,7 +43,7 @@ abstract class KotlinViteTask :
 
     @get:Internal
     override val requiredNpmDependencies =
-        setOf(VITE)
+        setOf(VITE, ROLLUP_PLUGIN_SOURCEMAPS)
 
     @get:Internal
     abstract val isContinuous: Boolean
