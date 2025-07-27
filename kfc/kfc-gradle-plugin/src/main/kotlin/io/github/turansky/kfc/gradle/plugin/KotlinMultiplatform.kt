@@ -41,7 +41,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
         if (kfcPlatform.wasmJs) {
             wasmJs {
-                configureJsTarget(mode, jsModuleName)
+                configureJsTarget(mode, wasmModuleName)
             }
         }
     }

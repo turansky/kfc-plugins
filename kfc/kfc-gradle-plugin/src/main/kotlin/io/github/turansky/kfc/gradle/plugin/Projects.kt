@@ -6,7 +6,7 @@ private val MODULE_NAME = StringProperty("kfc.module.name")
 
 private val PLATFORM = StringProperty("kfc.platform")
 
-internal val Project.jsModuleName: String
+private val Project.defaultModuleName: String
     get() {
         propertyOrNull(MODULE_NAME)
             ?.let { return it }
@@ -15,6 +15,26 @@ internal val Project.jsModuleName: String
             rootProject -> rootProject.name
             else -> "${rootProject.name}-$name"
         }
+    }
+
+internal fun Project.getModuleName(
+    platform: JsPlatform,
+): String =
+    when (platform) {
+        JsPlatform.js -> jsModuleName
+        JsPlatform.wasmJs -> wasmModuleName
+    }
+
+internal val Project.jsModuleName: String
+    get() = when (kfcPlatform) {
+        KfcPlatform.JS -> defaultModuleName
+        else -> "$defaultModuleName-js"
+    }
+
+internal val Project.wasmModuleName: String
+    get() = when (kfcPlatform) {
+        KfcPlatform.WASM_JS -> defaultModuleName
+        else -> "$defaultModuleName-wasm"
     }
 
 internal val Project.kfcPlatform: KfcPlatform

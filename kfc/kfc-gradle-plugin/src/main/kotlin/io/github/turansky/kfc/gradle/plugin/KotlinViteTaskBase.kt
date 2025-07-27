@@ -7,7 +7,8 @@ import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 sealed class KotlinViteTaskBase :
     DefaultTask() {
 
-    private val jsPlatform: JsPlatform by lazy {
+    @get:Internal
+    protected val jsPlatform: JsPlatform by lazy {
         JsPlatform.entries.first { name.startsWith(it.name) }
     }
 

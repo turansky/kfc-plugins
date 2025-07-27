@@ -45,7 +45,7 @@ abstract class KotlinVitePrepareTask :
             )
 
     private val entryFile: Provider<RegularFile> =
-        workingDirectory.map { it.file("kotlin/${project.jsModuleName}.mjs") }
+        workingDirectory.map { it.file("kotlin/${project.getModuleName(jsPlatform)}.mjs") }
 
     private val envVariables: ListProperty<EnvVariable> =
         objectFactory.listProperty<EnvVariable>()
