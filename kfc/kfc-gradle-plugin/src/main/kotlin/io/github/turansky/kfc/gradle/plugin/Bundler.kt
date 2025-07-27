@@ -12,7 +12,7 @@ sealed class Bundler(
 
 class BundlerConfiguration(
     bundler: String,
-    platform: String,
+    val platform: String,
 ) {
     val production: BundlerConfigurationTasks =
         BundlerConfigurationTasks("${platform}BrowserProduction${bundler}")
