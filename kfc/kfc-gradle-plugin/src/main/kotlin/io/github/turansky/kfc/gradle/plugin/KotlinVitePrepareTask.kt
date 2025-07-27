@@ -14,7 +14,7 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
 
-abstract class KotlinVitePreparationTask :
+abstract class KotlinVitePrepareTask :
     DefaultTask(),
     RequiresNpmDependencies {
 

@@ -7,12 +7,12 @@ import org.gradle.kotlin.dsl.register
 
 class ViteApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        tasks.register<KotlinVitePreparationTask>(Vite.developmentPreparationTask) {
+        tasks.register<KotlinVitePrepareTask>(Vite.developmentPrepareTask) {
             group = DEFAULT_TASK_GROUP
 
             dependsOn("jsDevelopmentExecutableCompileSync")
         }
-        tasks.register<KotlinVitePreparationTask>(Vite.productionPreparationTask) {
+        tasks.register<KotlinVitePrepareTask>(Vite.productionPrepareTask) {
             group = DEFAULT_TASK_GROUP
 
             dependsOn("jsProductionExecutableCompileSync")
@@ -21,7 +21,7 @@ class ViteApplicationPlugin : Plugin<Project> {
         tasks.register<KotlinViteBuildTask>(Vite.productionTask) {
             group = DEFAULT_TASK_GROUP
 
-            dependsOn(Vite.productionPreparationTask)
+            dependsOn(Vite.productionPrepareTask)
 
             mode.set(ViteMode.PRODUCTION)
             outputDirectory.convention(getProductionDistDirectory())
@@ -32,7 +32,7 @@ class ViteApplicationPlugin : Plugin<Project> {
         tasks.register<KotlinViteBuildTask>(Vite.developmentTask) {
             group = DEFAULT_TASK_GROUP
 
-            dependsOn(Vite.developmentPreparationTask)
+            dependsOn(Vite.developmentPrepareTask)
 
             mode.set(ViteMode.DEVELOPMENT)
             outputDirectory.convention(getDevelopmentDistDirectory())
@@ -47,7 +47,7 @@ class ViteApplicationPlugin : Plugin<Project> {
         tasks.register<KotlinViteDevTask>(Vite.runTask) {
             group = DEFAULT_TASK_GROUP
 
-            dependsOn(Vite.developmentPreparationTask)
+            dependsOn(Vite.developmentPrepareTask)
 
             mode.set(ViteMode.DEVELOPMENT)
 

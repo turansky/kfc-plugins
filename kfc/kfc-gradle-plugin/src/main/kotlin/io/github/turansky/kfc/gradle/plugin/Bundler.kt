@@ -1,8 +1,8 @@
 package io.github.turansky.kfc.gradle.plugin
 
 sealed class Bundler(
-    val productionPreparationTask: String,
-    val developmentPreparationTask: String,
+    val productionPrepareTask: String,
+    val developmentPrepareTask: String,
     val productionTask: String,
     val developmentTask: String,
     val configFile: String,
@@ -11,8 +11,8 @@ sealed class Bundler(
 }
 
 object Vite : Bundler(
-    productionPreparationTask = "jsBrowserProductionPreparationVite",
-    developmentPreparationTask = "jsBrowserDevelopmentPreparationVite",
+    productionPrepareTask = "jsBrowserProductionVitePrepare",
+    developmentPrepareTask = "jsBrowserDevelopmentVitePrepare",
     productionTask = "jsBrowserProductionVite",
     developmentTask = "jsBrowserDevelopmentVite",
     // TODO: We need .mjs extension for now to enable connecting pure ESM plugins
