@@ -1,5 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import io.github.turansky.kfc.gradle.plugin.BuildMode.APPLICATION
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.bundling.Jar
@@ -8,12 +9,15 @@ import java.util.*
 
 class BundlePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
+        val bundler = APPLICATION.bundler
+            ?: return@with
+
         if (kfcPlatform.js) {
-            addBundleTasks(Vite.js)
+            addBundleTasks(bundler.js)
         }
 
         if (kfcPlatform.wasmJs) {
-            addBundleTasks(Vite.wasmJs)
+            addBundleTasks(bundler.wasmJs)
         }
     }
 
