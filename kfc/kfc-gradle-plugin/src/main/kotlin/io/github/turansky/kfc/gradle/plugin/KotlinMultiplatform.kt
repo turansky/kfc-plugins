@@ -98,8 +98,10 @@ private fun KotlinJsTargetDsl.configureJsTarget(
     }
 }
 
-internal fun Project.kotlinJsMainCompilation(): KotlinJsIrCompilation {
+internal fun Project.kotlinMainCompilation(
+    platform: JsPlatform,
+): KotlinJsIrCompilation {
     val kotlin = extensions.getByType<KotlinMultiplatformExtension>()
-    val target = kotlin.targets.getByName("js", KotlinJsTargetDsl::class)
+    val target = kotlin.targets.getByName(platform.name, KotlinJsTargetDsl::class)
     return target.compilations.getByName(KotlinCompilation.MAIN_COMPILATION_NAME)
 }

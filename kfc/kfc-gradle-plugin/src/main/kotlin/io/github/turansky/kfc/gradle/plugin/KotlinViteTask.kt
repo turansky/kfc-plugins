@@ -1,6 +1,5 @@
 package io.github.turansky.kfc.gradle.plugin
 
-import org.gradle.api.DefaultTask
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
@@ -9,8 +8,6 @@ import org.gradle.deployment.internal.DeploymentRegistry
 import org.gradle.kotlin.dsl.property
 import org.gradle.process.ExecOperations
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
-import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
-import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
@@ -22,7 +19,7 @@ private val VITE = NpmPackageVersion(name = "vite", version = "^7.0.6")
 private val ROLLUP_PLUGIN_SOURCEMAPS = NpmPackageVersion(name = "rollup-plugin-sourcemaps", version = "^0.6.3")
 
 abstract class KotlinViteTask :
-    DefaultTask(),
+    KotlinViteTaskBase(),
     RequiresNpmDependencies {
 
     @get:Inject
@@ -30,14 +27,6 @@ abstract class KotlinViteTask :
 
     @get:Inject
     protected abstract val execOperations: ExecOperations
-
-    @Internal
-    @Transient
-    final override val compilation: KotlinJsIrCompilation =
-        project.kotlinJsMainCompilation()
-
-    private val npmProject: NpmProject =
-        compilation.npmProject
 
     @Input
     val mode: Property<ViteMode> =
@@ -55,7 +44,7 @@ abstract class KotlinViteTask :
         vararg args: String,
     ): BundlerRunner =
         KotlinViteRunner(
-            npmProject = npmProject,
+            npmProject = compilation.npmProject,
             args = args.toList(),
             execOperations = execOperations,
         )
