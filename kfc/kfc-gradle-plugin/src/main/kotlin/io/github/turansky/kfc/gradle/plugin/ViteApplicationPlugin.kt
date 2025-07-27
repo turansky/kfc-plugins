@@ -25,13 +25,13 @@ class ViteApplicationPlugin : Plugin<Project> {
         tasks.register<KotlinVitePrepareTask>(configuration.development.prepareTask) {
             group = DEFAULT_TASK_GROUP
 
-            dependsOn("jsDevelopmentExecutableCompileSync")
+            dependsOn(configuration.development.compileSyncTask)
         }
 
         tasks.register<KotlinVitePrepareTask>(configuration.production.prepareTask) {
             group = DEFAULT_TASK_GROUP
 
-            dependsOn("jsProductionExecutableCompileSync")
+            dependsOn(configuration.production.compileSyncTask)
         }
 
         tasks.register<KotlinViteBuildTask>(configuration.production.buildTask) {

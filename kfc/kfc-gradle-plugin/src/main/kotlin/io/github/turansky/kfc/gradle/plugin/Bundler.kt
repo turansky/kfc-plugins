@@ -15,16 +15,23 @@ class BundlerConfiguration(
     val platform: String,
 ) {
     val production: BundlerConfigurationTasks =
-        BundlerConfigurationTasks("${platform}BrowserProduction${bundler}")
+        BundlerConfigurationTasks(
+            group = "${platform}BrowserProduction${bundler}",
+            compileSyncTask = "${platform}ProductionExecutableCompileSync",
+        )
 
     val development: BundlerConfigurationTasks =
-        BundlerConfigurationTasks("${platform}BrowserDevelopment${bundler}")
+        BundlerConfigurationTasks(
+            group = "${platform}BrowserDevelopment${bundler}",
+            compileSyncTask = "${platform}DevelopmentExecutableCompileSync",
+        )
 
     val runTask: String = "${platform}${bundler}Dev"
 }
 
 class BundlerConfigurationTasks(
     group: String,
+    val compileSyncTask: String,
 ) {
     val prepareTask = group + "Prepare"
     val buildTask = group
