@@ -20,9 +20,6 @@ internal val Project.jsModuleName: String
 internal val Project.kfcPlatform: KfcPlatform
     get() = KfcPlatform.get(propertyOrNull(PLATFORM))
 
-internal val Project.wasmJsModuleName: String
-    get() = "$jsModuleName-wasm"
-
 internal fun Project.ext(
     propertyName: String,
     value: Boolean,

@@ -54,7 +54,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
         if (kfcPlatform.wasmJs && mode.bundler == null) {
             wasmJs {
-                outputModuleName.set(wasmJsModuleName)
+                outputModuleName.set(jsModuleName)
 
                 browser()
             }
