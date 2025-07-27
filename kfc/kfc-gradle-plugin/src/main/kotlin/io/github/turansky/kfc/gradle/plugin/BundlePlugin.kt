@@ -5,7 +5,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.register
-import java.util.*
 
 class BundlePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -24,7 +23,7 @@ class BundlePlugin : Plugin<Project> {
         configuration: BundlerConfiguration,
     ) {
         val platform = configuration.platform
-        val platformId = platform.lowercase(Locale.US)
+        val platformId = configuration.platformId
 
         tasks.register<Jar>("${platform}BundleProduction") {
             group = DEFAULT_TASK_GROUP

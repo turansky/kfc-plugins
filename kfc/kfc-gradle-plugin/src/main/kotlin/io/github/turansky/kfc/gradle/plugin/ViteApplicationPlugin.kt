@@ -40,7 +40,7 @@ class ViteApplicationPlugin : Plugin<Project> {
             dependsOn(configuration.production.prepareTask)
 
             mode.set(ViteMode.PRODUCTION)
-            outputDirectory.convention(getProductionDistDirectory())
+            outputDirectory.convention(getProductionDistDirectory(configuration.platformId))
 
             dependOnCompile(COMPILE_PRODUCTION)
         }
@@ -51,7 +51,7 @@ class ViteApplicationPlugin : Plugin<Project> {
             dependsOn(configuration.development.prepareTask)
 
             mode.set(ViteMode.DEVELOPMENT)
-            outputDirectory.convention(getDevelopmentDistDirectory())
+            outputDirectory.convention(getDevelopmentDistDirectory(configuration.platformId))
 
             dependOnCompile(COMPILE_DEVELOPMENT)
         }

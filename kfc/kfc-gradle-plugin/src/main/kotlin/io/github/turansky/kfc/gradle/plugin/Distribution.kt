@@ -4,8 +4,12 @@ import org.gradle.api.Project
 import org.gradle.api.file.Directory
 import org.gradle.api.provider.Provider
 
-internal fun Project.getProductionDistDirectory(): Provider<Directory> =
-    layout.buildDirectory.dir("dist/production")
+internal fun Project.getProductionDistDirectory(
+    platformId: String,
+): Provider<Directory> =
+    layout.buildDirectory.dir("dist/$platformId/production")
 
-internal fun Project.getDevelopmentDistDirectory(): Provider<Directory> =
-    layout.buildDirectory.dir("dist/development")
+internal fun Project.getDevelopmentDistDirectory(
+    platformId: String,
+): Provider<Directory> =
+    layout.buildDirectory.dir("dist/$platformId/development")

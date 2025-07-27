@@ -1,5 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import java.util.*
+
 sealed class Bundler(
     private val name: String,
 ) {
@@ -14,6 +16,9 @@ class BundlerConfiguration(
     bundler: String,
     val platform: String,
 ) {
+    val platformId: String =
+        platform.lowercase(Locale.US)
+
     val production: BundlerConfigurationTasks =
         BundlerConfigurationTasks(
             group = "${platform}BrowserProduction${bundler}",
