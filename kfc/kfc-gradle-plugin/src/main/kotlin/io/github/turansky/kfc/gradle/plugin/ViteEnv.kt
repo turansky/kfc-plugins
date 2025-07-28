@@ -7,13 +7,11 @@ import org.gradle.api.Task
 import org.gradle.api.file.RegularFile
 import java.io.File
 
-private const val DOT_ENV = ".env"
-
 internal fun Task.viteEnv(
     variables: List<EnvVariable>,
     entryFile: RegularFile,
 ): File {
-    val file = temporaryDir.resolve(DOT_ENV)
+    val file = temporaryDir.resolve(DOT_ENV_LOCAL)
     file.writeText(getViteEnv(variables, entryFile))
     return file
 }
