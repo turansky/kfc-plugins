@@ -12,9 +12,13 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.npm.LockFileMismatchReport
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmExtension
+import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsEnvSpec
+import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsPlugin
 import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.wasm.npm.WasmNpmExtension
+
+private const val NODE_VERSION = "24.4.1"
 
 private const val YARN = "kotlin.js.yarn"
 
@@ -28,7 +32,11 @@ class LatestToolsPlugin : Plugin<Project> {
 class LatestNodePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<NodeJsPlugin> {
-            the<NodeJsEnvSpec>().version.set("24.4.1")
+            the<NodeJsEnvSpec>().version.set(NODE_VERSION)
+        }
+
+        plugins.withType<WasmNodeJsPlugin> {
+            the<WasmNodeJsEnvSpec>().version.set(NODE_VERSION)
         }
     }
 }
