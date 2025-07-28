@@ -4,17 +4,13 @@ import org.gradle.api.file.*
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.listProperty
-import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
-import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
 
 abstract class KotlinVitePrepareTask :
-    KotlinViteTaskBase(),
-    RequiresNpmDependencies {
+    KotlinViteTaskBase() {
 
     @get:Inject
     protected abstract val objectFactory: ObjectFactory
@@ -54,10 +50,6 @@ abstract class KotlinVitePrepareTask :
     private val envFile: RegularFileProperty
         get() = objectFactory.fileProperty()
             .convention { viteEnv(envVariables.get(), entryFile.get()) }
-
-    @get:Internal
-    override val requiredNpmDependencies =
-        emptySet<NpmPackageVersion>()
 
     @TaskAction
     protected fun copy() {
