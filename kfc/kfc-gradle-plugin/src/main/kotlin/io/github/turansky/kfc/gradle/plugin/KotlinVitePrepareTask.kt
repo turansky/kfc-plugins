@@ -9,6 +9,12 @@ import org.gradle.kotlin.dsl.listProperty
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
 
+private val DOT_ENV_FILES = setOf(
+    DOT_ENV,
+    DOT_ENV_PRODUCTION,
+    DOT_ENV_DEVELOPMENT,
+)
+
 abstract class KotlinVitePrepareTask :
     KotlinViteTaskBase() {
 
@@ -55,5 +61,19 @@ abstract class KotlinVitePrepareTask :
     protected fun copy() {
         fs.copyIfChanged(configFile, workingDirectory)
         fs.copyIfChanged(envFile, workingDirectory)
+
+        for (fileName in DOT_ENV_FILES) {
+            val file = project.layout.projectDirectory.file(fileName).asFile
+            if (file.isFile) {
+                fs.copy {
+                    from(file)
+                    into(workingDirectory)
+                }
+            } else {
+                fs.delete {
+                    delete(workingDirectory.map { it.file(fileName) })
+                }
+            }
+        }
     }
 }
