@@ -1,6 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.file.*
+import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskAction
@@ -18,14 +19,13 @@ abstract class KotlinVitePrepareTask :
     KotlinViteTaskBase() {
 
     @get:Inject
+    protected abstract val objectFactory: ObjectFactory
+
+    @get:Inject
     protected abstract val fs: FileSystemOperations
 
     @get:Inject
     protected abstract val layout: ProjectLayout
-
-    private val projectDir: DirectoryProperty
-        get() = objectFactory.directoryProperty()
-            .convention(layout.projectDirectory)
 
     private val workingDirectory: Provider<Directory> =
         compilation.npmProject.dir
@@ -36,7 +36,7 @@ abstract class KotlinVitePrepareTask :
 
     private val customConfigFile: RegularFileProperty =
         objectFactory.fileProperty()
-            .convention(projectDir.file(Vite.configFile))
+            .convention(layout.projectDirectory.file(Vite.configFile))
 
     private val configFile: RegularFileProperty
         get() = objectFactory.fileProperty()
@@ -60,10 +60,20 @@ abstract class KotlinVitePrepareTask :
     @TaskAction
     protected fun copy() {
         fs.copyIfChanged(configFile, workingDirectory)
+        fs.copyIfChanged(envFile, workingDirectory)
 
         for (fileName in DOT_ENV_FILES) {
-            val file = projectDir.file(fileName)
-            fs.copyIfChanged(file, workingDirectory)
+            val file = project.layout.projectDirectory.file(fileName).asFile
+            if (file.isFile) {
+                fs.copy {
+                    from(file)
+                    into(workingDirectory)
+                }
+            } else {
+                fs.delete {
+                    delete(workingDirectory.map { it.file(fileName) })
+                }
+            }
         }
     }
 }
