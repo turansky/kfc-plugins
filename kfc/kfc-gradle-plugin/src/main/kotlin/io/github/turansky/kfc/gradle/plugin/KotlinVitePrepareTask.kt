@@ -27,6 +27,10 @@ abstract class KotlinVitePrepareTask :
     @get:Inject
     protected abstract val layout: ProjectLayout
 
+    private val projectDir: DirectoryProperty
+        get() = objectFactory.directoryProperty()
+            .convention(layout.projectDirectory)
+
     private val workingDirectory: Provider<Directory> =
         compilation.npmProject.dir
 
@@ -36,7 +40,7 @@ abstract class KotlinVitePrepareTask :
 
     private val customConfigFile: RegularFileProperty =
         objectFactory.fileProperty()
-            .convention(layout.projectDirectory.file(Vite.configFile))
+            .convention(projectDir.file(Vite.configFile))
 
     private val configFile: RegularFileProperty
         get() = objectFactory.fileProperty()
@@ -63,12 +67,10 @@ abstract class KotlinVitePrepareTask :
         fs.copyIfChanged(envFile, workingDirectory)
 
         for (fileName in DOT_ENV_FILES) {
-            val file = project.layout.projectDirectory.file(fileName).asFile
-            if (file.isFile) {
-                fs.copy {
-                    from(file)
-                    into(workingDirectory)
-                }
+            val file = projectDir.file(fileName)
+
+            if (file.get().asFile.isFile) {
+                fs.copyIfChanged(file, workingDirectory)
             } else {
                 fs.delete {
                     delete(workingDirectory.map { it.file(fileName) })
