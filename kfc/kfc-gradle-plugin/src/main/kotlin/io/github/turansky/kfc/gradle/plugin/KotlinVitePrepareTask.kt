@@ -6,7 +6,6 @@ import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.listProperty
-import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
 
 private val DOT_ENV_FILES = setOf(
@@ -32,7 +31,7 @@ abstract class KotlinVitePrepareTask :
             .convention(layout.projectDirectory)
 
     private val workingDirectory: Provider<Directory> =
-        compilation.npmProject.dir
+        npmProject.dir
 
     private val defaultConfigFile: RegularFileProperty =
         objectFactory.fileProperty()

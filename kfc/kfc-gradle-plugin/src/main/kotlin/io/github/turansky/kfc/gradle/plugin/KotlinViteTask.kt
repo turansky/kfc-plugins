@@ -9,7 +9,6 @@ import org.gradle.kotlin.dsl.property
 import org.gradle.process.ExecOperations
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
 import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
-import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
 import javax.inject.Inject
 
 // https://www.npmjs.com/package/vite
@@ -44,7 +43,7 @@ abstract class KotlinViteTask :
         vararg args: String,
     ): BundlerRunner =
         KotlinViteRunner(
-            npmProject = compilation.npmProject,
+            npmProject = npmProject,
             args = args.toList(),
             execOperations = execOperations,
         )
