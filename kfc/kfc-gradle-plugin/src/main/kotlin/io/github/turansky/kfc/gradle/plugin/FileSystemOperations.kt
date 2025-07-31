@@ -6,17 +6,26 @@ import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
 
 // WA for https://github.com/gradle/gradle/issues/1643
-fun FileSystemOperations.copyIfChanged(
-    file: Provider<RegularFile>,
-    destination: Provider<Directory>,
+fun FileSystemOperations.syncFile(
+    source: Provider<RegularFile>,
+    target: Provider<Directory>,
+    deleteTargetIfNoSource: Boolean = false,
 ) {
-    val original = file.get().asFile
-    val copy = destination.get().file(original.name).asFile
+    val original = source.get().asFile
+    val copy = target.get().file(original.name).asFile
 
-    if (!copy.exists() || copy.readText() != original.readText()) {
-        copy {
-            from(original)
-            into(destination)
+    if (!original.exists()) {
+        if (deleteTargetIfNoSource) {
+            delete {
+                delete(copy)
+            }
+        }
+    } else {
+        if (!copy.exists() || copy.readText() != original.readText()) {
+            copy {
+                from(original)
+                into(target)
+            }
         }
     }
 }

@@ -61,20 +61,16 @@ abstract class KotlinVitePrepareTask :
             .convention { viteEnv(envVariables.get(), entryFile.get()) }
 
     @TaskAction
-    protected fun copy() {
-        fs.copyIfChanged(configFile, workingDirectory)
-        fs.copyIfChanged(envFile, workingDirectory)
+    protected fun sync() {
+        fs.syncFile(configFile, workingDirectory)
+        fs.syncFile(envFile, workingDirectory)
 
         for (fileName in DOT_ENV_FILES) {
-            val file = projectDir.file(fileName)
-
-            if (file.get().asFile.isFile) {
-                fs.copyIfChanged(file, workingDirectory)
-            } else {
-                fs.delete {
-                    delete(workingDirectory.map { it.file(fileName) })
-                }
-            }
+            fs.syncFile(
+                source = projectDir.file(fileName),
+                target = workingDirectory,
+                deleteTargetIfNoSource = true,
+            )
         }
     }
 }
