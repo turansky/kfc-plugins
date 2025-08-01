@@ -8,23 +8,23 @@ import org.gradle.api.provider.Provider
 // WA for https://github.com/gradle/gradle/issues/1643
 fun FileSystemOperations.syncFile(
     source: Provider<RegularFile>,
-    target: Provider<Directory>,
+    destination: Provider<Directory>,
     strategy: SyncFileStrategy = SyncFileStrategy.PRESERVE_TARGET,
 ) {
     val original = source.get().asFile
-    val copy = target.get().file(original.name).asFile
+    val target = destination.get().file(original.name).asFile
 
     if (!original.exists()) {
         if (strategy == SyncFileStrategy.DELETE_TARGET) {
             delete {
-                delete(copy)
+                delete(target)
             }
         }
     } else {
-        if (!copy.exists() || copy.readText() != original.readText()) {
+        if (!target.exists() || target.readText() != original.readText()) {
             copy {
                 from(original)
-                into(target)
+                into(destination)
             }
         }
     }

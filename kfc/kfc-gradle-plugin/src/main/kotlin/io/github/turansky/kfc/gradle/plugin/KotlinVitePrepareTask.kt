@@ -68,7 +68,7 @@ abstract class KotlinVitePrepareTask :
         for (fileName in DOT_ENV_FILES) {
             fs.syncFile(
                 source = projectDir.file(fileName),
-                target = workingDirectory,
+                destination = workingDirectory,
                 strategy = SyncFileStrategy.DELETE_TARGET,
             )
         }
