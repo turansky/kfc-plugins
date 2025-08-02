@@ -4,6 +4,7 @@ import org.gradle.api.file.Directory
 import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
+import java.io.File
 
 // WA for https://github.com/gradle/gradle/issues/1643
 fun FileSystemOperations.syncFile(
@@ -25,7 +26,7 @@ fun FileSystemOperations.syncFile(
         "Unable to sync unexisted file: `$sourceFile`"
     }
 
-    if (targetFile.exists() && targetFile.readText() == sourceFile.readText()) {
+    if (targetFile.exists() && hasEqualContent(sourceFile, targetFile)) {
         return
     }
 
@@ -33,6 +34,14 @@ fun FileSystemOperations.syncFile(
         from(sourceFile)
         into(destination)
     }
+}
+
+private fun hasEqualContent(
+    fileA: File,
+    fileB: File,
+): Boolean {
+    return fileA.readBytes()
+        .contentEquals(fileB.readBytes())
 }
 
 enum class SyncFileStrategy {
