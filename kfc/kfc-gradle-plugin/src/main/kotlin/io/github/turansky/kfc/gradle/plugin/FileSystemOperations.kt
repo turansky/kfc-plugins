@@ -14,19 +14,24 @@ fun FileSystemOperations.syncFile(
     val sourceFile = source.get().asFile
     val targetFile = destination.get().file(sourceFile.name).asFile
 
-    if (!sourceFile.exists()) {
-        if (strategy == SyncFileStrategy.OPTIONAL_SOURCE) {
-            delete {
-                delete(targetFile)
-            }
+    if (strategy == SyncFileStrategy.OPTIONAL_SOURCE && sourceFile.exists()) {
+        delete {
+            delete(targetFile)
         }
-    } else {
-        if (!targetFile.exists() || targetFile.readText() != sourceFile.readText()) {
-            copy {
-                from(sourceFile)
-                into(destination)
-            }
-        }
+        return
+    }
+
+    require(sourceFile.exists()) {
+        "Unable to sync unexisted file: `$sourceFile`"
+    }
+
+    if (targetFile.exists() && targetFile.readText() == sourceFile.readText()) {
+        return
+    }
+
+    copy {
+        from(sourceFile)
+        into(destination)
     }
 }
 
