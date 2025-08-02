@@ -14,7 +14,7 @@ fun FileSystemOperations.syncFile(
     val sourceFile = source.get().asFile
     val targetFile = destination.get().file(sourceFile.name).asFile
 
-    if (strategy == SyncFileStrategy.OPTIONAL_SOURCE && sourceFile.exists()) {
+    if (strategy == SyncFileStrategy.OPTIONAL_SOURCE && !sourceFile.exists()) {
         delete {
             delete(targetFile)
         }
