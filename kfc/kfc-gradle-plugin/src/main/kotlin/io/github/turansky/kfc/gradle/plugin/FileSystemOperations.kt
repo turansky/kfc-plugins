@@ -9,13 +9,13 @@ import org.gradle.api.provider.Provider
 fun FileSystemOperations.syncFile(
     source: Provider<RegularFile>,
     destination: Provider<Directory>,
-    strategy: SyncFileStrategy = SyncFileStrategy.PRESERVE_TARGET,
+    strategy: SyncFileStrategy = SyncFileStrategy.REQUIRED_SOURCE,
 ) {
     val original = source.get().asFile
     val target = destination.get().file(original.name).asFile
 
     if (!original.exists()) {
-        if (strategy == SyncFileStrategy.DELETE_TARGET) {
+        if (strategy == SyncFileStrategy.OPTIONAL_SOURCE) {
             delete {
                 delete(target)
             }
@@ -31,6 +31,8 @@ fun FileSystemOperations.syncFile(
 }
 
 enum class SyncFileStrategy {
-    PRESERVE_TARGET,
-    DELETE_TARGET
+    REQUIRED_SOURCE,
+    OPTIONAL_SOURCE,
+
+    ;
 }

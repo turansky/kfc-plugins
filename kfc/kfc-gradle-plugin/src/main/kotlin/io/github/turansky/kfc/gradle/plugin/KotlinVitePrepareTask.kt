@@ -69,7 +69,7 @@ abstract class KotlinVitePrepareTask :
             fs.syncFile(
                 source = projectDir.file(fileName),
                 destination = workingDirectory,
-                strategy = SyncFileStrategy.DELETE_TARGET,
+                strategy = SyncFileStrategy.OPTIONAL_SOURCE,
             )
         }
     }
