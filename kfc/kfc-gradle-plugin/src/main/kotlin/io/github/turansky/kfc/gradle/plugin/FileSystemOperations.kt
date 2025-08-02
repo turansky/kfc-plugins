@@ -11,19 +11,19 @@ fun FileSystemOperations.syncFile(
     destination: Provider<Directory>,
     strategy: SyncFileStrategy = SyncFileStrategy.REQUIRED_SOURCE,
 ) {
-    val original = source.get().asFile
-    val target = destination.get().file(original.name).asFile
+    val sourceFile = source.get().asFile
+    val targetFile = destination.get().file(sourceFile.name).asFile
 
-    if (!original.exists()) {
+    if (!sourceFile.exists()) {
         if (strategy == SyncFileStrategy.OPTIONAL_SOURCE) {
             delete {
-                delete(target)
+                delete(targetFile)
             }
         }
     } else {
-        if (!target.exists() || target.readText() != original.readText()) {
+        if (!targetFile.exists() || targetFile.readText() != sourceFile.readText()) {
             copy {
-                from(original)
+                from(sourceFile)
                 into(destination)
             }
         }
