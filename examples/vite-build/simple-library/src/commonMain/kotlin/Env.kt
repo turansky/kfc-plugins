@@ -1,5 +1,8 @@
 @file:JsQualifier("import.meta.env")
 
+import kotlin.js.JsName
+import kotlin.js.JsQualifier
+
 @JsName("VITE_BUILD_NAME")
 external val BUILD_NAME: String
 
