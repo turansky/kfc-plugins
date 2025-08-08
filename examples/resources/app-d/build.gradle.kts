@@ -9,7 +9,7 @@ dependencies {
     commonMainImplementation(projects.examples.resources.libB)
     commonMainImplementation(projects.examples.resources.libC)
 
-    jsTestImplementation(libs.kotlin.testJs)
-    jsTestImplementation(libs.coroutines.core)
-    jsTestImplementation(libs.coroutines.test)
+    commonTestImplementation(libs.kotlin.test)
+    commonTestImplementation(libs.coroutines.core)
+    commonTestImplementation(libs.coroutines.test)
 }
