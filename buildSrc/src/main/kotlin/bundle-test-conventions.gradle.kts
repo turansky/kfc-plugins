@@ -3,7 +3,8 @@ val jsTestBundle = configurations.create("jsTestBundle")
 val unpackBundle by tasks.registering(Sync::class) {
     val bundleProjects = jsTestBundle
         .allDependencies
-        .mapNotNull { project.rootProject.allprojects.find { project -> it.name == project.name } }
+        .map { it as ProjectDependency }
+        .map { project(it.path) }
 
     for (bundleProject in bundleProjects) {
         val bundleTask = bundleProject.tasks.named<Jar>("jsBundleProduction")
