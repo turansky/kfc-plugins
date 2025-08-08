@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(npmv("@preact/signals-core"))
+    commonMainImplementation(npmv("@preact/signals-core"))
 }

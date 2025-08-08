@@ -3,11 +3,11 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(kotlinWrappers.js)
+    commonMainImplementation(kotlinWrappers.js)
 
-    jsMainImplementation(projects.examples.resources.libA)
-    jsMainImplementation(projects.examples.resources.libB)
-    jsMainImplementation(projects.examples.resources.libC)
+    commonMainImplementation(projects.examples.resources.libA)
+    commonMainImplementation(projects.examples.resources.libB)
+    commonMainImplementation(projects.examples.resources.libC)
 
     jsTestImplementation(libs.kotlin.testJs)
     jsTestImplementation(libs.coroutines.core)

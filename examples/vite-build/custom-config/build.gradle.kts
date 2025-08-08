@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(kotlinWrappers.browser)
-    jsMainImplementation(projects.examples.viteBuild.simpleLibrary)
+    commonMainImplementation(kotlinWrappers.browser)
+    commonMainImplementation(projects.examples.viteBuild.simpleLibrary)
 }
