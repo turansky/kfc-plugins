@@ -75,7 +75,7 @@ gradlePlugin {
     vcsUrl = REPO_URL
 
     plugins {
-        for (kfcPlugin in KfcPlugin.values()) {
+        for (kfcPlugin in KfcPlugin.entries) {
             create(kfcPlugin.pluginName) {
                 id = kfcPlugin.id
                 displayName = kfcPlugin.displayName
