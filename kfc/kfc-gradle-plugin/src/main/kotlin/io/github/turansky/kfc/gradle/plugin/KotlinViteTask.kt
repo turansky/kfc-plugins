@@ -12,7 +12,7 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import javax.inject.Inject
 
 // https://www.npmjs.com/package/vite
-private val VITE = NpmPackageVersion(name = "vite", version = "^7.1.0")
+private val VITE = NpmPackageVersion(name = "vite", version = "^7.1.2")
 
 // https://www.npmjs.com/package/rollup-plugin-sourcemaps
 private val ROLLUP_PLUGIN_SOURCEMAPS = NpmPackageVersion(name = "rollup-plugin-sourcemaps", version = "^0.6.3")
