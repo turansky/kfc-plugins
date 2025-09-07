@@ -6,8 +6,6 @@ import org.gradle.process.ExecOperations
 import org.gradle.process.ExecSpec
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
 
-private const val VITE_BIN = "vite/bin/vite.js"
-
 internal data class SimpleBundlerRunner(
     private val configuration: BundlerRunConfiguration,
 ) : BundlerRunner {
@@ -18,8 +16,11 @@ internal data class SimpleBundlerRunner(
     private val execOperations: ExecOperations
         get() = configuration.execOperations
 
+    private val bundler: Bundler
+        get() = configuration.bundler
+
     override fun start(): ExecAsyncHandle {
-        return execOperations.execAsync("vite") { execSpec ->
+        return execOperations.execAsync(bundler.toolName) { execSpec ->
             configureExec(execSpec)
         }.start()
     }
@@ -35,7 +36,7 @@ internal data class SimpleBundlerRunner(
     ) {
         npmProject.useTool(
             exec = execFactory,
-            tool = VITE_BIN,
+            tool = bundler.bin,
             args = configuration.args,
         )
     }

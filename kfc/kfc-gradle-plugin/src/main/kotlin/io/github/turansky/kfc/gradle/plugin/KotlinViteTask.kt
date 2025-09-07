@@ -58,6 +58,7 @@ abstract class KotlinViteTask :
         val configuration = BundlerRunConfiguration(
             npmProject = npmProject,
             execOperations = execOperations,
+            bundler = Vite,
             args = args.toList(),
         )
 
