@@ -39,15 +39,6 @@ abstract class KotlinViteTask :
     @get:Internal
     abstract val isContinuous: Boolean
 
-    private fun createViteRunner(
-        vararg args: String,
-    ): BundlerRunner =
-        SimpleBundlerRunner(
-            npmProject = npmProject,
-            execOperations = execOperations,
-            args = args.toList(),
-        )
-
     private fun startNonBlockingViteRunner(runner: BundlerRunner) {
         val deploymentRegistry = services.get(DeploymentRegistry::class.java)
         val deploymentHandle = deploymentRegistry.get(VITE.name, BundlerHandle::class.java)
@@ -64,7 +55,13 @@ abstract class KotlinViteTask :
     protected fun vite(
         vararg args: String,
     ) {
-        val runner = createViteRunner(args = args)
+        val configuration = BundlerRunConfiguration(
+            npmProject = npmProject,
+            execOperations = execOperations,
+            args = args.toList(),
+        )
+
+        val runner = SimpleBundlerRunner(configuration)
 
         if (isContinuous) {
             startNonBlockingViteRunner(runner)
