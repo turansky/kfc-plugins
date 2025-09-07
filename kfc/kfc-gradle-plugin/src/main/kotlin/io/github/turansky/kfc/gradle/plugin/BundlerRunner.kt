@@ -4,5 +4,4 @@ import io.github.turansky.kfc.gradle.utils.processes.ExecAsyncHandle
 
 internal interface BundlerRunner {
     fun start(): ExecAsyncHandle
-    fun execute()
 }

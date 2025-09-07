@@ -4,7 +4,6 @@ import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
-import org.gradle.deployment.internal.DeploymentRegistry
 import org.gradle.kotlin.dsl.property
 import org.gradle.process.ExecOperations
 import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
@@ -39,35 +38,18 @@ abstract class KotlinViteTask :
     @get:Internal
     abstract val isContinuous: Boolean
 
-    private fun startNonBlockingViteRunner(runner: BundlerRunner) {
-        val deploymentRegistry = services.get(DeploymentRegistry::class.java)
-        val deploymentHandle = deploymentRegistry.get(VITE.name, BundlerHandle::class.java)
-        if (deploymentHandle == null) {
-            deploymentRegistry.start(
-                VITE.name,
-                DeploymentRegistry.ChangeBehavior.BLOCK,
-                BundlerHandle::class.java,
-                runner,
-            )
-        }
-    }
-
     protected fun vite(
         vararg args: String,
     ) {
         val configuration = BundlerRunConfiguration(
             npmProject = npmProject,
             execOperations = execOperations,
+            services = services,
             bundler = Vite,
             args = args.toList(),
+            continuous = isContinuous,
         )
 
-        val runner = SimpleBundlerRunner(configuration)
-
-        if (isContinuous) {
-            startNonBlockingViteRunner(runner)
-        } else {
-            runner.execute()
-        }
+        SimpleBundlerRunner(configuration).run()
     }
 }
