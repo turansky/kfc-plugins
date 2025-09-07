@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
 
 private const val VITE_BIN = "vite/bin/vite.js"
 
-internal data class KotlinViteRunner(
+internal data class SimpleBundlerRunner(
     val npmProject: NpmProject,
     val execOperations: ExecOperations,
     val args: List<String>,

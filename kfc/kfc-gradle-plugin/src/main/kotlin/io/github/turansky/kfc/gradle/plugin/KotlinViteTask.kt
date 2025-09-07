@@ -42,10 +42,10 @@ abstract class KotlinViteTask :
     private fun createViteRunner(
         vararg args: String,
     ): BundlerRunner =
-        KotlinViteRunner(
+        SimpleBundlerRunner(
             npmProject = npmProject,
-            args = args.toList(),
             execOperations = execOperations,
+            args = args.toList(),
         )
 
     private fun startNonBlockingViteRunner(runner: BundlerRunner) {
