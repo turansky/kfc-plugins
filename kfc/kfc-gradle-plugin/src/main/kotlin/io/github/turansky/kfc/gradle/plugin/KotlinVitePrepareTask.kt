@@ -39,7 +39,7 @@ abstract class KotlinVitePrepareTask :
 
     private val customConfigFile: RegularFileProperty =
         objectFactory.fileProperty()
-            .convention(projectDir.file(Vite.configFile))
+            .convention(projectDir.file(Vite.CONFIG_FILE))
 
     private val configFile: RegularFileProperty
         get() = objectFactory.fileProperty()

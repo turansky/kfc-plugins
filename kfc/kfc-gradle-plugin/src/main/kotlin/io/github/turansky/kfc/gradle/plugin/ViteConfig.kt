@@ -32,7 +32,7 @@ export default defineConfig(({mode}) => {
 """.trimIndent()
 
 fun Task.defaultViteConfig(): File {
-    val file = temporaryDir.resolve(Vite.configFile)
+    val file = temporaryDir.resolve(Vite.CONFIG_FILE)
     file.writeText(DEFAULT_VITE_CONFIG)
     return file
 }
