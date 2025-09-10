@@ -56,6 +56,8 @@ internal data class SimpleBundlerRunner(
     private fun configureExec(
         execFactory: ExecSpec,
     ) {
+        // TODO: find alternative
+        @Suppress("DEPRECATION")
         npmProject.useTool(
             exec = execFactory,
             tool = bundler.bin,
