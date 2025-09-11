@@ -6,19 +6,17 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.kotlin.dsl.property
 import org.gradle.process.ExecOperations
-import org.jetbrains.kotlin.gradle.targets.js.NpmPackageVersion
-import org.jetbrains.kotlin.gradle.targets.js.npm.RequiresNpmDependencies
 import javax.inject.Inject
 
-// https://www.npmjs.com/package/vite
-private val VITE = NpmPackageVersion(name = "vite", version = "^7.1.5")
-
-// https://www.npmjs.com/package/rollup-plugin-sourcemaps
-private val ROLLUP_PLUGIN_SOURCEMAPS = NpmPackageVersion(name = "rollup-plugin-sourcemaps", version = "^0.6.3")
-
 abstract class KotlinViteTask :
-    KotlinViteTaskBase(),
-    RequiresNpmDependencies {
+    KotlinViteTaskBase() {
+    
+    init {
+        when (jsPlatform) {
+            JsPlatform.js -> dependsOn(":kotlinNpmInstall")
+            JsPlatform.wasmJs -> dependsOn(":kotlinWasmNpmInstall")
+        }
+    }
 
     @get:Inject
     protected abstract val objectFactory: ObjectFactory
@@ -30,10 +28,6 @@ abstract class KotlinViteTask :
     val mode: Property<ViteMode> =
         objectFactory.property<ViteMode>()
             .convention(ViteMode.PRODUCTION)
-
-    @get:Internal
-    override val requiredNpmDependencies =
-        setOf(VITE, ROLLUP_PLUGIN_SOURCEMAPS)
 
     @get:Internal
     abstract val isContinuous: Boolean

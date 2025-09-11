@@ -15,7 +15,7 @@ sealed class KotlinViteTaskBase :
 
     @Transient
     @Internal
-    val compilation: KotlinJsIrCompilation =
+    protected val compilation: KotlinJsIrCompilation =
         project.kotlinMainCompilation(jsPlatform)
 
     @Internal

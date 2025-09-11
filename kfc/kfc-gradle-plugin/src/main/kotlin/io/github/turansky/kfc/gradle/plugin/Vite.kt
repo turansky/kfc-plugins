@@ -4,6 +4,12 @@ object Vite : Bundler(
     displayName = "Vite",
     toolName = "vite",
     bin = "vite/bin/vite.js",
+    dependencies = listOf(
+        // https://www.npmjs.com/package/vite
+        Dependency(name = "vite", version = "^7.1.5"),
+        // https://www.npmjs.com/package/rollup-plugin-sourcemaps
+        Dependency(name = "rollup-plugin-sourcemaps", version = "^0.6.3")
+    ),
 ) {
 
     // TODO: We need .mjs extension for now to enable connecting pure ESM plugins

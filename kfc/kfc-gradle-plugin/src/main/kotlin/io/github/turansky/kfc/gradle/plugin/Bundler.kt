@@ -4,7 +4,13 @@ sealed class Bundler(
     val displayName: String,
     val toolName: String,
     val bin: String,
+    val dependencies: List<Dependency>,
 ) {
+    data class Dependency(
+        val name: String,
+        val version: String,
+    )
+
     val js: BundlerConfiguration =
         BundlerConfiguration(bundler = toolName, platform = JsPlatform.js)
 

@@ -44,6 +44,16 @@ internal fun Project.applyKotlinMultiplatformPlugin(
                 configureJsTarget(mode, jsModuleName)
             }
         }
+
+        if (mode.bundler != null) {
+            sourceSets.webMain {
+                dependencies {
+                    for (dependency in mode.bundler.dependencies) {
+                        implementation(devNpm(name = dependency.name, version = dependency.version))
+                    }
+                }
+            }
+        }
     }
 
     when (mode.bundler) {
