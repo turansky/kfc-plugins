@@ -82,6 +82,10 @@ private fun KotlinJsTargetDsl.configureJsTarget(
 ) {
     outputModuleName.set(moduleName)
 
+    compilerOptions {
+        optIn.add("kotlin.js.ExperimentalWasmJsInterop")
+    }
+
     // TODO: Remove
     browser {
         webpackTask {
