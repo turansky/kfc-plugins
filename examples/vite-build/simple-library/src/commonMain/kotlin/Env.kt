@@ -1,3 +1,6 @@
+// TEMP
+@file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
+
 @file:JsQualifier("import.meta.env")
 
 import kotlin.js.JsName
