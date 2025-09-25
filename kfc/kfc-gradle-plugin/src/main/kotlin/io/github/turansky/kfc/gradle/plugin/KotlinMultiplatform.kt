@@ -29,6 +29,8 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     plugins.apply(BundlerEnvironmentPlugin::class)
 
     configure<KotlinMultiplatformExtension> {
+        applyDefaultHierarchyTemplate()
+        
         compilerOptions {
             optIn.add("kotlin.ExperimentalStdlibApi")
         }
