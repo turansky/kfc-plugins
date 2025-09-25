@@ -6,7 +6,7 @@ pluginManagement {
         kotlin("jvm") version kotlinVersion
         kotlin("multiplatform") version kotlinVersion
 
-        id("com.gradle.plugin-publish") version "1.3.1"
+        id("com.gradle.plugin-publish") version "2.0.0"
     }
 }
 
