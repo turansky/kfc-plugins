@@ -47,6 +47,8 @@ dependencyResolutionManagement {
 include("examples:assets:lib")
 include("examples:assets:lib-multiplatform")
 
+include("examples:ecma")
+
 include("examples:js-plain-object")
 
 include("examples:resources:lib-a")

@@ -30,7 +30,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     configure<KotlinMultiplatformExtension> {
         applyDefaultHierarchyTemplate()
-        
+
         compilerOptions {
             optIn.add("kotlin.ExperimentalStdlibApi")
         }
@@ -71,6 +71,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             target.set("es2015")
 
             freeCompilerArgs.addAll(
+                "-Xes-long-as-bigint",
                 "-Xdont-warn-on-error-suppression",
                 "-Xgenerate-polyfills=false",
                 "-Xir-generate-inline-anonymous-functions",
