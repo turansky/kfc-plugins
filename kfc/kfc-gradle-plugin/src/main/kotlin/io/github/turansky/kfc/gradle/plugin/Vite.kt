@@ -6,7 +6,7 @@ object Vite : Bundler(
     bin = "vite/bin/vite.js",
     dependencies = listOf(
         // https://www.npmjs.com/package/vite
-        Dependency(name = "vite", version = "^7.1.7"),
+        Dependency(name = "vite", version = "^7.1.9"),
         // https://www.npmjs.com/package/rollup-plugin-sourcemaps
         Dependency(name = "rollup-plugin-sourcemaps", version = "^0.6.3")
     ),
