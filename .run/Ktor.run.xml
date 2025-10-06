@@ -1,9 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="Ktor" type="GradleRunConfiguration" factoryName="Gradle"
-                   folderName="Vite + Ktor">
+    <configuration default="false" name="Ktor" type="GradleRunConfiguration" factoryName="Gradle">
         <ExternalSystemSettings>
             <option name="executionName"/>
-            <option name="externalProjectPath" value="$PROJECT_DIR$/examples/vite/vite-dev-with-ktor/ktor-app"/>
+            <option name="externalProjectPath" value="$PROJECT_DIR$/examples/vite-dev-with-ktor/ktor-app"/>
             <option name="externalSystemIdString" value="GRADLE"/>
             <option name="scriptParameters" value=""/>
             <option name="taskDescriptions">

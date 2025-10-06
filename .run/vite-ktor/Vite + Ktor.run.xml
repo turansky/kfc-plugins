@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Vite + Ktor" type="CompoundRunConfigurationType">
-    <toRun name="Ktor" type="GradleRunConfiguration"/>
-    <toRun name="Vite Dev" type="GradleRunConfiguration"/>
-    <method v="2"/>
-  </configuration>
-</component>
