@@ -10,12 +10,13 @@ import javax.inject.Inject
 
 abstract class KotlinViteTask :
     KotlinViteTaskBase() {
-    
+
     init {
-        when (jsPlatform) {
-            JsPlatform.js -> dependsOn(":kotlinNpmInstall")
-            JsPlatform.wasmJs -> dependsOn(":kotlinWasmNpmInstall")
-        }
+        val nodeJsRoot = project.getNodeJsRootExtension(jsPlatform)
+
+        dependsOn(nodeJsRoot.npmInstallTaskProvider)
+
+        dependsOn(nodeJsRoot.packageManagerExtension.map { it.postInstallTasks })
     }
 
     @get:Inject
