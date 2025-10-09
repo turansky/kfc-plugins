@@ -1,7 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
 object Vite : Bundler(
-    displayName = "Vite",
     toolName = "vite",
     bin = "vite/bin/vite.js",
     dependencies = listOf(

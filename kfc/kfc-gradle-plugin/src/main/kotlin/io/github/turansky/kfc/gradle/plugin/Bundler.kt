@@ -1,7 +1,6 @@
 package io.github.turansky.kfc.gradle.plugin
 
 sealed class Bundler(
-    val displayName: String,
     val toolName: String,
     val bin: String,
     val dependencies: List<Dependency>,
