@@ -13,7 +13,7 @@
 
 ```kotlin
 plugins {
-    id("io.github.turansky.kfc.application") version "14.13.0"
+    id("io.github.turansky.kfc.application") version "15.0.0"
 }
 ```
 
@@ -31,7 +31,7 @@ plugins {
 
 ### Bundler
 
-We use [Vite](https://vitejs.dev/)
+We use [Vite](https://vitejs.dev/) [with Rolldown](https://rolldown.rs/)
 
 #### Configuration
 
