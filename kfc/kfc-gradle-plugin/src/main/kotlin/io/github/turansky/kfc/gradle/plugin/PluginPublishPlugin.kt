@@ -1,8 +1,10 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import io.github.turansky.kfc.gradle.plugin.GradleProperty.VERSION
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
@@ -18,6 +20,11 @@ import java.io.File
 class PluginPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         rootProject.plugins.apply(RootPluginPublishPlugin::class)
+
+        extensions.getByType(JavaPluginExtension::class).apply {
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
 
         tasks.configureEach<KotlinJvmCompile> {
             compilerOptions {
