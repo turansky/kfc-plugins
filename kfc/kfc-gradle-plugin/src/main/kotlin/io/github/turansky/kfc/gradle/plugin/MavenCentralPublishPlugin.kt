@@ -9,6 +9,8 @@ import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.*
 import org.gradle.plugins.signing.SigningExtension
 import org.gradle.plugins.signing.SigningPlugin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 class MavenCentralPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
@@ -24,6 +26,13 @@ class MavenCentralPublishPlugin : Plugin<Project> {
     private fun Project.configurePublication() {
         plugins.apply(MavenPublishPlugin::class)
         plugins.apply(SigningPlugin::class)
+
+        tasks.configureEach<KotlinJvmCompile> {
+            compilerOptions {
+                jvmTarget = JVM_17
+                allWarningsAsErrors = true
+            }
+        }
 
         // TODO: move to common
         val releaseMode = hasProperty("signing.keyId")
