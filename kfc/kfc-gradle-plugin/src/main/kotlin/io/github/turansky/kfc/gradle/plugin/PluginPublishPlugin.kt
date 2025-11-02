@@ -4,11 +4,11 @@ import io.github.turansky.kfc.gradle.plugin.GradleProperty.VERSION
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.*
 import org.gradle.plugins.signing.SigningExtension
 import org.gradle.plugins.signing.SigningPlugin
@@ -21,9 +21,9 @@ class PluginPublishPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         rootProject.plugins.apply(RootPluginPublishPlugin::class)
 
-        extensions.getByType(JavaPluginExtension::class).apply {
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
+        tasks.configureEach<JavaCompile> {
+            sourceCompatibility = JavaVersion.VERSION_17.toString()
+            targetCompatibility = JavaVersion.VERSION_17.toString()
         }
 
         tasks.configureEach<KotlinJvmCompile> {
