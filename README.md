@@ -20,14 +20,14 @@ plugins {
 ### Defaults
 
 * Kotlin/JS
-  * Target `es2015`
-  * Granularity
-      * `per-file`
-          * Default
-          * Required for lazy modules, workers, worklets support
-      * `whole-program`
-          * Set `kfc.per.file=false` to activate
-          * Recommended for isolated single file applications
+    * Target `es2015`
+    * Granularity
+        * `per-file`
+            * Default
+            * Required for lazy modules, workers, worklets support
+        * `whole-program`
+            * Set `kfc.per.file=false` to activate
+            * Recommended for isolated single file applications
 
 ### Bundler
 
