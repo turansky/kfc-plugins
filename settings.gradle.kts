@@ -56,6 +56,8 @@ include("examples:resources:lib-b")
 include("examples:resources:lib-c")
 include("examples:resources:app-d")
 
+include("examples:single-file-app")
+
 include("examples:test-data:first")
 include("examples:test-data:second")
 
