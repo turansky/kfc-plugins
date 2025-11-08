@@ -2,7 +2,6 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.create
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 private const val DOM_API_INCLUDED = "kotlin.js.stdlib.dom.api.included"
@@ -21,8 +20,6 @@ internal fun Project.applyKotlinDefaults() {
     plugins.apply(DisableSourcelessTestsPlugin::class)
 
     configureStrictMode()
-
-    extensions.create<NpmvDependencyExtension>("npmv")
 }
 
 private fun Project.configureStrictMode() {
