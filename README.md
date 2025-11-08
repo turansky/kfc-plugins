@@ -31,7 +31,7 @@ plugins {
 
 ### Bundler
 
-We use [Vite](https://vitejs.dev/) [with Rolldown](https://rolldown.rs/)
+We use [Vite with Rolldown](https://vite.dev/guide/rolldown)
 
 #### Configuration
 
