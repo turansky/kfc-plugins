@@ -5,7 +5,7 @@ object Vite : Bundler(
     bin = "vite/bin/vite.js",
     dependencies = listOf(
         // https://www.npmjs.com/package/rolldown-vite
-        Dependency(name = "vite", version = "npm:rolldown-vite@^7.2.0"),
+        Dependency(name = "vite", version = "npm:rolldown-vite@^7.2.4"),
     ),
 ) {
 
