@@ -20,6 +20,7 @@ internal fun Project.applyKotlinDefaults() {
     plugins.apply(DisableSourcelessTestsPlugin::class)
 
     configureStrictMode()
+    configureNpmExtensions()
 }
 
 private fun Project.configureStrictMode() {
