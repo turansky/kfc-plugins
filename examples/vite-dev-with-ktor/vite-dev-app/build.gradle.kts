@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    commonMainImplementation(devNpm("@vitejs/plugin-react", "^4.3.4"))
+    commonMainImplementation(devNpm("@vitejs/plugin-react", "^5.1.2"))
     commonMainImplementation(kotlinWrappers.browser)
     commonMainImplementation(kotlinWrappers.react)
     commonMainImplementation(kotlinWrappers.reactDom)
