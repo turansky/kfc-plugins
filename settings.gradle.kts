@@ -28,6 +28,13 @@ dependencyResolutionManagement {
 
             val logbackVersion = extra["logback.version"] as String
             library("logback", "ch.qos.logback", "logback-classic").version(logbackVersion)
+
+            plugin("serialization", "org.jetbrains.kotlin.plugin.serialization").version(kotlinVersion)
+
+            val serializationVersion = extra["kotlinx-serialization.version"] as String
+            library("serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version(
+                serializationVersion
+            )
         }
 
         create("kfc") {
@@ -43,6 +50,8 @@ dependencyResolutionManagement {
         }
     }
 }
+
+//includeBuild("../kotlin-wrappers")
 
 include("examples:assets:lib")
 include("examples:assets:lib-multiplatform")
@@ -69,5 +78,6 @@ include("examples:vite-dev")
 
 include("examples:vite-dev-with-ktor:ktor-app")
 include("examples:vite-dev-with-ktor:vite-dev-app")
+include("examples:vite-dev-with-ktor:entity")
 
 includeBuild("kfc")

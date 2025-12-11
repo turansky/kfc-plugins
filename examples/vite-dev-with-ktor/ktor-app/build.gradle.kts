@@ -4,7 +4,7 @@ plugins {
 }
 
 application {
-    mainClass.set("io.github.turansky.ApplicationKt")
+    mainClass.set("io.github.turansky.backend.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -15,4 +15,6 @@ dependencies {
     implementation(libs.server.netty)
     implementation(libs.server.html.builder)
     implementation(libs.logback)
+
+    implementation(projects.examples.viteDevWithKtor.entity)
 }

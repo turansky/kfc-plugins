@@ -1,6 +1,7 @@
 import * as process from 'node:process'
 import {defineConfig, loadEnv} from 'vite'
 import react from '@vitejs/plugin-react'
+import reactRefreshKotlinJs from '@porotkin/vite-plugin-react-kotlinjs'
 
 const getSubdir = (name) => name?.match(/\.woff2?/) ? 'fonts/' : ''
 const entryFileNames = 'static/[name].[hash].js'
@@ -11,6 +12,7 @@ export default defineConfig(({mode}) => {
     const env = loadEnv(mode, process.cwd(), '')
     return {
         plugins: [
+            reactRefreshKotlinJs(),
             react({include: /\.(mjs|js)$/}),
         ],
         root: 'kotlin',
