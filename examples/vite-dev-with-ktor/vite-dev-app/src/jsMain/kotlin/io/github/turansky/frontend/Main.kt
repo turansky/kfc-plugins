@@ -1,3 +1,5 @@
+package io.github.turansky.frontend
+
 import react.create
 import react.dom.client.createRoot
 import web.dom.document

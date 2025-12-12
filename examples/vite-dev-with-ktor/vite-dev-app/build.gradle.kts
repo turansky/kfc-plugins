@@ -3,8 +3,12 @@ plugins {
 }
 
 dependencies {
-    commonMainImplementation(devNpm("@vitejs/plugin-react", "^4.3.4"))
-    commonMainImplementation(kotlinWrappers.browser)
-    commonMainImplementation(kotlinWrappers.react)
-    commonMainImplementation(kotlinWrappers.reactDom)
+    webMainImplementation(kotlinWrappers.browser)
+    webMainImplementation(kotlinWrappers.react)
+    webMainImplementation(kotlinWrappers.reactDom)
+    webMainImplementation(kotlinWrappers.reactUse)
+    webMainImplementation(kotlinWrappers.emotion.styled)
+
+    webMainImplementation(projects.examples.viteDevWithKtor.entity)
+    webMainImplementation(libs.serialization.json)
 }
