@@ -51,8 +51,6 @@ dependencyResolutionManagement {
     }
 }
 
-//includeBuild("../kotlin-wrappers")
-
 include("examples:assets:lib")
 include("examples:assets:lib-multiplatform")
 
