@@ -11,7 +11,6 @@ internal suspend fun ApplicationCall.respondReactPage() {
         head {
             title = "Ktor"
 
-            reactRefreshPreamble()
             viteClient()
 
             style {
@@ -32,22 +31,6 @@ internal suspend fun ApplicationCall.respondReactPage() {
                 src = "./vite-dev-app.mjs"
                 type = "module"
             }
-        }
-    }
-}
-
-private fun HEAD.reactRefreshPreamble() {
-    script {
-        type = "module"
-
-        unsafe {
-            // language=JavaScript
-            +$$"""
-                import { injectIntoGlobalHook } from "/@react-refresh";
-                injectIntoGlobalHook(window);
-                window.$RefreshReg$ = () => {};
-                window.$RefreshSig$ = () => (type) => type;
-            """.trimIndent()
         }
     }
 }

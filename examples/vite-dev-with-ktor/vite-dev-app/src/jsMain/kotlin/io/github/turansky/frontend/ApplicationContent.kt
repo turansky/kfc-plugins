@@ -3,18 +3,14 @@ package io.github.turansky.frontend
 import emotion.styled.styled
 import io.github.turansky.entity.ServerData
 import io.github.turansky.entity.util.decodeFromString
-import io.github.turansky.frontend.components.Content
-import io.github.turansky.frontend.components.CounterModule
-import io.github.turansky.frontend.duplicated.Counter
+import io.github.turansky.frontend.components.Dashboard
 import react.FC
 import react.dom.html.ReactHTML.div
 import react.useEffectOnce
 import react.useState
-import web.cssom.Border
-import web.cssom.Color
-import web.cssom.LineStyle.Companion.solid
-import web.cssom.PlaceItems
+import web.cssom.PlaceContent
 import web.cssom.px
+import web.cssom.vh
 import web.http.fetch
 import web.http.text
 
@@ -32,16 +28,14 @@ internal val ApplicationContent = FC {
     }
 
     Container {
-        Content {
+        Dashboard {
             value = data
         }
-
-        CounterModule()
-        Counter()
     }
 }
 
 private val Container = div.styled {
-    placeItems = PlaceItems.center
-    border = Border(1.px, solid, Color("#FFF"))
+    height = 95.vh
+    padding = 16.px
+    placeContent = PlaceContent.center
 }
