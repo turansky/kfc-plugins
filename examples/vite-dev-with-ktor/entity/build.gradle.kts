@@ -9,5 +9,4 @@ dependencies {
 
 kotlin {
     jvm()
-    js()
 }
