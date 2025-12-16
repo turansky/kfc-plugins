@@ -13,7 +13,7 @@ import org.gradle.kotlin.dsl.*
 import org.gradle.plugins.signing.SigningExtension
 import org.gradle.plugins.signing.SigningPlugin
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.io.File
 
@@ -29,8 +29,8 @@ class PluginPublishPlugin : Plugin<Project> {
         tasks.configureEach<KotlinJvmCompile> {
             compilerOptions {
                 jvmTarget = JVM_17
-                apiVersion = KOTLIN_2_0
-                languageVersion = KOTLIN_2_0
+                apiVersion = KOTLIN_2_2
+                languageVersion = KOTLIN_2_2
                 allWarningsAsErrors = true
             }
         }
