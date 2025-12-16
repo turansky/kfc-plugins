@@ -6,6 +6,7 @@ import org.gradle.deployment.internal.DeploymentRegistry
 import org.gradle.process.ExecOperations
 import org.gradle.process.ExecSpec
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
+import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProjectModules
 
 internal data class SimpleBundlerRunner(
     private val configuration: BundlerRunConfiguration,
@@ -56,12 +57,13 @@ internal data class SimpleBundlerRunner(
     private fun configureExec(
         execFactory: ExecSpec,
     ) {
-        // TODO: find alternative
-        @Suppress("DEPRECATION")
-        npmProject.useTool(
-            exec = execFactory,
-            tool = bundler.bin,
-            args = configuration.args,
-        )
+        val workingDir = npmProject.dir
+
+        val modules = NpmProjectModules(workingDir.get().asFile)
+        val scriptPath = modules.require(bundler.bin)
+
+        execFactory.workingDir(workingDir)
+        execFactory.executable(npmProject.nodeJs.executable.get())
+        execFactory.args = listOf(scriptPath) + configuration.args
     }
 }
