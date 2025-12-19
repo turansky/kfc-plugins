@@ -5,7 +5,6 @@ import org.gradle.api.tasks.Internal
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
 import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
 import org.jetbrains.kotlin.gradle.targets.js.npm.npmProject
-import org.jetbrains.kotlin.gradle.targets.web.nodejs.BaseNodeJsRootExtension
 
 sealed class KotlinViteTaskBase :
     DefaultTask() {
@@ -22,13 +21,4 @@ sealed class KotlinViteTaskBase :
     @Internal
     protected val npmProject: NpmProject =
         compilation.npmProject
-
-    @Transient
-    @Internal
-    protected val nodeJsRoot: BaseNodeJsRootExtension =
-        npmProject.nodeJsRoot
-
-    @Internal
-    protected val nodeExecutable: String =
-        npmProject.nodeJs.executable.get()
 }

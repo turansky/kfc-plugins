@@ -6,7 +6,6 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProject
 
 internal data class BundlerRunConfiguration(
     val npmProject: NpmProject,
-    val nodeExecutable: String,
     val execOperations: ExecOperations,
     val services: ServiceRegistry,
     val bundler: Bundler,
