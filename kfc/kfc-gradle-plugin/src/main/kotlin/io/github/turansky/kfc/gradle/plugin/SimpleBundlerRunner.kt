@@ -59,11 +59,14 @@ internal data class SimpleBundlerRunner(
     ) {
         val workingDir = npmProject.dir
 
+        @Suppress("ERROR_SUPPRESSION", "INVISIBLE_REFERENCE")
+        val nodeExecutable = npmProject.nodeExecutable
+
         val modules = NpmProjectModules(workingDir.get().asFile)
         val scriptPath = modules.require(bundler.bin)
 
         execFactory.workingDir(workingDir)
-        execFactory.executable(npmProject.nodeJs.executable.get())
+        execFactory.executable(nodeExecutable)
         execFactory.args = listOf(scriptPath) + configuration.args
     }
 }
