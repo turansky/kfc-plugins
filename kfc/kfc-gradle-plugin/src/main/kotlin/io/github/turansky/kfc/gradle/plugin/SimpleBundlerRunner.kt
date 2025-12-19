@@ -15,6 +15,9 @@ internal data class SimpleBundlerRunner(
     private val npmProject: NpmProject
         get() = configuration.npmProject
 
+    private val nodeExecutable: String
+        get() = configuration.nodeExecutable
+
     private val execOperations: ExecOperations
         get() = configuration.execOperations
 
@@ -63,7 +66,7 @@ internal data class SimpleBundlerRunner(
         val scriptPath = modules.require(bundler.bin)
 
         execFactory.workingDir(workingDir)
-        execFactory.executable(npmProject.nodeJs.executable.get())
+        execFactory.executable(nodeExecutable)
         execFactory.args = listOf(scriptPath) + configuration.args
     }
 }

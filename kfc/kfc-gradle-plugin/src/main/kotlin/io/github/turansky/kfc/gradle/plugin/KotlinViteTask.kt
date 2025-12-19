@@ -12,11 +12,10 @@ abstract class KotlinViteTask :
     KotlinViteTaskBase() {
 
     init {
-        val nodeJsRoot = project.getNodeJsRootExtension(jsPlatform)
-
-        dependsOn(nodeJsRoot.npmInstallTaskProvider)
-
-        dependsOn(nodeJsRoot.packageManagerExtension.map { it.postInstallTasks })
+        dependsOn(
+            nodeJsRoot.npmInstallTaskProvider,
+            nodeJsRoot.packageManagerExtension.map { it.postInstallTasks },
+        )
     }
 
     @get:Inject
@@ -38,6 +37,7 @@ abstract class KotlinViteTask :
     ) {
         val configuration = BundlerRunConfiguration(
             npmProject = npmProject,
+            nodeExecutable = nodeExecutable,
             execOperations = execOperations,
             services = services,
             bundler = Vite,
