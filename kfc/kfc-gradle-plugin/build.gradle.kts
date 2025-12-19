@@ -86,3 +86,9 @@ gradlePlugin {
         }
     }
 }
+
+tasks.compileKotlin {
+    compilerOptions.freeCompilerArgs.addAll(
+        "-Xdont-warn-on-error-suppression",
+    )
+}
