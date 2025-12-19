@@ -26,7 +26,6 @@ fun Application.configureRouting() {
                 head {
                     title = "Ktor"
 
-                    reactRefreshPreamble()
                     viteClient()
 
                     style {
@@ -49,22 +48,6 @@ fun Application.configureRouting() {
                     }
                 }
             }
-        }
-    }
-}
-
-private fun HEAD.reactRefreshPreamble() {
-    script {
-        type = "module"
-
-        unsafe {
-            // language=JavaScript
-            +"""
-                import { injectIntoGlobalHook } from "/@react-refresh";
-                injectIntoGlobalHook(window);
-                window.${'$'}RefreshReg$ = () => {};
-                window.${'$'}RefreshSig$ = () => (type) => type;
-            """.trimIndent()
         }
     }
 }
