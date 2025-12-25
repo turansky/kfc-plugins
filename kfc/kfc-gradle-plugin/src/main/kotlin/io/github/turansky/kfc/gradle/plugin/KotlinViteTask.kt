@@ -33,11 +33,10 @@ abstract class KotlinViteTask :
         vararg args: String,
     ) {
         val configuration = BundlerRunConfiguration(
-            npmProject = npmProject,
+            bundler = Vite,
+            options = BundlerExecOptions(npmProject, Vite, args),
             execOperations = execOperations,
             services = services,
-            bundler = Vite,
-            args = args.toList(),
             continuous = isContinuous,
         )
 

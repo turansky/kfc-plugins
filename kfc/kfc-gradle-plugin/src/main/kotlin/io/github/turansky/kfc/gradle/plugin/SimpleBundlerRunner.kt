@@ -5,7 +5,6 @@ import io.github.turansky.kfc.gradle.utils.processes.ExecAsyncHandle.Companion.e
 import org.gradle.deployment.internal.DeploymentRegistry
 import org.gradle.process.ExecOperations
 import org.gradle.process.ExecSpec
-import org.jetbrains.kotlin.gradle.targets.js.npm.NpmProjectModules
 
 internal data class SimpleBundlerRunner(
     private val configuration: BundlerRunConfiguration,
@@ -52,17 +51,10 @@ internal data class SimpleBundlerRunner(
     private fun configureExec(
         execFactory: ExecSpec,
     ) {
-        val npmProject = configuration.npmProject
-        val workingDir = npmProject.dir
+        val options = configuration.options
 
-        @Suppress("ERROR_SUPPRESSION", "INVISIBLE_REFERENCE")
-        val nodeExecutable = npmProject.nodeExecutable
-
-        val modules = NpmProjectModules(workingDir.get().asFile)
-        val scriptPath = modules.require(bundler.bin)
-
-        execFactory.workingDir(workingDir)
-        execFactory.executable(nodeExecutable)
-        execFactory.args = listOf(scriptPath) + configuration.args
+        execFactory.workingDir(options.workingDir)
+        execFactory.executable(options.executable)
+        execFactory.args = options.args
     }
 }
