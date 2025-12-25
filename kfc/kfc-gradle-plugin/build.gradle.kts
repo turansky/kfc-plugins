@@ -86,11 +86,3 @@ gradlePlugin {
         }
     }
 }
-
-// TODO: For suppression of "INVISIBLE_REFERENCE" of internal `npmProject.nodeExecutable`
-//  Because invocation of the lazy delegate `npmProject.nodeJs` results in NPE
-tasks.compileKotlin {
-    compilerOptions.freeCompilerArgs.addAll(
-        "-Xdont-warn-on-error-suppression",
-    )
-}

@@ -29,15 +29,19 @@ abstract class KotlinViteTask :
     @get:Internal
     abstract val isContinuous: Boolean
 
+    private val nodeJsExecutable: String by lazy {
+        npmProject.nodeJs.executable.get()
+    }
+
     protected fun vite(
         vararg args: String,
     ) {
         val options = BundlerExecOptions(
-            project = JsProject(npmProject),
+            project = JsProject(nodeJsExecutable, npmProject),
             bundler = Vite,
             bundlerArgs = args,
         )
-        
+
         val configuration = BundlerRunConfiguration(
             bundler = Vite,
             options = options,
