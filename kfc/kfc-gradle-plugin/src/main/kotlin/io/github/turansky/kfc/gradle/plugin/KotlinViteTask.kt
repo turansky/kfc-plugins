@@ -32,9 +32,15 @@ abstract class KotlinViteTask :
     protected fun vite(
         vararg args: String,
     ) {
+        val options = BundlerExecOptions(
+            npmProject = npmProject,
+            bundler = Vite,
+            bundlerArgs = args,
+        )
+        
         val configuration = BundlerRunConfiguration(
             bundler = Vite,
-            options = BundlerExecOptions(npmProject, Vite, args),
+            options = options,
             execOperations = execOperations,
             services = services,
             continuous = isContinuous,
