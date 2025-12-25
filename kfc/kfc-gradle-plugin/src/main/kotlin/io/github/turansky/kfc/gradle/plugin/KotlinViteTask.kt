@@ -12,11 +12,7 @@ abstract class KotlinViteTask :
     KotlinViteTaskBase() {
 
     init {
-        val nodeJsRoot = project.getNodeJsRootExtension(jsPlatform)
-
-        dependsOn(nodeJsRoot.npmInstallTaskProvider)
-
-        dependsOn(nodeJsRoot.packageManagerExtension.map { it.postInstallTasks })
+        dependsOnNpmInstallTasks(jsPlatform)
     }
 
     @get:Inject
