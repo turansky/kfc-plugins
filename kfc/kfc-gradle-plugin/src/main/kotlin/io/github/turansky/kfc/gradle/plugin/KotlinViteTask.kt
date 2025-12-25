@@ -33,7 +33,7 @@ abstract class KotlinViteTask :
         vararg args: String,
     ) {
         val options = BundlerExecOptions(
-            npmProject = npmProject,
+            project = JsProject(npmProject),
             bundler = Vite,
             bundlerArgs = args,
         )
