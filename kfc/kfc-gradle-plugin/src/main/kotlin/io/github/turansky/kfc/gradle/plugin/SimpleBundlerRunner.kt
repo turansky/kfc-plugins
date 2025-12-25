@@ -12,9 +12,6 @@ internal data class SimpleBundlerRunner(
     private val execOperations: ExecOperations
         get() = configuration.execOperations
 
-    private val bundler: Bundler
-        get() = configuration.bundler
-
     fun run() {
         if (configuration.continuous) {
             startNonBlocking()
@@ -24,17 +21,17 @@ internal data class SimpleBundlerRunner(
     }
 
     override fun start(): ExecAsyncHandle {
-        return execOperations.execAsync(bundler.toolName) { execSpec ->
+        return execOperations.execAsync(configuration.id) { execSpec ->
             configureExec(execSpec)
         }.start()
     }
 
     private fun startNonBlocking() {
         val deploymentRegistry = configuration.services.get(DeploymentRegistry::class.java)
-        val deploymentHandle = deploymentRegistry.get(bundler.toolName, BundlerHandle::class.java)
+        val deploymentHandle = deploymentRegistry.get(configuration.id, BundlerHandle::class.java)
         if (deploymentHandle == null) {
             deploymentRegistry.start(
-                bundler.toolName,
+                configuration.id,
                 DeploymentRegistry.ChangeBehavior.BLOCK,
                 BundlerHandle::class.java,
                 this,
