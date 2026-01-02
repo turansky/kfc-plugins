@@ -11,7 +11,6 @@ fun FileSystemOperations.syncFile(
     source: Provider<RegularFile>,
     destination: Provider<Directory>,
     strategy: SyncFileStrategy = SyncFileStrategy.REQUIRED_SOURCE,
-    fallback: (() -> File)? = null,
 ) {
     val sourceFile = source.get().asFile
     val targetFile = destination.get().file(sourceFile.name).asFile
@@ -23,19 +22,16 @@ fun FileSystemOperations.syncFile(
         return
     }
 
-    val source = sourceFile.takeIf { it.exists() }
-        ?: fallback?.invoke()
-
-    requireNotNull(source) {
+    require(sourceFile.exists()) {
         "Unable to sync nonexistent file: `$sourceFile`"
     }
 
-    if (targetFile.exists() && hasEqualContent(source, targetFile)) {
+    if (targetFile.exists() && hasEqualContent(sourceFile, targetFile)) {
         return
     }
 
     copy {
-        from(source)
+        from(sourceFile)
         into(destination)
     }
 }
