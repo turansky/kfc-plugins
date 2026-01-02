@@ -33,9 +33,21 @@ abstract class KotlinVitePrepareTask :
     private val workingDirectory: Provider<Directory> =
         npmProject.dir
 
+    private val defaultConfigFile: RegularFileProperty =
+        objectFactory.fileProperty()
+            .convention(::defaultViteConfig)
+
+    private val customConfigFile: RegularFileProperty =
+        objectFactory.fileProperty()
+            .convention(projectDir.file(Vite.CONFIG_FILE))
+
     private val configFile: RegularFileProperty
         get() = objectFactory.fileProperty()
-            .convention(projectDir.file(Vite.CONFIG_FILE))
+            .convention(
+                customConfigFile
+                    .filter { it.asFile.exists() }
+                    .orElse(defaultConfigFile)
+            )
 
     private val entryFile: Provider<RegularFile> =
         workingDirectory.map { it.file("kotlin/${project.jsModuleName}.mjs") }
@@ -50,7 +62,7 @@ abstract class KotlinVitePrepareTask :
 
     @TaskAction
     protected fun sync() {
-        fs.syncFile(configFile, workingDirectory, fallback = ::defaultViteConfig)
+        fs.syncFile(configFile, workingDirectory)
         fs.syncFile(envFile, workingDirectory)
 
         for (fileName in DOT_ENV_FILES) {
