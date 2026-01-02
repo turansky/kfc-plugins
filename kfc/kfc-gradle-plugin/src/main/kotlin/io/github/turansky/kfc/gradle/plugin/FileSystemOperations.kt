@@ -23,7 +23,7 @@ fun FileSystemOperations.syncFile(
     }
 
     require(sourceFile.exists()) {
-        "Unable to sync unexisted file: `$sourceFile`"
+        "Unable to sync nonexistent file: `$sourceFile`"
     }
 
     if (targetFile.exists() && hasEqualContent(sourceFile, targetFile)) {
