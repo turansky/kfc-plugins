@@ -20,9 +20,3 @@ jobs:
         run: ./gradlew clean # preserves configuration caches
       - name: Run Cached Build
         run: ./gradlew build
-      - name: Run Cached Build1.5
-        run: ./gradlew build
-      - name: Clean Build Cache2
-        run: ./gradlew clean
-      - name: Run Cached Build2
-        run: ./gradlew build
