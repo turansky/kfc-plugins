@@ -1,0 +1,21 @@
+name: CI
+
+on: [ push, pull_request ]
+
+jobs:
+  cached-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+      - name: Calculate Cache
+        run: ./gradlew build
+      - name: Run Cached Build
+        run: |
+          ./gradlew clean # preserves configuration caches
+          ./gradlew build
