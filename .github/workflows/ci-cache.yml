@@ -15,7 +15,7 @@ jobs:
           java-version: '21'
       - name: Calculate Cache
         run: ./gradlew build
+      - name: Clean Build Cache
+        run: ./gradlew clean # preserves configuration caches
       - name: Run Cached Build
-        run: |
-          ./gradlew clean # preserves configuration caches
-          ./gradlew build
+        run: ./gradlew build
