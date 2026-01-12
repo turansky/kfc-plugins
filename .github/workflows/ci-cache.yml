@@ -14,10 +14,8 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
           cache: gradle
-      - name: Calculate Cache
-        run: ./gradlew build --dry-run
-      - name: Clean Build Cache
-        run: ./gradlew clean # preserves configuration caches
-      - name: Run Cached Build
-        continue-on-error: true
-        run: ./gradlew build
+      - name: Execute
+        run: |
+          ./gradlew build
+          ./gradlew clean # preserves configuration caches
+          ./gradlew build
