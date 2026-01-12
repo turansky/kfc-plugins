@@ -19,6 +19,7 @@ jobs:
           ./gradlew build --dry-run
           ./gradlew clean # preserves configuration caches
           ./gradlew build
+          ./gradlew build
 
   build-build:
 
@@ -33,5 +34,6 @@ jobs:
           cache: gradle
       - name: Execute
         run: |
+          ./gradlew build
           ./gradlew build
           ./gradlew build
