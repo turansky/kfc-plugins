@@ -19,3 +19,19 @@ jobs:
           ./gradlew build --dry-run
           ./gradlew clean # preserves configuration caches
           ./gradlew build
+
+  build-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+          cache: gradle
+      - name: Execute
+        run: |
+          ./gradlew build
+          ./gradlew build
