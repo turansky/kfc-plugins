@@ -16,6 +16,6 @@ jobs:
           cache: gradle
       - name: Execute
         run: |
-          ./gradlew build
+          ./gradlew build --dry-run
           ./gradlew clean # preserves configuration caches
           ./gradlew build
