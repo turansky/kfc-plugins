@@ -16,9 +16,9 @@ jobs:
           cache: gradle
       - name: Execute
         run: |
-          ./gradlew build -x :examples:assets:lib-multiplatform:build
+          ./gradlew build --dry-run
           ./gradlew clean # preserves configuration caches
-          ./gradlew build -x :examples:assets:lib-multiplatform:build
+          ./gradlew build
 
   build-build:
 
@@ -33,5 +33,5 @@ jobs:
           cache: gradle
       - name: Execute
         run: |
-          ./gradlew build -x :examples:assets:lib-multiplatform:build
-          ./gradlew build -x :examples:assets:lib-multiplatform:build
+          ./gradlew build
+          ./gradlew build
