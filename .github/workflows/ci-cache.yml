@@ -1,0 +1,40 @@
+name: CI Cache
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+          cache: gradle
+      - name: Execute
+        run: |
+          ./gradlew build
+          ./gradlew build
+          ./gradlew build
+
+  build-clean-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+          cache: gradle
+      - name: Execute
+        run: |
+          ./gradlew build
+          ./gradlew clean # preserves configuration caches
+          ./gradlew build
+          ./gradlew build
