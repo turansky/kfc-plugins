@@ -18,7 +18,7 @@ import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.wasm.npm.WasmNpmExtension
 
-private const val NODE_VERSION = "24.12.0"
+private const val NODE_VERSION = "24.13.0"
 
 private const val YARN = "kotlin.js.yarn"
 
