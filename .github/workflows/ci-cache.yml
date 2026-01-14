@@ -21,7 +21,7 @@ jobs:
           ./gradlew build
           ./gradlew build
 
-  cached-build:
+  build-clean-build:
 
     runs-on: ubuntu-latest
 
