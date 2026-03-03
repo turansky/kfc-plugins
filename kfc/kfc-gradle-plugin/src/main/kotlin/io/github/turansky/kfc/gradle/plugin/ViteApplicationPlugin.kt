@@ -42,7 +42,7 @@ class ViteApplicationPlugin : Plugin<Project> {
             mode.set(ViteMode.PRODUCTION)
             outputDirectory.convention(getProductionDistDirectory(configuration.platform))
 
-            dependOnCompile(COMPILE_PRODUCTION)
+            dependOnCompile(configuration.production.compileTask)
         }
 
         tasks.register<KotlinViteBuildTask>(configuration.development.buildTask) {
@@ -53,7 +53,7 @@ class ViteApplicationPlugin : Plugin<Project> {
             mode.set(ViteMode.DEVELOPMENT)
             outputDirectory.convention(getDevelopmentDistDirectory(configuration.platform))
 
-            dependOnCompile(COMPILE_DEVELOPMENT)
+            dependOnCompile(configuration.development.compileTask)
         }
 
         tasks.named("build") {
@@ -67,7 +67,7 @@ class ViteApplicationPlugin : Plugin<Project> {
 
             mode.set(ViteMode.DEVELOPMENT)
 
-            dependOnCompile(COMPILE_DEVELOPMENT)
+            dependOnCompile(configuration.development.compileTask)
         }
     }
 }

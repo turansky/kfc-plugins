@@ -1,5 +1,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
+import java.util.*
+
 sealed class Bundler(
     val toolName: String,
     val bin: String,
@@ -24,15 +26,20 @@ class BundlerConfiguration(
     private val suffix: String =
         bundler.replaceFirstChar { it.uppercase() }
 
+    val platformSuffix: String =
+        platform.name.replaceFirstChar { it.uppercase(Locale.US) }
+
     val production: BundlerConfigurationTasks =
         BundlerConfigurationTasks(
             group = "${platform.name}BrowserProduction${suffix}",
+            compileTask = "compileProductionExecutableKotlin$platformSuffix",
             compileSyncTask = "${platform.name}ProductionExecutableCompileSync",
         )
 
     val development: BundlerConfigurationTasks =
         BundlerConfigurationTasks(
             group = "${platform.name}BrowserDevelopment${suffix}",
+            compileTask = "compileDevelopmentExecutableKotlin$platformSuffix",
             compileSyncTask = "${platform.name}DevelopmentExecutableCompileSync",
         )
 
@@ -41,6 +48,7 @@ class BundlerConfiguration(
 
 class BundlerConfigurationTasks(
     group: String,
+    val compileTask: String,
     val compileSyncTask: String,
 ) {
     val prepareTask = group + "Prepare"
