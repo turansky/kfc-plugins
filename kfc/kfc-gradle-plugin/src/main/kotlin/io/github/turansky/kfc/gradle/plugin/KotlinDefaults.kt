@@ -17,7 +17,6 @@ internal fun Project.applyKotlinDefaults() {
     ext(OUTPUT_GRANULARITY, granularity)
 
     plugins.apply(SourceMapsPlugin::class)
-    plugins.apply(DisableSourcelessTestsPlugin::class)
 
     configureStrictMode()
 }
