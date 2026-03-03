@@ -13,7 +13,8 @@ enum class KfcPlatform(
     ;
 
     companion object {
-        private val MAP = entries.associateBy { it.name.lowercase(Locale.US) }
+        private val MAP: Map<String, KfcPlatform> =
+            entries.associateBy { it.name.lowercase(Locale.US).replace("_", "") }
 
         fun get(id: String?): KfcPlatform {
             id ?: return JS
