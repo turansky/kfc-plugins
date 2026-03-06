@@ -4,6 +4,7 @@ import org.gradle.api.file.*
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.listProperty
 import javax.inject.Inject
@@ -14,6 +15,7 @@ private val DOT_ENV_FILES = setOf(
     DOT_ENV_DEVELOPMENT,
 )
 
+@CacheableTask
 abstract class KotlinVitePrepareTask :
     KotlinViteTaskBase() {
 

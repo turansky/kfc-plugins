@@ -4,6 +4,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*
 import java.io.File
 
+@CacheableTask
 abstract class GenerateAssets : DefaultTask() {
 
     @get:Input
@@ -20,10 +21,12 @@ abstract class GenerateAssets : DefaultTask() {
     var templateColor: String? = null
 
     @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     var resourcesDirectory: File? = null
 
     @Optional
     @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     var mobileListFile: File? = null
 
     @get:OutputDirectory
