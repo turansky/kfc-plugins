@@ -63,9 +63,6 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         null -> Unit
     }
 
-    // `jsMain` source set required
-    plugins.apply(AssetsPlugin::class)
-
     tasks.configureEach<Kotlin2JsCompile> {
         compilerOptions {
             target.set("es2015")
