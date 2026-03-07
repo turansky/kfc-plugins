@@ -48,11 +48,6 @@ include("examples:ecma")
 
 include("examples:js-plain-object")
 
-include("examples:resources:lib-a")
-include("examples:resources:lib-b")
-include("examples:resources:lib-c")
-include("examples:resources:app-d")
-
 include("examples:single-file-app")
 
 include("examples:test-data:first")

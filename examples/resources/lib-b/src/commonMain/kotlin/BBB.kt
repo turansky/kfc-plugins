@@ -1,1 +1,0 @@
-fun BBB(): String = "BBB"

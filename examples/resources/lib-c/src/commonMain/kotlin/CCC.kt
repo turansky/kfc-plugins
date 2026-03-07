@@ -1,1 +1,0 @@
-fun CCC(): String = "CCC"
