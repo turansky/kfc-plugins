@@ -1,7 +1,7 @@
 package ecma.test.longbigint
 
-import js.core.n
-import js.core.unaryMinus
+import js.numbers.n
+import js.numbers.unaryMinus
 import kotlin.test.Test
 import kotlin.test.assertIs
 

@@ -1,6 +1,6 @@
 package ecma.test.longbigint
 
-import js.core.BigInt
+import js.numbers.BigInt
 import kotlin.contracts.contract
 import kotlin.test.asserter
 
