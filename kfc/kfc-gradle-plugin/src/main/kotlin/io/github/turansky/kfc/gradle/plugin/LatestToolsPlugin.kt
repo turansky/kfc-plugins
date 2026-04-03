@@ -26,6 +26,9 @@ class LatestToolsPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.apply(LatestNodePlugin::class)
         rootProject.plugins.apply(RootLatestToolsPlugin::class)
+
+        // WA for https://youtrack.jetbrains.com/issue/KT-83171
+        plugins.apply(LatestWebpackPatchPlugin::class)
     }
 }
 
