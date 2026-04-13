@@ -5,7 +5,7 @@ object Vite : Bundler(
     bin = "vite/bin/vite.js",
     dependencies = listOf(
         // https://www.npmjs.com/package/vite
-        Dependency(name = "vite", version = "^8.0.7"),
+        Dependency(name = "vite", version = "^8.0.8"),
     ),
 ) {
 
