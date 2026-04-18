@@ -73,7 +73,7 @@ private class RootLatestToolsPlugin : Plugin<Project> {
 
 fun NpmVersions.configureVersions() {
     // https://www.npmjs.com/package/webpack
-    webpack.version = "5.106.1"
+    webpack.version = "5.106.2"
 
     // https://www.npmjs.com/package/webpack-cli
     webpackCli.version = "7.0.2"
