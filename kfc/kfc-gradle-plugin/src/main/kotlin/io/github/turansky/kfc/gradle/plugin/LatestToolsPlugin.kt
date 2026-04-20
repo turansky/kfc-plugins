@@ -64,8 +64,9 @@ private class RootLatestToolsPlugin : Plugin<Project> {
             the<WasmNodeJsRootExtension>().versions.configureVersions()
 
             the<WasmNpmExtension>().apply {
-                lockFileDirectory.set(project.layout.buildDirectory.file("wasm-package-lock").get().asFile)
+                lockFileDirectory.set(projectDir.resolve(".kotlin-locks/wasmjs"))
                 packageLockMismatchReport.set(LockFileMismatchReport.NONE)
+                packageLockAutoReplace.set(true)
             }
         }
     }
