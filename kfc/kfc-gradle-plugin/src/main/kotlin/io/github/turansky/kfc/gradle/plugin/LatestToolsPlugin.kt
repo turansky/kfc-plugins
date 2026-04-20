@@ -54,7 +54,7 @@ private class RootLatestToolsPlugin : Plugin<Project> {
             the<NodeJsRootExtension>().versions.configureVersions()
 
             the<NpmExtension>().apply {
-                lockFileDirectory.set(projectDir)
+                lockFileDirectory.set(projectDir.resolve(".kotlin-locks/js"))
                 packageLockMismatchReport.set(LockFileMismatchReport.NONE)
                 packageLockAutoReplace.set(true)
             }
