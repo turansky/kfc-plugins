@@ -5,6 +5,31 @@
 
 # Kotlin/JS Fast Configuration
 
+## `latest-tools`
+
+### Usage
+
+#### `build.gradle.kts`
+
+```kotlin
+plugins {
+    id("io.github.turansky.kfc.latest-tools") version "18.7.0"
+}
+```
+
+### Use case
+
+* Latest security updates
+* Latest features
+
+### Applied configuration
+
+* Node, NPM - latest LTS
+    * NPM - package manager (instead of Yarn)
+    * `.kotlin-locks/` - directory for `package-lock.json` files
+* Webpack (+cli, +dev-server) - latest
+* Mocha - latest
+
 ## `application`
 
 ### Usage
