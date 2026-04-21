@@ -32,8 +32,8 @@ enum class KfcPlugin(
     ),
 
     APPLICATION(
-        displayName = "Kotlin/JS application plugin",
-        description = "Kotlin/JS application configuration",
+        displayName = "Kotlin/Web application plugin",
+        description = "Kotlin/Web application configuration",
         tags = listOf("application"),
     ),
 
