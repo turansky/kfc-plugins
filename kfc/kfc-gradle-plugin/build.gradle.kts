@@ -37,6 +37,12 @@ enum class KfcPlugin(
         tags = listOf("application"),
     ),
 
+    LATEST_TOOLS(
+        displayName = "Kotlin/Web latest tools",
+        description = "Kotlin/Web latest tools configuration",
+        tags = listOf("tools", "security"),
+    ),
+
     MAVEN_CENTRAL_PUBLISH(
         displayName = "Maven central publish plugin",
         description = "Maven central publish configuration",
