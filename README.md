@@ -42,6 +42,10 @@ plugins {
 }
 ```
 
+### Use case
+
+* You need fast bundler - like [Vite](https://vite.dev) ;)
+
 ### Defaults
 
 * Kotlin/JS
@@ -53,10 +57,6 @@ plugins {
         * `whole-program`
             * Set `kfc.per.file=false` to activate
             * Recommended for isolated single file applications
-
-### Bundler
-
-We use [Vite with Rolldown](https://vite.dev/guide/rolldown)
 
 #### Configuration
 
