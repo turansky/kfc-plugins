@@ -30,6 +30,8 @@ dependencyResolutionManagement {
     }
 }
 
+includeBuild("build-logic")
+
 include("examples:ecma")
 
 include("examples:js-plain-object")

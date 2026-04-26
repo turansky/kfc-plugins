@@ -1,6 +1,6 @@
 plugins {
-    `kotlin-jvm-conventions`
-    `bundle-test-conventions`
+    id("seskarbuild.kotlin-jvm-conventions")
+    id("seskarbuild.bundle-test-conventions")
 }
 
 dependencies {
