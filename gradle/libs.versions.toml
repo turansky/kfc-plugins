@@ -1,6 +1,7 @@
 [versions]
 coroutines = "1.10.2"
 kotlin = "2.3.21"
+kotlin-wrappers = "2026.4.12"
 seskar = "4.40.0"
 
 [libraries]
@@ -9,6 +10,8 @@ coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 # for convention plugins
 gradlePlugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+# version catalogs
+catalogs-kotlinWrappers = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-catalog", version.ref = "kotlin-wrappers" }
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

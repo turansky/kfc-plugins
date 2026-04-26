@@ -1,3 +1,5 @@
+import org.gradle.api.internal.catalog.DefaultVersionCatalogBuilder
+
 rootProject.name = "kfc-plugins"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -16,8 +18,14 @@ dependencyResolutionManagement {
         }
 
         register("kotlinWrappers") {
-            val wrappersVersion = extra["kotlin-wrappers.version"] as String
-            from("org.jetbrains.kotlin-wrappers:kotlin-wrappers-catalog:$wrappersVersion")
+            val kotlinWrappersCatalog = named("libs")
+                .map { it as DefaultVersionCatalogBuilder }
+                .map { it.build() }
+                .map { it.getDependencyData("catalogs.kotlinWrappers") }
+                .map { "${it.group}:${it.name}:${it.version}" }
+                .get()
+
+            from(kotlinWrappersCatalog)
         }
     }
 }
