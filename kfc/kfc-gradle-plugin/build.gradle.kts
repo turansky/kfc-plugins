@@ -4,7 +4,7 @@ plugins {
     `kotlin-dsl`
 
     alias(libs.plugins.gradlePluginPublish)
-    id("kfc-plugin-publish")
+    id("kfcbuild.plugin-publish")
 }
 
 dependencies {
