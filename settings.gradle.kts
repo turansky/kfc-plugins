@@ -11,7 +11,7 @@ dependencyResolutionManagement {
     }
 
     versionCatalogs {
-        register("kfc") {
+        create("kfc") {
             val kfcVersion = "--predefined--"
             plugin("application", "io.github.turansky.kfc.application").version(kfcVersion)
             plugin("library", "io.github.turansky.kfc.library").version(kfcVersion)
