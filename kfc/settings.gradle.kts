@@ -12,4 +12,6 @@ dependencyResolutionManagement {
     }
 }
 
+includeBuild("build-logic")
+
 include(":kfc-gradle-plugin")
