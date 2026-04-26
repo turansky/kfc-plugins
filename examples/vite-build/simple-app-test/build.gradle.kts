@@ -1,6 +1,6 @@
 plugins {
-    id("seskarbuild.kotlin-jvm-conventions")
-    id("seskarbuild.bundle-test-conventions")
+    id("kfcbuild.kotlin-jvm-conventions")
+    id("kfcbuild.bundle-test-conventions")
 }
 
 dependencies {
