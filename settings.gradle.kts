@@ -11,13 +11,13 @@ dependencyResolutionManagement {
     }
 
     versionCatalogs {
-        register("kfc") {
+        create("kfc") {
             val kfcVersion = "--predefined--"
             plugin("application", "io.github.turansky.kfc.application").version(kfcVersion)
             plugin("library", "io.github.turansky.kfc.library").version(kfcVersion)
         }
 
-        register("kotlinWrappers") {
+        create("kotlinWrappers") {
             val kotlinWrappersCatalog = named("libs")
                 .map { it as DefaultVersionCatalogBuilder }
                 .map { it.build() }
