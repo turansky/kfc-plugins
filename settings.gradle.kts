@@ -25,7 +25,6 @@ dependencyResolutionManagement {
             val kfcVersion = "--predefined--"
             plugin("application", "io.github.turansky.kfc.application").version(kfcVersion)
             plugin("library", "io.github.turansky.kfc.library").version(kfcVersion)
-            plugin("worker", "io.github.turansky.kfc.worker").version(kfcVersion)
         }
 
         register("kotlinWrappers") {
