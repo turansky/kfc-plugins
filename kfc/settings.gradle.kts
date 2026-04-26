@@ -1,18 +1,14 @@
 rootProject.name = "kfc"
 
-pluginManagement {
-    plugins {
-        val kotlinVersion = extra["kotlin.version"] as String
-        kotlin("jvm") version kotlinVersion
-        kotlin("multiplatform") version kotlinVersion
-
-        id("com.gradle.plugin-publish") version "2.1.1"
-    }
-}
-
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
+    }
+
+    versionCatalogs {
+        register("libs") {
+            from(files("../gradle/libs.versions.toml"))
+        }
     }
 }
 

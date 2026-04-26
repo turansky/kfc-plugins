@@ -3,13 +3,13 @@ import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 plugins {
     `kotlin-dsl`
 
-    id("com.gradle.plugin-publish")
+    alias(libs.plugins.gradlePluginPublish)
     id("kfc-plugin-publish")
 }
 
 dependencies {
-    implementation("nu.studer:java-ordered-properties:1.0.4")
-    compileOnly(kotlin("gradle-plugin"))
+    implementation(libs.javaOrderedProperties)
+    compileOnly(libs.gradlePlugins.kotlin)
 }
 
 val REPO_URL = "https://github.com/turansky/kfc-plugins"
