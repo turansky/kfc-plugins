@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.3.21"
-kotlin-wrappers = "2026.4.12"
+kotlin-wrappers = "2026.4.13"
 
 gradle-plugin-publish = "2.1.1"
 java-ordered-properties = "1.0.4"
