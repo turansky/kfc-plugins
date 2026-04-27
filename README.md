@@ -13,7 +13,7 @@
 
 ```kotlin
 plugins {
-    id("io.github.turansky.kfc.latest-tools") version "18.7.0"
+    id("io.github.turansky.kfc.latest-tools") version "18.8.0"
 }
 ```
 
@@ -38,7 +38,7 @@ plugins {
 
 ```kotlin
 plugins {
-    id("io.github.turansky.kfc.application") version "18.7.0"
+    id("io.github.turansky.kfc.application") version "18.8.0"
 }
 ```
 
