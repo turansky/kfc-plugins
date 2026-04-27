@@ -41,7 +41,7 @@ abstract class KotlinVitePrepareTask :
 
     private val customConfigFile: RegularFileProperty =
         objectFactory.fileProperty()
-            .convention(projectDir.file(Vite.CONFIG_FILE))
+            .convention(projectDir.file("vite/${Vite.CONFIG_FILE}"))
 
     private val configFile: RegularFileProperty
         get() = objectFactory.fileProperty()
@@ -69,7 +69,7 @@ abstract class KotlinVitePrepareTask :
 
         for (fileName in DOT_ENV_FILES) {
             fs.syncFile(
-                source = projectDir.file(fileName),
+                source = projectDir.file("vite/$fileName"),
                 destination = workingDirectory,
                 strategy = SyncFileStrategy.OPTIONAL_SOURCE,
             )
