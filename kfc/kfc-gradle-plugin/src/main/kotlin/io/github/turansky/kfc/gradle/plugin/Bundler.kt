@@ -43,6 +43,7 @@ class BundlerConfiguration(
             compileSyncTask = "${platform.name}DevelopmentExecutableCompileSync",
         )
 
+    val defaultConfigTask = "${platform.name}${suffix}DefaultConfig"
     val runTask: String = "${platform.name}${suffix}Dev"
 }
 

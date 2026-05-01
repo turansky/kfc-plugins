@@ -4,8 +4,7 @@ import org.gradle.api.file.*
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.listProperty
 import javax.inject.Inject
 
@@ -35,21 +34,15 @@ abstract class KotlinVitePrepareTask :
     private val workingDirectory: Provider<Directory> =
         npmProject.dir
 
-    private val defaultConfigFile: RegularFileProperty =
-        objectFactory.fileProperty()
-            .convention(::defaultViteConfig)
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val defaultConfigFile: RegularFileProperty
 
-    private val customConfigFile: RegularFileProperty =
+    private val configFile: Provider<RegularFile> =
         objectFactory.fileProperty()
             .convention(projectDir.file("vite/${Vite.CONFIG_FILE}"))
-
-    private val configFile: RegularFileProperty
-        get() = objectFactory.fileProperty()
-            .convention(
-                customConfigFile
-                    .filter { it.asFile.exists() }
-                    .orElse(defaultConfigFile)
-            )
+            .filter { it.asFile.exists() }
+            .orElse(defaultConfigFile)
 
     private val entryFile: Provider<RegularFile> =
         workingDirectory.map { it.file("kotlin/${project.jsModuleName}.mjs") }

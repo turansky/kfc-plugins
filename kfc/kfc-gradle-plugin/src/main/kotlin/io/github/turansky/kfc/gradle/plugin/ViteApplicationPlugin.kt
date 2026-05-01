@@ -4,6 +4,8 @@ import io.github.turansky.kfc.gradle.plugin.BuildMode.APPLICATION
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.kotlin.dsl.getValue
+import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
 
 class ViteApplicationPlugin : Plugin<Project> {
@@ -22,14 +24,20 @@ class ViteApplicationPlugin : Plugin<Project> {
     private fun Project.addBundlerTasks(
         configuration: BundlerConfiguration,
     ) {
+        val defaultConfig by tasks.register<KotlinViteDefaultConfigTask>(configuration.defaultConfigTask) {
+            group = DEFAULT_TASK_GROUP
+        }
+
         tasks.register<KotlinVitePrepareTask>(configuration.production.prepareTask) {
             group = DEFAULT_TASK_GROUP
+            defaultConfigFile.set(defaultConfig.configFile)
 
             dependsOn(configuration.production.compileSyncTask)
         }
 
         tasks.register<KotlinVitePrepareTask>(configuration.development.prepareTask) {
             group = DEFAULT_TASK_GROUP
+            defaultConfigFile.set(defaultConfig.configFile)
 
             dependsOn(configuration.development.compileSyncTask)
         }

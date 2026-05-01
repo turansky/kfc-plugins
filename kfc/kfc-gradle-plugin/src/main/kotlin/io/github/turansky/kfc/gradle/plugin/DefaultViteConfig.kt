@@ -2,13 +2,10 @@
 
 package io.github.turansky.kfc.gradle.plugin
 
-import org.gradle.api.Task
-import java.io.File
-
 internal const val ENTRY_PATH: String = "ENTRY_PATH"
 
 // language=javascript
-private val DEFAULT_VITE_CONFIG: String = """
+internal val DEFAULT_VITE_CONFIG: String = """
 import { cwd } from 'node:process'
 import {defineConfig, loadEnv} from 'vite'
 
@@ -28,9 +25,3 @@ export default defineConfig(({mode}) => {
     }
 })
 """.trimIndent()
-
-fun Task.defaultViteConfig(): File {
-    val file = temporaryDir.resolve(Vite.CONFIG_FILE)
-    file.writeText(DEFAULT_VITE_CONFIG)
-    return file
-}
