@@ -46,6 +46,21 @@ plugins {
 
 * You need fast bundler - like [Vite](https://vite.dev) ;)
 
+### Platfoms
+
+```properties
+# gradle.properties
+
+# default
+kfc.platform=js
+
+# WasmJS
+kfc.platform=wasmjs
+
+# Both (JS and WasmJS)
+kfc.platform=web
+```
+
 ### Defaults
 
 * Kotlin/JS
@@ -57,6 +72,8 @@ plugins {
         * `whole-program`
             * Set `kfc.per.file=false` to activate
             * Recommended for isolated single file applications
+* Kotlin/WasmJS
+    * Target `es2015`
 
 #### Configuration
 
