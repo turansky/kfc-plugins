@@ -22,16 +22,16 @@ class ViteApplicationPlugin : Plugin<Project> {
     private fun Project.addBundlerTasks(
         configuration: BundlerConfiguration,
     ) {
-        tasks.register<KotlinVitePrepareTask>(configuration.development.prepareTask) {
-            group = DEFAULT_TASK_GROUP
-
-            dependsOn(configuration.development.compileSyncTask)
-        }
-
         tasks.register<KotlinVitePrepareTask>(configuration.production.prepareTask) {
             group = DEFAULT_TASK_GROUP
 
             dependsOn(configuration.production.compileSyncTask)
+        }
+
+        tasks.register<KotlinVitePrepareTask>(configuration.development.prepareTask) {
+            group = DEFAULT_TASK_GROUP
+
+            dependsOn(configuration.development.compileSyncTask)
         }
 
         tasks.register<KotlinViteBuildTask>(configuration.production.buildTask) {
