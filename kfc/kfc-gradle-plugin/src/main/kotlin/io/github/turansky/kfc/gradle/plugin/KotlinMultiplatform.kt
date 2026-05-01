@@ -23,7 +23,9 @@ internal fun Project.applyKotlinMultiplatformPlugin(
     applyKotlinDefaults()
 
     plugins.apply(KotlinPlugin.MULTIPLATFORM)
-    plugins.apply(KotlinPlugin.JS_PLAIN_OBJECTS)
+    if (kfcPlatform.js) {
+        plugins.apply(KotlinPlugin.JS_PLAIN_OBJECTS)
+    }
     plugins.apply(LatestToolsPlugin::class)
 
     plugins.apply(BundlerEnvironmentPlugin::class)
