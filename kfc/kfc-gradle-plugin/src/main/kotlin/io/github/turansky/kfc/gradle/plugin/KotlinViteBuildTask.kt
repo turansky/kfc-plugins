@@ -11,7 +11,7 @@ import org.gradle.kotlin.dsl.property
 abstract class KotlinViteBuildTask :
     KotlinViteTask() {
 
-    override val isContinuous = false
+    override val isContinuous: Boolean = false
 
     private val sourceMaps: Property<Boolean> =
         objectFactory.property<Boolean>()
