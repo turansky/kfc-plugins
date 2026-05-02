@@ -77,8 +77,19 @@ kfc.platform=web
 
 #### Configuration
 
-You can add your custom `vite.config.mjs` ([example](examples/vite-build/custom-config/vite/vite.config.mjs)) in `vite`
-folder
+You can add your custom `vite.config.mjs` ([example](examples/vite-build/custom-config/vite/vite.config.mjs)) and other
+configuration files in `vite` folder:
+
+```
+my-app/
+  src/jsMain/kotlin/
+  vite/
+    vite.config.mjs   // custom Vite config
+    myscript.js       // also will be copied
+    .env              // main `.env` file 
+    .env.development
+    .env.production    
+```
 
 #### Dev Server
 
