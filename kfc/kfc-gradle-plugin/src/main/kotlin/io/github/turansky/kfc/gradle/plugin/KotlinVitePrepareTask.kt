@@ -8,12 +8,6 @@ import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.listProperty
 import javax.inject.Inject
 
-private val DOT_ENV_FILES = setOf(
-    DOT_ENV,
-    DOT_ENV_PRODUCTION,
-    DOT_ENV_DEVELOPMENT,
-)
-
 @CacheableTask
 abstract class KotlinVitePrepareTask :
     KotlinViteTaskBase() {
@@ -34,13 +28,20 @@ abstract class KotlinVitePrepareTask :
     private val workingDirectory: Provider<Directory> =
         npmProject.dir
 
+    @get:InputDirectory
+    private val viteConfigDirectory: DirectoryProperty =
+        objectFactory.directoryProperty()
+            .convention(projectDir.dir("vite"))
+
     @get:InputFile
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val defaultConfigFile: RegularFileProperty
 
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     private val configFile: Provider<RegularFile> =
         objectFactory.fileProperty()
-            .convention(projectDir.file("vite/${Vite.CONFIG_FILE}"))
+            .convention(viteConfigDirectory.file(Vite.CONFIG_FILE))
             .filter { it.asFile.exists() }
             .orElse(defaultConfigFile)
 
@@ -60,12 +61,37 @@ abstract class KotlinVitePrepareTask :
         fs.syncFile(configFile, workingDirectory)
         fs.syncFile(envFile, workingDirectory)
 
-        for (fileName in DOT_ENV_FILES) {
+        val additionalFiles = buildSet<String> {
+            addAll(getViteConfigFiles(viteConfigDirectory))
+            addAll(getViteConfigFiles(workingDirectory))
+
+            remove(configFile.get().asFile.name)
+            remove(envFile.get().asFile.name)
+        }
+
+        for (fileName in additionalFiles) {
             fs.syncFile(
-                source = projectDir.file("vite/$fileName"),
+                source = viteConfigDirectory.file(fileName),
                 destination = workingDirectory,
                 strategy = SyncFileStrategy.OPTIONAL_SOURCE,
             )
         }
     }
+}
+
+private val EXCLUDED_FILES = setOf(
+    "package.json",
+    "karma.conf.js",
+)
+
+private fun getViteConfigFiles(
+    directory: Provider<Directory>
+): List<String> {
+    val allFiles = directory.get().asFile
+        .listFiles { file -> file.isFile }
+        ?: return emptyList()
+
+    return allFiles
+        .map { it.name }
+        .filter { it !in EXCLUDED_FILES }
 }
