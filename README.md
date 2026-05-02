@@ -2,6 +2,8 @@
 [![CI Status](https://github.com/turansky/kfc-plugins/workflows/gradle%20plugin/badge.svg)](https://github.com/turansky/kfc-plugins/actions)
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/io.github.turansky.kfc.library?logo=gradle)](https://plugins.gradle.org/plugin/io.github.turansky.kfc.library)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.3.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![JavaScript target](https://img.shields.io/badge/target-supported-f7df1e?logo=javascript)](https://kotlinlang.org/docs/js-project-setup.html)
+[![WASM target](https://img.shields.io/badge/target-supported-654ff0?logo=webassembly)](https://kotlinlang.org/docs/wasm-get-started.html)
 
 # Kotlin/JS Fast Configuration
 
