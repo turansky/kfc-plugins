@@ -87,7 +87,7 @@ folder
 
 2. Specify custom config file with `root` to `kotlin` ([example](examples/vite-dev/vite/vite.config.mjs))
 
-3. Start a dev server, run `jsViteRun` task ([example](examples/vite-dev))
+3. Start a dev server, run `jsViteDev` task ([example](examples/vite-dev))
 
 ### Source Maps
 
