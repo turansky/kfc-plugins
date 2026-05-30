@@ -27,7 +27,7 @@ abstract class KotlinViteBuildTask :
             "--mode", mode.get().value,
             "--outDir", outputDirectory.get().asFile.absolutePath,
             "--emptyOutDir", "true",
-            "--sourcemap", sourceMaps.get().toString()
+            "--sourcemap", sourceMaps.get().toString(),
         )
     }
 }

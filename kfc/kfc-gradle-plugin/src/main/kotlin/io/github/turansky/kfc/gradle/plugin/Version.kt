@@ -19,7 +19,7 @@ internal fun parseVersion(
         major = parts[0],
         minor = parts[1],
         patch = parts[2],
-        snapshot = snapshot
+        snapshot = snapshot,
     )
 }
 
@@ -35,7 +35,7 @@ internal data class Version(
     fun toNextSnapshot(): Version =
         copy(
             patch = patch + 1,
-            snapshot = true
+            snapshot = true,
         )
 
     override fun toString(): String {

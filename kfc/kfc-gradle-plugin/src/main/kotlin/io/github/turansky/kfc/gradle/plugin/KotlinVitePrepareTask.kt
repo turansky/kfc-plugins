@@ -85,7 +85,7 @@ private val EXCLUDED_FILES = setOf(
 )
 
 private fun getViteConfigFiles(
-    directory: Provider<Directory>
+    directory: Provider<Directory>,
 ): List<String> {
     val allFiles = directory.get().asFile
         .listFiles { file -> file.isFile }

@@ -5,11 +5,7 @@
 package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.assign
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByName
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
