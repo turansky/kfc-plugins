@@ -48,7 +48,7 @@ class MavenCentralPublishPlugin : Plugin<Project> {
         val javadocJar = tasks.register("emptyJavadocJar", Jar::class) {
             group = DEFAULT_TASK_GROUP
 
-            archiveClassifier.set("javadoc")
+            archiveClassifier = "javadoc"
         }
 
         configure<PublishingExtension> {

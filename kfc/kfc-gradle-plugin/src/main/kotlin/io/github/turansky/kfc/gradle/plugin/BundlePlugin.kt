@@ -4,6 +4,7 @@ import io.github.turansky.kfc.gradle.plugin.BuildMode.APPLICATION
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.register
 
 class BundlePlugin : Plugin<Project> {
@@ -27,7 +28,7 @@ class BundlePlugin : Plugin<Project> {
         tasks.register<Jar>("${platform.name}BundleProduction") {
             group = DEFAULT_TASK_GROUP
 
-            archiveClassifier.set("${platform.id}-bundle-production")
+            archiveClassifier = "${platform.id}-bundle-production"
 
             from(tasks.named(configuration.production.buildTask))
         }
@@ -35,7 +36,7 @@ class BundlePlugin : Plugin<Project> {
         tasks.register<Jar>("${platform.name}BundleDevelopment") {
             group = DEFAULT_TASK_GROUP
 
-            archiveClassifier.set("${platform.id}-bundle-development")
+            archiveClassifier = "${platform.id}-bundle-development"
 
             from(tasks.named(configuration.development.buildTask))
         }

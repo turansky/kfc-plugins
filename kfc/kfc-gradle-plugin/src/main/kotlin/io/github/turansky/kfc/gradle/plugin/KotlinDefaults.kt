@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.assign
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 private const val DOM_API_INCLUDED = "kotlin.js.stdlib.dom.api.included"
@@ -25,7 +26,7 @@ private fun Project.configureStrictMode() {
     if (property(STRICT_MODE)) {
         tasks.configureEach<KotlinCompilationTask<*>> {
             compilerOptions {
-                allWarningsAsErrors.set(true)
+                allWarningsAsErrors = true
             }
         }
     }

@@ -6,6 +6,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.getByType
@@ -67,7 +68,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
 
     tasks.configureEach<Kotlin2JsCompile> {
         compilerOptions {
-            target.set("es2015")
+            target = "es2015"
 
             freeCompilerArgs.addAll(
                 "-Xes-long-as-bigint",
@@ -92,7 +93,7 @@ private fun KotlinJsTargetDsl.configureJsTarget(
     mode: BuildMode,
     moduleName: String,
 ) {
-    outputModuleName.set(moduleName)
+    outputModuleName = moduleName
 
     compilerOptions {
         optIn.add("kotlin.js.ExperimentalWasmJsInterop")

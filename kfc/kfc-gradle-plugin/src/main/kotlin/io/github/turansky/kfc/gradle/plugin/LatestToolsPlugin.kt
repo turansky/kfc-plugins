@@ -3,6 +3,7 @@ package io.github.turansky.kfc.gradle.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.targets.js.NpmVersions
@@ -35,11 +36,11 @@ class LatestToolsPlugin : Plugin<Project> {
 class LatestNodePlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         plugins.withType<NodeJsPlugin> {
-            the<NodeJsEnvSpec>().version.set(NODE_VERSION)
+            the<NodeJsEnvSpec>().version = NODE_VERSION
         }
 
         plugins.withType<WasmNodeJsPlugin> {
-            the<WasmNodeJsEnvSpec>().version.set(NODE_VERSION)
+            the<WasmNodeJsEnvSpec>().version = NODE_VERSION
         }
     }
 }
@@ -54,9 +55,9 @@ private class RootLatestToolsPlugin : Plugin<Project> {
             the<NodeJsRootExtension>().versions.configureVersions()
 
             the<NpmExtension>().apply {
-                lockFileDirectory.set(projectDir.resolve(".kotlin-locks/js"))
-                packageLockMismatchReport.set(LockFileMismatchReport.NONE)
-                packageLockAutoReplace.set(true)
+                lockFileDirectory = projectDir.resolve(".kotlin-locks/js")
+                packageLockMismatchReport = LockFileMismatchReport.NONE
+                packageLockAutoReplace = true
             }
         }
 
@@ -64,9 +65,9 @@ private class RootLatestToolsPlugin : Plugin<Project> {
             the<WasmNodeJsRootExtension>().versions.configureVersions()
 
             the<WasmNpmExtension>().apply {
-                lockFileDirectory.set(projectDir.resolve(".kotlin-locks/wasmjs"))
-                packageLockMismatchReport.set(LockFileMismatchReport.NONE)
-                packageLockAutoReplace.set(true)
+                lockFileDirectory = projectDir.resolve(".kotlin-locks/wasmjs")
+                packageLockMismatchReport = LockFileMismatchReport.NONE
+                packageLockAutoReplace = true
             }
         }
     }

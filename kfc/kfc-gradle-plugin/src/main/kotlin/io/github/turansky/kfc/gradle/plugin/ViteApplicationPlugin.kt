@@ -4,6 +4,7 @@ import io.github.turansky.kfc.gradle.plugin.BuildMode.APPLICATION
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
@@ -30,14 +31,14 @@ class ViteApplicationPlugin : Plugin<Project> {
 
         tasks.register<KotlinVitePrepareTask>(configuration.production.prepareTask) {
             group = DEFAULT_TASK_GROUP
-            defaultConfigFile.set(defaultConfig.configFile)
+            defaultConfigFile = defaultConfig.configFile
 
             dependsOn(configuration.production.compileSyncTask)
         }
 
         tasks.register<KotlinVitePrepareTask>(configuration.development.prepareTask) {
             group = DEFAULT_TASK_GROUP
-            defaultConfigFile.set(defaultConfig.configFile)
+            defaultConfigFile = defaultConfig.configFile
 
             dependsOn(configuration.development.compileSyncTask)
         }
@@ -47,7 +48,7 @@ class ViteApplicationPlugin : Plugin<Project> {
 
             dependsOn(configuration.production.prepareTask)
 
-            mode.set(ViteMode.PRODUCTION)
+            mode = ViteMode.PRODUCTION
             outputDirectory.convention(getProductionDistDirectory(configuration.platform))
 
             dependOnCompile(configuration.production.compileTask)
@@ -58,7 +59,7 @@ class ViteApplicationPlugin : Plugin<Project> {
 
             dependsOn(configuration.development.prepareTask)
 
-            mode.set(ViteMode.DEVELOPMENT)
+            mode = ViteMode.DEVELOPMENT
             outputDirectory.convention(getDevelopmentDistDirectory(configuration.platform))
 
             dependOnCompile(configuration.development.compileTask)
@@ -73,7 +74,7 @@ class ViteApplicationPlugin : Plugin<Project> {
 
             dependsOn(configuration.development.prepareTask)
 
-            mode.set(ViteMode.DEVELOPMENT)
+            mode = ViteMode.DEVELOPMENT
 
             dependOnCompile(configuration.development.compileTask)
         }

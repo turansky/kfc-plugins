@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import org.gradle.api.Project
 import org.gradle.api.publish.maven.MavenPom
+import org.gradle.kotlin.dsl.assign
 
 internal fun MavenPom.configure(
     project: Project,
@@ -13,31 +14,31 @@ internal fun MavenPom.configure(
     val projectUrl = pomProperty("url")
     val connectionUrl = "scm:git:$projectUrl.git"
 
-    name.set(pomProperty("name"))
-    description.set(pomProperty("description"))
-    url.set(projectUrl)
-    inceptionYear.set(pomProperty("inception.year"))
+    name = pomProperty("name")
+    description = pomProperty("description")
+    url = projectUrl
+    inceptionYear = pomProperty("inception.year")
 
     licenses {
         license {
-            name.set("The Apache License, Version 2.0")
-            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+            name = "The Apache License, Version 2.0"
+            url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
         }
     }
 
     if (releaseMode) {
         developers {
             developer {
-                id.set(pomProperty("developer.id"))
-                name.set(pomProperty("developer.name"))
-                email.set(pomProperty("developer.email"))
+                id = pomProperty("developer.id")
+                name = pomProperty("developer.name")
+                email = pomProperty("developer.email")
             }
         }
     }
 
     scm {
-        connection.set(connectionUrl)
-        developerConnection.set(connectionUrl)
-        url.set(projectUrl)
+        connection = connectionUrl
+        developerConnection = connectionUrl
+        url = projectUrl
     }
 }
