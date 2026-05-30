@@ -1,0 +1,6 @@
+[versions]
+kfc = "--predefined--"
+
+[plugins]
+application = { id = "io.github.turansky.kfc.application", version.ref = "kfc" }
+library = { id = "io.github.turansky.kfc.library", version.ref = "kfc" }
