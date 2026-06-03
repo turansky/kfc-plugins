@@ -37,6 +37,14 @@ internal fun Project.applyKotlinMultiplatformPlugin(
         if (kfcPlatform.js) {
             js {
                 configureJsTarget(mode, jsModuleName)
+
+                compilerOptions {
+                    freeCompilerArgs.addAll(
+                        "-Xes-long-as-bigint",
+                        "-Xgenerate-polyfills=false",
+                        "-Xir-generate-inline-anonymous-functions",
+                    )
+                }
             }
         }
 
@@ -67,10 +75,7 @@ internal fun Project.applyKotlinMultiplatformPlugin(
             target = "es2015"
 
             freeCompilerArgs.addAll(
-                "-Xes-long-as-bigint",
                 "-Xdont-warn-on-error-suppression",
-                "-Xgenerate-polyfills=false",
-                "-Xir-generate-inline-anonymous-functions",
                 "-Xwarning-level=NOTHING_TO_INLINE:disabled",
             )
         }
