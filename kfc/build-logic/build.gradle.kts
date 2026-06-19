@@ -11,7 +11,7 @@ dependencies {
     implementation(libs.gradlePlugins.kotlin)
 }
 
-val copySources by tasks.registering(Copy::class) {
+val copySources = tasks.register<Copy>("copySources") {
     from("../kfc-gradle-plugin/src/main/kotlin/io/github/turansky/kfc/gradle/plugin") {
         include("GradleExtensions.kt")
         include("GradleProperties.kt")
