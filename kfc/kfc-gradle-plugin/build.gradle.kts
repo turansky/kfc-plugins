@@ -1,4 +1,5 @@
 import org.gradle.kotlin.dsl.support.uppercaseFirstChar
+import org.gradle.plugin.compatibility.compatibility
 
 plugins {
     `kotlin-dsl`
@@ -88,6 +89,14 @@ gradlePlugin {
                 description = kfcPlugin.description
                 implementationClass = kfcPlugin.implementationClass
                 tags = kfcPlugin.tags
+
+                compatibility {
+                    features {
+                        configurationCache = true
+                        // https://youtrack.jetbrains.com/projects/KT/issues/KT-57279
+                        isolatedProjects = false
+                    }
+                }
             }
         }
     }
