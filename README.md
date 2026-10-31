@@ -40,7 +40,7 @@ plugins {
 
 ```kotlin
 plugins {
-    id("io.github.turansky.kfc.application") version "19.16.0"
+    id("io.github.turansky.kfc.application") version "19.20.0"
 }
 ```
 
