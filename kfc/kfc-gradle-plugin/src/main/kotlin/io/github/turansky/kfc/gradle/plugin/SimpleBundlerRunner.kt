@@ -2,6 +2,7 @@ package io.github.turansky.kfc.gradle.plugin
 
 import io.github.turansky.kfc.gradle.utils.processes.ExecAsyncHandle
 import io.github.turansky.kfc.gradle.utils.processes.ExecAsyncHandle.Companion.execAsync
+import org.gradle.deployment.internal.DeploymentHandle
 import org.gradle.deployment.internal.DeploymentRegistry
 import org.gradle.process.ExecOperations
 import org.gradle.process.ExecSpec
@@ -28,7 +29,7 @@ internal data class SimpleBundlerRunner(
 
     private fun startNonBlocking() {
         val deploymentRegistry = configuration.services.get(DeploymentRegistry::class.java)
-        val deploymentHandle = deploymentRegistry.get(configuration.id, BundlerHandle::class.java)
+        val deploymentHandle = deploymentRegistry.get(configuration.id, DeploymentHandle::class.java)
         if (deploymentHandle == null) {
             deploymentRegistry.start(
                 configuration.id,
